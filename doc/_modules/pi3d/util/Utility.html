@@ -207,16 +207,21 @@
 
     <span class="k">if</span> <span class="n">dist</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="p">:</span> <span class="k">return</span> <span class="n">PI2</span><span class="o">-</span><span class="n">angle</span>
     <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="n">angle</span>
-
-<span class="c">#Level Of Detail checking and rendering. NB this will only work if the shader and texture information has been set for all the buf object in the model</span></div>
+</div>
 <div class="viewcode-block" id="lodDraw"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.lodDraw">[docs]</a><span class="k">def</span> <span class="nf">lodDraw</span><span class="p">(</span><span class="n">here</span><span class="p">,</span> <span class="n">there</span><span class="p">,</span> <span class="n">mlist</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  no return value</span>
-<span class="sd">  parameters:</span>
-<span class="sd">  here -- (x,y,z) tuple or array of view point</span>
-<span class="sd">  there --- (x,y,z) tuple or array of model position</span>
-<span class="sd">  mlist -- array of arrays with distance and model pairs. i.e. [[20, model1],[100, model2],[250, None]]</span>
-<span class="sd">      Model is used up to that distance until the last entry then for all distances beyond, None can be used to draw nothing</span>
+  <span class="sd">&quot;&quot;&quot;Level Of Detail checking and rendering. NB this will only work if the shader</span>
+<span class="sd">  and texture information has been set for all the buf object in the model.</span>
+<span class="sd">  No return value</span>
+<span class="sd">  </span>
+<span class="sd">  Arguments:</span>
+<span class="sd">    *here*</span>
+<span class="sd">      (x,y,z) tuple or array of view point</span>
+<span class="sd">    *there*</span>
+<span class="sd">      (x,y,z) tuple or array of model position</span>
+<span class="sd">    *mlist*</span>
+<span class="sd">      array of arrays with distance and model pairs. i.e. [[20, model1],[100, model2],[250, None]]</span>
+<span class="sd">      Model is used up to that distance until the last entry then for all distances beyond, </span>
+<span class="sd">      &#39;None&#39; can be used to draw nothing at a certain distance</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">dist</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">here</span><span class="p">,</span> <span class="n">there</span><span class="p">)</span>
   <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">mlist</span><span class="p">:</span>

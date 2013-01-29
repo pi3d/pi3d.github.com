@@ -75,20 +75,26 @@
                <span class="n">defer</span><span class="o">=</span><span class="n">DEFER_TEXTURE_LOADING</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    file_string -- path and name of image file relative to top dir</span>
-<span class="sd">    blend -- controls if low alpha pixels are discarded (if False) or drawn</span>
-<span class="sd">            by the shader. If set to true then this texture needs to be</span>
-<span class="sd">            drawn AFTER other objects that are FURTHER AWAY</span>
-<span class="sd">    flip -- flips the image</span>
-<span class="sd">    size -- to resize image to</span>
-<span class="sd">    defer -- can load from file in other thread and defer opengl work until</span>
-<span class="sd">            texture needed, default True</span>
-<span class="sd">    mipmap -- use linear interpolation for mipmaps, if set False then nearest</span>
-<span class="sd">            pixel values will be used. This is needed for exact pixel represent-</span>
-<span class="sd">            ation of images. **NB BECAUSE THIS BEHAVIOUR IS SET GLOBALLY AT</span>
-<span class="sd">            THE TIME THAT THE TEXTURE IS LOADED IT WILL BE SET BY THE LAST</span>
-<span class="sd">            TEXTURE TO BE LOADED PRIOR TO DRAWING**</span>
-<span class="sd">            TODO possibly reset in Buffer.draw() each time a texture is loaded?</span>
+<span class="sd">      *file_string*</span>
+<span class="sd">        path and name of image file relative to top dir</span>
+<span class="sd">      *blend*</span>
+<span class="sd">        controls if low alpha pixels are discarded (if False) or drawn</span>
+<span class="sd">        by the shader. If set to true then this texture needs to be</span>
+<span class="sd">        drawn AFTER other objects that are FURTHER AWAY</span>
+<span class="sd">      *flip*</span>
+<span class="sd">        flips the image</span>
+<span class="sd">      *size*</span>
+<span class="sd">        to resize image to</span>
+<span class="sd">      *defer*</span>
+<span class="sd">        can load from file in other thread and defer opengl work until</span>
+<span class="sd">        texture needed, default True</span>
+<span class="sd">      *mipmap*</span>
+<span class="sd">        use linear interpolation for mipmaps, if set False then nearest</span>
+<span class="sd">        pixel values will be used. This is needed for exact pixel represent-</span>
+<span class="sd">        ation of images. **NB BECAUSE THIS BEHAVIOUR IS SET GLOBALLY AT</span>
+<span class="sd">        THE TIME THAT THE TEXTURE IS LOADED IT WILL BE SET BY THE LAST</span>
+<span class="sd">        TEXTURE TO BE LOADED PRIOR TO DRAWING**</span>
+<span class="sd">        TODO possibly reset in Buffer.draw() each time a texture is loaded?</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Texture</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">file_string</span>

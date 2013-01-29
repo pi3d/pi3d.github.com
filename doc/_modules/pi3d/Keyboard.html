@@ -53,8 +53,9 @@
 
 <span class="n">USE_CURSES</span> <span class="o">=</span> <span class="bp">True</span>
 
-<span class="c"># Non-blocking keyboard which requires curses and only works on the current</span>
-<span class="c"># terminal window or session.</span>
+<span class="sd">&quot;&quot;&quot;Non-blocking keyboard which requires curses and only works on the current</span>
+<span class="sd">terminal window or session.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="CursesKeyboard"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.CursesKeyboard">[docs]</a><span class="k">class</span> <span class="nc">CursesKeyboard</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">curses</span><span class="o">.</span><span class="n">initscr</span><span class="p">()</span>
@@ -78,10 +79,11 @@
     <span class="k">except</span><span class="p">:</span>
       <span class="k">pass</span>
 
-
-<span class="c"># Blocking keyboard which doesn&#39;t require curses and gets any keyboard inputs</span>
-<span class="c"># regardless of which window is in front.</span>
-<span class="c"># From http://stackoverflow.com/a/6599441/43839</span></div>
+</div>
+<span class="sd">&quot;&quot;&quot;Blocking keyboard which doesn&#39;t require curses and gets any keyboard inputs</span>
+<span class="sd">regardless of which window is in front.</span>
+<span class="sd">From http://stackoverflow.com/a/6599441/43839</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="SysKeyboard"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.SysKeyboard">[docs]</a><span class="k">class</span> <span class="nc">SysKeyboard</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">fileno</span><span class="p">()</span>

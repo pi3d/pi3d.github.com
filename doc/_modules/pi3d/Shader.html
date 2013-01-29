@@ -70,11 +70,9 @@
 <div class="viewcode-block" id="Shader"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shader.Shader">[docs]</a><span class="k">class</span> <span class="nc">Shader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shfile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    shfile -- path/name without vs or fs ending i.e. &quot;shaders/bumpShade&quot;</span>
-<span class="sd">    textures[] -- array of Texture() objects 0.texture map 1.normal map 2.reflection map</span>
-<span class="sd">    scene -- Scene() object</span>
-<span class="sd">    bumpTiles -- number to subdivide UV map by for normal texture map, 0.0 disables</span>
-<span class="sd">    shiny -- proportion of shininess 0.0 to 1.0, 0.0 disables</span>
+<span class="sd">    Arguments:</span>
+<span class="sd">      *shfile*</span>
+<span class="sd">        path/name without vs or fs ending i.e. &quot;shaders/bumpShade&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c">#self.scene = scene</span>
@@ -114,8 +112,10 @@
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">unif_tex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;tex&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
       <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">      for uv shaders tex0=texture tex1=normal map tex2=reflection</span>
-<span class="sd">      for material shaders tex0=normal map tex1=reflection</span>
+<span class="sd">      *NB*</span>
+<span class="sd">        for *uv* shaders tex0=texture tex1=normal map tex2=reflection</span>
+<span class="sd">      </span>
+<span class="sd">        for *mat* shaders tex0=normal map tex1=reflection</span>
 <span class="sd">      &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">use</span><span class="p">()</span>
 

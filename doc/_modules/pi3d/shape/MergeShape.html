@@ -57,7 +57,7 @@
 <span class="kn">from</span> <span class="nn">pi3d</span> <span class="kn">import</span> <span class="n">Texture</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.shape.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.RotateVec</span> <span class="kn">import</span> <span class="n">rotate_vec_x</span><span class="p">,</span> <span class="n">rotate_vec_y</span><span class="p">,</span> <span class="n">rotate_vec_z</span>
 
 <div class="viewcode-block" id="MergeShape"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape">[docs]</a><span class="k">class</span> <span class="nc">MergeShape</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
@@ -66,7 +66,8 @@
 <span class="sd">  the shader, each time an object is drawn, it is MUCH faster to use a MergeShape</span>
 <span class="sd">  where several objects will always remain in the same positions relative to</span>
 <span class="sd">  each other. i.e. trees in a forest.</span>
-<span class="sd">    Where the objects have multiple Buffers, each needing a different texture</span>
+<span class="sd">  </span>
+<span class="sd">  Where the objects have multiple Buffers, each needing a different texture</span>
 <span class="sd">  (i.e. more complex Model objects) each must be combined into a different</span>
 <span class="sd">  MergeShape</span>
 <span class="sd">  &quot;&quot;&quot;</span>
@@ -147,15 +148,17 @@
 </div>
 <div class="viewcode-block" id="MergeShape.cluster"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.cluster">[docs]</a>  <span class="k">def</span> <span class="nf">cluster</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">elevmap</span><span class="p">,</span> <span class="n">xpos</span><span class="p">,</span> <span class="n">zpos</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">minscl</span><span class="p">,</span> <span class="n">maxscl</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;generates a random cluster on an ElevationMap</span>
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    bufr -- Buffer object to merge</span>
-<span class="sd">    elevmap -- ElevationMap object to merge onto</span>
-<span class="sd">    xpos, zpos -- x and z location of centre of cluster</span>
-<span class="sd">    w, d -- x and z direction size of the cluster</span>
-<span class="sd">    count -- number of objects to generate</span>
-<span class="sd">    options -- deprecated</span>
-<span class="sd">    minscl -- the minimum scale value for random selection</span>
-<span class="sd">    maxscl -- the maximum scale value for random selection</span>
+<span class="sd">    </span>
+<span class="sd">    * bufr -- Buffer object to merge</span>
+<span class="sd">    * elevmap -- ElevationMap object to merge onto</span>
+<span class="sd">    * xpos, zpos -- x and z location of centre of cluster</span>
+<span class="sd">    * w, d -- x and z direction size of the cluster</span>
+<span class="sd">    * count -- number of objects to generate</span>
+<span class="sd">    * options -- deprecated</span>
+<span class="sd">    * minscl -- the minimum scale value for random selection</span>
+<span class="sd">    * maxscl -- the maximum scale value for random selection</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c">#create a cluster of shapes on an elevation map</span>
     <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
@@ -169,14 +172,16 @@
 <div class="viewcode-block" id="MergeShape.radialCopy"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.radialCopy">[docs]</a>  <span class="k">def</span> <span class="nf">radialCopy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">startRadius</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">endRadius</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
                  <span class="n">startAngle</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">endAngle</span><span class="o">=</span><span class="mf">360.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;generates a radially copied cluster, axix is in the y direction</span>
+<span class="sd">    </span>
 <span class="sd">    Keyword arguments:</span>
-<span class="sd">    x,y,z -- location of centre of cluster relative to origin of MergeShape</span>
-<span class="sd">    startRadius -- start radius</span>
-<span class="sd">    endRadius -- end radius</span>
-<span class="sd">    startAngle -- start angle for merging 0 is in +ve x direction</span>
-<span class="sd">    andAngle -- end angle for merging, degrees. Rotation is clockwise</span>
-<span class="sd">              looking up the y axis</span>
-<span class="sd">    step -- angle between each copy, degrees NB *NOT* number of steps</span>
+<span class="sd">    </span>
+<span class="sd">    * x,y,z -- location of centre of cluster relative to origin of MergeShape</span>
+<span class="sd">    * startRadius -- start radius</span>
+<span class="sd">    * endRadius -- end radius</span>
+<span class="sd">    * startAngle -- start angle for merging 0 is in +ve x direction</span>
+<span class="sd">    * andAngle -- end angle for merging, degrees. Rotation is clockwise</span>
+<span class="sd">      looking up the y axis</span>
+<span class="sd">    * step -- angle between each copy, degrees NB *NOT* number of steps</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">st</span> <span class="o">=</span> <span class="p">(</span><span class="n">endAngle</span> <span class="o">-</span> <span class="n">startAngle</span><span class="p">)</span> <span class="o">/</span> <span class="n">step</span>
     <span class="n">rst</span> <span class="o">=</span> <span class="p">(</span><span class="n">endRadius</span> <span class="o">-</span> <span class="n">startRadius</span><span class="p">)</span> <span class="o">/</span> <span class="nb">int</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>

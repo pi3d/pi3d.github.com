@@ -53,7 +53,7 @@
 
 <span class="kn">from</span> <span class="nn">pi3d</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
-<span class="kn">from</span> <span class="nn">pi3d.shape.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
 <span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="kn">import</span> <span class="n">Texture</span>
 
 <span class="n">CUBE_PARTS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;front&#39;</span><span class="p">,</span> <span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="s">&#39;top&#39;</span><span class="p">,</span> <span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;back&#39;</span><span class="p">]</span>
@@ -62,13 +62,15 @@
 <div class="viewcode-block" id="loadECfiles"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.EnvironmentCube.loadECfiles">[docs]</a><span class="k">def</span> <span class="nf">loadECfiles</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s">&#39;jpg&#39;</span><span class="p">,</span> <span class="n">nobottom</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Helper for loading environment cube faces.</span>
 <span class="sd">  #TODO this will scramble all the rest of the cube. It needs to substitute a blank (black) texture instead!</span>
+<span class="sd">  </span>
 <span class="sd">  Arguments:</span>
-<span class="sd">  path -- to the image files relative to the top directory</span>
-<span class="sd">  fname -- the stem of the file name without the _top, _bottom, _right etc</span>
-<span class="sd">  Keyword arguments:</span>
-<span class="sd">  suffix -- string to add after the &#39;_top&#39;,&#39;_bottom&#39; has been added to the stem</span>
-<span class="sd">  nobottom -- if True then only load five parts into array the bottom will be</span>
-<span class="sd">            drawn with the previous image i.e. top</span>
+<span class="sd">  </span>
+<span class="sd">  * path -- to the image files relative to the top directory</span>
+<span class="sd">  * fname -- the stem of the file name without the _top, _bottom, _right etc</span>
+<span class="sd">  * Keyword arguments:</span>
+<span class="sd">  * suffix -- string to add after the &#39;_top&#39;,&#39;_bottom&#39; has been added to the stem</span>
+<span class="sd">  * nobottom -- if True then only load five parts into array the bottom will be</span>
+<span class="sd">    drawn with the previous image i.e. top</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">if</span> <span class="n">nobottom</span><span class="p">:</span>
     <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">CUBE_PARTS</span> <span class="k">if</span> <span class="n">p</span> <span class="o">!=</span> <span class="s">&#39;bottom&#39;</span><span class="p">]</span>
@@ -83,9 +85,10 @@
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">light</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mf">500.0</span><span class="p">,</span> <span class="n">maptype</span><span class="o">=</span><span class="s">&quot;HALFCROSS&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">nobottom</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;uses standard constructor for Shape extra Keyword arguments:</span>
-<span class="sd">    size -- dimensions of the cube</span>
-<span class="sd">    maptype -- HALFCROSS (default) or CROSS any other defaults to CUBE type</span>
-<span class="sd">              and will require 6 (or 5 with nobottom) image files to render it</span>
+<span class="sd">    </span>
+<span class="sd">    * size -- dimensions of the cube</span>
+<span class="sd">    * maptype -- HALFCROSS (default) or CROSS any other defaults to CUBE type</span>
+<span class="sd">      and will require 6 (or 5 with nobottom) image files to render it</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">EnvironmentCube</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>
                                 <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>

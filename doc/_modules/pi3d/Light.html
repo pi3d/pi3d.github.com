@@ -8,38 +8,38 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.context.Light &mdash; pi3d 0.8 documentation</title>
+    <title>pi3d.Light &mdash; pi3d 0.8 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
+        URL_ROOT:    '../../',
         VERSION:     '0.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 0.8 documentation" href="../../../index.html" />
-    <link rel="up" title="Module code" href="../../index.html" /> 
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="pi3d 0.8 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
     <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../../../py-modindex.html" title="Python Module Index"
+          <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 0.8 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li><a href="../../index.html">pi3d 0.8 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -48,10 +48,10 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <h1>Source code for pi3d.context.Light</h1><div class="highlight"><pre>
+  <h1>Source code for pi3d.Light</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">echomesh.util.DefaultInstance</span> <span class="kn">import</span> <span class="n">DefaultInstance</span>
 
-<div class="viewcode-block" id="Light"><a class="viewcode-back" href="../../../pi3d.context.html#pi3d.context.Light.Light">[docs]</a><span class="k">class</span> <span class="nc">Light</span><span class="p">(</span><span class="n">DefaultInstance</span><span class="p">):</span>
+<div class="viewcode-block" id="Light"><a class="viewcode-back" href="../../pi3d.html#pi3d.Light.Light">[docs]</a><span class="k">class</span> <span class="nc">Light</span><span class="p">(</span><span class="n">DefaultInstance</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot; Holds information about lighting to be used in shaders &quot;&quot;&quot;</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                <span class="n">lightpos</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
@@ -64,22 +64,25 @@
 <span class="sd">    lightamb by the texture</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    lightpos -- tuple (x,y,z) vector direction *from* the light</span>
-<span class="sd">    lightcol -- tuple (r,g,b) defines shade and brightness</span>
-<span class="sd">    lightamb -- tuple (r,g,b) ambient lighting multiplier</span>
+<span class="sd">      *lightpos*</span>
+<span class="sd">        tuple (x,y,z) vector direction *from* the light</span>
+<span class="sd">      *lightcol*</span>
+<span class="sd">        tuple (r,g,b) defines shade and brightness</span>
+<span class="sd">      *lightamb*</span>
+<span class="sd">        tuple (r,g,b) ambient lighting multiplier</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Light</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lightpos</span> <span class="o">=</span> <span class="n">lightpos</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lightcol</span> <span class="o">=</span> <span class="n">lightcol</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lightamb</span> <span class="o">=</span> <span class="n">lightamb</span>
 
-<div class="viewcode-block" id="Light.position"><a class="viewcode-back" href="../../../pi3d.context.html#pi3d.context.Light.Light.position">[docs]</a>  <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lightpos</span><span class="p">):</span>
+<div class="viewcode-block" id="Light.position"><a class="viewcode-back" href="../../pi3d.html#pi3d.Light.Light.position">[docs]</a>  <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lightpos</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lightpos</span> <span class="o">=</span> <span class="n">lightpos</span>
 </div>
-<div class="viewcode-block" id="Light.color"><a class="viewcode-back" href="../../../pi3d.context.html#pi3d.context.Light.Light.color">[docs]</a>  <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lightcol</span><span class="p">):</span>
+<div class="viewcode-block" id="Light.color"><a class="viewcode-back" href="../../pi3d.html#pi3d.Light.Light.color">[docs]</a>  <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lightcol</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lightcol</span> <span class="o">=</span> <span class="n">lightcol</span>
 </div>
-<div class="viewcode-block" id="Light.ambient"><a class="viewcode-back" href="../../../pi3d.context.html#pi3d.context.Light.Light.ambient">[docs]</a>  <span class="k">def</span> <span class="nf">ambient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lightamb</span><span class="p">):</span>
+<div class="viewcode-block" id="Light.ambient"><a class="viewcode-back" href="../../pi3d.html#pi3d.Light.Light.ambient">[docs]</a>  <span class="k">def</span> <span class="nf">ambient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lightamb</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lightamb</span> <span class="o">=</span> <span class="n">lightamb</span>
 </div>
   <span class="nd">@staticmethod</span>
@@ -94,7 +97,7 @@
         <div class="sphinxsidebarwrapper">
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
-    <form class="search" action="../../../search.html" method="get">
+    <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
@@ -113,13 +116,13 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../../../py-modindex.html" title="Python Module Index"
+          <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 0.8 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li><a href="../../index.html">pi3d 0.8 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

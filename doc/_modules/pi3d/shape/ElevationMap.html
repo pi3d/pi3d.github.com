@@ -57,7 +57,7 @@
 
 <span class="kn">from</span> <span class="nn">pi3d</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
-<span class="kn">from</span> <span class="nn">pi3d.shape.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Utility</span>
 
 <span class="c"># a rectangular surface where elevation is defined by a greyscal image</span>
@@ -70,15 +70,19 @@
                <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;uses standard constructor for Shape</span>
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    mapfile -- greyscale image path/file, string</span>
+<span class="sd">    </span>
+<span class="sd">    * mapfile -- greyscale image path/file, string</span>
+<span class="sd">    </span>
 <span class="sd">    Keyword arguments:</span>
-<span class="sd">    width, depth, height -- of the map in world units</span>
-<span class="sd">    divx, divy -- number of divisions into which the map will be divided</span>
-<span class="sd">            to create vertices</span>
-<span class="sd">    ntiles -- number of repeats for tiling the texture image</span>
-<span class="sd">    smooth -- calculate normals with averaging rather than pointing</span>
-<span class="sd">            straight up, slightly faster if false</span>
+<span class="sd">    </span>
+<span class="sd">    * width, depth, height -- of the map in world units</span>
+<span class="sd">    * divx, divy -- number of divisions into which the map will be divided</span>
+<span class="sd">      to create vertices</span>
+<span class="sd">    * ntiles -- number of repeats for tiling the texture image</span>
+<span class="sd">    * smooth -- calculate normals with averaging rather than pointing</span>
+<span class="sd">      straight up, slightly faster if false</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">ElevationMap</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>
                                        <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
@@ -200,8 +204,10 @@
 </div>
 <div class="viewcode-block" id="ElevationMap.calcHeight"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap.calcHeight">[docs]</a>  <span class="k">def</span> <span class="nf">calcHeight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;accurately return the hight of the map at the point specified</span>
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    px, pz -- location of the point in world coordinates to calculate height</span>
+<span class="sd">    </span>
+<span class="sd">    * px, pz -- location of the point in world coordinates to calculate height</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c">#adjust for map not set at origin</span>
     <span class="n">px</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -243,13 +249,15 @@
 <div class="viewcode-block" id="ElevationMap.clashTest"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap.clashTest">[docs]</a>  <span class="k">def</span> <span class="nf">clashTest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">rad</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Works out if an object at a given location and radius will overlap</span>
 <span class="sd">    with the map surface. Returns four values:</span>
-<span class="sd">    boolean whether there is a clash</span>
-<span class="sd">    x, y, z components of the normal vector</span>
-<span class="sd">    the amount of overlap at the x,z location</span>
+<span class="sd">    </span>
+<span class="sd">    * boolean whether there is a clash</span>
+<span class="sd">    * x, y, z components of the normal vector</span>
+<span class="sd">    * the amount of overlap at the x,z location</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">    px, py, pz -- location of object to test in world coordinates</span>
-<span class="sd">    rad -- radius of object to test</span>
+<span class="sd">    </span>
+<span class="sd">    * px, py, pz -- location of object to test in world coordinates</span>
+<span class="sd">    * rad -- radius of object to test</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">radSq</span> <span class="o">=</span> <span class="n">rad</span><span class="o">**</span><span class="mi">2</span>
     <span class="c"># adjust for map not set at origin</span>
@@ -331,8 +339,9 @@
 <span class="sd">    returns a tuple (pitch, roll) in degrees</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    px -- x location</span>
-<span class="sd">    pz -- z location</span>
+<span class="sd">    </span>
+<span class="sd">    * px -- x location</span>
+<span class="sd">    * pz -- z location</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">px</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">pz</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -364,8 +373,9 @@
 <span class="sd">  triange defined by v1,v2,v3</span>
 
 <span class="sd">  Arguments:</span>
-<span class="sd">  v1,v2,v3 -- tuples (x1,y1,z1), (x2,y2,z2).. defining the corners of the triangle</span>
-<span class="sd">  pos -- tuple (x,y,z) defining the x,z of the vertical line intersecting triangle</span>
+<span class="sd">  </span>
+<span class="sd">  * v1,v2,v3 -- tuples (x1,y1,z1), (x2,y2,z2).. defining the corners of the triangle</span>
+<span class="sd">  * pos -- tuple (x,y,z) defining the x,z of the vertical line intersecting triangle</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="c">#calc normal from two edge vectors v2-v1 and v3-v1</span>
   <span class="c">#nVec = Utility.crossproduct(v2[0]-v1[0], v2[1]-v1[1], v2[2]-v1[2], v3[0]-v1[0],  v3[1]-v1[1], v3[2]-v1[2])</span>

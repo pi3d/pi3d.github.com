@@ -51,7 +51,7 @@
   <h1>Source code for pi3d.sprite.Ball</h1><div class="highlight"><pre>
 <span class="kn">import</span> <span class="nn">math</span>
 
-<span class="kn">from</span> <span class="nn">pi3d</span> <span class="kn">import</span> <span class="n">Display</span>
+<span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
 <span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="kn">import</span> <span class="n">Texture</span>
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Utility</span>
 
@@ -59,7 +59,7 @@
 
 <div class="viewcode-block" id="Ball"><a class="viewcode-back" href="../../../pi3d.sprite.html#pi3d.sprite.Ball.Ball">[docs]</a><span class="k">class</span> <span class="nc">Ball</span><span class="p">(</span><span class="n">ImageSprite</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot; This class is used to take some of the functionality of the CollisionBalls</span>
-<span class="sd">  demo out of the main file. It inherits from the ImageSprite class that is </span>
+<span class="sd">  demo out of the main file. It inherits from the ImageSprite class that is</span>
 <span class="sd">  passed (in addition to standard Shape constructor arguments) the Shader and</span>
 <span class="sd">  the [Texture] to use.</span>
 <span class="sd">  In order to fit the Display dimensions the z value has to be set to 1000</span>
@@ -144,7 +144,7 @@
 </div>
 <div class="viewcode-block" id="Ball.repaint"><a class="viewcode-back" href="../../../pi3d.sprite.html#pi3d.sprite.Ball.Ball.repaint">[docs]</a>  <span class="k">def</span> <span class="nf">repaint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">bounce_wall</span><span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">DISPLAY</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">DISPLAY</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">bounce_wall</span><span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div></div>
 </pre></div>
 
