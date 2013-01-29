@@ -231,7 +231,7 @@ reflect &#8211; boolean if matrix is reflected</p>
 
 <dl class="function">
 <dt id="pi3d.Camera.ProjectionMatrix">
-<tt class="descclassname">pi3d.Camera.</tt><tt class="descname">ProjectionMatrix</tt><big>(</big><em>near=10</em>, <em>far=1000.0</em>, <em>fov_w=1.6000000000000001</em>, <em>fov_h=1.2</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#ProjectionMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.ProjectionMatrix" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pi3d.Camera.</tt><tt class="descname">ProjectionMatrix</tt><big>(</big><em>near=10</em>, <em>far=1000.0</em>, <em>fov_w=1.6</em>, <em>fov_h=1.2</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#ProjectionMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.ProjectionMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Setup projection matrix
 Keyword arguments:
 near &#8211; distance to near plane, float
@@ -245,9 +245,14 @@ fov_h &#8211; vertical field of view in radians</p>
 <span id="display-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Display</span></tt> Module<a class="headerlink" href="#module-pi3d.Display" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Display.Display">
-<em class="property">class </em><tt class="descclassname">pi3d.Display.</tt><tt class="descname">Display</tt><big>(</big><em>tkwin</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#Display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Display.</tt><tt class="descname">Display</tt><big>(</big><em>tkwin=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#Display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>Please don&#8217;t use this constructor, use pi3d.Display.create.</p>
+<p>Constructs a raw Display.  Use pi3d.Display.create to create an initialized
+Display.</p>
+<dl class="docutils">
+<dt><em>tkwin</em></dt>
+<dd>An optional Tk window.</dd>
+</dl>
 <dl class="attribute">
 <dt id="pi3d.Display.Display.INSTANCE">
 <tt class="descname">INSTANCE</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Display.Display.INSTANCE" title="Permalink to this definition">¶</a></dt>
@@ -257,7 +262,8 @@ fov_h &#8211; vertical field of view in radians</p>
 <dl class="method">
 <dt id="pi3d.Display.Display.loop_running">
 <tt class="descname">loop_running</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#Display.loop_running"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display.loop_running" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><em>loop_running</em> is the main event loop for the Display.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pi3d.Display.Display.resize">
@@ -286,7 +292,7 @@ fov_h &#8211; vertical field of view in radians</p>
 <dl class="method">
 <dt id="pi3d.Display.Display.destroy">
 <tt class="descname">destroy</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#Display.destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display.destroy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Destroy the current display, reset Display.INSTANCE.</p>
+<dd><p>Destroy the current display and reset Display.INSTANCE.</p>
 </dd></dl>
 
 <dl class="method">
