@@ -178,7 +178,7 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 <dt id="pi3d.Camera.Camera">
 <em class="property">class </em><tt class="descclassname">pi3d.Camera.</tt><tt class="descname">Camera</tt><big>(</big><em>at</em>, <em>eye</em>, <em>lens</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">echomesh.util.DefaultInstance.DefaultInstance</span></tt></p>
-<p>required object for creating and drawing Shape objects. Default instance
+<p>Required object for creating and drawing Shape objects. Default instance
 created if none specified in script prior to creating a Shape</p>
 <p>Set up view matrix to look from eye to at including perspective</p>
 <dl class="docutils">
@@ -197,19 +197,19 @@ field of view height) fields of view in radians</dd>
 <dl class="method">
 <dt id="pi3d.Camera.Camera.reset">
 <tt class="descname">reset</tt><big>(</big><em>lens=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Has to be called each loop if the camera position or rotation changes</p>
+<dd><p>Has to be called each loop if the camera position or rotation changes.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pi3d.Camera.Camera.copy">
-<tt class="descname">copy</tt><big>(</big><em>copyMatrix</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.copy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Usually copies the model_view matrix to begin with.</p>
+<tt class="descname">copy</tt><big>(</big><em>matrix</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the matrix into this Camera.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pi3d.Camera.Camera.copynew">
 <tt class="descname">copynew</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.copynew"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.copynew" title="Permalink to this definition">¶</a></dt>
-<dd><p>wrapper for copy</p>
+<dd><p>Return a copy of its matrix.</p>
 </dd></dl>
 
 <dl class="method">
@@ -220,7 +220,7 @@ field of view height) fields of view in radians</dd>
 <dl class="method">
 <dt id="pi3d.Camera.Camera.position">
 <tt class="descname">position</tt><big>(</big><em>pt</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.position" title="Permalink to this definition">¶</a></dt>
-<dd><p>position camera</p>
+<dd><p>Position camera in space.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
@@ -232,9 +232,9 @@ field of view height) fields of view in radians</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="pi3d.Camera.Camera.rotateZ">
-<tt class="descname">rotateZ</tt><big>(</big><em>angle</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.rotateZ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.rotateZ" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rotate camera z axis</p>
+<dt id="pi3d.Camera.Camera.rotateX">
+<tt class="descname">rotateX</tt><big>(</big><em>angle</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.rotateX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.rotateX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate camera&#8217;s x axis.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
@@ -248,7 +248,7 @@ field of view height) fields of view in radians</dd>
 <dl class="method">
 <dt id="pi3d.Camera.Camera.rotateY">
 <tt class="descname">rotateY</tt><big>(</big><em>angle</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.rotateY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.rotateY" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rotate camera y axis</p>
+<dd><p>Rotate camera&#8217;s y axis.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
@@ -260,9 +260,9 @@ field of view height) fields of view in radians</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="pi3d.Camera.Camera.rotateX">
-<tt class="descname">rotateX</tt><big>(</big><em>angle</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.rotateX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.rotateX" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rotate camera x axis</p>
+<dt id="pi3d.Camera.Camera.rotateZ">
+<tt class="descname">rotateZ</tt><big>(</big><em>angle</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.rotateZ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.rotateZ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate camera&#8217;s z axis.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
@@ -276,11 +276,11 @@ field of view height) fields of view in radians</dd>
 <dl class="method">
 <dt id="pi3d.Camera.Camera.rotate">
 <tt class="descname">rotate</tt><big>(</big><em>rx</em>, <em>ry</em>, <em>rz</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.rotate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rotate camera</p>
+<dd><p>Rotate camera in all three axes.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
-<dt><em>rx</em> </dt>
+<dt><em>rx</em></dt>
 <dd>x rotation in degrees</dd>
 <dt><em>ry</em></dt>
 <dd>y rotation in degrees</dd>
@@ -300,18 +300,18 @@ field of view height) fields of view in radians</dd>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
-<dt><em>at</em> </dt>
-<dd>tuple (x,y,z) of point camera pointed at, floats</dd>
+<dt><em>at</em></dt>
+<dd>Tuple (x, y, z) of point camera pointed at, floats.</dd>
 <dt><em>eye</em></dt>
-<dd>matrix [x,y,z] position of camera, floats</dd>
+<dd>Matrix [x, y, z] position of camera, floats.</dd>
 </dl>
 </dd>
 <dt>Keyword arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>up</em></dt>
-<dd>array vector of up direction</dd>
+<dd>Array vector of up direction.</dd>
 <dt><em>eflect</em></dt>
-<dd>boolean if matrix is reflected</dd>
+<dd>Boolean if matrix is reflected.</dd>
 </dl>
 </dd>
 </dl>
@@ -320,18 +320,18 @@ field of view height) fields of view in radians</dd>
 <dl class="function">
 <dt id="pi3d.Camera.ProjectionMatrix">
 <tt class="descclassname">pi3d.Camera.</tt><tt class="descname">ProjectionMatrix</tt><big>(</big><em>near=10</em>, <em>far=1000.0</em>, <em>fov_w=1.6000000000000001</em>, <em>fov_h=1.2</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#ProjectionMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.ProjectionMatrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set up projection matrix</p>
+<dd><p>Set up projection matrix.</p>
 <dl class="docutils">
 <dt>Keyword arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>near</em></dt>
-<dd>distance to near plane, float</dd>
+<dd>Distance to near plane, float.</dd>
 <dt><em>far</em></dt>
-<dd>distance to far plane, float</dd>
+<dd>Distance to far plane, float.</dd>
 <dt><em>fov_w</em></dt>
-<dd>horizontal field of view in radians</dd>
+<dd>Horizontal field of view in radians.</dd>
 <dt><em>fov_h</em></dt>
-<dd>vertical field of view in radians</dd>
+<dd>Vertical field of view in radians.</dd>
 </dl>
 </dd>
 </dl>
@@ -453,6 +453,11 @@ an alpha of 1 means full opaque.</dd>
 <tt class="descname">mouse_position</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#Display.mouse_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display.mouse_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>The current mouse position as a tuple.</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Display.Display.swap_buffers">
+<tt class="descname">swap_buffers</tt><big>(</big><big>)</big><a class="headerlink" href="#pi3d.Display.Display.swap_buffers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -976,49 +981,43 @@ the y axis.</dd>
 </div>
 <div class="section" id="module-pi3d.Texture">
 <span id="texture-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Texture</span></tt> Module<a class="headerlink" href="#module-pi3d.Texture" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="pi3d.Texture.round_up_to_power_of_2">
-<tt class="descclassname">pi3d.Texture.</tt><tt class="descname">round_up_to_power_of_2</tt><big>(</big><em>x</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#round_up_to_power_of_2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.round_up_to_power_of_2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="class">
 <dt id="pi3d.Texture.Texture">
 <em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">Texture</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Loadable.Loadable</span></tt></a></p>
-<p>loads an image file from disk and converts it into an array that
+<p>Loads an image file from disk and converts it into an array that
 can be used by shaders. It inherits from Loadable in order that the
 file access work can happen in another thread. and the conversion
-to opengl format can happen just in time when tex() is first called</p>
+to opengl format can happen just in time when tex() is first called.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>file_string</em></dt>
-<dd>path and name of image file relative to top dir</dd>
+<dd>Path and name of image file relative to top directory.</dd>
 <dt><em>blend</em></dt>
-<dd>controls if low alpha pixels are discarded (if False) or drawn
+<dd>Controls if low alpha pixels are discarded (if False) or drawn
 by the shader. If set to true then this texture needs to be
-drawn AFTER other objects that are FURTHER AWAY</dd>
+drawn <strong>after</strong> other objects that are <strong>further away</strong>.</dd>
 <dt><em>flip</em></dt>
-<dd>flips the image</dd>
+<dd>Flips the image.</dd>
 <dt><em>size</em></dt>
-<dd>to resize image to</dd>
+<dd>Pixel size to resize image - 0 means &#8220;original size.</dd>
 <dt><em>defer</em></dt>
-<dd>can load from file in other thread and defer opengl work until
-texture needed, default True</dd>
+<dd>Can we defer loading, that is load from file in other thread and defer
+opengl work until texture needed?</dd>
 <dt><em>mipmap</em></dt>
-<dd>use linear interpolation for mipmaps, if set False then nearest
+<dd>Use linear interpolation for mipmaps, if False then nearest
 pixel values will be used. This is needed for exact pixel represent-
-ation of images. <strong>NB BECAUSE THIS BEHAVIOUR IS SET GLOBALLY AT
-THE TIME THAT THE TEXTURE IS LOADED IT WILL BE SET BY THE LAST
-TEXTURE TO BE LOADED PRIOR TO DRAWING</strong>
-TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
+ation of images. <strong>NB: Because this behaviour is set globally at
+the time that the texture is loaded it will be set by the last
+texture to be loaded prior to drawing.</strong></dd>
 </dl>
 </dd>
 </dl>
 <dl class="method">
 <dt id="pi3d.Texture.Texture.tex">
 <tt class="descname">tex</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Texture.tex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture.tex" title="Permalink to this definition">¶</a></dt>
-<dd><p>do the deferred opengl work and return texture</p>
+<dd><p>Do the deferred opengl work and return texture.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1027,15 +1026,34 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 <dt id="pi3d.Texture.Cache">
 <em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">Cache</tt><a class="reference internal" href="_modules/pi3d/Texture.html#Cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Caches textures and hands them out, so if you request a Texture with
+the same filename, blend, flip and size as one you&#8217;ve already requested,
+it gives you back the same texture.</p>
 <dl class="method">
 <dt id="pi3d.Texture.Cache.clear">
 <tt class="descname">clear</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Cache.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Cache.clear" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Clear all textures from the cache.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pi3d.Texture.Cache.create">
 <tt class="descname">create</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Cache.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Cache.create" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Find an existing texture, or create a new one.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>file_string</em></dt>
+<dd>Name of the file containing the texture.</dd>
+<dt><em>blend</em></dt>
+<dd>Do we blend the image with its environment or not?</dd>
+<dt><em>flip</em></dt>
+<dd>Is the image flipped or not?</dd>
+<dt><em>size</em></dt>
+<dd>Pixel size to resize image to.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
