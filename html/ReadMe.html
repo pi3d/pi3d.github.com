@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction to Pi3D &mdash; pi3d 0.8 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pi3d 0.8 documentation" href="index.html" />
+    <link rel="next" title="pi3d Package" href="pi3d.html" />
+    <link rel="prev" title="Welcome to pi3d’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pi3d.html" title="pi3d Package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to pi3d’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pi3d 0.8 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction-to-pi3d">
+<h1>Introduction to Pi3D<a class="headerlink" href="#introduction-to-pi3d" title="Permalink to this headline">¶</a></h1>
+<img alt="_images/rpilogoshad128.png" class="align-left" src="_images/rpilogoshad128.png" />
+<p><strong>Pi3D written by Tim Skillman, Paddy Gaunt, Tom Ritchford Copyright (c) 2013</strong></p>
+<p>There&#8217;s plenty of 3D code flying around at the moment for the Raspberry Pi,
+but much of it is rather complicated to understand and most of it can sit
+under the bonnet!</p>
+<p>pi3d is a Python module that aims to greatly simplify writing 3D in Python
+whilst giving access to the power of the Raspberry Pi GPU. It enables both
+3D and 2D rendering and aims to provide a host of exciting commands to load
+in textured/animated models, create fractal landscapes, shaders and much more.</p>
+<p>This is the fourth release of the pi3d module which now uses the OpenGLES2.0
+functionality of the Raspberry Pi directly. This makes it generally <em>faster</em>
+and opens up the world of <em>shaders</em> that allow effects such as normal and
+reflection maps, blurring and many others. It has various demos of built-in
+shapes, landscapes, model loading, walk-about camera and much more! See the demos
+included with this code and experiment with them ..</p>
+</div>
+<div class="section" id="demo-s-included-with-pi3d">
+<h1>Demo&#8217;s included with Pi3D<a class="headerlink" href="#demo-s-included-with-pi3d" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first"><strong>ForestWalk.py</strong> Walk about a forest on a landscape generated from a
+bitmap</p>
+<blockquote>
+<div><img alt="_images/forestwalk_sml.png" class="align-right" src="_images/forestwalk_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Triceratops.py</strong> Large model loading with several
+bitmaps</p>
+<blockquote>
+<div><img alt="_images/triceratops_sml.png" src="_images/triceratops_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>BuckfastAbbey.py</strong> Explore a model of the beautiful Buckfast Abbey in
+Buckfastleigh, Devon, England</p>
+<blockquote>
+<div><img alt="_images/buckfast_sml.png" class="align-right" src="_images/buckfast_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Earth.py</strong> Demonstrates semi-transparent clouds and hierarchical
+rotations</p>
+<blockquote>
+<div><img alt="_images/earth_sml.png" src="_images/earth_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Raspberry_Rain.py</strong> Raining Raspberries,  full-screen, over the
+desktop</p>
+<blockquote>
+<div><img alt="_images/raspberryrain_sml.png" class="align-right" src="_images/raspberryrain_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Clouds3D.py</strong> Blended sprites in
+perspective view</p>
+<blockquote>
+<div><img alt="_images/clouds3d_sml.png" src="_images/clouds3d_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>CollisionBalls.py</strong> More bouncing balls across the screen -
+this time  bouncing off each other on the desktop</p>
+</li>
+<li><p class="first"><strong>EnvironmentCube.py</strong> New environment cubes to try out in texture/ecubes -
+some high quality ones!</p>
+<blockquote>
+<div><img alt="_images/envcube_sml.png" class="align-right" src="_images/envcube_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>RobotWalkabout.py</strong> Another off-planet example of a basic avatar robot
+drifting about</p>
+<blockquote>
+<div><img alt="_images/walkabout_sml.png" src="_images/walkabout_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Shapes.py</strong> Demos available shapes and text
+in a 3D context</p>
+<blockquote>
+<div><img alt="_images/shapes_sml.png" class="align-right" src="_images/shapes_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>MarsStation.py</strong> Navigate around an abandoned Mars base-station with
+open/shut doors. Implements a new Level-Of-Detail (LOD) feature and TKwindow
+interface</p>
+<blockquote>
+<div><img alt="_images/marsstation_sml.png" src="_images/marsstation_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>TigerTank.py</strong> Ever played World Of Tanks (WOT)? This tank emulates
+how a WOT tank works. Uses realistic modelling in a TKwindow</p>
+<blockquote>
+<div><img alt="_images/tigertank_sml.png" class="align-right" src="_images/tigertank_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Amazing.py</strong> Can you find yourself around the
+amazing maze?</p>
+<blockquote>
+<div><img alt="_images/amazing_sml.png" src="_images/amazing_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Pong.py</strong>  A snazzy 3D version of landscape pinball and pong
+against a Raspberry!</p>
+<blockquote>
+<div><img alt="_images/pong_sml.png" class="align-right" src="_images/pong_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Blur.py</strong> Simulates giving the camera a focal distance and blurs
+nearer and further objects</p>
+<blockquote>
+<div><img alt="_images/blur_sml.png" src="_images/blur_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>LoadModelObj.py</strong> Loads a model from obj file (quicker) and applies
+a normal map and relfection map</p>
+<blockquote>
+<div><img alt="_images/teapot_sml.png" class="align-right" src="_images/teapot_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Silo.py</strong> Uses the Building class to create a claustrophobic maze
+set in the desert.</p>
+<blockquote>
+<div><img alt="_images/silo_sml.png" src="_images/silo_sml.png" />
+</div></blockquote>
+</li>
+<li><p class="first"><strong>ClashWalk.py</strong> The graphics processor calculates where the camera can
+or cannot go depending on what is drawn in front of it. Potentially useful
+for first person navigation</p>
+</li>
+<li><p class="first"><strong>Water.py</strong> A series of wave normal maps are used to animate a surface
+and produce a realistic moving reflection.</p>
+<blockquote>
+<div><img alt="_images/water_sml.png" class="align-right" src="_images/water_sml.png" />
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="files-and-folders-in-this-repository">
+<h1>Files and folders in this repository<a class="headerlink" href="#files-and-folders-in-this-repository" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li><strong>pi3d</strong> The main pi3d module files</li>
+<li><strong>shaders</strong> Shader files used by the pi3d module</li>
+<li><strong>textures</strong> Various textures to play with</li>
+<li><strong>models</strong> Demo obj and egg models</li>
+<li><strong>fonts</strong> ttf and Bitmap fonts that can be using for drawing text see in
+/usr/share/fonts/truetype for others, or look online.</li>
+<li><strong>demos</strong> Source code of the demos included</li>
+<li><strong>screenshots</strong> Example screenshots of the demos included</li>
+<li><strong>documentation</strong> Where this documentation lives</li>
+<li><strong>ChangeLog.txt</strong> Latest changes of Pi3D</li>
+<li><strong>ReadMe.md</strong> Simplified markdown summary of this file</li>
+</ol>
+</div>
+<div class="section" id="setup-on-the-raspberry-pi">
+<h1>Setup on the Raspberry Pi<a class="headerlink" href="#setup-on-the-raspberry-pi" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first"><strong>Memory Split setup</strong></p>
+<p>Although most demos work on 64MB of memory, you are strongly advised to have
+a 128MB of graphics memory split, especially for full-screen 3D graphics.
+In the latest Raspbian build you need to edit the config.txt file (in the
+boot directory) and set the variable &#8216;gpu_mem=128&#8217; for 128MB of graphics memory.</p>
+</li>
+<li><p class="first"><strong>Install Python Imaging</strong></p>
+<p>Before trying any of the demos or Pi3D, you must download the Python Imaging
+Library as this is needed for importing any graphics used by Pi3. To install
+on the terminal, type:</p>
+<div class="highlight-python"><pre>sudo apt-get install python-imaging</pre>
+</div>
+</li>
+<li><p class="first"><strong>Install Geany to run Pi3D</strong></p>
+<p>Although you can use any editor and run the scripts in a terminal using python,
+Geany is by far the easiest and most compatible application to use for creating
+and running Python scripts. Download and install it with:</p>
+<div class="highlight-python"><pre>sudo apt-get install geany xterm</pre>
+</div>
+</li>
+<li><p class="first"><strong>Optionally, install tk.</strong></p>
+<p>Some of the demos require the tk graphics toolkit.  To download and install it:</p>
+<div class="highlight-python"><pre>sudo apt-get install tk</pre>
+</div>
+</li>
+<li><p class="first"><strong>Load and run</strong></p>
+<p>Load any of the demos into Geany and run (using the cogs icon). As a minimum,
+scripts need these elements in order to use the pi3d library:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pi3d</span>
+<span class="n">DISPLAY</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+<span class="n">shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s">&quot;shaders/2d_flat&quot;</span><span class="p">)</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">ImageSprite</span><span class="p">(</span><span class="s">&quot;textures/PATRN.PNG&quot;</span><span class="p">,</span> <span class="n">shader</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">DISPLAY</span><span class="o">.</span><span class="n">loop_running</span><span class="p">():</span>
+  <span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>But.. a real application will need other code to actually do something, for
+instance to get user input in order to stop the program!</p>
+</li>
+</ol>
+</div>
+<div class="section" id="a-very-brief-explanation">
+<h1>A Very Brief Explanation<a class="headerlink" href="#a-very-brief-explanation" title="Permalink to this headline">¶</a></h1>
+<p>The whole idea of Pi3d is that you don&#8217;t have to get involved in too many of
+the nuts and bolts of how the OpenGL graphics processor works however it might
+help to get an overview of the layout of Pi3d. More detailed explanations can
+be found in the documentation of each of the modules.</p>
+<blockquote>
+<div><p><strong>Display</strong> The <a class="reference external" href="pi3d.html#pi3d.Display.Display">Display</a> class is the core and is used to hold screen dimension information,
+to initiate the graphics functionality and for &#8216;central&#8217; information, such as timing,
+for the animation. There needs to be an instance of <a class="reference external" href="pi3d.html#pi3d.Display.Display">Display</a> in existence
+before some of the other objects are created so it&#8217;s a good idea to create one
+first job.</p>
+<p><strong>Shape</strong> <a class="reference external" href="pi3d.shape.html#module-pi3d.shape.Cone">All objects to be drawn by Pi3d</a> inherit from the <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> class which holds
+details of position, rotation, scale as well as specific data needed for
+drawing the shape. Each <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> contains an array of <a class="reference external" href="pi3d.html#pi3d.Buffer.Buffer">Buffer</a> objects; normally
+only containing one but there could be more in complicated models created
+with external 3D applications.</p>
+<p><strong>Buffer</strong> The <a class="reference external" href="pi3d.html#pi3d.Buffer.Buffer">Buffer</a> objects contain the arrays of values representing vertices,
+normals, faces and texture coordinates in a form that can be quickly read by
+the graphics processor. Each <a class="reference external" href="pi3d.html#pi3d.Buffer.Buffer">Buffer</a> object within a <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> can be textured
+using a different image or shade (RGB) value and, if needed, a different <a class="reference external" href="pi3d.html#pi3d.Shader.Shader">Shader</a></p>
+<p><strong>Shader</strong> The <a class="reference external" href="pi3d.html#pi3d.Shader.Shader">Shader</a> class is used to compile <em>very fast</em> programs that are run on
+the graphics processor. They have two parts: <em>Vertex Shaders</em> that do calculation
+for each of the vertices of the <a class="reference external" href="pi3d.html#pi3d.Buffer.Buffer">Buffer</a> and <em>Fragment Shaders</em> applied to
+each pixel. In Pi3d we have kept the shaders out of the main python files
+and divided them using the two extensions .vs and .fs The shader language
+is C like, very clever indeed, but rather hard to fathom out.</p>
+<p><strong>Camera</strong> In order to draw a <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> on the <a class="reference external" href="pi3d.html#pi3d.Display.Display">Display</a> the <a class="reference external" href="pi3d.html#pi3d.Shader.Shader">Shader</a> needs to be passed the
+vertex information in the Buffers and needs know how the <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> has been moved.
+But it also needs to know how the <a class="reference external" href="pi3d.html#pi3d.Camera.Camera">Camera</a> has moved. The <a class="reference external" href="pi3d.html#pi3d.Camera.Camera">Camera</a> class generally
+has just one instance and if you do not create one explicitly then <a class="reference external" href="pi3d.html#pi3d.Display.Display">Display</a> will
+generate a default one when you first try to draw something. The <a class="reference external" href="pi3d.html#pi3d.Camera.Camera">Camera</a>
+has position and rotation information similar to Shapes but also information
+to create the view, such as how wide-angle or telephoto the lens is.</p>
+<p><strong>Texture</strong> The <a class="reference external" href="pi3d.html#pi3d.Texture.Texture">Texture</a> objects are used to load images from file into a form that
+can be passed to the <a class="reference external" href="pi3d.html#pi3d.Shader.Shader">Shader</a> to draw onto a surface. They can also be applied as
+normal maps to give much finer local detail or as reflection maps - a much
+faster way to make surfaces look shiny than ray tracing.</p>
+<p><strong>Light</strong> To produce a 3D appearance most of the Shaders use directional lighting and
+if you draw a <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> without creating a <a class="reference external" href="pi3d.html#pi3d.Light.Light">Light</a> a default instance will be
+created by the <a class="reference external" href="pi3d.html#pi3d.Display.Display">Display</a>. The <a class="reference external" href="pi3d.html#pi3d.Light.Light">Light</a> has properties defining the direction,
+the colour (and strength i.e. RGB values) and ambient colour (and strength).</p>
+<p>When you look through the demos you will see one or two things that may
+not be immediately obvious. All the demos start with:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+</pre></div>
+</div>
+<p>Although these lines can often be left out, the first tells any process running the file
+as a script that it&#8217;s python and the second is basically to help the transition
+of this code to run using python 3:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">demo</span>
+</pre></div>
+</div>
+<p>Allows the demo files to be put in a subdirectory but still run. If you write
+a program in the top directory then you will need to take this out:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pi3d</span>
+</pre></div>
+</div>
+<p>Is an alternative to importing just what you need:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d</span> <span class="kn">import</span> <span class="n">Display</span>
+<span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="kn">import</span> <span class="n">Texture</span>
+<span class="kn">from</span> <span class="nn">pi3d.Keyboard</span> <span class="kn">import</span> <span class="n">Keyboard</span>
+<span class="kn">from</span> <span class="nn">pi3d.Light</span> <span class="kn">import</span> <span class="n">Light</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="kn">import</span> <span class="n">Shader</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.String</span> <span class="kn">import</span> <span class="n">String</span>
+<span class="o">...</span>
+<span class="kn">from</span> <span class="nn">pi3d.shape.Sphere</span> <span class="kn">import</span> <span class="n">Sphere</span>
+<span class="kn">from</span> <span class="nn">pi3d.shape.Sprite</span> <span class="kn">import</span> <span class="n">Sprite</span>
+</pre></div>
+</div>
+<p>If you import the whole lot using &#8216;import pi3d&#8217; then you need to prefix classes
+and functions with &#8220;pi3d.&#8221; And you are loading a large number of variable names
+which might cause a conflict, isn&#8217;t as explicit and is less tidy (in the non-
+superficial sense)!</p>
+</div></blockquote>
+</div>
+<div class="section" id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<p>Please note that Pi3D functions may change significantly during it&#8217;s development.</p>
+<p>Bug reports, comments, feature requests and fixes are most welcome!</p>
+<p>Please email on <a class="reference external" href="mailto:pi3d&#37;&#52;&#48;googlegroups&#46;com">pi3d<span>&#64;</span>googlegroups<span>&#46;</span>com</a> or contact us through the Raspberry Pi forums
+or on pi3d.github.com</p>
+</div>
+<div class="section" id="acknowledgements">
+<h1>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h1>
+<p>Pi3D started with code based on Peter de Rivaz &#8216;pyopengles&#8217;
+(<a class="reference external" href="https://github.com/peterderivaz/pyopengles">https://github.com/peterderivaz/pyopengles</a>) with some tweaking from Jon Macey&#8217;s
+code (jonmacey.blogspot.co.uk/2012/06/).</p>
+<p>Many Thanks, especially to Peter de Rivaz, Jon Macey, Richar Urwin, Peter Hess,
+David Wallin and others who have contributed to Pi3D - keep up the good work!</p>
+<p><strong>PLEASE READ LICENSING AND COPYRIGHT NOTICES ESPECIALLY IF USING FOR COMMERCIAL PURPOSES</strong></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction to Pi3D</a></li>
+<li><a class="reference internal" href="#demo-s-included-with-pi3d">Demo&#8217;s included with Pi3D</a></li>
+<li><a class="reference internal" href="#files-and-folders-in-this-repository">Files and folders in this repository</a></li>
+<li><a class="reference internal" href="#setup-on-the-raspberry-pi">Setup on the Raspberry Pi</a></li>
+<li><a class="reference internal" href="#a-very-brief-explanation">A Very Brief Explanation</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to pi3d&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pi3d.html"
+                        title="next chapter">pi3d Package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/ReadMe.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pi3d.html" title="pi3d Package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to pi3d’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">pi3d 0.8 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, The pi3d team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
