@@ -378,116 +378,236 @@ the String class to write with</p>
 <dl class="function">
 <dt id="pi3d.util.Utility.dotproduct">
 <tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">dotproduct</tt><big>(</big><em>x1</em>, <em>y1</em>, <em>z1</em>, <em>x2</em>, <em>y2</em>, <em>z2</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#dotproduct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.dotproduct" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the dot product of two 3-dimensional vectors given by coordinates.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.crossproduct">
 <tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">crossproduct</tt><big>(</big><em>x1</em>, <em>y1</em>, <em>z1</em>, <em>x2</em>, <em>y2</em>, <em>z2</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#crossproduct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.crossproduct" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the cross product of two 3-dimensional vectors given by coordinates.</p>
+</dd></dl>
 
 <dl class="function">
-<dt id="pi3d.util.Utility.TranslateMatrix">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">TranslateMatrix</tt><big>(</big><em>pt</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#TranslateMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.TranslateMatrix" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pi3d.util.Utility.translate_matrix">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">translate_matrix</tt><big>(</big><em>vec</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#translate_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.translate_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a matrix that translates by the given vector.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.vec_sub">
 <tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">vec_sub</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#vec_sub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.vec_sub" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the difference between two vectors.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.vec_dot">
 <tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">vec_dot</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#vec_dot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.vec_dot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the dot product of two vectors.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.vec_cross">
 <tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">vec_cross</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#vec_cross"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.vec_cross" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the cross product of two vectors.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.vec_normal">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">vec_normal</tt><big>(</big><em>A</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#vec_normal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.vec_normal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">vec_normal</tt><big>(</big><em>vec</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#vec_normal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.vec_normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector normalized to unit length for a vector of non-zero length,
+otherwise returns the original vector.</p>
+</dd></dl>
 
 <dl class="function">
-<dt id="pi3d.util.Utility.BillboardMatrix">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">BillboardMatrix</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#BillboardMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.BillboardMatrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define a matrix that copies x,y and sets z to 0.9</p>
+<dt id="pi3d.util.Utility.billboard_matrix">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">billboard_matrix</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#billboard_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.billboard_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a matrix that copies x, y and sets z to 0.9.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.mat_mult">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">mat_mult</tt><big>(</big><em>A</em>, <em>B</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#mat_mult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.mat_mult" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">mat_mult</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#mat_mult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.mat_mult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the product of two 4x4 matrices.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.mat_transpose">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">mat_transpose</tt><big>(</big><em>A</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#mat_transpose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.mat_transpose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">mat_transpose</tt><big>(</big><em>x</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#mat_transpose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.mat_transpose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the transposition of a 4x4 matrix.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.vec_mat_mult">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">vec_mat_mult</tt><big>(</big><em>A</em>, <em>B</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#vec_mat_mult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.vec_mat_mult" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">vec_mat_mult</tt><big>(</big><em>vec</em>, <em>mat</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#vec_mat_mult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.vec_mat_mult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the product of a 4-d vector and a 4x4 matrix.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>vec</em></dt>
+<dd>A vector of length 4.</dd>
+<dt><em>mat</em></dt>
+<dd>A 4x4 matrix.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.transform">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">transform</tt><big>(</big><em>origmtrx</em>, <em>x</em>, <em>y</em>, <em>z</em>, <em>rx</em>, <em>ry</em>, <em>rz</em>, <em>sx</em>, <em>sy</em>, <em>sz</em>, <em>cx</em>, <em>cy</em>, <em>cz</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.transform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">transform</tt><big>(</big><em>matrix</em>, <em>x</em>, <em>y</em>, <em>z</em>, <em>rx</em>, <em>ry</em>, <em>rz</em>, <em>sx</em>, <em>sy</em>, <em>sz</em>, <em>cx</em>, <em>cy</em>, <em>cz</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate, scale and translate a 4x4 matrix.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>matrix</em></dt>
+<dd>A 4x4 matrix to transform.</dd>
+<dt><em>x, y, z</em></dt>
+<dd>Translation in x, y and z axes.</dd>
+<dt><em>rx, ry, rx</em></dt>
+<dd>Rotations in x, y, and x axes.</dd>
+<dt><em>sx, sy, sz</em></dt>
+<dd>Scale factor in x, y, z axes.</dd>
+<dt><em>cx, cy, cz</em></dt>
+<dd>Center of the rotation.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.scale">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">scale</tt><big>(</big><em>mtrx</em>, <em>sx</em>, <em>sy</em>, <em>sz</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.scale" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">scale</tt><big>(</big><em>matrix</em>, <em>sx</em>, <em>sy</em>, <em>sz</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale a 4x4 matrix.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>sx, sy, sz</em></dt>
+<dd>Scale factor in x, y, z axes.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.translate">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">translate</tt><big>(</big><em>mtrx</em>, <em>pt</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.translate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">translate</tt><big>(</big><em>matrix</em>, <em>vec</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate a 4x4 matrix by a 3-vector</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>matrix</em></dt>
+<dd>The 4x4 matrix to translate.</dd>
+<dt><em>vec</em></dt>
+<dd>A 3-vector translation in x, y, z axes.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.rotate">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">rotate</tt><big>(</big><em>mtrx</em>, <em>rx</em>, <em>ry</em>, <em>rz</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.rotate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">rotate</tt><big>(</big><em>matrix</em>, <em>rx</em>, <em>ry</em>, <em>rz</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate a 4x4 matrix.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>matrix</em></dt>
+<dd>A 4x4 matrix.</dd>
+<dt><em>rx, ry, rx</em></dt>
+<dd>Rotations in x, y, and x axes.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.rotateX">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">rotateX</tt><big>(</big><em>mtrx</em>, <em>angle</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#rotateX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.rotateX" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">rotateX</tt><big>(</big><em>matrix</em>, <em>angle</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#rotateX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.rotateX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate a 4x4 matrix around the x axis.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>matrix</em></dt>
+<dd>A 4x4 matrix.</dd>
+<dt><em>angle</em></dt>
+<dd>Angle of rotation around the x axis.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.rotateY">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">rotateY</tt><big>(</big><em>mtrx</em>, <em>angle</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#rotateY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.rotateY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">rotateY</tt><big>(</big><em>matrix</em>, <em>angle</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#rotateY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.rotateY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate a 4x4 matrix around the y axis.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>matrix</em></dt>
+<dd>A 4x4 matrix.</dd>
+<dt><em>angle</em></dt>
+<dd>Angle of rotation around the y axis.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="pi3d.util.Utility.rotateZ">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">rotateZ</tt><big>(</big><em>mtrx</em>, <em>angle</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#rotateZ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.rotateZ" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">rotateZ</tt><big>(</big><em>matrix</em>, <em>angle</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#rotateZ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.rotateZ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate a 4x4 matrix around the z axis.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>matrix</em></dt>
+<dd>A 4x4 matrix.</dd>
+<dt><em>angle</em></dt>
+<dd>Angle of rotation around the z axis.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
-<dt id="pi3d.util.Utility.angleVecs">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">angleVecs</tt><big>(</big><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>x3</em>, <em>y3</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#angleVecs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.angleVecs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pi3d.util.Utility.angle_between">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">angle_between</tt><big>(</big><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>x3</em>, <em>y3</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#angle_between"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.angle_between" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the angle between two 3-vectors, or 0.0 if one or the other vector is
+empty.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>x1, y1, z1</em></dt>
+<dd>The coordinates of the first vector.</dd>
+<dt><em>x2, y2, z2</em></dt>
+<dd>The coordinates of the second vector.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
-<dt id="pi3d.util.Utility.lodDraw">
-<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">lodDraw</tt><big>(</big><em>here</em>, <em>there</em>, <em>mlist</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#lodDraw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.lodDraw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Level Of Detail checking and rendering. NB this will only work if the shader
-and texture information has been set for all the buf object in the model.
-No return value</p>
+<dt id="pi3d.util.Utility.draw_level_of_detail">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">draw_level_of_detail</tt><big>(</big><em>here</em>, <em>there</em>, <em>mlist</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#draw_level_of_detail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.draw_level_of_detail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Level Of Detail checking and rendering.  The shader and texture information
+must be set for all the buf objects in each model before draw_level_of_detail
+is called.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>here</em></dt>
-<dd>(x,y,z) tuple or array of view point</dd>
+<dd>An (x, y, z) tuple or array of view point.</dd>
 <dt><em>there</em></dt>
-<dd>(x,y,z) tuple or array of model position</dd>
+<dd>An (x, y, z) tuple or array of model position.</dd>
 <dt><em>mlist</em></dt>
-<dd>array of arrays with distance and model pairs. i.e. [[20, model1],[100, model2],[250, None]]
-Model is used up to that distance until the last entry then for all distances beyond,
-&#8216;None&#8217; can be used to draw nothing at a certain distance</dd>
+<dd><p class="first">A list of (distance, model) pairs with increasing distance, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span><span class="mi">20</span><span class="p">,</span> <span class="n">model1</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="n">model2</span><span class="p">],</span> <span class="p">[</span><span class="mi">250</span><span class="p">,</span> <span class="bp">None</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p class="last">draw_level_of_detail() selects the first model that is more distant than
+the distance between the two points <em>here</em> and <em>there</em>, falling back to
+the last model otherwise.  The model None is not rendered and is a good
+way to make sure that nothing is drawn past a certain distance.</p>
+</dd>
 </dl>
 </dd>
 </dl>
