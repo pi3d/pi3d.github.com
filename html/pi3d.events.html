@@ -69,38 +69,6 @@
 <dd></dd></dl>
 
 <dl class="class">
-<dt id="pi3d.events.events.EventStruct">
-<em class="property">class </em><tt class="descclassname">pi3d.events.events.</tt><tt class="descname">EventStruct</tt><big>(</big><em>stream</em>, <em>time=None</em>, <em>eventType=None</em>, <em>eventCode=None</em>, <em>eventValue=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStruct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStruct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>A single event from the linux input event system.</p>
-<p>Events are tuples: (Time, Type, Code, Value)
-In addition we remember the stream it came from.</p>
-<p>Externally, only the unhandled event handler gets passed the whole event,
-but the SYN handler gets the code and value. (Also the keyboard handler, but
-those are renamed to key and value.)</p>
-<p>This class is responsible for converting the Linux input event structure into
-one of these objects and back again.</p>
-<p>create a new event</p>
-<p>Generally all but the stream parameter are left out; we will want to
-populate the object from a Linux input event using decode.</p>
-<dl class="method">
-<dt id="pi3d.events.events.EventStruct.encode">
-<tt class="descname">encode</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStruct.encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStruct.encode" title="Permalink to this definition">¶</a></dt>
-<dd><p>encode this event into a Linux input event structure</p>
-<p>The output is packed into a string. It is unlikely that this function
-will be required, but it might as well be here.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pi3d.events.events.EventStruct.decode">
-<tt class="descname">decode</tt><big>(</big><em>s</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStruct.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStruct.decode" title="Permalink to this definition">¶</a></dt>
-<dd><p>decode a Linux input event into the fields of this object</p>
-<p>The input parameter is a binary structure packed into a string.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="pi3d.events.events.EventHandler">
 <em class="property">class </em><tt class="descclassname">pi3d.events.events.</tt><tt class="descname">EventHandler</tt><big>(</big><em>keyHandler=None</em>, <em>relHandler=None</em>, <em>absHandler=None</em>, <em>synHandler=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
@@ -108,6 +76,14 @@ will be required, but it might as well be here.</p>
 <p>Four types of events are handled: REL (mouse movement), KEY (keybaord keys and
 other device buttons), ABS (joysticks and gamepad analogue sticks) and SYN
 (delimits simultaneous events such as mouse movements)</p>
+<dl class="method">
+<dt id="pi3d.events.events.EventHandler.clear_key">
+<tt class="descname">clear_key</tt><big>(</big><em>buttonCode</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventHandler.clear_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventHandler.clear_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the  event value for the given key code.</p>
+<p>Key names can be converted to key codes using codeOf[str].
+This emulates a key-up but does not generate any events.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pi3d.events.events.EventHandler.event">
 <tt class="descname">event</tt><big>(</big><em>event</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventHandler.event"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventHandler.event" title="Permalink to this definition">¶</a></dt>
@@ -149,32 +125,6 @@ If the key is pressed the returned value will be 1 (pressed) or 2 (held).
 If the key is not pressed, the returned value will be 0.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="pi3d.events.events.EventHandler.clear_key">
-<tt class="descname">clear_key</tt><big>(</big><em>buttonCode</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventHandler.clear_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventHandler.clear_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clears the  event value for the given key code.</p>
-<p>Key names can be converted to key codes using codeOf[str].
-This emulates a key-up but does not generate any events.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="pi3d.events.events.get_abs_info">
-<em class="property">class </em><tt class="descclassname">pi3d.events.events.</tt><tt class="descname">get_abs_info</tt><big>(</big><em>stream</em>, <em>axis</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#get_abs_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.get_abs_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>fetches and implements the EV_ABS axis scaling</p>
-<p>The constructor fetches the scaling values from the given stream for the
-given axis using an ioctl.</p>
-<p>There is a scale method, which scales a given value to the range -1..+1.</p>
-<p>Fetch the scale values for this stream and fill in the instance
-variables accordingly.</p>
-<dl class="method">
-<dt id="pi3d.events.events.get_abs_info.scale">
-<tt class="descname">scale</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#get_abs_info.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.get_abs_info.scale" title="Permalink to this definition">¶</a></dt>
-<dd><p>scales the given value into the range -1..+1</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="class">
@@ -198,34 +148,33 @@ same type.</p>
 <tt class="descname">AllStreams</tt><em class="property"> = []</em><a class="headerlink" href="#pi3d.events.events.EventStream.AllStreams" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="pi3d.events.events.EventStream.acquire_abs_info">
+<tt class="descname">acquire_abs_info</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStream.acquire_abs_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStream.acquire_abs_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acquires the axis limits for all the ABS axes.</p>
+<p>This will only be called for joystick-type devices.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="pi3d.events.events.EventStream.allNext">
+<em class="property">classmethod </em><tt class="descname">allNext</tt><big>(</big><em>streams=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStream.allNext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStream.allNext" title="Permalink to this definition">¶</a></dt>
+<dd><p>A generator fuction returning all waiting events in the given streams</p>
+<p>If the streams parameter is not given, then all streams are selected.</p>
+</dd></dl>
+
 <dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisX">
-<tt class="descname">axisX</tt><em class="property"> = 0</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisX" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.events.events.EventStream.axisBrake">
+<tt class="descname">axisBrake</tt><em class="property"> = 18</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisBrake" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisY">
-<tt class="descname">axisY</tt><em class="property"> = 1</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisY" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.events.events.EventStream.axisDistance">
+<tt class="descname">axisDistance</tt><em class="property"> = 20</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisDistance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisZ">
-<tt class="descname">axisZ</tt><em class="property"> = 2</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisZ" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisRX">
-<tt class="descname">axisRX</tt><em class="property"> = 3</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisRX" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisRY">
-<tt class="descname">axisRY</tt><em class="property"> = 4</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisRY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisRZ">
-<tt class="descname">axisRZ</tt><em class="property"> = 5</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisRZ" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.events.events.EventStream.axisGas">
+<tt class="descname">axisGas</tt><em class="property"> = 17</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisGas" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -269,8 +218,23 @@ same type.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisThrottle">
-<tt class="descname">axisThrottle</tt><em class="property"> = 14</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisThrottle" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.events.events.EventStream.axisPressure">
+<tt class="descname">axisPressure</tt><em class="property"> = 19</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisPressure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pi3d.events.events.EventStream.axisRX">
+<tt class="descname">axisRX</tt><em class="property"> = 3</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisRX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pi3d.events.events.EventStream.axisRY">
+<tt class="descname">axisRY</tt><em class="property"> = 4</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisRY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pi3d.events.events.EventStream.axisRZ">
+<tt class="descname">axisRZ</tt><em class="property"> = 5</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisRZ" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -279,28 +243,8 @@ same type.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisWheel">
-<tt class="descname">axisWheel</tt><em class="property"> = 16</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisWheel" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisGas">
-<tt class="descname">axisGas</tt><em class="property"> = 17</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisGas" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisBrake">
-<tt class="descname">axisBrake</tt><em class="property"> = 18</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisBrake" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisPressure">
-<tt class="descname">axisPressure</tt><em class="property"> = 19</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisPressure" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisDistance">
-<tt class="descname">axisDistance</tt><em class="property"> = 20</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisDistance" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.events.events.EventStream.axisThrottle">
+<tt class="descname">axisThrottle</tt><em class="property"> = 14</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisThrottle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -314,34 +258,34 @@ same type.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pi3d.events.events.EventStream.axisToEvent">
+<tt class="descname">axisToEvent</tt><em class="property"> = [0, 1, 2, 3, 4, 5, 16, 17, 18, 19, 20, 21, 22, 23, 6, 7, 8, 9, 10, 24, 25, 26, 27, 28]</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisToEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pi3d.events.events.EventStream.axisToolWidth">
 <tt class="descname">axisToolWidth</tt><em class="property"> = 23</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisToolWidth" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pi3d.events.events.EventStream.numAxes">
-<tt class="descname">numAxes</tt><em class="property"> = 24</em><a class="headerlink" href="#pi3d.events.events.EventStream.numAxes" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.events.events.EventStream.axisWheel">
+<tt class="descname">axisWheel</tt><em class="property"> = 16</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisWheel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pi3d.events.events.EventStream.axisToEvent">
-<tt class="descname">axisToEvent</tt><em class="property"> = [0, 1, 2, 3, 4, 5, 16, 17, 18, 19, 20, 21, 22, 23, 6, 7, 8, 9, 10, 24, 25, 26, 27, 28]</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisToEvent" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.events.events.EventStream.axisX">
+<tt class="descname">axisX</tt><em class="property"> = 0</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisX" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pi3d.events.events.EventStream.acquire_abs_info">
-<tt class="descname">acquire_abs_info</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStream.acquire_abs_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStream.acquire_abs_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Acquires the axis limits for all the ABS axes.</p>
-<p>This will only be called for joystick-type devices.</p>
-</dd></dl>
+<dl class="attribute">
+<dt id="pi3d.events.events.EventStream.axisY">
+<tt class="descname">axisY</tt><em class="property"> = 1</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="method">
-<dt id="pi3d.events.events.EventStream.scale">
-<tt class="descname">scale</tt><big>(</big><em>axis</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStream.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStream.scale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scale the given value according to the given axis.</p>
-<p>acquire_abs_info must have been previously called to acquire the data to
-do the scaling.</p>
-</dd></dl>
+<dl class="attribute">
+<dt id="pi3d.events.events.EventStream.axisZ">
+<tt class="descname">axisZ</tt><em class="property"> = 2</em><a class="headerlink" href="#pi3d.events.events.EventStream.axisZ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="pi3d.events.events.EventStream.grab">
@@ -353,6 +297,12 @@ keyboard for example to use it for text entry. While not grabbed, all key-down
 and key-hold events are filtered out.</p>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="pi3d.events.events.EventStream.grab_by_type">
+<em class="property">classmethod </em><tt class="descname">grab_by_type</tt><big>(</big><em>deviceType</em>, <em>deviceIndex=None</em>, <em>grab=True</em>, <em>streams=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStream.grab_by_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStream.grab_by_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grabs all streams of the given type.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pi3d.events.events.EventStream.next">
 <tt class="descname">next</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStream.next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStream.next" title="Permalink to this definition">¶</a></dt>
@@ -360,23 +310,55 @@ and key-hold events are filtered out.</p>
 <p>If no event is waiting, returns None.</p>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="pi3d.events.events.EventStream.grab_by_type">
-<em class="property">classmethod </em><tt class="descname">grab_by_type</tt><big>(</big><em>deviceType</em>, <em>deviceIndex=None</em>, <em>grab=True</em>, <em>streams=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStream.grab_by_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStream.grab_by_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Grabs all streams of the given type.</p>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="pi3d.events.events.EventStream.allNext">
-<em class="property">classmethod </em><tt class="descname">allNext</tt><big>(</big><em>streams=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStream.allNext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStream.allNext" title="Permalink to this definition">¶</a></dt>
-<dd><p>A generator fuction returning all waiting events in the given streams</p>
-<p>If the streams parameter is not given, then all streams are selected.</p>
-</dd></dl>
+<dl class="attribute">
+<dt id="pi3d.events.events.EventStream.numAxes">
+<tt class="descname">numAxes</tt><em class="property"> = 24</em><a class="headerlink" href="#pi3d.events.events.EventStream.numAxes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="pi3d.events.events.EventStream.release">
 <tt class="descname">release</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStream.release"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStream.release" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ungrabs the file and closes it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.events.events.EventStream.scale">
+<tt class="descname">scale</tt><big>(</big><em>axis</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStream.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStream.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale the given value according to the given axis.</p>
+<p>acquire_abs_info must have been previously called to acquire the data to
+do the scaling.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.events.events.EventStruct">
+<em class="property">class </em><tt class="descclassname">pi3d.events.events.</tt><tt class="descname">EventStruct</tt><big>(</big><em>stream</em>, <em>time=None</em>, <em>eventType=None</em>, <em>eventCode=None</em>, <em>eventValue=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStruct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStruct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A single event from the linux input event system.</p>
+<p>Events are tuples: (Time, Type, Code, Value)
+In addition we remember the stream it came from.</p>
+<p>Externally, only the unhandled event handler gets passed the whole event,
+but the SYN handler gets the code and value. (Also the keyboard handler, but
+those are renamed to key and value.)</p>
+<p>This class is responsible for converting the Linux input event structure into
+one of these objects and back again.</p>
+<p>create a new event</p>
+<p>Generally all but the stream parameter are left out; we will want to
+populate the object from a Linux input event using decode.</p>
+<dl class="method">
+<dt id="pi3d.events.events.EventStruct.decode">
+<tt class="descname">decode</tt><big>(</big><em>s</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStruct.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStruct.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>decode a Linux input event into the fields of this object</p>
+<p>The input parameter is a binary structure packed into a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.events.events.EventStruct.encode">
+<tt class="descname">encode</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#EventStruct.encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.EventStruct.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>encode this event into a Linux input event structure</p>
+<p>The output is packed into a string. It is unlikely that this function
+will be required, but it might as well be here.</p>
 </dd></dl>
 
 </dd></dl>
@@ -412,46 +394,25 @@ key to its code, and nameOf[ ] to convert a code to a name. The keys are
 listed in event_consts.py or /usr/include/linux/input.h Note that the key
 names refer to a US keyboard.</p>
 <dl class="method">
+<dt id="pi3d.events.events.InputEvents.clear_key">
+<tt class="descname">clear_key</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#InputEvents.clear_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.InputEvents.clear_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the state of the given key.</p>
+<p>Emulates a key-up, but does not call any handlers.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pi3d.events.events.InputEvents.do_input_events">
 <tt class="descname">do_input_events</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#InputEvents.do_input_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.InputEvents.do_input_events" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle all events that have been triggered since the last call.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pi3d.events.events.InputEvents.key_state">
-<tt class="descname">key_state</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#InputEvents.key_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.InputEvents.key_state" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the state of the given key.</p>
-<p>The returned value will be 0 for key-up, or 1 for key-down. This method
-returns a key-held(2) as 1 to aid in using the returned value as a
-movement distance.</p>
-<p>This function accepts either the key code or the string name of the key.
-It would be more efficient to look-up and store the code of
-the key with codeOf[ ], rather than using the string every time. (Which
-involves a dict look-up keyed with a string for every key_state call, every
-time around the loop.)</p>
-<p>Gamepad keys are:
-Select = BTN_BASE3, Start = BTN_BASE4
-L1 = BTN_TOP       R1 = BTN_BASE
-L2 = BTN_PINKIE    R2 = BTN_BASE2
-The action buttons are:</p>
-<blockquote>
-<div>BTN_THUMB</div></blockquote>
-<dl class="docutils">
-<dt>BTN_TRIGGER     BTN_TOP</dt>
-<dd>BTN_THUMB2</dd>
-</dl>
-<p>Analogue Left Button = BTN_BASE5
-Analogue Right Button = BTN_BASE6</p>
-<p>Some of those may clash with extended mouse buttons, so if you are using
-both at once, you&#8217;ll see some overlap.</p>
-<p>The direction pad is hat0 (see get_hat)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pi3d.events.events.InputEvents.clear_key">
-<tt class="descname">clear_key</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#InputEvents.clear_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.InputEvents.clear_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clears the state of the given key.</p>
-<p>Emulates a key-up, but does not call any handlers.</p>
+<dt id="pi3d.events.events.InputEvents.get_hat">
+<tt class="descname">get_hat</tt><big>(</big><em>index=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#InputEvents.get_hat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.InputEvents.get_hat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the x,y coordinates for a joystick hat or gamepad direction pad</p>
+<p>index is the device index and defaults to 0 &#8211; the first joystick device</p>
+<p>The values are returned as a tuple.  All values are -1.0 to +1.0 with
+0.0 being centred.</p>
 </dd></dl>
 
 <dl class="method">
@@ -473,16 +434,6 @@ both at once, you&#8217;ll see some overlap.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pi3d.events.events.InputEvents.get_joystickR">
-<tt class="descname">get_joystickR</tt><big>(</big><em>index=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#InputEvents.get_joystickR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.InputEvents.get_joystickR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the x,y coordinates for a right gamepad analogue stick.</p>
-<p>index is the device index and defaults to 0 &#8211; the first joystick device</p>
-<p>The values are returned as a tuple. For some odd reason, the gamepad
-returns values in the Z axes of both joysticks, with y being the first.</p>
-<p>All values are -1.0 to +1.0 with 0.0 being centred.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="pi3d.events.events.InputEvents.get_joystickB3d">
 <tt class="descname">get_joystickB3d</tt><big>(</big><em>index=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#InputEvents.get_joystickB3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.InputEvents.get_joystickB3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the x,y,z coordinates for a 2nd joystick control</p>
@@ -492,12 +443,13 @@ returns values in the Z axes of both joysticks, with y being the first.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pi3d.events.events.InputEvents.get_hat">
-<tt class="descname">get_hat</tt><big>(</big><em>index=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#InputEvents.get_hat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.InputEvents.get_hat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the x,y coordinates for a joystick hat or gamepad direction pad</p>
+<dt id="pi3d.events.events.InputEvents.get_joystickR">
+<tt class="descname">get_joystickR</tt><big>(</big><em>index=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#InputEvents.get_joystickR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.InputEvents.get_joystickR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the x,y coordinates for a right gamepad analogue stick.</p>
 <p>index is the device index and defaults to 0 &#8211; the first joystick device</p>
-<p>The values are returned as a tuple.  All values are -1.0 to +1.0 with
-0.0 being centred.</p>
+<p>The values are returned as a tuple. For some odd reason, the gamepad
+returns values in the Z axes of both joysticks, with y being the first.</p>
+<p>All values are -1.0 to +1.0 with 0.0 being centred.</p>
 </dd></dl>
 
 <dl class="method">
@@ -531,10 +483,58 @@ you will have to filter them yourself.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pi3d.events.events.InputEvents.key_state">
+<tt class="descname">key_state</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#InputEvents.key_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.InputEvents.key_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the state of the given key.</p>
+<p>The returned value will be 0 for key-up, or 1 for key-down. This method
+returns a key-held(2) as 1 to aid in using the returned value as a
+movement distance.</p>
+<p>This function accepts either the key code or the string name of the key.
+It would be more efficient to look-up and store the code of
+the key with codeOf[ ], rather than using the string every time. (Which
+involves a dict look-up keyed with a string for every key_state call, every
+time around the loop.)</p>
+<p>Gamepad keys are:
+Select = BTN_BASE3, Start = BTN_BASE4
+L1 = BTN_TOP       R1 = BTN_BASE
+L2 = BTN_PINKIE    R2 = BTN_BASE2
+The action buttons are:</p>
+<blockquote>
+<div>BTN_THUMB</div></blockquote>
+<dl class="docutils">
+<dt>BTN_TRIGGER     BTN_TOP</dt>
+<dd>BTN_THUMB2</dd>
+</dl>
+<p>Analogue Left Button = BTN_BASE5
+Analogue Right Button = BTN_BASE6</p>
+<p>Some of those may clash with extended mouse buttons, so if you are using
+both at once, you&#8217;ll see some overlap.</p>
+<p>The direction pad is hat0 (see get_hat)</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pi3d.events.events.InputEvents.release">
 <tt class="descname">release</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#InputEvents.release"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.InputEvents.release" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ungrabs all streams and closes all files.</p>
 <p>Only do this when you&#8217;re finished with this object. You can&#8217;t use it again.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.events.events.get_abs_info">
+<em class="property">class </em><tt class="descclassname">pi3d.events.events.</tt><tt class="descname">get_abs_info</tt><big>(</big><em>stream</em>, <em>axis</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#get_abs_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.get_abs_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>fetches and implements the EV_ABS axis scaling</p>
+<p>The constructor fetches the scaling values from the given stream for the
+given axis using an ioctl.</p>
+<p>There is a scale method, which scales a given value to the range -1..+1.</p>
+<p>Fetch the scale values for this stream and fill in the instance
+variables accordingly.</p>
+<dl class="method">
+<dt id="pi3d.events.events.get_abs_info.scale">
+<tt class="descname">scale</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/pi3d/events/events.html#get_abs_info.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.events.events.get_abs_info.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>scales the given value into the range -1..+1</p>
 </dd></dl>
 
 </dd></dl>

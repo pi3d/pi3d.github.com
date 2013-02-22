@@ -99,12 +99,43 @@ meeting at this vertex, otherwise just use first (for speed)</dd>
 <dl class="attribute">
 <dt id="pi3d.Buffer.Buffer.unib">
 <tt class="descname">unib</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Buffer.Buffer.unib" title="Permalink to this definition">¶</a></dt>
-<dd><p>in shader array of vec3 uniform variables:</p>
-<ul class="simple">
-<li>0  ntile, shiny, blend 0-2.</li>
-<li>1  material 3-5</li>
-<li>2  umult, vmult 6-8</li>
-</ul>
+<dd><p>pass to shader array of vec3 uniform variables:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="72%" />
+<col width="10%" />
+<col width="5%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">vec3</th>
+<th class="head">description</th>
+<th class="head" colspan="2">python</th>
+</tr>
+<tr class="row-even"><th class="head">index</th>
+<th class="head">&nbsp;</th>
+<th class="head">from</th>
+<th class="head">to</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>0</td>
+<td>ntile, shiny, blend</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>material</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>umult, vmult (only 2 used)</td>
+<td>6</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -377,7 +408,11 @@ doesn&#8217;t attempt to &#8220;catch up&#8221; but simply runs freely.</p>
 <dl class="method">
 <dt id="pi3d.Display.Display.set_background">
 <tt class="descname">set_background</tt><big>(</big><em>r</em>, <em>g</em>, <em>b</em>, <em>alpha</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#Display.set_background"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display.set_background" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the Display background.</p>
+<dd><p>Set the Display background. <strong>NB the actual drawing of the background
+happens during the rendering of the framebuffer by the shader so if no
+draw() is done by anything during each Display loop the screen will
+remain black</strong> If you want to see just the background you will have to
+draw() something out of view (i.e. behind) the Camera.</p>
 <dl class="docutils">
 <dt><em>r, g, b</em></dt>
 <dd>Color values for the display</dd>
@@ -424,11 +459,11 @@ the tkwindow parent, if any.</dd>
 <dt><em>h</em></dt>
 <dd>Height of the display.  If None, full the height of the screen.</dd>
 <dt><em>near</em></dt>
-<dd>?</dd>
+<dd>This will be used for the default instance of Camera <em>near</em> plane</dd>
 <dt><em>far</em></dt>
-<dd>?</dd>
+<dd>This will be used for the default instance of Camera <em>far</em> plane</dd>
 <dt><em>aspect</em></dt>
-<dd>?</dd>
+<dd>Not used in OpenGL ES 2.0, replaced by Camera lens definition</dd>
 <dt><em>depth</em></dt>
 <dd>The bit depth of the display - must be 8, 16 or 24.</dd>
 <dt><em>mouse</em></dt>
@@ -543,7 +578,7 @@ the dot product of two vectors.</p>
 <span id="shader-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Shader</span></tt> Module<a class="headerlink" href="#module-pi3d.Shader" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Shader.Shader">
-<em class="property">class </em><tt class="descclassname">pi3d.Shader.</tt><tt class="descname">Shader</tt><big>(</big><em>shfile</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shader.html#Shader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shader.Shader" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Shader.</tt><tt class="descname">Shader</tt><big>(</big><em>shfile=None</em>, <em>vshader_source=None</em>, <em>fshader_source=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shader.html#Shader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shader.Shader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>This compiles and holds the shaders to be used to render the Shape Buffers
 using their draw() methods. Generally you will choose and load the Shader
@@ -564,7 +599,7 @@ shade (rgb) has to be set for the object to be rendered</li>
 <p>Within these categories the shaders have been subdivided with a postfix to
 give full names like uv_flat, mat_bump etc:</p>
 <ul class="simple">
-<li>flat - no lighting is used, the shade rendered is the rgb value of the 
+<li>flat - no lighting is used, the shade rendered is the rgb value of the
 texture or material</li>
 <li>light - Light direction, shade and ambient shade are used give a 3D effect
 to the surface</li>
@@ -576,7 +611,7 @@ distance. The shader is passed a variable to use for tiling the normal
 map which may be different from the tiling of the general texture. If
 set to 0.0 then no normal mapping will occur.</li>
 <li>reflect - in addition to a normal map an image needs to be supplied to
-act as a reflection. The shader is passed a value from 0.0 to 1.0 to 
+act as a reflection. The shader is passed a value from 0.0 to 1.0 to
 determine the strength of the reflection.</li>
 </ul>
 <p>The reason for using a host of different shaders rather than one that can
@@ -586,7 +621,11 @@ time consuming.</p>
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>shfile</em></dt>
-<dd>path/name without vs or fs ending i.e. &#8220;shaders/uv_light&#8221;</dd>
+<dd>Pathname without vs or fs ending i.e. &#8220;shaders/uv_light&#8221;</dd>
+<dt><em>vshader_source</em></dt>
+<dd>String with the code for the vertex shader.</dd>
+<dt><em>vshader_source</em></dt>
+<dd>String with the code for the fragment shader.</dd>
 </dl>
 </dd>
 </dl>
@@ -644,29 +683,130 @@ time consuming.</p>
 <dl class="attribute">
 <dt id="pi3d.Shape.Shape.unif">
 <tt class="descname">unif</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.unif" title="Permalink to this definition">¶</a></dt>
-<dd><p>in shader array of vec3 uniform variables:</p>
-<ul class="simple">
-<li>0  location 0-2</li>
-<li>1  rotation 3-5</li>
-<li>2  scale 6-8</li>
-<li>3  offset 9-11</li>
-<li>4  fog shade 12-14</li>
-<li>5  fog distance and alph (only first two values used at moment) 15, 16</li>
-<li>6  camera position  18-20</li>
-<li>7  animation offets x, y, delta 21-23</li>
-<li>8  light0 position, direction vector 24-26</li>
-<li>9  light0 strength per shade 27-29</li>
-<li>10 light0 ambient values 30-32</li>
-<li>11 light1 position, direction vector 33-35</li>
-<li>12 light1 strength per shade 36-38</li>
-<li>13 light1 ambient values 39-41</li>
-<li>14 defocus dist, amount 42,43</li>
-<li>15 defocus frame width, height 45,46</li>
-<li>16 custom data space 48-50</li>
-<li>17 custom data space 51-52</li>
-<li>18 custom data space 54-56</li>
-<li>19 custom data space 57-59</li>
-</ul>
+<dd><p>pass to shader array of vec3 uniform variables:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="79%" />
+<col width="8%" />
+<col width="4%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">vec3</th>
+<th class="head">description</th>
+<th class="head" colspan="2">python</th>
+</tr>
+<tr class="row-even"><th class="head">index</th>
+<th class="head">&nbsp;</th>
+<th class="head">from</th>
+<th class="head">to</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>0</td>
+<td>location</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>rotation</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>scale</td>
+<td>6</td>
+<td>8</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>offset</td>
+<td>9</td>
+<td>11</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>fog shade</td>
+<td>12</td>
+<td>14</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>fog distance and alph (only 2 used)</td>
+<td>15</td>
+<td>16</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>camera position</td>
+<td>18</td>
+<td>20</td>
+</tr>
+<tr class="row-even"><td>7</td>
+<td>unused: custom data space</td>
+<td>21</td>
+<td>23</td>
+</tr>
+<tr class="row-odd"><td>8</td>
+<td>light0 position, direction vector</td>
+<td>24</td>
+<td>26</td>
+</tr>
+<tr class="row-even"><td>9</td>
+<td>light0 strength per shade</td>
+<td>27</td>
+<td>29</td>
+</tr>
+<tr class="row-odd"><td>10</td>
+<td>light0 ambient values</td>
+<td>30</td>
+<td>32</td>
+</tr>
+<tr class="row-even"><td>11</td>
+<td>light1 position, direction vector</td>
+<td>33</td>
+<td>35</td>
+</tr>
+<tr class="row-odd"><td>12</td>
+<td>light1 strength per shade</td>
+<td>36</td>
+<td>38</td>
+</tr>
+<tr class="row-even"><td>13</td>
+<td>light1 ambient values</td>
+<td>39</td>
+<td>41</td>
+</tr>
+<tr class="row-odd"><td>14</td>
+<td>defocus dist, amount (only 2 used)</td>
+<td>42</td>
+<td>43</td>
+</tr>
+<tr class="row-even"><td>15</td>
+<td>defocus frame width, height (only 2 used)</td>
+<td>45</td>
+<td>46</td>
+</tr>
+<tr class="row-odd"><td>16</td>
+<td>custom data space</td>
+<td>48</td>
+<td>50</td>
+</tr>
+<tr class="row-even"><td>17</td>
+<td>custom data space</td>
+<td>51</td>
+<td>53</td>
+</tr>
+<tr class="row-odd"><td>18</td>
+<td>custom data space</td>
+<td>54</td>
+<td>56</td>
+</tr>
+<tr class="row-even"><td>19</td>
+<td>custom data space</td>
+<td>57</td>
+<td>59</td>
+</tr>
+</tbody>
+</table>
+<p>Shape holds matrices that are updated each time it is moved or rotated
+this saves time recalculating them each frame as the Shape is drawn</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -718,8 +858,8 @@ inheriting from this filling buf with at least one element.</p>
 <tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>If called without parameters, there has to have been a previous call to
 set_draw_details() for each Buffer in buf[].
-NB there is no facility for setting umult and vmult with draw they must be
-set using set_draw_details or Buffer.set_draw_details</p>
+NB there is no facility for setting umult and vmult with draw: they must be
+set using set_draw_details or Buffer.set_draw_details.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1117,17 +1257,17 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 </dd></dl>
 
 <dl class="class">
-<dt id="pi3d.Texture.Cache">
-<em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">Cache</tt><a class="reference internal" href="_modules/pi3d/Texture.html#Cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Cache" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.Texture.TextureCache">
+<em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">TextureCache</tt><big>(</big><em>max_size=None</em><big>)</big><a class="headerlink" href="#pi3d.Texture.TextureCache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <dl class="method">
-<dt id="pi3d.Texture.Cache.clear">
-<tt class="descname">clear</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Cache.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Cache.clear" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.Texture.TextureCache.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#pi3d.Texture.TextureCache.clear" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pi3d.Texture.Cache.create">
-<tt class="descname">create</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Cache.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Cache.create" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.Texture.TextureCache.create">
+<tt class="descname">create</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#pi3d.Texture.TextureCache.create" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
