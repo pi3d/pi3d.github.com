@@ -62,22 +62,22 @@
 <span class="n">CHECK_IF_DISPLAY_THREAD</span> <span class="o">=</span> <span class="bp">True</span>
 <span class="n">DISPLAY_THREAD</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">_is_display_thread</span><span class="p">():</span>
+<div class="viewcode-block" id="is_display_thread"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Loadable.is_display_thread">[docs]</a><span class="k">def</span> <span class="nf">is_display_thread</span><span class="p">():</span>
   <span class="k">return</span> <span class="ow">not</span> <span class="n">CHECK_IF_DISPLAY_THREAD</span> <span class="ow">or</span> <span class="p">(</span>
     <span class="n">DISPLAY_THREAD</span> <span class="ow">is</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">())</span>
-
+</div>
 <div class="viewcode-block" id="Loadable"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Loadable.Loadable">[docs]</a><span class="k">class</span> <span class="nc">Loadable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">disk_loaded</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span> <span class="o">=</span> <span class="bp">False</span>
 
   <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">unload_opengl</span><span class="p">(</span><span class="bp">False</span><span class="p">):</span>
-      <span class="k">try</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">unload_opengl</span><span class="p">(</span><span class="bp">False</span><span class="p">):</span>  <span class="c"># Why does this sometimes fail?</span>
         <span class="n">Display</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">unload_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-      <span class="k">except</span><span class="p">:</span>
-        <span class="c"># Many legit reasons why this might fail, particularly during shutdown.</span>
-        <span class="k">pass</span>
+    <span class="k">except</span><span class="p">:</span>
+      <span class="c"># Many legit reasons why this might fail, particularly during shutdown.</span>
+      <span class="k">pass</span>
 
 <div class="viewcode-block" id="Loadable.load_disk"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Loadable.Loadable.load_disk">[docs]</a>  <span class="k">def</span> <span class="nf">load_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">disk_loaded</span><span class="p">:</span>
@@ -87,7 +87,7 @@
 <div class="viewcode-block" id="Loadable.load_opengl"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Loadable.Loadable.load_opengl">[docs]</a>  <span class="k">def</span> <span class="nf">load_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">load_disk</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">_is_display_thread</span><span class="p">():</span>
+      <span class="k">if</span> <span class="n">is_display_thread</span><span class="p">():</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_opengl</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span> <span class="o">=</span> <span class="bp">True</span>
       <span class="k">else</span><span class="p">:</span>
@@ -99,7 +99,7 @@
 
     <span class="k">else</span><span class="p">:</span>
       <span class="k">try</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">_is_display_thread</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">is_display_thread</span><span class="p">():</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">_unload_opengl</span><span class="p">()</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span> <span class="o">=</span> <span class="bp">False</span>
           <span class="k">return</span> <span class="bp">True</span>

@@ -66,13 +66,12 @@
 
 <span class="n">ALLOW_MULTIPLE_DISPLAYS</span> <span class="o">=</span> <span class="bp">False</span>
 <span class="n">RAISE_EXCEPTIONS</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">MARK_CAMERA_CLEAN_ON_EACH_LOOP</span> <span class="o">=</span> <span class="bp">True</span>
 
-<span class="n">DEFAULT_ASPECT</span> <span class="o">=</span> <span class="mf">60.0</span>
+<span class="n">DEFAULT_FOV</span> <span class="o">=</span> <span class="mf">45.0</span>
 <span class="n">DEFAULT_DEPTH</span> <span class="o">=</span> <span class="mi">24</span>
-<span class="n">DEFAULT_NEAR_3D</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">DEFAULT_FAR_3D</span> <span class="o">=</span> <span class="mf">800.0</span>
-<span class="n">DEFAULT_NEAR_2D</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-<span class="n">DEFAULT_FAR_2D</span> <span class="o">=</span> <span class="mf">500.0</span>
+<span class="n">DEFAULT_NEAR</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">DEFAULT_FAR</span> <span class="o">=</span> <span class="mf">1000.0</span>
 <span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -110,7 +109,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
 
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">STARTUP_MESSAGE</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">STARTUP_MESSAGE</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Display.loop_running"><a class="viewcode-back" href="../../pi3d.html#pi3d.Display.Display.loop_running">[docs]</a>  <span class="k">def</span> <span class="nf">loop_running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;*loop_running* is the main event loop for the Display.</span>
@@ -223,7 +222,11 @@
     <span class="n">opengles</span><span class="o">.</span><span class="n">glClear</span><span class="p">(</span><span class="n">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_DEPTH_BUFFER_BIT</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Display.set_background"><a class="viewcode-back" href="../../pi3d.html#pi3d.Display.Display.set_background">[docs]</a>  <span class="k">def</span> <span class="nf">set_background</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Set the Display background.</span>
+    <span class="sd">&quot;&quot;&quot;Set the Display background. **NB the actual drawing of the background</span>
+<span class="sd">    happens during the rendering of the framebuffer by the shader so if no</span>
+<span class="sd">    draw() is done by anything during each Display loop the screen will</span>
+<span class="sd">    remain black** If you want to see just the background you will have to</span>
+<span class="sd">    draw() something out of view (i.e. behind) the Camera.</span>
 
 <span class="sd">    *r, g, b*</span>
 <span class="sd">      Color values for the display</span>
@@ -254,11 +257,17 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">to_load</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_for_each_sprite</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">(),</span> <span class="n">to_load</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">MARK_CAMERA_CLEAN_ON_EACH_LOOP</span><span class="p">:</span>
+      <span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="kn">import</span> <span class="n">Camera</span>
+      <span class="n">camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">camera</span><span class="p">:</span>
+        <span class="n">camera</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">False</span>
+
   <span class="k">def</span> <span class="nf">_loop_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">sprites_to_unload</span><span class="p">,</span> <span class="n">to_unload</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">sprites_to_unload</span>
       <span class="k">if</span> <span class="n">to_unload</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">to_unload</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">to_unload</span><span class="p">]</span>
 
     <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_for_each_sprite</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">repaint</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
@@ -292,21 +301,13 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">swap_buffers</span><span class="p">()</span>
 
 </div></div>
-<div class="viewcode-block" id="create"><a class="viewcode-back" href="../../pi3d.html#pi3d.Display.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">near</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">far</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-           <span class="n">aspect</span><span class="o">=</span><span class="n">DEFAULT_ASPECT</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">DEFAULT_DEPTH</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+<div class="viewcode-block" id="create"><a class="viewcode-back" href="../../pi3d.html#pi3d.Display.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">near</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">far</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+           <span class="n">fov</span><span class="o">=</span><span class="n">DEFAULT_FOV</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">DEFAULT_DEPTH</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
            <span class="n">tk</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">window_title</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">window_parent</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mouse</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
            <span class="n">frames_per_second</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Creates a pi3d Display.</span>
 
-<span class="sd">  *is_3d*</span>
-<span class="sd">    Are we creating a 2- or 3-d display?</span>
-<span class="sd">  *tk*</span>
-<span class="sd">    Do we use the tk windowing system?</span>
-<span class="sd">  *window_parent*</span>
-<span class="sd">    An optional tk parent window.</span>
-<span class="sd">  *window_title*</span>
-<span class="sd">    A window title for tk windows only.</span>
 <span class="sd">  *x*</span>
 <span class="sd">    Left x coordinate of the display.  If None, defaults to the x coordinate of</span>
 <span class="sd">    the tkwindow parent, if any.</span>
@@ -318,13 +319,21 @@
 <span class="sd">  *h*</span>
 <span class="sd">    Height of the display.  If None, full the height of the screen.</span>
 <span class="sd">  *near*</span>
-<span class="sd">    ?</span>
+<span class="sd">    This will be used for the default instance of Camera *near* plane</span>
 <span class="sd">  *far*</span>
-<span class="sd">    ?</span>
-<span class="sd">  *aspect*</span>
-<span class="sd">    ?</span>
+<span class="sd">    This will be used for the default instance of Camera *far* plane</span>
+<span class="sd">  *fov*</span>
+<span class="sd">    Used to define the Camera lens field of view</span>
 <span class="sd">  *depth*</span>
 <span class="sd">    The bit depth of the display - must be 8, 16 or 24.</span>
+<span class="sd">  *background*</span>
+<span class="sd">    r,g,b,alpha (opacity)</span>
+<span class="sd">  *tk*</span>
+<span class="sd">    Do we use the tk windowing system?</span>
+<span class="sd">  *window_title*</span>
+<span class="sd">    A window title for tk windows only.</span>
+<span class="sd">  *window_parent*</span>
+<span class="sd">    An optional tk parent window.</span>
 <span class="sd">  *mouse*</span>
 <span class="sd">    Automatically create a Mouse.</span>
 <span class="sd">  *frames_per_second*</span>
@@ -334,9 +343,11 @@
     <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">TkWin</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">w</span> <span class="ow">and</span> <span class="n">h</span><span class="p">):</span>
       <span class="c"># TODO: how do we do full-screen in tk?</span>
-      <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Can&#39;t compute default window size when using tk&quot;</span><span class="p">)</span>
-      <span class="k">raise</span> <span class="ne">Exception</span>
-
+      <span class="c">#LOGGER.error(&quot;Can&#39;t compute default window size when using tk&quot;)</span>
+      <span class="c">#raise Exception</span>
+      <span class="c"># ... just force full screen - TK will automatically fit itself into the screen</span>
+      <span class="n">w</span><span class="o">=</span><span class="mi">1920</span>
+      <span class="n">h</span><span class="o">=</span><span class="mi">1180</span>
     <span class="n">tkwin</span> <span class="o">=</span> <span class="n">TkWin</span><span class="o">.</span><span class="n">TkWin</span><span class="p">(</span><span class="n">window_parent</span><span class="p">,</span> <span class="n">window_title</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
     <span class="n">tkwin</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
@@ -359,25 +370,26 @@
      <span class="k">if</span> <span class="n">h</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
        <span class="n">h</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">max_height</span>
   <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Display size is w=</span><span class="si">%d</span><span class="s">, h=</span><span class="si">%d</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
-  
+
   <span class="n">display</span><span class="o">.</span><span class="n">frames_per_second</span> <span class="o">=</span> <span class="n">frames_per_second</span>
 
   <span class="k">if</span> <span class="n">near</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-    <span class="n">near</span> <span class="o">=</span> <span class="n">DEFAULT_NEAR_3D</span> <span class="k">if</span> <span class="n">is_3d</span> <span class="k">else</span> <span class="n">DEFAULT_NEAR_2D</span>
+    <span class="n">near</span> <span class="o">=</span> <span class="n">DEFAULT_NEAR</span>
   <span class="k">if</span> <span class="n">far</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-    <span class="n">far</span> <span class="o">=</span> <span class="n">DEFAULT_FAR_3D</span> <span class="k">if</span> <span class="n">is_3d</span> <span class="k">else</span> <span class="n">DEFAULT_FAR_2D</span>
+    <span class="n">far</span> <span class="o">=</span> <span class="n">DEFAULT_FAR</span>
 
   <span class="n">display</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">w</span>
   <span class="n">display</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">h</span>
   <span class="n">display</span><span class="o">.</span><span class="n">near</span> <span class="o">=</span> <span class="n">near</span>
   <span class="n">display</span><span class="o">.</span><span class="n">far</span> <span class="o">=</span> <span class="n">far</span>
+  <span class="n">display</span><span class="o">.</span><span class="n">fov</span> <span class="o">=</span> <span class="n">fov</span>
 
   <span class="n">display</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">x</span>
   <span class="n">display</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">y</span>
   <span class="n">display</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span>
   <span class="n">display</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span>
 
-  <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">create_display</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+  <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">create_display</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
   <span class="n">display</span><span class="o">.</span><span class="n">mouse</span> <span class="o">=</span> <span class="bp">None</span>
 
   <span class="k">if</span> <span class="n">mouse</span><span class="p">:</span>
@@ -385,20 +397,22 @@
     <span class="n">display</span><span class="o">.</span><span class="n">mouse</span> <span class="o">=</span> <span class="n">Mouse</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">h</span><span class="p">)</span>
     <span class="n">display</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-  <span class="n">opengles</span><span class="o">.</span><span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_PROJECTION</span><span class="p">)</span>
-  <span class="n">Utility</span><span class="o">.</span><span class="n">load_identity</span><span class="p">()</span>
-  <span class="k">if</span> <span class="n">is_3d</span><span class="p">:</span>
-    <span class="n">hht</span> <span class="o">=</span> <span class="n">near</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">aspect</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">))</span>
-    <span class="n">hwd</span> <span class="o">=</span> <span class="n">hht</span> <span class="o">*</span> <span class="n">w</span> <span class="o">/</span> <span class="n">h</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glFrustumf</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="o">-</span><span class="n">hwd</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">hwd</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="o">-</span><span class="n">hht</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">hht</span><span class="p">),</span>
-                        <span class="n">c_float</span><span class="p">(</span><span class="n">near</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">far</span><span class="p">))</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glHint</span><span class="p">(</span><span class="n">GL_PERSPECTIVE_CORRECTION_HINT</span><span class="p">,</span> <span class="n">GL_NICEST</span><span class="p">)</span>
-  <span class="k">else</span><span class="p">:</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glOrthof</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">w</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">h</span><span class="p">),</span>
-                      <span class="n">c_float</span><span class="p">(</span><span class="n">near</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">far</span><span class="p">))</span>
-
+  <span class="c"># This code now replaced by camera &#39;lens&#39;</span>
+  <span class="sd">&quot;&quot;&quot;opengles.glMatrixMode(GL_PROJECTION)</span>
+<span class="sd">  Utility.load_identity()</span>
+<span class="sd">  if is_3d:</span>
+<span class="sd">    hht = near * math.tan(math.radians(aspect / 2.0))</span>
+<span class="sd">    hwd = hht * w / h</span>
+<span class="sd">    opengles.glFrustumf(c_float(-hwd), c_float(hwd), c_float(-hht), c_float(hht),</span>
+<span class="sd">                        c_float(near), c_float(far))</span>
+<span class="sd">    opengles.glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST)</span>
+<span class="sd">  else:</span>
+<span class="sd">    opengles.glOrthof(c_float(0), c_float(w), c_float(0), c_float(h),</span>
+<span class="sd">                      c_float(near), c_float(far))</span>
+<span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">opengles</span><span class="o">.</span><span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_MODELVIEW</span><span class="p">)</span>
   <span class="n">Utility</span><span class="o">.</span><span class="n">load_identity</span><span class="p">()</span>
+
 
   <span class="k">if</span> <span class="n">background</span><span class="p">:</span>
     <span class="n">display</span><span class="o">.</span><span class="n">set_background</span><span class="p">(</span><span class="o">*</span><span class="n">background</span><span class="p">)</span>

@@ -13,6 +13,14 @@ hold the vertex information for drawing each of them.
     :undoc-members:
     :show-inheritance:
 
+:mod:`Canvas` Module
+--------------------
+
+.. automodule:: pi3d.shape.Canvas
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`Cone` Module
 ------------------
 

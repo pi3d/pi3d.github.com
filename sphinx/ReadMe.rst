@@ -44,26 +44,23 @@ Demo's included with Pi3D
     rotations
       .. image:: images/earth_sml.png
 
-#.  **Raspberry_Rain.py** Raining Raspberries,  full-screen, over the
-    desktop
-      .. image:: images/raspberryrain_sml.png
-         :align: right
-
 #.  **Clouds3D.py** Blended sprites in
     perspective view
       .. image:: images/clouds3d_sml.png
-
-#.  **CollisionBalls.py** More bouncing balls across the screen -
-    this time  bouncing off each other on the desktop
-
-#.  **EnvironmentCube.py** New environment cubes to try out in texture/ecubes -
-    some high quality ones!
-      .. image:: images/envcube_sml.png
          :align: right
+
+#.  **Raspberry_Rain.py** Raining Raspberries,  full-screen, over the
+    desktop
+      .. image:: images/raspberryrain_sml.png
 
 #.  **RobotWalkabout.py** Another off-planet example of a basic avatar robot
     drifting about
       .. image:: images/walkabout_sml.png
+         :align: right
+
+#.  **EnvironmentCube.py** New environment cubes to try out in texture/ecubes -
+    some high quality ones!
+      .. image:: images/envcube_sml.png
 
 #.  **Shapes.py** Demos available shapes and text
     in a 3D context
@@ -75,14 +72,14 @@ Demo's included with Pi3D
     interface
       .. image:: images/marsstation_sml.png
 
-#.  **TigerTank.py** Ever played World Of Tanks (WOT)? This tank emulates
-    how a WOT tank works. Uses realistic modelling in a TKwindow
-      .. image:: images/tigertank_sml.png
-         :align: right
-
 #.  **Amazing.py** Can you find yourself around the
     amazing maze?
       .. image:: images/amazing_sml.png
+         :align: right
+
+#.  **TigerTank.py** Ever played World Of Tanks (WOT)? This tank emulates
+    how a WOT tank works. Uses realistic modelling in a TKwindow
+      .. image:: images/tigertank_sml.png
 
 #.  **Pong.py**  A snazzy 3D version of landscape pinball and pong
     against a Raspberry!
@@ -102,31 +99,36 @@ Demo's included with Pi3D
     set in the desert.
       .. image:: images/silo_sml.png
 
-#.  **ClashWalk.py** The graphics processor calculates where the camera can
-    or cannot go depending on what is drawn in front of it. Potentially useful
-    for first person navigation
-
 #.  **Water.py** A series of wave normal maps are used to animate a surface
     and produce a realistic moving reflection.
       .. image:: images/water_sml.png
         :align: right
      
+#.  **ClashWalk.py** The graphics processor calculates where the camera can
+    or cannot go depending on what is drawn in front of it. Potentially useful
+    for first person navigation
+
+#.  **CollisionBalls.py** More bouncing balls across the screen -
+    this time  bouncing off each other on the desktop
+
 
 Files and folders in this repository
 ====================================
 
-#.  **pi3d** The main pi3d module files
-#.  **shaders** Shader files used by the pi3d module
-#.  **textures** Various textures to play with
-#.  **models** Demo obj and egg models
-#.  **fonts** ttf and Bitmap fonts that can be using for drawing text see in
-    /usr/share/fonts/truetype for others, or look online.
-#.  **demos** Source code of the demos included
-#.  **screenshots** Example screenshots of the demos included
-#.  **documentation** Where this documentation lives
-#.  **ChangeLog.txt** Latest changes of Pi3D
-#.  **ReadMe.md** Simplified markdown summary of this file
+Total zipped download from github c. 24 MB
 
+#.  **pi3d** The main pi3d module files 540 kB
+#.  **shaders** Shader files used by the pi3d module 33 kB
+#.  **echomesh** Utility functions 14kB
+#.  **textures** Various textures to play with 13 MB
+#.  **models** Demo obj and egg models 26 MB
+#.  **fonts** ttf and Bitmap fonts that can be using for drawing text see in
+    /usr/share/fonts/truetype for others, or look online. 1.0 MB
+#.  **demos** Source code of the demos included 96 kB
+#.  **screenshots** Example screenshots of the demos included 860 kB
+#.  **documentation** Where this documentation lives 5.7 MB
+#.  **ChangeLog.txt** Latest changes of Pi3D
+#.  **ReadMe.rst** This file
 
 
 Setup on the Raspberry Pi
@@ -136,8 +138,9 @@ Setup on the Raspberry Pi
 
     Although most demos work on 64MB of memory, you are strongly advised to have
     a 128MB of graphics memory split, especially for full-screen 3D graphics.
-    In the latest Raspbian build you need to edit the config.txt file (in the
-    boot directory) and set the variable 'gpu_mem=128' for 128MB of graphics memory.
+    In the latest Raspbian build you need to either run ``sudo raspi-config``
+    or edit the config.txt file (in the boot directory) and set the variable
+    ``gpu_mem=128`` for 128MB of graphics memory.
 
 
 #.  **Install Python Imaging**
@@ -245,7 +248,7 @@ be found in the documentation of each of the modules.
   
     import pi3d
 
-  Is an alternative to importing just what you need::
+  Is an alternative to importing just what you need i.e.::
   
     from pi3d.constants import *
     from pi3d import Display
@@ -258,10 +261,12 @@ be found in the documentation of each of the modules.
     from pi3d.shape.Sphere import Sphere
     from pi3d.shape.Sprite import Sprite
 
-  If you import the whole lot using 'import pi3d' then you need to prefix classes
-  and functions with "pi3d." And you are loading a large number of variable names
+  If you import the whole lot using ``import pi3d`` then you need to prefix classes
+  and functions with ``pi3d.`` And you are loading a large number of variable names
   which might cause a conflict, isn't as explicit and is less tidy (in the non-
-  superficial sense)!
+  superficial sense)! A third way to import the modules would be to use
+  ``from pi3d import *`` this saves having to use the ``pi3d.`` prefix but
+  is **much harder to debug** if there is a name conflict.
   
 .. _Display: pi3d.html#pi3d.Display.Display
 .. _Shape: pi3d.html#pi3d.Shape.Shape

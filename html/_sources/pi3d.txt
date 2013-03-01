@@ -87,9 +87,8 @@ Subpackages
 .. toctree::
 
     pi3d.constants
-    pi3d.events
+    pi3d.event
     pi3d.loader
     pi3d.shape
     pi3d.sprite
     pi3d.util
-

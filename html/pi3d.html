@@ -64,7 +64,7 @@
 <dl class="class">
 <dt id="pi3d.Buffer.Buffer">
 <em class="property">class </em><tt class="descclassname">pi3d.Buffer.</tt><tt class="descname">Buffer</tt><big>(</big><em>shape</em>, <em>pts</em>, <em>texcoords</em>, <em>faces</em>, <em>normals=None</em>, <em>smooth=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Loadable.Loadable</span></tt></a></p>
 <p>Holds the vertex, normals, incices and tex_coords for each part of
 a Shape that needs to be rendered with a different material or texture
 Shape holds an array of Buffer objects.</p>
@@ -92,7 +92,7 @@ i.e. [(a0,b0,c0), (a1,b1,c1),...]</dd>
 vertex i.e. [(x0,y0,z0), (x1,y1,z1),...]</dd>
 <dt><em>smooth</em></dt>
 <dd>if calculating normals then average normals for all faces
-meeting at this vertex, otherwise just use first (for speed)</dd>
+meeting at this vertex, otherwise just use first (for speed).</dd>
 </dl>
 </dd>
 </dl>
@@ -136,12 +136,6 @@ meeting at this vertex, otherwise just use first (for speed)</dd>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pi3d.Buffer.Buffer.select">
-<tt class="descname">select</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.select" title="Permalink to this definition">¶</a></dt>
-<dd><p>Makes our buffers active.</p>
 </dd></dl>
 
 <dl class="method">
@@ -220,8 +214,8 @@ created if none specified in script prior to creating a Shape</p>
 <dt><em>eye</em></dt>
 <dd>tuple (x,y,z) location to look from</dd>
 <dt><em>lens</em></dt>
-<dd>tuple (near plane distance, far plane value, field of view width,
-field of view height) fields of view in radians</dd>
+<dd>tuple (near plane dist, far plane dist, field of view width in degrees,
+display aspect ratio w/h)</dd>
 </dl>
 </dd>
 </dl>
@@ -437,17 +431,9 @@ an alpha of 1 means full opaque.</dd>
 
 <dl class="function">
 <dt id="pi3d.Display.create">
-<tt class="descclassname">pi3d.Display.</tt><tt class="descname">create</tt><big>(</big><em>is_3d=True</em>, <em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>aspect=60.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pi3d.Display.</tt><tt class="descname">create</tt><big>(</big><em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>fov=45.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a pi3d Display.</p>
 <dl class="docutils">
-<dt><em>is_3d</em></dt>
-<dd>Are we creating a 2- or 3-d display?</dd>
-<dt><em>tk</em></dt>
-<dd>Do we use the tk windowing system?</dd>
-<dt><em>window_parent</em></dt>
-<dd>An optional tk parent window.</dd>
-<dt><em>window_title</em></dt>
-<dd>A window title for tk windows only.</dd>
 <dt><em>x</em></dt>
 <dd>Left x coordinate of the display.  If None, defaults to the x coordinate of
 the tkwindow parent, if any.</dd>
@@ -462,10 +448,18 @@ the tkwindow parent, if any.</dd>
 <dd>This will be used for the default instance of Camera <em>near</em> plane</dd>
 <dt><em>far</em></dt>
 <dd>This will be used for the default instance of Camera <em>far</em> plane</dd>
-<dt><em>aspect</em></dt>
-<dd>Not used in OpenGL ES 2.0, replaced by Camera lens definition</dd>
+<dt><em>fov</em></dt>
+<dd>Used to define the Camera lens field of view</dd>
 <dt><em>depth</em></dt>
 <dd>The bit depth of the display - must be 8, 16 or 24.</dd>
+<dt><em>background</em></dt>
+<dd>r,g,b,alpha (opacity)</dd>
+<dt><em>tk</em></dt>
+<dd>Do we use the tk windowing system?</dd>
+<dt><em>window_title</em></dt>
+<dd>A window title for tk windows only.</dd>
+<dt><em>window_parent</em></dt>
+<dd>An optional tk parent window.</dd>
 <dt><em>mouse</em></dt>
 <dd>Automatically create a Mouse.</dd>
 <dt><em>frames_per_second</em></dt>
@@ -525,7 +519,7 @@ terminal window or session.</p>
 <span id="light-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Light</span></tt> Module<a class="headerlink" href="#module-pi3d.Light" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Light.Light">
-<em class="property">class </em><tt class="descclassname">pi3d.Light.</tt><tt class="descname">Light</tt><big>(</big><em>lightpos=(10</em>, <em>-10</em>, <em>20)</em>, <em>lightcol=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>lightamb=(0.10000000000000001</em>, <em>0.10000000000000001</em>, <em>0.20000000000000001)</em><big>)</big><a class="reference internal" href="_modules/pi3d/Light.html#Light"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Light.</tt><tt class="descname">Light</tt><big>(</big><em>lightpos=(10</em>, <em>-10</em>, <em>20)</em>, <em>lightcol=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>lightamb=(0.1</em>, <em>0.1</em>, <em>0.2)</em><big>)</big><a class="reference internal" href="_modules/pi3d/Light.html#Light"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">echomesh.util.DefaultInstance.DefaultInstance</span></tt></p>
 <p>Holds information about lighting to be used in shaders</p>
 <p>set light values. These are set in Shape.unif as part of the Shape
@@ -1258,16 +1252,16 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 
 <dl class="class">
 <dt id="pi3d.Texture.TextureCache">
-<em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">TextureCache</tt><big>(</big><em>max_size=None</em><big>)</big><a class="headerlink" href="#pi3d.Texture.TextureCache" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">TextureCache</tt><big>(</big><em>max_size=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#TextureCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.TextureCache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <dl class="method">
 <dt id="pi3d.Texture.TextureCache.clear">
-<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#pi3d.Texture.TextureCache.clear" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#TextureCache.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.TextureCache.clear" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pi3d.Texture.TextureCache.create">
-<tt class="descname">create</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#pi3d.Texture.TextureCache.create" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">create</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>**kwds</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#TextureCache.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.TextureCache.create" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1286,10 +1280,17 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#module-pi3d.constants.glext"><tt class="docutils literal"><span class="pre">glext</span></tt> Module</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pi3d.events.html">events Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.events.html#module-pi3d.events.event_consts"><tt class="docutils literal"><span class="pre">event_consts</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.events.html#module-pi3d.events.events"><tt class="docutils literal"><span class="pre">events</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.events.html#module-pi3d.events.ioctl"><tt class="docutils literal"><span class="pre">ioctl</span></tt> Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pi3d.event.html">events Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.AbsAxisScaling"><tt class="docutils literal"><span class="pre">AbsAxisScaling</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Constants"><tt class="docutils literal"><span class="pre">Constants</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Event"><tt class="docutils literal"><span class="pre">Event</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.EventHandler"><tt class="docutils literal"><span class="pre">EventHandler</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.EventStream"><tt class="docutils literal"><span class="pre">EventStream</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.EventStruct"><tt class="docutils literal"><span class="pre">EventStruct</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.FindDevices"><tt class="docutils literal"><span class="pre">FindDevices</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Format"><tt class="docutils literal"><span class="pre">Format</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.ioctl"><tt class="docutils literal"><span class="pre">ioctl</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Keys"><tt class="docutils literal"><span class="pre">Keys</span></tt> Module</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pi3d.loader.html">loader Package</a><ul>
@@ -1301,6 +1302,7 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pi3d.shape.html">shape Package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Building"><tt class="docutils literal"><span class="pre">Building</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Canvas"><tt class="docutils literal"><span class="pre">Canvas</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Cone"><tt class="docutils literal"><span class="pre">Cone</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Cuboid"><tt class="docutils literal"><span class="pre">Cuboid</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Cylinder"><tt class="docutils literal"><span class="pre">Cylinder</span></tt> Module</a></li>

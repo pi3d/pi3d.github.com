@@ -73,8 +73,8 @@
 <span class="sd">      *eye*</span>
 <span class="sd">        tuple (x,y,z) location to look from</span>
 <span class="sd">      *lens*</span>
-<span class="sd">        tuple (near plane distance, far plane value, field of view width,</span>
-<span class="sd">        field of view height) fields of view in radians</span>
+<span class="sd">        tuple (near plane dist, far plane dist, field of view width in degrees,</span>
+<span class="sd">        display aspect ratio w/h)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Camera</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
@@ -95,10 +95,10 @@
   <span class="nd">@staticmethod</span>
   <span class="k">def</span> <span class="nf">_default_instance</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
-    <span class="k">return</span> <span class="n">Camera</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
-                  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span>
-                   <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span>
-                   <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">Camera</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">near</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">far</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">fov</span><span class="p">,</span> 
+                  <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span><span class="p">)))</span>
 
 <div class="viewcode-block" id="Camera.reset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.reset">[docs]</a>  <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lens</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Has to be called each loop if the camera position or rotation changes&quot;&quot;&quot;</span>
@@ -212,8 +212,8 @@
   <span class="c"># If reflect, then reflect in plane -20.0 (water depth)</span>
   <span class="k">if</span> <span class="n">reflect</span><span class="p">:</span>
     <span class="n">depth</span> <span class="o">=</span> <span class="o">-</span><span class="mf">20.0</span> <span class="c"># Shallower to avoid edge effects</span>
-    <span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">depth</span> <span class="o">-</span> <span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="n">at</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">depth</span> <span class="o">-</span> <span class="n">at</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">eye</span> <span class="o">=</span> <span class="p">[</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+    <span class="n">at</span> <span class="o">=</span> <span class="p">[</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="n">at</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">at</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
   <span class="n">zaxis</span> <span class="o">=</span> <span class="n">vec_normal</span><span class="p">(</span><span class="n">vec_sub</span><span class="p">(</span><span class="n">at</span><span class="p">,</span> <span class="n">eye</span><span class="p">))</span>
   <span class="n">xaxis</span> <span class="o">=</span> <span class="n">vec_normal</span><span class="p">(</span><span class="n">vec_cross</span><span class="p">(</span><span class="n">up</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">))</span>
   <span class="n">yaxis</span> <span class="o">=</span> <span class="n">vec_cross</span><span class="p">(</span><span class="n">zaxis</span><span class="p">,</span> <span class="n">xaxis</span><span class="p">)</span>
@@ -224,7 +224,7 @@
   <span class="k">return</span> <span class="n">array</span><span class="p">([[</span><span class="n">xaxis</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">yaxis</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">zaxis</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">a</span><span class="p">]]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span>
                <span class="n">dtype</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">_ProjectionMatrix</span><span class="p">(</span><span class="n">near</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">far</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">fov_w</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">fov_h</span><span class="o">=</span><span class="mf">1.2</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_ProjectionMatrix</span><span class="p">(</span><span class="n">near</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">far</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">fov</span><span class="o">=</span><span class="mf">45.0</span><span class="p">,</span> <span class="n">aspectRatio</span><span class="o">=</span><span class="mf">1.6</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Set up projection matrix</span>
 <span class="sd">  </span>
 <span class="sd">  Keyword arguments:</span>
@@ -232,22 +232,20 @@
 <span class="sd">      distance to near plane, float</span>
 <span class="sd">    *far*</span>
 <span class="sd">      distance to far plane, float</span>
-<span class="sd">    *fov_w*</span>
-<span class="sd">      horizontal field of view in radians</span>
-<span class="sd">    *fov_h*</span>
-<span class="sd">      vertical field of view in radians</span>
+<span class="sd">    *fov*</span>
+<span class="sd">      field of view in degrees, float</span>
+<span class="sd">    *aspectRatio*</span>
+<span class="sd">      aspect ratio between the width and height of the scene, float</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="c"># Matrices are considered to be M[row][col]</span>
   <span class="c"># Use DirectX convention, so need to do rowvec*Matrix to transform</span>
-  <span class="n">w</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">fov_w</span>
-  <span class="n">h</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">fov_h</span>
-  <span class="n">q</span> <span class="o">=</span> <span class="n">far</span> <span class="o">/</span> <span class="p">(</span><span class="n">far</span> <span class="o">-</span> <span class="n">near</span><span class="p">)</span>
+  <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">fov</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span>   <span class="c">#calculate &#39;field of view&#39; (fov)</span>
   <span class="n">M</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
-  <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span>
-  <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">h</span>
-  <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span>
-  <span class="n">M</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">q</span> <span class="o">*</span> <span class="n">near</span>
+  <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="o">/</span><span class="n">aspectRatio</span>
+  <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span>  <span class="c">#negative value reflects scene on the Y axis</span>
+  <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">far</span> <span class="o">+</span> <span class="n">near</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">far</span> <span class="o">-</span> <span class="n">near</span><span class="p">)</span>
   <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="n">M</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">far</span> <span class="o">*</span> <span class="n">near</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">far</span> <span class="o">-</span> <span class="n">near</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">array</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">)</span>
 </pre></div>
 

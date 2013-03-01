@@ -2,7 +2,7 @@ Introduction to Pi3D
 ====================
 
 .. image:: images/rpilogoshad128.png
-   :align: left
+   :align: left 
 
 **Pi3D written by Tim Skillman, Paddy Gaunt, Tom Ritchford Copyright (c) 2013**
 
@@ -17,13 +17,13 @@ in textured/animated models, create fractal landscapes, shaders and much more.
 
 This is the fourth release of the pi3d module which now uses the OpenGLES2.0
 functionality of the Raspberry Pi directly. This makes it generally *faster*
-and opens up the world of *shaders* that allow effects such as normal and
+and opens up the world of *shaders* that allow effects such as normal and 
 reflection maps, blurring and many others. It has various demos of built-in
 shapes, landscapes, model loading, walk-about camera and much more! See the demos
 included with this code and experiment with them ..
 
 
-Demos included with Pi3D
+Demo's included with Pi3D
 =========================
 
 #.  **ForestWalk.py** Walk about a forest on a landscape generated from a
@@ -35,7 +35,7 @@ Demos included with Pi3D
     bitmaps
       .. image:: images/triceratops_sml.png
 
-#.  **BuckfastAbbey.py** Explore a model of the beautiful Buckfast Abbey in
+#.  **BuckfastAbbey.py** Explore a model of the beautiful Buckfast Abbey in 
     Buckfastleigh, Devon, England
       .. image:: images/buckfast_sml.png
          :align: right
@@ -103,7 +103,7 @@ Demos included with Pi3D
     and produce a realistic moving reflection.
       .. image:: images/water_sml.png
         :align: right
-
+     
 #.  **ClashWalk.py** The graphics processor calculates where the camera can
     or cannot go depending on what is drawn in front of it. Potentially useful
     for first person navigation
@@ -128,7 +128,7 @@ Total zipped download from github c. 24 MB
 #.  **screenshots** Example screenshots of the demos included 860 kB
 #.  **documentation** Where this documentation lives 5.7 MB
 #.  **ChangeLog.txt** Latest changes of Pi3D
-#.  **ReadMe.md** Simplified markdown summary of this file
+#.  **ReadMe.rst** This file
 
 
 Setup on the Raspberry Pi
@@ -194,25 +194,25 @@ be found in the documentation of each of the modules.
   for the animation. There needs to be an instance of `Display`_ in existence
   before some of the other objects are created so it's a good idea to create one
   first job.
-
+  
   **Shape** `All objects to be drawn by Pi3d`_ inherit from the `Shape`_ class which holds
   details of position, rotation, scale as well as specific data needed for
   drawing the shape. Each `Shape`_ contains an array of `Buffer`_ objects; normally
   only containing one but there could be more in complicated models created
-  with external 3D applications.
-
+  with external 3D applications. 
+  
   **Buffer** The `Buffer`_ objects contain the arrays of values representing vertices,
   normals, faces and texture coordinates in a form that can be quickly read by
   the graphics processor. Each Buffer_ object within a `Shape`_ can be textured
   using a different image or shade (RGB) value and, if needed, a different `Shader`_
-
+  
   **Shader** The `Shader`_ class is used to compile *very fast* programs that are run on
   the graphics processor. They have two parts: *Vertex Shaders* that do calculation
   for each of the vertices of the `Buffer`_ and *Fragment Shaders* applied to
   each pixel. In Pi3d we have kept the shaders out of the main python files
   and divided them using the two extensions .vs and .fs The shader language
   is C like, very clever indeed, but rather hard to fathom out.
-
+  
   **Camera** In order to draw a `Shape`_ on the `Display`_ the `Shader`_ needs to be passed the
   vertex information in the Buffers and needs know how the `Shape`_ has been moved.
   But it also needs to know how the `Camera`_ has moved. The `Camera`_ class generally
@@ -220,12 +220,12 @@ be found in the documentation of each of the modules.
   generate a default one when you first try to draw something. The `Camera`_
   has position and rotation information similar to Shapes but also information
   to create the view, such as how wide-angle or telephoto the lens is.
-
+  
   **Texture** The `Texture`_ objects are used to load images from file into a form that
   can be passed to the `Shader`_ to draw onto a surface. They can also be applied as
   normal maps to give much finer local detail or as reflection maps - a much
   faster way to make surfaces look shiny than ray tracing.
-
+  
   **Light** To produce a 3D appearance most of the Shaders use directional lighting and
   if you draw a `Shape`_ without creating a `Light`_ a default instance will be
   created by the `Display`_. The `Light`_ has properties defining the direction,
@@ -233,23 +233,23 @@ be found in the documentation of each of the modules.
 
   When you look through the demos you will see one or two things that may
   not be immediately obvious. All the demos start with::
-
+  
     #!/usr/bin/python
     from __future__ import absolute_import, division, print_function, unicode_literals
 
   Although these lines can often be left out, the first tells any process running the file
   as a script that it's python and the second is basically to help the transition
   of this code to run using python 3::
-
+  
     import demo
 
   Allows the demo files to be put in a subdirectory but still run. If you write
   a program in the top directory then you will need to take this out::
-
+  
     import pi3d
 
   Is an alternative to importing just what you need i.e.::
-
+  
     from pi3d.constants import *
     from pi3d import Display
     from pi3d.Texture import Texture
@@ -267,7 +267,7 @@ be found in the documentation of each of the modules.
   superficial sense)! A third way to import the modules would be to use
   ``from pi3d import *`` this saves having to use the ``pi3d.`` prefix but
   is **much harder to debug** if there is a name conflict.
-
+  
 .. _Display: pi3d.html#pi3d.Display.Display
 .. _Shape: pi3d.html#pi3d.Shape.Shape
 .. _Buffer: pi3d.html#pi3d.Buffer.Buffer

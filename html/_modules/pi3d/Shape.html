@@ -93,30 +93,36 @@
       <span class="n">light</span><span class="o">.</span><span class="n">lightpos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">light</span><span class="o">.</span><span class="n">lightpos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">light</span><span class="o">.</span><span class="n">lightpos</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
       <span class="n">light</span><span class="o">.</span><span class="n">lightcol</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">light</span><span class="o">.</span><span class="n">lightcol</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">light</span><span class="o">.</span><span class="n">lightcol</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
       <span class="n">light</span><span class="o">.</span><span class="n">lightamb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">light</span><span class="o">.</span><span class="n">lightamb</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">light</span><span class="o">.</span><span class="n">lightamb</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-    <span class="sd">&quot;&quot;&quot; in shader array of vec3 uniform variables:</span>
+    <span class="sd">&quot;&quot;&quot; pass to shader array of vec3 uniform variables:</span>
 
-<span class="sd">    * 0  location 0-2</span>
-<span class="sd">    * 1  rotation 3-5</span>
-<span class="sd">    * 2  scale 6-8</span>
-<span class="sd">    * 3  offset 9-11</span>
-<span class="sd">    * 4  fog shade 12-14</span>
-<span class="sd">    * 5  fog distance and alph (only first two values used at moment) 15, 16</span>
-<span class="sd">    * 6  camera position  18-20</span>
-<span class="sd">    * 7  animation offets x, y, delta 21-23</span>
-<span class="sd">    * 8  light0 position, direction vector 24-26</span>
-<span class="sd">    * 9  light0 strength per shade 27-29</span>
-<span class="sd">    * 10 light0 ambient values 30-32</span>
-<span class="sd">    * 11 light1 position, direction vector 33-35</span>
-<span class="sd">    * 12 light1 strength per shade 36-38</span>
-<span class="sd">    * 13 light1 ambient values 39-41</span>
-<span class="sd">    * 14 defocus dist, amount 42,43</span>
-<span class="sd">    * 15 defocus frame width, height 45,46</span>
-<span class="sd">    * 16 custom data space 48-50</span>
-<span class="sd">    * 17 custom data space 51-52</span>
-<span class="sd">    * 18 custom data space 54-56</span>
-<span class="sd">    * 19 custom data space 57-59</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="sd">&quot;&quot;&quot;Shape holds matrices which are updated each time it is moved or rotated</span>
+<span class="sd">    ===== ========================================== ==== ==</span>
+<span class="sd">    vec3  description                                python</span>
+<span class="sd">    ----- ------------------------------------------ -------</span>
+<span class="sd">    index                                            from to</span>
+<span class="sd">    ===== ========================================== ==== ==</span>
+<span class="sd">       0  location                                     0   2</span>
+<span class="sd">       1  rotation                                     3   5</span>
+<span class="sd">       2  scale                                        6   8</span>
+<span class="sd">       3  offset                                       9  11</span>
+<span class="sd">       4  fog shade                                   12  14</span>
+<span class="sd">       5  fog distance and alph (only 2 used)         15  16</span>
+<span class="sd">       6  camera position                             18  20</span>
+<span class="sd">       7  unused: custom data space                   21  23</span>
+<span class="sd">       8  light0 position, direction vector           24  26</span>
+<span class="sd">       9  light0 strength per shade                   27  29</span>
+<span class="sd">      10  light0 ambient values                       30  32</span>
+<span class="sd">      11  light1 position, direction vector           33  35</span>
+<span class="sd">      12  light1 strength per shade                   36  38</span>
+<span class="sd">      13  light1 ambient values                       39  41</span>
+<span class="sd">      14  defocus dist, amount (only 2 used)          42  43</span>
+<span class="sd">      15  defocus frame width, height (only 2 used)   45  46</span>
+<span class="sd">      16  custom data space                           48  50</span>
+<span class="sd">      17  custom data space                           51  53</span>
+<span class="sd">      18  custom data space                           54  56</span>
+<span class="sd">      19  custom data space                           57  59</span>
+<span class="sd">    ===== ========================================== ==== ==</span>
+
+<span class="sd">    Shape holds matrices that are updated each time it is moved or rotated</span>
 <span class="sd">    this saves time recalculating them each frame as the Shape is drawn</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
@@ -167,11 +173,12 @@
 <span class="sd">    rendering with a different Shader/Texture. self.draw() relies on objects</span>
 <span class="sd">    inheriting from this filling buf with at least one element.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="Shape.draw"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">txtrs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;If called without parameters, there has to have been a previous call to</span>
 <span class="sd">    set_draw_details() for each Buffer in buf[].</span>
-<span class="sd">    NB there is no facility for setting umult and vmult with draw they must be</span>
-<span class="sd">    set using set_draw_details or Buffer.set_draw_details</span>
+<span class="sd">    NB there is no facility for setting umult and vmult with draw: they must be</span>
+<span class="sd">    set using set_draw_details or Buffer.set_draw_details.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 
@@ -183,9 +190,9 @@
       <span class="c"># Calculate rotation and translation matrix for this model using numpy.</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr2</span><span class="p">,</span>
         <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scl</span><span class="p">,</span>
-        <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">,</span>
-        <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">,</span>
-        <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">)))))</span>
+            <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">,</span>
+                <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">,</span>
+                    <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">)))))</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">16</span><span class="p">:</span><span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">False</span>
@@ -211,12 +218,12 @@
     <span class="sd">&quot;&quot;&quot;Wrapper method to set just the Shader for all the Buffer objects of</span>
 <span class="sd">    this Shape. Used, for instance, in a Model where the Textures have been</span>
 <span class="sd">    defined in the obj &amp; mtl files, so you can&#39;t use set_draw_details.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *shader*</span>
 <span class="sd">        Shader to use</span>
-<span class="sd">        </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
@@ -318,9 +325,9 @@
 </div>
 <div class="viewcode-block" id="Shape.set_2d_size"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_2d_size">[docs]</a>  <span class="k">def</span> <span class="nf">set_2d_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;saves size to be drawn and location in pixels for use by 2d shader</span>
-<span class="sd">    </span>
+
 <span class="sd">    Keyword arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *w*</span>
 <span class="sd">        Width, pixels.</span>
 <span class="sd">      *h*</span>
@@ -341,9 +348,9 @@
 </div>
 <div class="viewcode-block" id="Shape.set_2d_location"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_2d_location">[docs]</a>  <span class="k">def</span> <span class="nf">set_2d_location</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;saves location in pixels for use by 2d shader</span>
-<span class="sd">    </span>
+
 <span class="sd">    Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *x*</span>
 <span class="sd">        Left edge of image from left edge of display, pixels.</span>
 <span class="sd">      *y*</span>
@@ -351,14 +358,14 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">42</span><span class="p">:</span><span class="mi">44</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
-    </div>
+</div>
 <div class="viewcode-block" id="Shape.set_custom_data"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_custom_data">[docs]</a>  <span class="k">def</span> <span class="nf">set_custom_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_from</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;save general purpose custom data for use by any shader **NB it is up</span>
 <span class="sd">    to the user to provide data in the form of a suitable array of values</span>
 <span class="sd">    that will fit into the space available in the unif array**</span>
-<span class="sd">    </span>
+
 <span class="sd">    Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *index_from*</span>
 <span class="sd">        start index in unif array for filling data should be 48 to 59 though</span>
 <span class="sd">        42 to 47 could be used if they do not conflict with existing shaders</span>
@@ -382,7 +389,7 @@
 </div>
 <div class="viewcode-block" id="Shape.scale"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.scale">[docs]</a>  <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *sx*</span>
 <span class="sd">        x scale</span>
 <span class="sd">      *sy*</span>
@@ -398,7 +405,7 @@
 </div>
 <div class="viewcode-block" id="Shape.position"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.position">[docs]</a>  <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *x*</span>
 <span class="sd">        x position</span>
 <span class="sd">      *y*</span>
@@ -414,7 +421,7 @@
 </div>
 <div class="viewcode-block" id="Shape.positionX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.positionX">[docs]</a>  <span class="k">def</span> <span class="nf">positionX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        x position</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -424,7 +431,7 @@
 </div>
 <div class="viewcode-block" id="Shape.positionY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.positionY">[docs]</a>  <span class="k">def</span> <span class="nf">positionY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        y position</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -434,7 +441,7 @@
 </div>
 <div class="viewcode-block" id="Shape.positionZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.positionZ">[docs]</a>  <span class="k">def</span> <span class="nf">positionZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        z position</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -444,7 +451,7 @@
 </div>
 <div class="viewcode-block" id="Shape.translate"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.translate">[docs]</a>  <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *dx*</span>
 <span class="sd">        x translation</span>
 <span class="sd">      *dy*</span>
@@ -462,7 +469,7 @@
 </div>
 <div class="viewcode-block" id="Shape.translateX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.translateX">[docs]</a>  <span class="k">def</span> <span class="nf">translateX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        x translation</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -472,7 +479,7 @@
 </div>
 <div class="viewcode-block" id="Shape.translateY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.translateY">[docs]</a>  <span class="k">def</span> <span class="nf">translateY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        y translation</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -482,7 +489,7 @@
 </div>
 <div class="viewcode-block" id="Shape.translateZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.translateZ">[docs]</a>  <span class="k">def</span> <span class="nf">translateZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        z translation</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -492,7 +499,7 @@
 </div>
 <div class="viewcode-block" id="Shape.rotateToX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateToX">[docs]</a>  <span class="k">def</span> <span class="nf">rotateToX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        x rotation</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -505,7 +512,7 @@
 </div>
 <div class="viewcode-block" id="Shape.rotateToY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateToY">[docs]</a>  <span class="k">def</span> <span class="nf">rotateToY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        y rotation</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -518,7 +525,7 @@
 </div>
 <div class="viewcode-block" id="Shape.rotateToZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateToZ">[docs]</a>  <span class="k">def</span> <span class="nf">rotateToZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        z rotation</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -531,7 +538,7 @@
 </div>
 <div class="viewcode-block" id="Shape.rotateIncX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncX">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        x rotational increment</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -544,7 +551,7 @@
 </div>
 <div class="viewcode-block" id="Shape.rotateIncY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncY">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        y rotational increment</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -557,7 +564,7 @@
 </div>
 <div class="viewcode-block" id="Shape.rotateIncZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncZ">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">      *v*</span>
 <span class="sd">        z rotational increment</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -594,7 +601,7 @@
 <span class="sd">        Amount to increment the path y values for each rotation (ie helix)</span>
 <span class="sd">      *loops*</span>
 <span class="sd">        Number of times to rotate the path by 360 (ie helix).</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sides</span> <span class="o">=</span> <span class="n">sides</span>
 

@@ -55,6 +55,7 @@
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_chars</span>
+<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Loadable</span>
 
 <span class="c"># This class based on Peter de Rivaz&#39;s mandlebrot example + Tim Skillman&#39;s work on pi3d2</span>
 <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
@@ -74,9 +75,9 @@
 <span class="sd">  automatically when you create an instance of the Defocus class. Shaders can</span>
 <span class="sd">  be &#39;re-used&#39; to draw different objects and the same object can be drawn using</span>
 <span class="sd">  different Shaders.</span>
-<span class="sd">  </span>
+
 <span class="sd">  The shaders included with the pi3d module fall into two categories:</span>
-<span class="sd">  </span>
+
 <span class="sd">  * Textured - generally defined using the **uv** prefix, where an image needs</span>
 <span class="sd">    to be loaded via the Texture class which is then mapped to the surface</span>
 <span class="sd">    of the object. The **2d_flat** shader is a special case of a textured shader</span>
@@ -84,11 +85,11 @@
 <span class="sd">    scaling and offset.</span>
 <span class="sd">  * Material - generally defined using the **mat** prefix, where a material</span>
 <span class="sd">    shade (rgb) has to be set for the object to be rendered</span>
-<span class="sd">    </span>
+
 <span class="sd">  Within these categories the shaders have been subdivided with a postfix to</span>
 <span class="sd">  give full names like uv_flat, mat_bump etc:</span>
-<span class="sd">  </span>
-<span class="sd">  * flat - no lighting is used, the shade rendered is the rgb value of the </span>
+
+<span class="sd">  * flat - no lighting is used, the shade rendered is the rgb value of the</span>
 <span class="sd">    texture or material</span>
 <span class="sd">  * light - Light direction, shade and ambient shade are used give a 3D effect</span>
 <span class="sd">    to the surface</span>
@@ -100,38 +101,47 @@
 <span class="sd">    map which may be different from the tiling of the general texture. If</span>
 <span class="sd">    set to 0.0 then no normal mapping will occur.</span>
 <span class="sd">  * reflect - in addition to a normal map an image needs to be supplied to</span>
-<span class="sd">    act as a reflection. The shader is passed a value from 0.0 to 1.0 to </span>
+<span class="sd">    act as a reflection. The shader is passed a value from 0.0 to 1.0 to</span>
 <span class="sd">    determine the strength of the reflection.</span>
-<span class="sd">    </span>
+
 <span class="sd">  The reason for using a host of different shaders rather than one that can</span>
 <span class="sd">  do everything is that &#39;if&#39; statements within the shader language are **very**</span>
 <span class="sd">  time consuming.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shfile</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shfile</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">vshader_source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fshader_source</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *shfile*</span>
-<span class="sd">        path/name without vs or fs ending i.e. &quot;shaders/uv_light&quot;</span>
+<span class="sd">        Pathname without vs or fs ending i.e. &quot;shaders/uv_light&quot;</span>
+<span class="sd">      *vshader_source*</span>
+<span class="sd">        String with the code for the vertex shader.</span>
+<span class="sd">      *vshader_source*</span>
+<span class="sd">        String with the code for the fragment shader.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">Loadable</span><span class="o">.</span><span class="n">is_display_thread</span><span class="p">()</span>
 
-    <span class="c">#self.scene = scene</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">shfile</span> <span class="o">=</span> <span class="n">shfile</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">vshader_source</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadShader</span><span class="p">(</span><span class="n">shfile</span> <span class="o">+</span> <span class="s">&quot;.vs&quot;</span><span class="p">))</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">fshader_source</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadShader</span><span class="p">(</span><span class="n">shfile</span> <span class="o">+</span> <span class="s">&quot;.fs&quot;</span><span class="p">))</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">vshader</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glCreateShader</span><span class="p">(</span><span class="n">GL_VERTEX_SHADER</span><span class="p">);</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glShaderSource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vshader</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vshader_source</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glCompileShader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vshader</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">showshaderlog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vshader</span><span class="p">)</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">fshader</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glCreateShader</span><span class="p">(</span><span class="n">GL_FRAGMENT_SHADER</span><span class="p">);</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glShaderSource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fshader</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fshader_source</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glCompileShader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fshader</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">showshaderlog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fshader</span><span class="p">)</span>
+    <span class="c"># TODO: the rest of the constructor should be split into load_disk</span>
+    <span class="c"># and load_opengl so that we can delete that assert.</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">program</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glCreateProgram</span><span class="p">()</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glAttachShader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vshader</span><span class="p">)</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glAttachShader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fshader</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">shfile</span> <span class="o">=</span> <span class="n">shfile</span>
+
+    <span class="k">def</span> <span class="nf">make_shader</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">shader_type</span><span class="p">):</span>
+      <span class="n">src</span> <span class="o">=</span> <span class="n">src</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadShader</span><span class="p">(</span><span class="n">shfile</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+      <span class="n">characters</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+      <span class="n">shader</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glCreateShader</span><span class="p">(</span><span class="n">shader_type</span><span class="p">);</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glShaderSource</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">characters</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glCompileShader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">showshaderlog</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glAttachShader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">shader</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">shader</span><span class="p">,</span> <span class="n">src</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">vshader_source</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vshader</span> <span class="o">=</span> <span class="n">make_shader</span><span class="p">(</span>
+      <span class="n">vshader_source</span><span class="p">,</span> <span class="s">&#39;.vs&#39;</span><span class="p">,</span> <span class="n">GL_VERTEX_SHADER</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">fshader_source</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fshader</span> <span class="o">=</span> <span class="n">make_shader</span><span class="p">(</span>
+      <span class="n">fshader_source</span><span class="p">,</span> <span class="s">&#39;.fs&#39;</span><span class="p">,</span> <span class="n">GL_FRAGMENT_SHADER</span><span class="p">)</span>
+
     <span class="n">opengles</span><span class="o">.</span><span class="n">glLinkProgram</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">showprogramlog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">)</span>
 
@@ -153,7 +163,7 @@
       <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">      *NB*</span>
 <span class="sd">        for *uv* shaders tex0=texture tex1=normal map tex2=reflection</span>
-<span class="sd">      </span>
+
 <span class="sd">        for *mat* shaders tex0=normal map tex1=reflection</span>
 <span class="sd">      &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">use</span><span class="p">()</span>
