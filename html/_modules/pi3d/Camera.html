@@ -53,7 +53,7 @@
 
 <span class="kn">from</span> <span class="nn">echomesh.util.DefaultInstance</span> <span class="kn">import</span> <span class="n">DefaultInstance</span>
 
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">radians</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">radians</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">arctan2</span><span class="p">,</span> <span class="n">sqrt</span>
 <span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
@@ -73,7 +73,7 @@
 <span class="sd">      *eye*</span>
 <span class="sd">        tuple (x,y,z) location to look from</span>
 <span class="sd">      *lens*</span>
-<span class="sd">        tuple (near plane dist, far plane dist, field of view width in degrees,</span>
+<span class="sd">        tuple (near plane dist, far plane dist, **VERTICAL** field of view in degrees,</span>
 <span class="sd">        display aspect ratio w/h)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Camera</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
@@ -110,6 +110,23 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_view</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">True</span>
+    </div>
+<div class="viewcode-block" id="Camera.point_at"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.point_at">[docs]</a>  <span class="k">def</span> <span class="nf">point_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot; point the camera at a point also return the tilt and rotation values</span>
+<span class="sd">    </span>
+<span class="sd">    Keyword argument:</span>
+<span class="sd">      *target*</span>
+<span class="sd">        Location as [x,y,z] array to point at, defaults to a high +ve z value as</span>
+<span class="sd">        a kind of compass!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">target</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+      <span class="k">return</span>
+    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">target</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">rot</span> <span class="o">=</span> <span class="o">-</span><span class="n">degrees</span><span class="p">(</span><span class="n">arctan2</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dz</span><span class="p">))</span>
+    <span class="n">horiz</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">dot</span><span class="p">([</span><span class="n">dx</span><span class="p">,</span><span class="n">dz</span><span class="p">],</span> <span class="p">[</span><span class="n">dx</span><span class="p">,</span><span class="n">dz</span><span class="p">]))</span>
+    <span class="n">tilt</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">(</span><span class="n">arctan2</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">horiz</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tilt</span><span class="p">,</span> <span class="n">rot</span>
 </div>
 <div class="viewcode-block" id="Camera.position"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.position">[docs]</a>  <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;position camera</span>
@@ -233,9 +250,9 @@
 <span class="sd">    *far*</span>
 <span class="sd">      distance to far plane, float</span>
 <span class="sd">    *fov*</span>
-<span class="sd">      field of view in degrees, float</span>
+<span class="sd">      **VERTICAL** field of view in degrees, float</span>
 <span class="sd">    *aspectRatio*</span>
-<span class="sd">      aspect ratio between the width and height of the scene, float</span>
+<span class="sd">      aspect ratio = width / height of the scene, float</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="c"># Matrices are considered to be M[row][col]</span>
   <span class="c"># Use DirectX convention, so need to do rowvec*Matrix to transform</span>

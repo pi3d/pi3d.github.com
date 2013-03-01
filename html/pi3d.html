@@ -214,7 +214,7 @@ created if none specified in script prior to creating a Shape</p>
 <dt><em>eye</em></dt>
 <dd>tuple (x,y,z) location to look from</dd>
 <dt><em>lens</em></dt>
-<dd>tuple (near plane dist, far plane dist, field of view width in degrees,
+<dd>tuple (near plane dist, far plane dist, <strong>VERTICAL</strong> field of view in degrees,
 display aspect ratio w/h)</dd>
 </dl>
 </dd>
@@ -223,6 +223,21 @@ display aspect ratio w/h)</dd>
 <dt id="pi3d.Camera.Camera.reset">
 <tt class="descname">reset</tt><big>(</big><em>lens=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Has to be called each loop if the camera position or rotation changes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Camera.Camera.point_at">
+<tt class="descname">point_at</tt><big>(</big><em>target=[0.0, 0.0, 10000.0]</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.point_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.point_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>point the camera at a point also return the tilt and rotation values</p>
+<dl class="docutils">
+<dt>Keyword argument:</dt>
+<dd><dl class="first last docutils">
+<dt><em>target</em></dt>
+<dd>Location as [x,y,z] array to point at, defaults to a high +ve z value as
+a kind of compass!</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
