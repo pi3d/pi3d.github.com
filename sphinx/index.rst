@@ -9,10 +9,11 @@ Welcome to pi3d's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
 
    ReadMe
    pi3d
+   FAQ
 
 
 Indices and tables

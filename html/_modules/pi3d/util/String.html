@@ -56,15 +56,15 @@
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Utility</span>
 
 <span class="n">DOTS_PER_INCH</span> <span class="o">=</span> <span class="mf">72.0</span>
-<span class="n">DEFAULT_FONT_DOT_SIZE</span> <span class="o">=</span> <span class="mf">0.24</span>
-<span class="n">DEFAULT_FONT_SCALE</span> <span class="o">=</span> <span class="n">DEFAULT_FONT_DOT_SIZE</span> <span class="o">/</span> <span class="n">DOTS_PER_INCH</span>
+<span class="n">DEFAULT_FONT_SIZE</span> <span class="o">=</span> <span class="mf">0.24</span>
+<span class="n">DEFAULT_FONT_SCALE</span> <span class="o">=</span> <span class="n">DEFAULT_FONT_SIZE</span> <span class="o">/</span> <span class="n">DOTS_PER_INCH</span>
 
 <div class="viewcode-block" id="String"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.String.String">[docs]</a><span class="k">class</span> <span class="nc">String</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Shape used for writing text on screen. It is a flat, one sided rectangualar plane&quot;&quot;&quot;</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">light</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
                <span class="n">sx</span><span class="o">=</span><span class="n">DEFAULT_FONT_SCALE</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="n">DEFAULT_FONT_SCALE</span><span class="p">,</span>
-               <span class="n">is_3d</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">DEFAULT_FONT_DOT_SIZE</span><span class="p">,</span>
+               <span class="n">is_3d</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">DEFAULT_FONT_SIZE</span><span class="p">,</span>
                <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Standard Shape constructor without the facility to change z scale or </span>
 <span class="sd">    any of the offset values. Additional keyword arguments:</span>
@@ -73,11 +73,22 @@
 <span class="sd">        Font or Ttffont class object.</span>
 <span class="sd">      *string*</span>
 <span class="sd">        of ASCI characters in range(32, 128)</span>
+<span class="sd">      *sx, sy*</span>
+<span class="sd">        These change the actual vertex positions of the shape rather than being</span>
+<span class="sd">        used as scaling factors. This is to avoid distortion when the string is</span>
+<span class="sd">        drawn using an orthographic camera</span>
+<span class="sd">      *is_3d*</span>
+<span class="sd">        alters the values of sx and sy to give reasonable sizes with 2D or 3D</span>
+<span class="sd">        drawing</span>
+<span class="sd">      *size*</span>
+<span class="sd">        approximate size of the characters in inches - obviously for 3D drawing</span>
+<span class="sd">        of strings this will depend on camera fov, display size and how far away</span>
+<span class="sd">        the string is placed</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">is_3d</span><span class="p">:</span>
-      <span class="n">sy</span> <span class="o">=</span> <span class="n">sx</span> <span class="o">=</span> <span class="n">size</span> <span class="o">/</span> <span class="n">DOTS_PER_INCH</span>
+      <span class="n">sy</span> <span class="o">=</span> <span class="n">sx</span> <span class="o">=</span> <span class="n">size</span> <span class="o">*</span> <span class="mf">4.0</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span>
-                                 <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>  <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+                                 <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
       <span class="k">print</span> <span class="s">&quot;Creating string ...&quot;</span>
@@ -105,7 +116,7 @@
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">stv</span><span class="p">,</span> <span class="n">stv</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">stv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">stv</span><span class="p">,</span> <span class="n">stv</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stv</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)]:</span> <span class="bp">self</span><span class="o">.</span><span class="n">inds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">temp_verts</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">verts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">xoff</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">j</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">maxh</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">j</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">verts</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">xoff</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">sx</span><span class="p">,</span> <span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">maxh</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">sy</span><span class="p">,</span> <span class="n">j</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">texcoords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">norms</span><span class="p">))</span>

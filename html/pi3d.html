@@ -201,7 +201,7 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 <span id="camera-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Camera</span></tt> Module<a class="headerlink" href="#module-pi3d.Camera" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Camera.Camera">
-<em class="property">class </em><tt class="descclassname">pi3d.Camera.</tt><tt class="descname">Camera</tt><big>(</big><em>at</em>, <em>eye</em>, <em>lens</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Camera.</tt><tt class="descname">Camera</tt><big>(</big><em>at=(0</em>, <em>0</em>, <em>0)</em>, <em>eye=(0</em>, <em>0</em>, <em>-0.1)</em>, <em>lens=(1.0</em>, <em>1000.0</em>, <em>45.0</em>, <em>1.6)</em>, <em>is_3d=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">echomesh.util.DefaultInstance.DefaultInstance</span></tt></p>
 <p>required object for creating and drawing Shape objects. Default instance
 created if none specified in script prior to creating a Shape</p>
@@ -216,12 +216,15 @@ created if none specified in script prior to creating a Shape</p>
 <dt><em>lens</em></dt>
 <dd>tuple (near plane dist, far plane dist, <strong>VERTICAL</strong> field of view in degrees,
 display aspect ratio w/h)</dd>
+<dt><em>is_3d</em></dt>
+<dd>determines whether the camera uses a perspective or orthographic
+projection matrix</dd>
 </dl>
 </dd>
 </dl>
 <dl class="method">
 <dt id="pi3d.Camera.Camera.reset">
-<tt class="descname">reset</tt><big>(</big><em>lens=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.reset" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">reset</tt><big>(</big><em>lens=None</em>, <em>is_3d=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Has to be called each loop if the camera position or rotation changes</p>
 </dd></dl>
 

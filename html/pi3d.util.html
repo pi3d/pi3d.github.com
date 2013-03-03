@@ -27,6 +27,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="pi3d 0.8 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
+    <link rel="next" title="Frequently Asked Questions" href="FAQ.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
   </head>
   <body>
@@ -39,6 +40,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="FAQ.html" title="Frequently Asked Questions"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
@@ -266,6 +270,17 @@ any of the offset values. Additional keyword arguments:</p>
 <dd>Font or Ttffont class object.</dd>
 <dt><em>string</em></dt>
 <dd>of ASCI characters in range(32, 128)</dd>
+<dt><em>sx, sy</em></dt>
+<dd>These change the actual vertex positions of the shape rather than being
+used as scaling factors. This is to avoid distortion when the string is
+drawn using an orthographic camera</dd>
+<dt><em>is_3d</em></dt>
+<dd>alters the values of sx and sy to give reasonable sizes with 2D or 3D
+drawing</dd>
+<dt><em>size</em></dt>
+<dd>approximate size of the characters in inches - obviously for 3D drawing
+of strings this will depend on camera fov, display size and how far away
+the string is placed</dd>
 </dl>
 </div></blockquote>
 </dd></dl>
@@ -649,6 +664,9 @@ way to make sure that nothing is drawn past a certain distance.</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="pi3d.sprite.html"
                         title="previous chapter">sprite Package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="FAQ.html"
+                        title="next chapter">Frequently Asked Questions</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/pi3d.util.txt"
@@ -680,6 +698,9 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="FAQ.html" title="Frequently Asked Questions"
+             >next</a> |</li>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
