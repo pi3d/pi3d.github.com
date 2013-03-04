@@ -60,7 +60,7 @@ the Python Imaging module, some demos need tk, see the <a class="reference exter
 these.</p>
 </div></blockquote>
 </li>
-<li><p class="first">I see nothing but a White screen:</p>
+<li><p class="first">I see nothing but a white screen:</p>
 <blockquote>
 <div><p>Possibly something has gone wrong with an opengles function, sometimes
 there might be an error message in the terminal such as failed to create
@@ -80,15 +80,15 @@ render setting to a shader.</p>
 </div></blockquote>
 </li>
 <li><p class="first">I see nothing but the background (you will need to set background to
-non-transparent and a color not equal to black to white to determine
+non-transparent and a color not equal to black or white to determine
 if this is happening):</p>
 <blockquote>
-<div><p>Either the shape is behind the near plane, beyond the far plane, is outside
-the field of view or the polygons are facing away from the camera. Often
-this is because you are actually <strong>inside</strong> the object. Try using the
-Camera.point_at([x,y,z]) function (see demos/ClashWalk.py for use) or move
-and rotate the object. Sprite and ImageSprite shapes are one sided so
-cannot be seen from behind, try using a Plane instead</p>
+<div><p>Either the shape is behind the camera, too far away, is outside the field
+of view, is too small, too large or the polygons are facing away from the
+camera. Often this is because you are actually <strong>inside</strong> the object. Try
+using the Camera.point_at([x,y,z]) function (see demos/ClashWalk.py for use)
+or move and rotate the object and camera. Sprite and ImageSprite shapes
+are one sided so cannot be seen from behind, try using a Plane instead</p>
 </div></blockquote>
 </li>
 <li><p class="first">I can just see black silhouettes against the background:</p>
@@ -119,7 +119,7 @@ TODO - other specific fixes</p>
 <li><p class="first">How do I use a joystick, gamepad, xbox controller etc with a pi3d
 application:</p>
 <blockquote>
-<div><p>Often these will just work when plugged into the USB
+<div><p>Often these will just work with the event module when plugged into the USB,
 sometimes you may need to use a different InputEvents method, for instance
 with an xbox 360 you get the left joystick from <tt class="docutils literal"><span class="pre">get_joystickB3d()</span></tt>
 Also you would need to install the driver and start it running first:</p>
@@ -167,7 +167,10 @@ these methods the shape can be rotated, moved and scaled in all
 dimensions.</p>
 <p>You can also use the shader 2d_flat which takes pixels from an image
 and maps them to the screen, see below. The advantage of this
-method is that it can use the even simpler Canvas object and</p>
+method is that it can use the even simpler Canvas object and it always
+stays in the same place relative to the camera so you only need one
+camera, which can be the default one that you don&#8217;t have to bother
+creating. See below.</p>
 </div></blockquote>
 </li>
 <li><p class="first">How do I display 2D images in front of a 3D scene:</p>

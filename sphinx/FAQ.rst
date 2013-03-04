@@ -8,7 +8,7 @@ Frequently Asked Questions
       the Python Imaging module, some demos need tk, see the ReadMe_ on installing
       these.
 
-#.  I see nothing but a White screen:
+#.  I see nothing but a white screen:
 
       Possibly something has gone wrong with an opengles function, sometimes
       there might be an error message in the terminal such as failed to create
@@ -26,15 +26,15 @@ Frequently Asked Questions
       render setting to a shader.
 
 #.  I see nothing but the background (you will need to set background to
-    non-transparent and a color not equal to black to white to determine
+    non-transparent and a color not equal to black or white to determine
     if this is happening):
 
-      Either the shape is behind the near plane, beyond the far plane, is outside
-      the field of view or the polygons are facing away from the camera. Often
-      this is because you are actually **inside** the object. Try using the
-      Camera.point_at([x,y,z]) function (see demos/ClashWalk.py for use) or move
-      and rotate the object. Sprite and ImageSprite shapes are one sided so
-      cannot be seen from behind, try using a Plane instead
+      Either the shape is behind the camera, too far away, is outside the field
+      of view, is too small, too large or the polygons are facing away from the
+      camera. Often this is because you are actually **inside** the object. Try
+      using the Camera.point_at([x,y,z]) function (see demos/ClashWalk.py for use)
+      or move and rotate the object and camera. Sprite and ImageSprite shapes
+      are one sided so cannot be seen from behind, try using a Plane instead
         
 #.  I can just see black silhouettes against the background:
 
@@ -62,7 +62,7 @@ Frequently Asked Questions
 #.  How do I use a joystick, gamepad, xbox controller etc with a pi3d
     application:
     
-      Often these will just work when plugged into the USB
+      Often these will just work with the event module when plugged into the USB,
       sometimes you may need to use a different InputEvents method, for instance
       with an xbox 360 you get the left joystick from ``get_joystickB3d()``
       Also you would need to install the driver and start it running first::
@@ -109,7 +109,10 @@ Frequently Asked Questions
       
       You can also use the shader 2d_flat which takes pixels from an image
       and maps them to the screen, see below. The advantage of this
-      method is that it can use the even simpler Canvas object and 
+      method is that it can use the even simpler Canvas object and it always
+      stays in the same place relative to the camera so you only need one
+      camera, which can be the default one that you don't have to bother
+      creating. See below.
 
 #.  How do I display 2D images in front of a 3D scene:
 
