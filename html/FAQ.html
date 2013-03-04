@@ -53,26 +53,30 @@
   <div class="section" id="frequently-asked-questions">
 <h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic">
-<li><p class="first">Crashes or reboots the pi:</p>
+<li><p class="first">My RPi Crashes or reboots when I try and run a demo:</p>
 <blockquote>
 <div><p>Anything using a loadable texture (i.e. nearly all the demos) requires
-the Python Imaging module, some demos need tk see the <a href="#id1"><span class="problematic" id="id2">ReadMe_</span></a> on installing
+the Python Imaging module, some demos need tk, see the <a class="reference external" href="http://pi3d.github.com/html/index.html">ReadMe</a> on installing
 these.</p>
 </div></blockquote>
 </li>
 <li><p class="first">I see nothing but a White screen:</p>
 <blockquote>
-<div><p>Something has gone wrong with an opengles function, sometimes there might
-be an error message in the terminal such as failed to create display. This
-could be caused by running out of gpu memory (see <a href="#id3"><span class="problematic" id="id4">ReadMe_</span></a> for how to set
-up memory split) occasionally multi-thread applications can cause this
-problem if an opengles function call is made not from the main thread.</p>
+<div><p>Possibly something has gone wrong with an opengles function, sometimes
+there might be an error message in the terminal such as failed to create
+display. This could be caused by running out of gpu memory (see <a class="reference external" href="http://pi3d.github.com/html/index.html">ReadMe</a>
+for how to set up memory split) occasionally multi-thread applications
+an cause this problem if an opengles function call is made not from the
+main thread.</p>
 </div></blockquote>
 </li>
 <li><p class="first">I see nothing but a black screen:</p>
 <blockquote>
-<div><p>Something has gone wrong in a shader. There may be a line nunber reference
-output by the shader compiler in the terminal window. Let us know</p>
+<div><p>Possibly something has gone wrong in a shader. There may be a line
+nunber reference output by the shader compiler in the terminal window.
+It is great fun experimenting with shaders but they are <em>?£#%</em> taciturn
+beasts to debug! The problem could be caused by sending some bad
+render setting to a shader.</p>
 </div></blockquote>
 </li>
 <li><p class="first">I see nothing but the background (you will need to set background to
@@ -85,6 +89,18 @@ this is because you are actually <strong>inside</strong> the object. Try using t
 Camera.point_at([x,y,z]) function (see demos/ClashWalk.py for use) or move
 and rotate the object. Sprite and ImageSprite shapes are one sided so
 cannot be seen from behind, try using a Plane instead</p>
+</div></blockquote>
+</li>
+<li><p class="first">I can just see black silhouettes against the background:</p>
+<blockquote>
+<div><p>You may be trying to use a shader that requires light but there isn&#8217;t
+any, or it&#8217;s turned down too low. Try switching to a &#8216;flat&#8217; shader
+to check. Alternatively, if it&#8217;s a shape you have generated such as
+a Lathe or a Model, the normal vectors might be pointing in the wrong
+direction. Try re-generating the shape, the path you use for the Lathe
+needs to start at the top of the object and there are functions in
+most 3D modeling applications to recalculate normals, or force them
+to point outwards.</p>
 </div></blockquote>
 </li>
 <li><p class="first">The demo loads but the mouse doesn&#8217;t move the camera as it&#8217;s supposed to:</p>
@@ -135,11 +151,47 @@ documentation and installation instructions on that webiste.</p>
 </div></blockquote>
 </li>
 <li><p class="first">Can I use pi3d for 2D images:</p>
+<blockquote>
+<div><p>There are various ways of doing this. The easiest way is to use the
+image to texture a simple rectangle. The simplest shape to do this
+is the Sprite which is also utilised by the ImageSprite shape to
+allow the texture to be specified as it is created. The Plane object
+is similar but is two sided. The advantage and disadvantage of this
+method is that images will be different when viewed from different
+locations.</p>
+<p>If you specify an orthogrphic camera (set the argument
+is_3d=False) then there will be no perspective (the image will not
+get smaller as it moves away from the camera) and each unit of the
+dimensions of the object will be one pixel on the screen. With both
+these methods the shape can be rotated, moved and scaled in all
+dimensions.</p>
+<p>You can also use the shader 2d_flat which takes pixels from an image
+and maps them to the screen, see below. The advantage of this
+method is that it can use the even simpler Canvas object and</p>
+</div></blockquote>
 </li>
 <li><p class="first">How do I display 2D images in front of a 3D scene:</p>
+<blockquote>
+<div><p>Either draw them onto a Canvas object using the 2d_flat shader or
+create two cameras one 3D and one 2D and assign the relevant camera
+to the types of objects you want to be drawn by each method. You
+can move the 3D camera around the scene but leave the 2D one stationary,
+that way you won&#8217;t have to keep moving and rotating the 2D objects
+to keep them in front of the camera.</p>
+<p>Orthographic (2D) cameras will render objects so they are in front
+of objects rendered by perspective (3D) cameras.</p>
+<p>If you create a camera it will become the default instance so if you
+need more than one you need to explicitly create them and it&#8217;s a good
+idea to explicitly assign the one you want to each object.</p>
+</div></blockquote>
 </li>
 <li><p class="first">How do I display an image exactly without anti-aliasing or smoothing
 i.e. pixel perfect:</p>
+<blockquote>
+<div><p>This can be done by using the 2d_flat shader and spcifying when the
+Texture is loaded that mipmap=False. Because this is a global setting
+it will be overwritten by whichever Texture is the last to be loaded</p>
+</div></blockquote>
 </li>
 </ol>
 </div>
