@@ -291,6 +291,17 @@
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">material</span><span class="p">)</span>
 </div>
+<div class="viewcode-block" id="Shape.set_offset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_offset">[docs]</a>  <span class="k">def</span> <span class="nf">set_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wrapper for setting uv texture offset in each Buffer object.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">      *offset*</span>
+<span class="sd">        tuple (u_off, v_off) values between 0.0 and 1.0 to offset the texture</span>
+<span class="sd">        sampler by</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">set_offset</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="Shape.set_fog"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_fog">[docs]</a>  <span class="k">def</span> <span class="nf">set_fog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fogshade</span><span class="p">,</span> <span class="n">fogdist</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set fog for this Shape only, it uses the shader smoothblend function from</span>
 <span class="sd">    1/3 fogdist to fogdist.</span>

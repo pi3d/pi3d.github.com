@@ -96,9 +96,10 @@
     <span class="nb">super</span><span class="p">(</span><span class="n">Buffer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
     <span class="c"># Uniform variables all in one array!</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unib</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">9</span><span class="p">)(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unib</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
                               <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span>
-                              <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+                              <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
+                              <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
     <span class="sd">&quot;&quot;&quot; pass to shader array of vec3 uniform variables:</span>
 
 <span class="sd">    ===== ============================ ==== ==</span>
@@ -109,6 +110,7 @@
 <span class="sd">        0  ntile, shiny, blend           0   2</span>
 <span class="sd">        1  material                      3   5</span>
 <span class="sd">        2  umult, vmult (only 2 used)    6   7</span>
+<span class="sd">        3  u_off, v_off (only 2 used)    9  10</span>
 <span class="sd">    ===== ============================ ==== ==</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span>
@@ -204,6 +206,9 @@
 </div>
 <div class="viewcode-block" id="Buffer.set_material"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.set_material">[docs]</a>  <span class="k">def</span> <span class="nf">set_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mtrl</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">mtrl</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    </div>
+<div class="viewcode-block" id="Buffer.set_offset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.set_offset">[docs]</a>  <span class="k">def</span> <span class="nf">set_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">offset</span>
 </div>
 <div class="viewcode-block" id="Buffer.draw"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">textures</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fullset</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Draw this Buffer, called by the parent Shape.draw()</span>
@@ -213,7 +218,7 @@
 <span class="sd">        Shader object</span>
 <span class="sd">      *textures*</span>
 <span class="sd">        array of Texture objects</span>
-<span class="sd">      *ntiles*</span>
+<span class="sd">      *ntl*</span>
 <span class="sd">        multiple for tiling normal map which can be less than or greater</span>
 <span class="sd">        than 1.0. 0.0 disables the normal mapping, float</span>
 <span class="sd">      *shiny*</span>
@@ -251,7 +256,7 @@
         <span class="c"># i.e. if any of the textures set to blend then all will for this shader.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.05</span>
 
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glUniform3fv</span><span class="p">(</span><span class="n">shader</span><span class="o">.</span><span class="n">unif_unib</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">))</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glUniform3fv</span><span class="p">(</span><span class="n">shader</span><span class="o">.</span><span class="n">unif_unib</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">))</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glDrawElements</span><span class="p">(</span><span class="n">GL_TRIANGLES</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntris</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">GL_UNSIGNED_SHORT</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div></div>
 </pre></div>
 

@@ -179,7 +179,7 @@
     <span class="n">loglen</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glGetShaderInfoLog</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">loglen</span><span class="p">),</span>
                                 <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">log</span><span class="p">))</span>
-    <span class="k">print</span> <span class="n">log</span><span class="o">.</span><span class="n">value</span>
+    <span class="k">print</span> <span class="s">&quot;shader&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shfile</span><span class="p">,</span> <span class="n">log</span><span class="o">.</span><span class="n">value</span>
 </div>
 <div class="viewcode-block" id="Shader.showprogramlog"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shader.Shader.showprogramlog">[docs]</a>  <span class="k">def</span> <span class="nf">showprogramlog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">shader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Prints the compile log for a program&quot;&quot;&quot;</span>
@@ -188,7 +188,7 @@
     <span class="n">loglen</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glGetProgramInfoLog</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">loglen</span><span class="p">),</span>
                                  <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">log</span><span class="p">))</span>
-    <span class="k">print</span> <span class="n">log</span><span class="o">.</span><span class="n">value</span>
+    <span class="k">print</span> <span class="s">&quot;program&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shfile</span><span class="p">,</span> <span class="n">log</span><span class="o">.</span><span class="n">value</span>
 </div>
 <div class="viewcode-block" id="Shader.loadShader"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shader.Shader.loadShader">[docs]</a>  <span class="k">def</span> <span class="nf">loadShader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sfile</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">sfile</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></div></div>

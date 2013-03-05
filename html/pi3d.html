@@ -134,6 +134,11 @@ meeting at this vertex, otherwise just use first (for speed).</dd>
 <td>6</td>
 <td>7</td>
 </tr>
+<tr class="row-even"><td>3</td>
+<td>u_off, v_off (only 2 used)</td>
+<td>9</td>
+<td>10</td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
@@ -174,6 +179,11 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="pi3d.Buffer.Buffer.set_offset">
+<tt class="descname">set_offset</tt><big>(</big><em>offset=(0.0</em>, <em>0.0)</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.set_offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.set_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pi3d.Buffer.Buffer.draw">
 <tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>textures=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>fullset=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw this Buffer, called by the parent Shape.draw()</p>
@@ -184,7 +194,7 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 <dd>Shader object</dd>
 <dt><em>textures</em></dt>
 <dd>array of Texture objects</dd>
-<dt><em>ntiles</em></dt>
+<dt><em>ntl</em></dt>
 <dd>multiple for tiling normal map which can be less than or greater
 than 1.0. 0.0 disables the normal mapping, float</dd>
 <dt><em>shiny</em></dt>
@@ -945,6 +955,21 @@ material rgb rather than from a Texture.</dd>
 <dd><dl class="first last docutils">
 <dt><em>material</em></dt>
 <dd>tuple (rgb)</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.set_offset">
+<tt class="descname">set_offset</tt><big>(</big><em>offset</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for setting uv texture offset in each Buffer object.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>offset</em></dt>
+<dd>tuple (u_off, v_off) values between 0.0 and 1.0 to offset the texture
+sampler by</dd>
 </dl>
 </dd>
 </dl>
