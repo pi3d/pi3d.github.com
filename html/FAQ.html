@@ -132,10 +132,24 @@ sudo xboxdrv -s -i 0</pre>
 <blockquote>
 <div><p>You will need to &#8216;make&#8217; one on a bigger computer using 3D software such
 as <tt class="docutils literal"><span class="pre">blender</span></tt>. This falls outside the scope of this FAQ but your best
-option is to export the model as an obj file. In the options you should
-make sure that you specify normals to be saved. If you want your 3D model
-to be textured (have a picture wrapped around it) you will need to
-define uv mapping. In programs such as blender it is also possible to
+option is to export the model as an obj file. In Bl2.6 options I specify:</p>
+<div class="highlight-python"><pre>Apply Modifiers (default)
+Include Edges (default)
+Include Normals (have to tick)
+Include UVs (default but see below)
+Write Materials (default)
+Object as OBJ Objects (default)
+
+Forward -Z Forward (default)
+Up Y Up (default)
+these last two will mean that..
+Blender.x=&gt;pi3d.x, Blender.y=&gt;pi3d.z, Blender.z=&gt;pi3d.y with no reflection
+of whatever you design</pre>
+</div>
+<p>If you want your 3D model to be textured (have a picture wrapped around it)
+you will need to define uv mapping (after you export you may need to
+edit the <tt class="docutils literal"><span class="pre">mtl</span></tt> file so the relative path to the image is correct for
+their locations on the pi. In programs such as blender it is also possible to
 use a more detailed (high polygon) model to create a &#8216;normal map&#8217; image
 that can be used to give surface detail to the model in pi3d. Quite
 technical but lots of instructional videos on youtube!</p>
@@ -194,6 +208,69 @@ i.e. pixel perfect:</p>
 <div><p>This can be done by using the 2d_flat shader and spcifying when the
 Texture is loaded that mipmap=False. Because this is a global setting
 it will be overwritten by whichever Texture is the last to be loaded</p>
+</div></blockquote>
+</li>
+<li><p class="first">When the demos start there is a message in the terminal
+<tt class="docutils literal"><span class="pre">..echomesh.util.Log:</span> <span class="pre">Log</span> <span class="pre">level</span> <span class="pre">is</span> <span class="pre">INFO</span></tt> where does that come from and
+what does it mean:</p>
+<blockquote>
+<div><p>pi3d uses three utilities developed in parallel with it for the
+echomesh project (see ./echomesh/util/ directory). The Log module is
+started by several of the basic classes (Buffer, EventStream, Display,
+Loadable, Mouse, parse_mtl, Shader, Screenshot) This means that all
+programs using the pi3d modules will create an echomesh Log as a
+by-product. It can be used for debugging and recording errors.</p>
+</div></blockquote>
+</li>
+<li><p class="first">How do I use <tt class="docutils literal"><span class="pre">echomesh.util.Log</span></tt> to gather or display useful information
+in my application:</p>
+<blockquote>
+<div><p>You need to create an instance <tt class="docutils literal"><span class="pre">LOGGER</span> <span class="pre">=</span> <span class="pre">Log.logger(__name__)</span></tt> typically
+then call methods of this such as <tt class="docutils literal"><span class="pre">LOGGER.info(&quot;...&quot;)</span></tt> or <tt class="docutils literal"><span class="pre">LOGGER.debug()</span></tt></p>
+</div></blockquote>
+</li>
+<li><p class="first">How do I see the logged information from <tt class="docutils literal"><span class="pre">echomesh.util.Log</span></tt>:</p>
+<blockquote>
+<div><p>TODO I can&#8217;t find any file, but it looks like Log needs something in
+echomesh.config.Config otherwise it will get an exception and LOG_FILE
+will be set to a zero length string.</p>
+</div></blockquote>
+</li>
+<li><p class="first">How do I keep two components (Shapes) &#8216;joined together&#8217; as they pitch, roll
+and rotate (yaw), like the TigerTank does with its body, turret and gun:</p>
+<blockquote>
+<div><p>First of all it is easiest if you make the zero points of all the shapes
+coincide. When you move and rotate the ojbects you must move and rotate
+them all by the same amount. If one component is rotated about the y axis
+by a different amount from the others (i.e. the turret and gun) then
+the difference is just added to the y rotation for that component.
+However if the component is rotated about the y axis and the x axis
+(i.e. the gun) then you have to adjust the x axis and the z axis rotation
+by an amount that depends on the degree of y axis rotation. See the
+drawTiger function in demos/TigerTank.py for the kind of formula to use.</p>
+</div></blockquote>
+</li>
+<li><p class="first">I want to give my shape(s) an angle of bank (z axis rotation) which it
+maintains as it turns (y axis rotation) like an aeroplane. However the
+z rotation is always relative to the absolute frame of reference so the shape
+pitches backwards and forwards as it turns, how do I make the frame of
+reference rotate with the shape:</p>
+<blockquote>
+<div><p>This is because of the order of the transformations done prior to
+redrawing the scene (z then x then y). You have to work out what the pitch
+and roll would have to be prior to rotating them about their own y axis!
+To see what I mean watch the behaviour of the tanks in demos/TigerTank.py
+You have to figure out the &#8216;slope of the ground&#8217; so that when your
+aeroplane (or boat) is rotated it ends up with the correct pitch and
+roll. For a shape with zero pitch you can use something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">absheel</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">(</span><span class="n">asin</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">heel</span><span class="p">))</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">heading</span><span class="p">))))</span>
+<span class="n">abspitch</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">(</span><span class="n">asin</span><span class="p">(</span><span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">heel</span><span class="p">))</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">heading</span><span class="p">))))</span>
+<span class="n">hull</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">xm</span><span class="p">,</span> <span class="n">ym</span><span class="p">,</span> <span class="n">zm</span><span class="p">)</span>
+<span class="n">hull</span><span class="o">.</span><span class="n">rotateToX</span><span class="p">(</span><span class="n">abspitch</span><span class="p">)</span>
+<span class="n">hull</span><span class="o">.</span><span class="n">rotateToY</span><span class="p">(</span><span class="o">-</span><span class="n">heading</span><span class="p">)</span>
+<span class="n">hull</span><span class="o">.</span><span class="n">rotateToZ</span><span class="p">(</span><span class="n">absheel</span><span class="p">)</span>
+</pre></div>
+</div>
 </div></blockquote>
 </li>
 </ol>

@@ -74,10 +74,25 @@ Frequently Asked Questions
 
       You will need to 'make' one on a bigger computer using 3D software such
       as ``blender``. This falls outside the scope of this FAQ but your best
-      option is to export the model as an obj file. In the options you should
-      make sure that you specify normals to be saved. If you want your 3D model
-      to be textured (have a picture wrapped around it) you will need to
-      define uv mapping. In programs such as blender it is also possible to
+      option is to export the model as an obj file. In Bl2.6 options I specify::
+      
+        Apply Modifiers (default)
+        Include Edges (default)
+        Include Normals (have to tick)
+        Include UVs (default but see below)
+        Write Materials (default)
+        Object as OBJ Objects (default)
+        
+        Forward -Z Forward (default)
+        Up Y Up (default)
+        these last two will mean that..
+        Blender.x=>pi3d.x, Blender.y=>pi3d.z, Blender.z=>pi3d.y with no reflection
+        of whatever you design
+        
+      If you want your 3D model to be textured (have a picture wrapped around it)
+      you will need to define uv mapping (after you export you may need to
+      edit the ``mtl`` file so the relative path to the image is correct for
+      their locations on the pi. In programs such as blender it is also possible to
       use a more detailed (high polygon) model to create a 'normal map' image
       that can be used to give surface detail to the model in pi3d. Quite
       technical but lots of instructional videos on youtube!
@@ -136,5 +151,63 @@ Frequently Asked Questions
       This can be done by using the 2d_flat shader and spcifying when the
       Texture is loaded that mipmap=False. Because this is a global setting
       it will be overwritten by whichever Texture is the last to be loaded
+
+#.  When the demos start there is a message in the terminal 
+    ``..echomesh.util.Log: Log level is INFO`` where does that come from and
+    what does it mean:
+
+      pi3d uses three utilities developed in parallel with it for the 
+      echomesh project (see ./echomesh/util/ directory). The Log module is
+      started by several of the basic classes (Buffer, EventStream, Display,
+      Loadable, Mouse, parse_mtl, Shader, Screenshot) This means that all
+      programs using the pi3d modules will create an echomesh Log as a
+      by-product. It can be used for debugging and recording errors.
+      
+#.  How do I use ``echomesh.util.Log`` to gather or display useful information
+    in my application:
+    
+      You need to create an instance ``LOGGER = Log.logger(__name__)`` typically
+      then call methods of this such as ``LOGGER.info("...")`` or ``LOGGER.debug()``
+      
+#.  How do I see the logged information from ``echomesh.util.Log``:
+
+      TODO I can't find any file, but it looks like Log needs something in
+      echomesh.config.Config otherwise it will get an exception and LOG_FILE
+      will be set to a zero length string.
+      
+#.  How do I keep two components (Shapes) 'joined together' as they pitch, roll
+    and rotate (yaw), like the TigerTank does with its body, turret and gun:
+    
+      First of all it is easiest if you make the zero points of all the shapes
+      coincide. When you move and rotate the ojbects you must move and rotate
+      them all by the same amount. If one component is rotated about the y axis
+      by a different amount from the others (i.e. the turret and gun) then
+      the difference is just added to the y rotation for that component.
+      However if the component is rotated about the y axis and the x axis
+      (i.e. the gun) then you have to adjust the x axis and the z axis rotation
+      by an amount that depends on the degree of y axis rotation. See the
+      drawTiger function in demos/TigerTank.py for the kind of formula to use.
+      
+#.  I want to give my shape(s) an angle of bank (z axis rotation) which it
+    maintains as it turns (y axis rotation) like an aeroplane. However the
+    z rotation is always relative to the absolute frame of reference so the shape
+    pitches backwards and forwards as it turns, how do I make the frame of
+    reference rotate with the shape:
+    
+      This is because of the order of the transformations done prior to
+      redrawing the scene (z then x then y). You have to work out what the pitch
+      and roll would have to be prior to rotating them about their own y axis!
+      To see what I mean watch the behaviour of the tanks in demos/TigerTank.py
+      You have to figure out the 'slope of the ground' so that when your
+      aeroplane (or boat) is rotated it ends up with the correct pitch and
+      roll. For a shape with zero pitch you can use something like::
+      
+          absheel = degrees(asin(sin(radians(heel)) * cos(radians(heading))))
+          abspitch = degrees(asin(-sin(radians(heel)) * sin(radians(heading))))
+          hull.position(xm, ym, zm)
+          hull.rotateToX(abspitch)
+          hull.rotateToY(-heading)
+          hull.rotateToZ(absheel)
+
 
 .. _ReadMe: http://pi3d.github.com/html/index.html

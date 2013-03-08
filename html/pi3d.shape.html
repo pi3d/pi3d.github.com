@@ -930,7 +930,18 @@ so much quicker to create than reloading all the vertices etc</p>
 <dt id="pi3d.shape.Sprite.ImageSprite">
 <em class="property">class </em><tt class="descclassname">pi3d.shape.Sprite.</tt><tt class="descname">ImageSprite</tt><big>(</big><em>texture</em>, <em>shader</em>, <em>**kwds</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/Sprite.html#ImageSprite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Sprite.ImageSprite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pi3d.shape.Sprite.Sprite" title="pi3d.shape.Sprite.Sprite"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.shape.Sprite.Sprite</span></tt></a></p>
-<p>A 2D sprite containing a texture.</p>
+<p>A 2D sprite containing a texture and shader. The constructor also
+calls set_2d_size so that ImageSprite objects can be used directly to draw
+on a Canvas shape (if shader=2d_flat). Additional arguments:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>texture</em></dt>
+<dd>either a Texture object or, if not a Texture, will attempt to load
+a file using texture as a path and name to an image.</dd>
+<dt><em>shader</em></dt>
+<dd>a Shader object</dd>
+</dl>
+</div></blockquote>
 </dd></dl>
 
 </div>
