@@ -144,6 +144,16 @@ meeting at this vertex, otherwise just use first (for speed).</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="pi3d.Buffer.Buffer.re_init">
+<tt class="descname">re_init</tt><big>(</big><em>shape</em>, <em>pts</em>, <em>texcoords</em>, <em>faces</em>, <em>normals=None</em>, <em>smooth=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.re_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.re_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only reset the opengl buffer variables: vertices, tex_coords, indices
+normals (which is generated if not supplied) <strong>NB this method will
+go horribly wrong if you change the size of the arrays supplied in
+the argument as the opengles buffers are reused</strong> Arguments are
+as per __init__()</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pi3d.Buffer.Buffer.set_draw_details">
 <tt class="descname">set_draw_details</tt><big>(</big><em>shader</em>, <em>textures</em>, <em>ntiles=0.0</em>, <em>shiny=0.0</em>, <em>umult=1.0</em>, <em>vmult=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.set_draw_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.set_draw_details" title="Permalink to this definition">¶</a></dt>
 <dd><p>Can be used to set information needed for drawing as a one off
@@ -1361,6 +1371,7 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Sphere"><tt class="docutils literal"><span class="pre">Sphere</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Sprite"><tt class="docutils literal"><span class="pre">Sprite</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.TCone"><tt class="docutils literal"><span class="pre">TCone</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Tetrahedron"><tt class="docutils literal"><span class="pre">Tetrahedron</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Torus"><tt class="docutils literal"><span class="pre">Torus</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Tube"><tt class="docutils literal"><span class="pre">Tube</span></tt> Module</a></li>
 </ul>

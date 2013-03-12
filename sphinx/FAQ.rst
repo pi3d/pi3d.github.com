@@ -209,5 +209,17 @@ Frequently Asked Questions
           hull.rotateToY(-heading)
           hull.rotateToZ(absheel)
 
+#.  Is it possible to change the shape of an object once it's been made:
+
+      The most efficient way is to use the scale(sx, sy, sz) method. However
+      this obviously limits the shape changing that can take place. If the
+      shape needs to be changed more than this then it can be remade as
+      a new instance to replace the old one. When you do this you should
+      clear the previous opengles buffers using the unload_opengl() method
+      before destroying the old one otherwise there will be a memory leak.
+      The alternative way of doing it is to use the Buffer.re_init() method
+      which takes the same arguments as Buffer.__init__() (see documentation)
+      so is a little more technical to use. There is an example of this
+      technique demos/IceGrow.py
 
 .. _ReadMe: http://pi3d.github.com/html/index.html

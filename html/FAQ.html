@@ -273,6 +273,20 @@ roll. For a shape with zero pitch you can use something like:</p>
 </div>
 </div></blockquote>
 </li>
+<li><p class="first">Is it possible to change the shape of an object once it&#8217;s been made:</p>
+<blockquote>
+<div><p>The most efficient way is to use the scale(sx, sy, sz) method. However
+this obviously limits the shape changing that can take place. If the
+shape needs to be changed more than this then it can be remade as
+a new instance to replace the old one. When you do this you should
+clear the previous opengles buffers using the unload_opengl() method
+before destroying the old one otherwise there will be a memory leak.
+The alternative way of doing it is to use the Buffer.re_init() method
+which takes the same arguments as Buffer.__init__() (see documentation)
+so is a little more technical to use. There is an example of this
+technique demos/IceGrow.py</p>
+</div></blockquote>
+</li>
 </ol>
 </div>
 

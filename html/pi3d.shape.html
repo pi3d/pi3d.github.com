@@ -966,6 +966,28 @@ a file using texture as a path and name to an image.</dd>
 </dd></dl>
 
 </div>
+<div class="section" id="module-pi3d.shape.Tetrahedron">
+<span id="tetrahedron-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Tetrahedron</span></tt> Module<a class="headerlink" href="#module-pi3d.shape.Tetrahedron" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.shape.Tetrahedron.Tetrahedron">
+<em class="property">class </em><tt class="descclassname">pi3d.shape.Tetrahedron.</tt><tt class="descname">Tetrahedron</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>name=''</em>, <em>corners=((-1.0</em>, <em>-0.57735</em>, <em>-0.57735)</em>, <em>(1.0</em>, <em>-0.57735</em>, <em>-0.57735)</em>, <em>(0.0</em>, <em>-0.57735</em>, <em>1.1547)</em>, <em>(0.0</em>, <em>1.1547</em>, <em>0.0))</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/Tetrahedron.html#Tetrahedron"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Tetrahedron.Tetrahedron" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></tt></a></p>
+<p>3d model inherits from Shape. The simplest 3D shape</p>
+<p>Uses standard constructor for Shape with ability to position corners.
+The uv mapping is taken from four equilateral triangles arranged on a
+square forming an upwards pointing arrow ^. Starting at the left bottom
+corner of the image the first three triangles are unwrapped from around
+the top of the tetrahedron and the right bottom triangle is the base
+(if the corners are arranged as per the default) Keyword argument:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>corners</em></dt>
+<dd>A tuple of four (xyz) tuples defining the corners</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.shape.Torus">
 <span id="torus-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Torus</span></tt> Module<a class="headerlink" href="#module-pi3d.shape.Torus" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -1036,6 +1058,7 @@ a file using texture as a path and name to an image.</dd>
 <li><a class="reference internal" href="#module-pi3d.shape.Sphere"><tt class="docutils literal"><span class="pre">Sphere</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Sprite"><tt class="docutils literal"><span class="pre">Sprite</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.TCone"><tt class="docutils literal"><span class="pre">TCone</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Tetrahedron"><tt class="docutils literal"><span class="pre">Tetrahedron</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Torus"><tt class="docutils literal"><span class="pre">Torus</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Tube"><tt class="docutils literal"><span class="pre">Tube</span></tt> Module</a></li>
 </ul>

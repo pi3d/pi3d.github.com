@@ -141,6 +141,14 @@ hold the vertex information for drawing each of them.
     :undoc-members:
     :show-inheritance:
 
+:mod:`Tetrahedron` Module
+-------------------------
+
+.. automodule:: pi3d.shape.Tetrahedron
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`Torus` Module
 -------------------
 

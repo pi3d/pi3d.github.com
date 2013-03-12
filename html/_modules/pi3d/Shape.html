@@ -173,6 +173,13 @@
 <span class="sd">    rendering with a different Shader/Texture. self.draw() relies on objects</span>
 <span class="sd">    inheriting from this filling buf with at least one element.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    
+  <span class="k">def</span> <span class="nf">_unload_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;If recreating Shapes to change their shape then the old buffers must be</span>
+<span class="sd">    tidied up explicitly as the python garbage collector will miss this&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">vbuf</span><span class="p">))</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">ebuf</span><span class="p">))</span>
 
 <div class="viewcode-block" id="Shape.draw"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">txtrs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;If called without parameters, there has to have been a previous call to</span>
@@ -180,6 +187,8 @@
 <span class="sd">    NB there is no facility for setting umult and vmult with draw: they must be</span>
 <span class="sd">    set using set_draw_details or Buffer.set_draw_details.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span> <span class="c"># really just to set the flag so _unload_opengl runs</span>
+
     <span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 
     <span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="ow">or</span> <span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
@@ -225,6 +234,7 @@
 <span class="sd">        Shader to use</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    
     <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
