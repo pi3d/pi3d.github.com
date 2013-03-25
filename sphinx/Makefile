@@ -47,6 +47,7 @@ help:
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	touch $(BUILDDIR)/.nojekyll
 	touch $(BUILDDIR)/html/.nojekyll
 	touch $(BUILDDIR)/html/_static/.nojekyll
 	@echo
