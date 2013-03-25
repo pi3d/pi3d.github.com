@@ -51,7 +51,6 @@
   <h1>Source code for pi3d.shape.Extrude</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
-<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Utility</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
 
@@ -60,7 +59,7 @@
 <span class="sd">  NB this shape has an array of three Buffers representing each end face</span>
 <span class="sd">  and the sides of the prism. Each can be textured seperately for drawing.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">light</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="p">[],</span> <span class="n">height</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">light</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
                <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;uses standard constructor for Shape extra Keyword arguments:</span>
@@ -76,15 +75,15 @@
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
       <span class="k">print</span> <span class="s">&quot;Creating Extrude ...&quot;</span>
 
-    <span class="n">s</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="n">path</span> <span class="o">!=</span> <span class="bp">None</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="n">ht</span> <span class="o">=</span> <span class="n">height</span> <span class="o">*</span> <span class="mf">0.5</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">verts</span><span class="o">=</span><span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">norms</span><span class="o">=</span><span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">botface</span><span class="o">=</span><span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">topface</span><span class="o">=</span><span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">sidefaces</span><span class="o">=</span><span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="o">=</span><span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">verts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">norms</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">botface</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">topface</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sidefaces</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">edges</span> <span class="o">=</span> <span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ttype</span> <span class="o">=</span> <span class="n">GL_TRIANGLES</span>
 
@@ -137,13 +136,9 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">sidefaces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">))</span>
 
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>    <span class="c">#bottom face indices - triangle fan</span>
-      <span class="n">p0</span> <span class="o">=</span> <span class="n">s</span> <span class="c">#middle vertex</span>
-      <span class="n">p1</span> <span class="o">=</span> <span class="mi">0</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">botface</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
 
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>    <span class="c">#top face indices - triangle fan</span>
-      <span class="n">p0</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">s</span><span class="o">+</span><span class="mi">1</span> <span class="c">#middle vertex</span>
-      <span class="n">p1</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">s</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">topface</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">s</span><span class="p">))</span>
 
 

@@ -55,7 +55,7 @@
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_chars</span><span class="p">,</span> <span class="n">c_ints</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_ints</span>
 
 <div class="viewcode-block" id="DisplayOpenGL"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.DisplayOpenGL.DisplayOpenGL">[docs]</a><span class="k">class</span> <span class="nc">DisplayOpenGL</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -98,9 +98,9 @@
 
     <span class="bp">self</span><span class="o">.</span><span class="n">create_surface</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
 
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glDepthRangef</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">),</span><span class="n">c_float</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glClearColor</span> <span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="mf">0.3</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mf">0.3</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mf">0.7</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mf">1.0</span><span class="p">));</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glBindFramebuffer</span><span class="p">(</span><span class="n">GL_FRAMEBUFFER</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glDepthRangef</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glClearColor</span> <span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="mf">0.3</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mf">0.3</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mf">0.7</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glBindFramebuffer</span><span class="p">(</span><span class="n">GL_FRAMEBUFFER</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="c">#Setup default hints</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_CULL_FACE</span><span class="p">)</span>
@@ -133,7 +133,7 @@
       <span class="n">DISPMANX_PROTECTION_NONE</span><span class="p">,</span>
       <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-    <span class="n">nativewindow</span> <span class="o">=</span> <span class="n">c_ints</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">dispman_element</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+    <span class="n">nativewindow</span> <span class="o">=</span> <span class="n">c_ints</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">dispman_element</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
     <span class="n">bcm</span><span class="o">.</span><span class="n">vc_dispmanx_update_submit_sync</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dispman_update</span><span class="p">)</span>
 
     <span class="n">nw_p</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">pointer</span><span class="p">(</span><span class="n">nativewindow</span><span class="p">)</span>
@@ -163,7 +163,7 @@
 </div>
 <div class="viewcode-block" id="DisplayOpenGL.destroy"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.DisplayOpenGL.DisplayOpenGL.destroy">[docs]</a>  <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="p">:</span>
-      <span class="n">openegl</span><span class="o">.</span><span class="n">eglSwapBuffers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="p">);</span>
+      <span class="n">openegl</span><span class="o">.</span><span class="n">eglSwapBuffers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="p">)</span>
       <span class="n">openegl</span><span class="o">.</span><span class="n">eglMakeCurrent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="n">EGL_NO_SURFACE</span><span class="p">,</span> <span class="n">EGL_NO_SURFACE</span><span class="p">,</span>
                              <span class="n">EGL_NO_CONTEXT</span><span class="p">)</span>
       <span class="n">openegl</span><span class="o">.</span><span class="n">eglDestroySurface</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="p">)</span>

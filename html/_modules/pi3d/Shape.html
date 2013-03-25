@@ -51,8 +51,7 @@
   <h1>Source code for pi3d.Shape</h1><div class="highlight"><pre>
 <span class="kn">import</span> <span class="nn">ctypes</span>
 
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">ravel</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">radians</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
@@ -557,7 +556,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
-<div class="viewcode-block" id="Shape.rotateIncX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncX">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">v</span><span class="p">):</span>
+<div class="viewcode-block" id="Shape.rotateIncX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncX">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
 <span class="sd">      *v*</span>
@@ -570,7 +569,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
-<div class="viewcode-block" id="Shape.rotateIncY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncY">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">v</span><span class="p">):</span>
+<div class="viewcode-block" id="Shape.rotateIncY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncY">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
 <span class="sd">      *v*</span>
@@ -583,7 +582,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
-<div class="viewcode-block" id="Shape.rotateIncZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncZ">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">v</span><span class="p">):</span>
+<div class="viewcode-block" id="Shape.rotateIncZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncZ">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
 <span class="sd">      *v*</span>
@@ -628,14 +627,12 @@
 
     <span class="n">s</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="n">rl</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sides</span> <span class="o">*</span> <span class="n">loops</span><span class="p">)</span>
-    <span class="n">ssize</span> <span class="o">=</span> <span class="n">rl</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">*</span> <span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="n">pn</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">pp</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">tcx</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sides</span>
     <span class="n">pr</span> <span class="o">=</span> <span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sides</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.0</span>
     <span class="n">rdiv</span> <span class="o">=</span> <span class="n">rise</span> <span class="o">/</span> <span class="n">rl</span>
-    <span class="n">ss</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="c"># Find largest and smallest y of the path used for stretching the texture</span>
     <span class="n">miny</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>

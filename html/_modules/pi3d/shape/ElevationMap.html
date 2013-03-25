@@ -53,7 +53,7 @@
 <span class="kn">import</span> <span class="nn">Image</span>
 <span class="kn">import</span> <span class="nn">PIL.ImageOps</span>
 
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">cross</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">arctan2</span><span class="p">,</span> <span class="n">arcsin</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">subtract</span><span class="p">,</span> <span class="n">multiply</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">cross</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">arctan2</span><span class="p">,</span> <span class="n">arcsin</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">subtract</span>
 
 <span class="kn">from</span> <span class="nn">pi3d</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
@@ -90,9 +90,9 @@
     <span class="nb">super</span><span class="p">(</span><span class="n">ElevationMap</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>
                                        <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-      <span class="k">print</span> <span class="s">&quot;Loading height map ...&quot;</span><span class="p">,</span><span class="n">mapfile</span>
+      <span class="k">print</span> <span class="s">&quot;Loading height map ...&quot;</span><span class="p">,</span> <span class="n">mapfile</span>
 
-    <span class="k">if</span> <span class="n">divx</span><span class="o">&gt;</span><span class="mi">200</span> <span class="ow">or</span> <span class="n">divy</span><span class="o">&gt;</span><span class="mi">200</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">or</span> <span class="n">divy</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
       <span class="k">print</span> <span class="s">&quot;... Map size can&#39;t be bigger than 200x200 divisions&quot;</span>
       <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
       <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
@@ -100,7 +100,7 @@
     <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)</span>
     <span class="n">im</span> <span class="o">=</span> <span class="n">PIL</span><span class="o">.</span><span class="n">ImageOps</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
     <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">ix</span><span class="o">&gt;</span><span class="mi">200</span> <span class="ow">and</span> <span class="n">divx</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ix</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
       <span class="k">if</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
         <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
@@ -115,8 +115,8 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="o">=</span><span class="n">ix</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="o">=</span><span class="n">iy</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">=</span> <span class="n">ix</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">iy</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ttype</span> <span class="o">=</span> <span class="n">GL_TRIANGLE_STRIP</span>
 
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
@@ -135,9 +135,9 @@
     <span class="n">tex_coords</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">iy</span><span class="p">):</span>
-      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ix</span><span class="p">):</span>
-        <span class="n">hgt</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span><span class="o">*</span><span class="n">ht</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">iy</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ix</span><span class="p">):</span>
+        <span class="n">hgt</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span><span class="o">*</span><span class="n">ht</span>
         <span class="n">this_x</span> <span class="o">=</span> <span class="o">-</span><span class="n">wh</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">ws</span>
         <span class="n">this_z</span> <span class="o">=</span> <span class="o">-</span><span class="n">hh</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">hs</span>
         <span class="k">if</span> <span class="n">cubic</span><span class="p">:</span>
@@ -174,14 +174,14 @@
         <span class="n">verts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">this_x</span><span class="p">,</span> <span class="n">hgt</span><span class="p">,</span> <span class="n">this_z</span><span class="p">))</span>
         <span class="n">tex_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="n">ix</span><span class="o">-</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">tx</span><span class="p">,(</span><span class="n">iy</span><span class="o">-</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">ty</span><span class="p">))</span>
 
-    <span class="n">s</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="c">#create one long triangle_strip by alternating X directions</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">iy</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ix</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">iy</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ix</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">ix</span><span class="p">)</span><span class="o">+</span><span class="n">x</span>
-        <span class="n">idx</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="n">ix</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="n">ix</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-        <span class="n">idx</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="n">ix</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">))</span>
-        <span class="n">s</span><span class="o">+=</span><span class="mi">2</span>
+        <span class="n">idx</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">ix</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">ix</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">idx</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="n">ix</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="mi">2</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verts</span><span class="p">,</span> <span class="n">tex_coords</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">smooth</span><span class="p">))</span>
@@ -285,7 +285,7 @@
     <span class="k">if</span> <span class="n">z1</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="n">z1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="o">-</span><span class="mi">1</span>
 
     <span class="c"># go through grid around px, pz</span>
-    <span class="n">minDist</span><span class="p">,</span> <span class="n">minLoc</span> <span class="o">=</span> <span class="mi">1000000</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">minDist</span><span class="p">,</span> <span class="n">minLoc</span> <span class="o">=</span> <span class="mi">1000000</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">x0</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">x1</span><span class="p">):</span>
       <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">z0</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">z1</span><span class="p">):</span>
         <span class="c"># use the locations stored in the one dimensional vertices matrix</span>
@@ -299,10 +299,10 @@
         <span class="n">distSq</span> <span class="o">=</span> <span class="p">(</span><span class="n">px</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">py</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">pz</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
         <span class="k">if</span> <span class="n">distSq</span> <span class="o">&lt;</span> <span class="n">minDist</span><span class="p">:</span> <span class="c"># this vertex is nearest so keep a record</span>
           <span class="n">minDist</span> <span class="o">=</span> <span class="n">distSq</span>
-          <span class="n">minLoc</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
+          <span class="n">minLoc</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
         <span class="c">#now find the distance between the point and the plane perpendicular</span>
         <span class="c">#to the normal at this vertex</span>
-        <span class="n">pDist</span> <span class="o">=</span> <span class="n">Utility</span><span class="o">.</span><span class="n">dotproduct</span><span class="p">((</span><span class="n">px</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">0</span><span class="p">]),(</span><span class="n">py</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">1</span><span class="p">]),(</span><span class="n">pz</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+        <span class="n">pDist</span> <span class="o">=</span> <span class="n">Utility</span><span class="o">.</span><span class="n">dotproduct</span><span class="p">((</span><span class="n">px</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="n">py</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="n">pz</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
                                   <span class="o">-</span><span class="n">normp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">normp</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">normp</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="c">#and the position where the normal from point crosses the plane</span>
         <span class="n">xIsect</span> <span class="o">=</span> <span class="n">px</span> <span class="o">-</span> <span class="n">normp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">pDist</span>
@@ -386,7 +386,7 @@
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="c">#calc normal from two edge vectors v2-v1 and v3-v1</span>
   <span class="c">#nVec = Utility.crossproduct(v2[0]-v1[0], v2[1]-v1[1], v2[2]-v1[2], v3[0]-v1[0],  v3[1]-v1[1], v3[2]-v1[2])</span>
-  <span class="n">nVec</span> <span class="o">=</span> <span class="n">cross</span><span class="p">(</span><span class="n">subtract</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span><span class="n">v1</span><span class="p">),</span> <span class="n">subtract</span><span class="p">(</span><span class="n">v3</span><span class="p">,</span> <span class="n">v1</span><span class="p">))</span>
+  <span class="n">nVec</span> <span class="o">=</span> <span class="n">cross</span><span class="p">(</span><span class="n">subtract</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v1</span><span class="p">),</span> <span class="n">subtract</span><span class="p">(</span><span class="n">v3</span><span class="p">,</span> <span class="n">v1</span><span class="p">))</span>
   <span class="c">#equation of plane: Ax + By + Cz = kVal where A,B,C are components of normal. x,y,z for point v1 to find kVal</span>
   <span class="n">kVal</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">nVec</span><span class="p">,</span><span class="n">v1</span><span class="p">)</span>
   <span class="c">#return y val i.e. y = (kVal - Ax - Cz)/B</span>

@@ -51,11 +51,9 @@
   <h1>Source code for pi3d.loader.loaderEgg</h1><div class="highlight"><pre>
 <span class="kn">import</span> <span class="nn">re</span><span class="o">,</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">pi3d</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">ctypes</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="kn">import</span> <span class="n">Texture</span>
-<span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
 
 <span class="c">#########################################################################################</span>
@@ -136,12 +134,12 @@
       <span class="k">try</span><span class="p">:</span> <span class="n">j</span> <span class="o">=</span> <span class="n">bReg</span><span class="o">.</span><span class="n">next</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
       <span class="k">except</span><span class="p">:</span> <span class="k">return</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
       <span class="n">c</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-      <span class="k">if</span> <span class="n">c</span><span class="o">==</span><span class="s">&quot;&lt;&quot;</span><span class="p">:</span> <span class="c"># add entry to array at this level</span>
+      <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s">&quot;&lt;&quot;</span><span class="p">:</span> <span class="c"># add entry to array at this level</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="c"># text after &quot;{&quot; and before &quot;&lt;Tabxyz&gt;&quot;</span>
         <span class="n">i</span> <span class="o">=</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span> <span class="c"># save marker for start of descriptor</span>
-        <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">,[]])</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[]])</span>
 
-      <span class="k">elif</span> <span class="n">c</span><span class="o">==</span><span class="s">&quot;{&quot;</span><span class="p">:</span>
+      <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="s">&quot;{&quot;</span><span class="p">:</span>
         <span class="n">xn</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">tx</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
         <span class="n">xn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c">#x[0] &amp; x[1] is the &quot;&lt;Tabxyz&gt;&quot; &amp; &quot;123&quot; prior to &quot;{&quot;</span>
@@ -158,15 +156,15 @@
     <span class="n">offsetVList</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">structPList</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">numv</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">numi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c">#numv = 0</span>
+    <span class="c">#numi = 0</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gp</span><span class="p">:</span>
       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">continue</span>
       <span class="k">if</span> <span class="p">(</span><span class="s">&quot;&lt;Group&gt;&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> 
           <span class="n">nextnp</span> <span class="o">=</span> <span class="n">np</span><span class="o">+</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span> 
-          <span class="n">nextnp</span> <span class="o">=</span> <span class="n">np</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span><span class="mi">99999</span><span class="p">))</span>
+          <span class="n">nextnp</span> <span class="o">=</span> <span class="n">np</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">99999</span><span class="p">))</span>
         <span class="n">groupDrill</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">nextnp</span><span class="p">)</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="c">#build vertex, polygon, normal, triangles, UVs etc etc</span>
@@ -209,9 +207,9 @@
             <span class="n">vref</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
               <span class="n">vref</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-              <span class="n">numv</span> <span class="o">+=</span> <span class="mi">1</span>
-              <span class="n">numi</span> <span class="o">+=</span> <span class="mi">3</span>
-            <span class="n">numi</span> <span class="o">-=</span> <span class="mi">6</span> <span class="c"># number of corners of triangle = (n-2)*3 where n is the number of corners of face</span>
+              <span class="c">#numv += 1</span>
+              <span class="c">#numi += 3</span>
+            <span class="c">#numi -= 6 # number of corners of triangle = (n-2)*3 where n is the number of corners of face</span>
             <span class="n">vpKey</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="c"># ought to do a for r in p[3]; if &quot;Ref in...</span>
         <span class="c"># add to list</span>
         <span class="c">#while (len(structPList) &lt; (p+1)): structPList.append(&quot;&quot;)</span>
@@ -220,14 +218,14 @@
 
     <span class="c"># now go through the polygons in order of vertexPool+id, trying to ensure that the polygon arrays in each group are built in the order of vertexPool names</span>
     <span class="c"># only cope with one material and one texture per group</span>
-    <span class="n">numv</span> <span class="o">-=</span> <span class="mi">1</span>
-    <span class="n">numi</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="c">#numv -= 1</span>
+    <span class="c">#numi -= 1</span>
     <span class="n">g_vertices</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">g_normals</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">g_tex_coords</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">g_indices</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">nv</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># vertex counter in this material</span>
-    <span class="n">ni</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># triangle vertex count in this material</span>
+    <span class="c">#ni = 0 # triangle vertex count in this material</span>
 
     <span class="n">gMRef</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
     <span class="n">gTRef</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
@@ -264,7 +262,7 @@
           <span class="n">g_tex_coords</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
         <span class="n">nv</span> <span class="o">+=</span> <span class="mi">1</span>
       <span class="n">n</span> <span class="o">=</span> <span class="n">nv</span> <span class="o">-</span> <span class="n">startV</span> <span class="o">-</span> <span class="mi">1</span>
-      <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
         <span class="n">g_indices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">startV</span><span class="p">,</span> <span class="n">startV</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">startV</span> <span class="o">+</span> <span class="n">j</span><span class="p">))</span>
     
     <span class="n">ilen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">g_vertices</span><span class="p">)</span>
@@ -295,8 +293,8 @@
         <span class="k">else</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">vGroup</span><span class="p">[</span><span class="n">np</span><span class="p">]]</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
     <span class="c">####### end of groupDrill function #####################</span>
 
-  <span class="n">bReg</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="s">&quot;[{}&lt;]&quot;</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
-  <span class="n">xx</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">,[]]</span>
+  <span class="n">bReg</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="s">&quot;[{}&lt;]&quot;</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+  <span class="n">xx</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[]]</span>
   <span class="n">pRec</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">bReg</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
   <span class="n">l</span> <span class="o">=</span> <span class="bp">None</span> <span class="c">#in case it&#39;s running out of memory?</span>
   <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -308,7 +306,7 @@
       <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s">&quot;filename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">)</span>
       <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
         <span class="k">print</span> <span class="n">filePath</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s">&quot;filename&quot;</span><span class="p">]</span>
-      <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s">&quot;texID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Texture</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filePath</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s">&quot;filename&quot;</span><span class="p">]),</span><span class="bp">False</span><span class="p">,</span><span class="bp">True</span><span class="p">)</span> <span class="c"># load from file</span>
+      <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s">&quot;texID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Texture</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filePath</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s">&quot;filename&quot;</span><span class="p">]),</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span> <span class="c"># load from file</span>
     <span class="k">if</span> <span class="s">&quot;&lt;CoordinateSystem&gt;&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
       <span class="n">model</span><span class="o">.</span><span class="n">coordinateSystem</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     <span class="k">if</span> <span class="s">&quot;&lt;Material&gt;&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
