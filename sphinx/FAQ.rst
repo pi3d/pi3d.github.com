@@ -59,6 +59,44 @@ Frequently Asked Questions
       of additional information.
       TODO - other specific fixes
 
+#.  It appears from the demos that there are some arguments that are optional,
+    for example, can a Shape be drawn without specifying a shader and a texture?
+    
+      There are (almost too) many ways to set Shapes up to draw. The draw
+      method needs to have a **Shader**, a **Light** and a **Camera** specified
+      but if you neglect to create a Light and Camera when you first draw
+      a Shape it will generate 'default instances' which most of the time
+      are just what you want NB They can be accessed to change setting such
+      as color or direction for a Light or field of view for a Camera by
+      using the syntax: ``Camera.instance()``. You do, however need to explicitly
+      create the Shader so it does the kind of rendering you want, but you
+      can feed that in by various means, many of which also cater for specifying
+      the Texture(s) to use as well:
+      
+        Set them directly in the Buffer array - the other methods are
+        really just wrappers for this i.e.
+        
+          myshape.buf[0].shader = myshader
+          myshape.buf[0].textures = [mytexture]
+          
+        Include them at draw time:
+
+          myshape.draw(myshader, [mytexture])
+          
+        Set them beforehand (probably the most usual way:
+
+          myshape.set_draw_details(myshader, [mytexture])
+          
+        For Model objects the ambient texture or material shade will normally
+        be defined in the 3D object file (egg or obj/mtl) In these cases
+        you could use
+        
+          myshape.set_shader(myshader)
+          ...
+          myshape.set_normal_shine(normtex, ntiles..) # leaves the first texture if there
+          ...
+          myshape.set_material(mtrl)
+              
 #.  How do I use a joystick, gamepad, xbox controller etc with a pi3d
     application:
     

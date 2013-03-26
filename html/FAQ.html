@@ -116,6 +116,47 @@ of additional information.
 TODO - other specific fixes</p>
 </div></blockquote>
 </li>
+<li><p class="first">It appears from the demos that there are some arguments that are optional,
+for example, can a Shape be drawn without specifying a shader and a texture?</p>
+<blockquote>
+<div><p>There are (almost too) many ways to set Shapes up to draw. The draw
+method needs to have a <strong>Shader</strong>, a <strong>Light</strong> and a <strong>Camera</strong> specified
+but if you neglect to create a Light and Camera when you first draw
+a Shape it will generate &#8216;default instances&#8217; which most of the time
+are just what you want NB They can be accessed to change setting such
+as color or direction for a Light or field of view for a Camera by
+using the syntax: <tt class="docutils literal"><span class="pre">Camera.instance()</span></tt>. You do, however need to explicitly
+create the Shader so it does the kind of rendering you want, but you
+can feed that in by various means, many of which also cater for specifying
+the Texture(s) to use as well:</p>
+<blockquote>
+<div><p>Set them directly in the Buffer array - the other methods are
+really just wrappers for this i.e.</p>
+<blockquote>
+<div><p>myshape.buf[0].shader = myshader
+myshape.buf[0].textures = [mytexture]</p>
+</div></blockquote>
+<p>Include them at draw time:</p>
+<blockquote>
+<div><p>myshape.draw(myshader, [mytexture])</p>
+</div></blockquote>
+<p>Set them beforehand (probably the most usual way:</p>
+<blockquote>
+<div><p>myshape.set_draw_details(myshader, [mytexture])</p>
+</div></blockquote>
+<p>For Model objects the ambient texture or material shade will normally
+be defined in the 3D object file (egg or obj/mtl) In these cases
+you could use</p>
+<blockquote>
+<div><p>myshape.set_shader(myshader)
+...
+myshape.set_normal_shine(normtex, ntiles..) # leaves the first texture if there
+...
+myshape.set_material(mtrl)</p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</li>
 <li><p class="first">How do I use a joystick, gamepad, xbox controller etc with a pi3d
 application:</p>
 <blockquote>
