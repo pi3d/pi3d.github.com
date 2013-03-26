@@ -131,29 +131,30 @@ can feed that in by various means, many of which also cater for specifying
 the Texture(s) to use as well:</p>
 <blockquote>
 <div><p>Set them directly in the Buffer array - the other methods are
-really just wrappers for this i.e.</p>
-<blockquote>
-<div><p>myshape.buf[0].shader = myshader
-myshape.buf[0].textures = [mytexture]</p>
-</div></blockquote>
-<p>Include them at draw time:</p>
-<blockquote>
-<div><p>myshape.draw(myshader, [mytexture])</p>
-</div></blockquote>
-<p>Set them beforehand (probably the most usual way:</p>
-<blockquote>
-<div><p>myshape.set_draw_details(myshader, [mytexture])</p>
-</div></blockquote>
+really just wrappers for this i.e.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">myshape</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">myshader</span>
+<span class="n">myshape</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[</span><span class="n">mytexture</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Include them
+at draw time:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">myshape</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">myshader</span><span class="p">,</span> <span class="p">[</span><span class="n">mytexture</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Set them beforehand
+(probably the most usual way):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">myshader</span><span class="p">,</span> <span class="p">[</span><span class="n">mytexture</span><span class="p">])</span>
+</pre></div>
+</div>
 <p>For Model objects the ambient texture or material shade will normally
 be defined in the 3D object file (egg or obj/mtl) In these cases
-you could use</p>
-<blockquote>
-<div><p>myshape.set_shader(myshader)
+you could use:</p>
+<div class="highlight-python"><pre>myshape.set_shader(myshader)
 ...
 myshape.set_normal_shine(normtex, ntiles..) # leaves the first texture if there
 ...
-myshape.set_material(mtrl)</p>
-</div></blockquote>
+myshape.set_material(mtrl)</pre>
+</div>
 </div></blockquote>
 </div></blockquote>
 </li>

@@ -74,29 +74,31 @@ Frequently Asked Questions
       the Texture(s) to use as well:
       
         Set them directly in the Buffer array - the other methods are
-        really just wrappers for this i.e.
-        
+        really just wrappers for this i.e.::
+
           myshape.buf[0].shader = myshader
           myshape.buf[0].textures = [mytexture]
-          
-        Include them at draw time:
+
+        Include them
+        at draw time::
 
           myshape.draw(myshader, [mytexture])
-          
-        Set them beforehand (probably the most usual way:
+
+        Set them beforehand
+        (probably the most usual way)::
 
           myshape.set_draw_details(myshader, [mytexture])
-          
+
         For Model objects the ambient texture or material shade will normally
         be defined in the 3D object file (egg or obj/mtl) In these cases
-        you could use
-        
+        you could use::
+
           myshape.set_shader(myshader)
           ...
           myshape.set_normal_shine(normtex, ntiles..) # leaves the first texture if there
           ...
           myshape.set_material(mtrl)
-              
+ 
 #.  How do I use a joystick, gamepad, xbox controller etc with a pi3d
     application:
     
