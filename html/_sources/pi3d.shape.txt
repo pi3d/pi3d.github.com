@@ -157,6 +157,14 @@ hold the vertex information for drawing each of them.
     :undoc-members:
     :show-inheritance:
 
+:mod:`Triangle` Module
+----------------------
+
+.. automodule:: pi3d.shape.Triangle
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`Tube` Module
 ------------------
 
