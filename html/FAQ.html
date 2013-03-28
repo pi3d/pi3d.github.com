@@ -329,6 +329,17 @@ so is a little more technical to use. There is an example of this
 technique demos/IceGrow.py</p>
 </div></blockquote>
 </li>
+<li><p class="first">Sometime, when I move the mouse or the program is loading a file from
+disk, everything slows down or freezes.</p>
+<blockquote>
+<div><p>The Display has a frames_per_second argument and if you set this
+lower than the flat out rate it will give the processor some &#8216;slack&#8217;
+to accomplish other jobs. However to perform things like file loading
+(for instance an image or Shape so that it can instantly appear later)
+in the background you need to use threading. demos/Slideshow_2d.py shows
+one way of doing this</p>
+</div></blockquote>
+</li>
 </ol>
 </div>
 

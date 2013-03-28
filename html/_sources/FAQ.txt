@@ -261,5 +261,15 @@ Frequently Asked Questions
       which takes the same arguments as Buffer.__init__() (see documentation)
       so is a little more technical to use. There is an example of this
       technique demos/IceGrow.py
+      
+#.  Sometime, when I move the mouse or the program is loading a file from
+    disk, everything slows down or freezes.
+    
+      The Display has a frames_per_second argument and if you set this
+      lower than the flat out rate it will give the processor some 'slack'
+      to accomplish other jobs. However to perform things like file loading
+      (for instance an image or Shape so that it can instantly appear later)
+      in the background you need to use threading. demos/Slideshow_2d.py shows
+      one way of doing this
 
 .. _ReadMe: http://pi3d.github.com/html/index.html
