@@ -154,6 +154,15 @@ Setup on the Raspberry Pi
 
       sudo apt-get install python-imaging
 
+    [To run on Arch linux you will need to install::
+
+      pacman -S python2
+      pacman -S python-imaging
+      pacman -S python2-numpy
+
+    and possibly other things but that worked for me!]
+
+
 #.  **Install Geany to run Pi3D**
 
     Although you can use any editor and run the scripts in a terminal using python,

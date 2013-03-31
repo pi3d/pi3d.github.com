@@ -761,9 +761,9 @@ time consuming.</p>
 <td>14</td>
 </tr>
 <tr class="row-even"><td>5</td>
-<td>fog distance and alph (only 2 used)</td>
+<td>fog distance, fog alpha, shape alpha</td>
 <td>15</td>
-<td>16</td>
+<td>17</td>
 </tr>
 <tr class="row-odd"><td>6</td>
 <td>camera position</td>
@@ -997,6 +997,20 @@ sampler by</dd>
 <dd>tuple (rgba)</dd>
 <dt><em>fogdist</em></dt>
 <dd>distance from Camera at which Shape is 100% fogshade</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.set_alpha">
+<tt class="descname">set_alpha</tt><big>(</big><em>alpha=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_alpha"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set alpha for this Shape only</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>alpha</em></dt>
+<dd>alpha value between 0.0 and 1.0 (default)</dd>
 </dl>
 </dd>
 </dl>
@@ -1391,7 +1405,7 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.RotateVec"><tt class="docutils literal"><span class="pre">RotateVec</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#tkwin-module"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Ttffont"><tt class="docutils literal"><span class="pre">Ttffont</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
 </ul>
