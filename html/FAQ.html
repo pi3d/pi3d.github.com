@@ -53,49 +53,53 @@
   <div class="section" id="frequently-asked-questions">
 <h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic">
-<li><p class="first">My RPi Crashes or reboots when I try and run a demo:</p>
+<li><p class="first">My RPi Crashes or reboots when I try and run a demo.</p>
 <blockquote>
-<div><p>Anything using a loadable texture (i.e. nearly all the demos) requires
-the Python Imaging module, some demos need tk, see the <a class="reference external" href="http://pi3d.github.com/html/index.html">ReadMe</a> on installing
-these.</p>
+<div><p>Any program using a loadable texture, which includes nearly all the demos,
+requires the Python Imaging module (PIL). Additionally, some demos require tk.</p>
+<p>See the <a class="reference external" href="http://pi3d.github.com/html/index.html">ReadMe</a> for information on how to install these packages.</p>
 </div></blockquote>
 </li>
-<li><p class="first">I see nothing but a white screen:</p>
+<li><p class="first">I see nothing but a white screen.</p>
 <blockquote>
 <div><p>Possibly something has gone wrong with an opengles function, sometimes
 there might be an error message in the terminal such as failed to create
 display. This could be caused by running out of gpu memory (see <a class="reference external" href="http://pi3d.github.com/html/index.html">ReadMe</a>
-for how to set up memory split) occasionally multi-thread applications
-an cause this problem if an opengles function call is made not from the
-main thread.</p>
+for how to set up memory split).</p>
+<p>Occasionally multi-threaded applications can cause this problem if an
+opengles function call is made not from the main thread.  If you encounter
+this, please contact the pi3d team so we can protect against this in
+future.</p>
 </div></blockquote>
 </li>
-<li><p class="first">I see nothing but a black screen:</p>
+<li><p class="first">I see nothing but a black screen.</p>
 <blockquote>
-<div><p>Possibly something has gone wrong in a shader. There may be a line
-nunber reference output by the shader compiler in the terminal window.
-It is great fun experimenting with shaders but they are <em>?£#%</em> taciturn
-beasts to debug! The problem could be caused by sending some bad
-render setting to a shader.</p>
+<div><p>Possibly something has gone wrong in a shader.</p>
+<p>There may be a line number reference output by the shader compiler in the
+terminal window.  It is great fun experimenting with shaders but they are
+<em>?£#%</em> taciturn beasts to debug! The problem could be caused by sending
+some bad render setting to a shader.</p>
 </div></blockquote>
 </li>
-<li><p class="first">I see nothing but the background (you will need to set background to
-non-transparent and a color not equal to black or white to determine
-if this is happening):</p>
+<li><p class="first">I see nothing but the background.</p>
 <blockquote>
-<div><p>Either the shape is behind the camera, too far away, is outside the field
+<div><p>You will need to set background to non-transparent and a color not equal
+to black or white to determine if this is happening.</p>
+<p>Either the shape is behind the camera, too far away, is outside the field
 of view, is too small, too large or the polygons are facing away from the
-camera. Often this is because you are actually <strong>inside</strong> the object. Try
-using the Camera.point_at([x,y,z]) function (see demos/ClashWalk.py for use)
-or move and rotate the object and camera. Sprite and ImageSprite shapes
-are one sided so cannot be seen from behind, try using a Plane instead</p>
+camera. Often this is because you are actually <strong>inside</strong> the object.</p>
+<p>Try using the Camera.point_at([x,y,z]) function (see demos/ClashWalk.py
+for use) or move and rotate the object and camera. Sprite and ImageSprite
+shapes are one sided so cannot be seen from behind, try using a Plane
+instead</p>
 </div></blockquote>
 </li>
-<li><p class="first">I can just see black silhouettes against the background:</p>
+<li><p class="first">I see only black silhouettes against the background.</p>
 <blockquote>
 <div><p>You may be trying to use a shader that requires light but there isn&#8217;t
 any, or it&#8217;s turned down too low. Try switching to a &#8216;flat&#8217; shader
-to check. Alternatively, if it&#8217;s a shape you have generated such as
+to check.</p>
+<p>Alternatively, if it&#8217;s a shape you have generated such as
 a Lathe or a Model, the normal vectors might be pointing in the wrong
 direction. Try re-generating the shape, the path you use for the Lathe
 needs to start at the top of the object and there are functions in
@@ -103,29 +107,31 @@ most 3D modeling applications to recalculate normals, or force them
 to point outwards.</p>
 </div></blockquote>
 </li>
-<li><p class="first">The demo loads but the mouse doesn&#8217;t move the camera as it&#8217;s supposed to:</p>
+<li><p class="first">The demo loads but the mouse doesn&#8217;t move the camera as it&#8217;s supposed to.</p>
 <blockquote>
 <div><p>If this only happens on demos using the <tt class="docutils literal"><span class="pre">event</span></tt> library (such as Silo.py)
 then it could be the hardware configuration is pretending to be something
-it isn&#8217;t. It&#8217;s not uncommon for keyboards to say they are mice or joysticks.
-If you have a mouse combined with a keyboard (to save on USB slots) then
+it isn&#8217;t. It&#8217;s not uncommon for keyboards to say they are mice or
+joysticks.</p>
+<p>If you have a mouse combined with a keyboard (to save on USB slots) then
 you might need to use <tt class="docutils literal"><span class="pre">get_mouse_movements(1)</span></tt>. If you have problems
 with a device or inputs using the event system it&#8217;s a good idea to run
-<tt class="docutils literal"><span class="pre">python</span> <span class="pre">FindDevices.py</span></tt> from <tt class="docutils literal"><span class="pre">pi3d/event/</span></tt> this will give you lots
-of additional information.
-TODO - other specific fixes</p>
+<tt class="docutils literal"><span class="pre">python</span> <span class="pre">FindDevices.py</span></tt> from <tt class="docutils literal"><span class="pre">pi3d/event/</span></tt> - this will give you lots
+of additional information.</p>
+<p>TODO - other specific fixes</p>
 </div></blockquote>
 </li>
-<li><p class="first">It appears from the demos that there are some arguments that are optional,
-for example, can a Shape be drawn without specifying a shader and a texture?</p>
+<li><p class="first">It appears from the demos that there are some arguments that are optional.
+For example, can a Shape be drawn without specifying a shader and a texture?</p>
 <blockquote>
-<div><p>There are (almost too) many ways to set Shapes up to draw. The draw
-method needs to have a <strong>Shader</strong>, a <strong>Light</strong> and a <strong>Camera</strong> specified
-but if you neglect to create a Light and Camera when you first draw
-a Shape it will generate &#8216;default instances&#8217; which most of the time
-are just what you want NB They can be accessed to change setting such
-as color or direction for a Light or field of view for a Camera by
-using the syntax: <tt class="docutils literal"><span class="pre">Camera.instance()</span></tt>. You do, however need to explicitly
+<div><p>There are (almost too) many ways to set Shapes up to draw. The draw method
+needs to have a <strong>Shader</strong>, a <strong>Light</strong> and a <strong>Camera</strong> specified but if
+you neglect to create a Light and Camera when you first draw a Shape it
+will generate &#8216;default instances&#8217; which most of the time are just what you
+want. (These default instances can be accessed to change settings such as
+color or direction for a Light or field of view for a Camera by using the
+syntax: <tt class="docutils literal"><span class="pre">Camera.instance()</span></tt>.</p>
+<p>You do, however need to explicitly
 create the Shader so it does the kind of rendering you want, but you
 can feed that in by various means, many of which also cater for specifying
 the Texture(s) to use as well:</p>
@@ -159,7 +165,7 @@ myshape.set_material(mtrl)</pre>
 </div></blockquote>
 </li>
 <li><p class="first">How do I use a joystick, gamepad, xbox controller etc with a pi3d
-application:</p>
+application?</p>
 <blockquote>
 <div><p>Often these will just work with the event module when plugged into the USB,
 sometimes you may need to use a different InputEvents method, for instance
@@ -170,7 +176,7 @@ sudo xboxdrv -s -i 0</pre>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">How do I make my own 3D model to load into pi3d:</p>
+<li><p class="first">How do I make my own 3D model to load into pi3d?</p>
 <blockquote>
 <div><p>You will need to &#8216;make&#8217; one on a bigger computer using 3D software such
 as <tt class="docutils literal"><span class="pre">blender</span></tt>. This falls outside the scope of this FAQ but your best
@@ -197,7 +203,7 @@ that can be used to give surface detail to the model in pi3d. Quite
 technical but lots of instructional videos on youtube!</p>
 </div></blockquote>
 </li>
-<li><p class="first">I get error messages trying to install from PiStore:</p>
+<li><p class="first">I get error messages trying to install from PiStore?</p>
 <blockquote>
 <div><p>There was an issue with the early versions of PiStore which should
 be fixed if you update it. If you continue to have problems and you
@@ -206,7 +212,7 @@ to download a zipped file from <a class="reference external" href="http://pi3d.g
 documentation and installation instructions on that webiste.</p>
 </div></blockquote>
 </li>
-<li><p class="first">Can I use pi3d for 2D images:</p>
+<li><p class="first">Can I use pi3d for 2D images?</p>
 <blockquote>
 <div><p>There are various ways of doing this. The easiest way is to use the
 image to texture a simple rectangle. The simplest shape to do this
@@ -229,7 +235,7 @@ camera, which can be the default one that you don&#8217;t have to bother
 creating. See below.</p>
 </div></blockquote>
 </li>
-<li><p class="first">How do I display 2D images in front of a 3D scene:</p>
+<li><p class="first">How do I display 2D images in front of a 3D scene?</p>
 <blockquote>
 <div><p>Either draw them onto a Canvas object using the 2d_flat shader or
 create two cameras one 3D and one 2D and assign the relevant camera
@@ -245,7 +251,7 @@ idea to explicitly assign the one you want to each object.</p>
 </div></blockquote>
 </li>
 <li><p class="first">How do I display an image exactly without anti-aliasing or smoothing
-i.e. pixel perfect:</p>
+i.e. pixel perfect?</p>
 <blockquote>
 <div><p>This can be done by using the 2d_flat shader and spcifying when the
 Texture is loaded that mipmap=False. Because this is a global setting
@@ -253,8 +259,8 @@ it will be overwritten by whichever Texture is the last to be loaded</p>
 </div></blockquote>
 </li>
 <li><p class="first">When the demos start there is a message in the terminal
-<tt class="docutils literal"><span class="pre">..echomesh.util.Log:</span> <span class="pre">Log</span> <span class="pre">level</span> <span class="pre">is</span> <span class="pre">INFO</span></tt> where does that come from and
-what does it mean:</p>
+<tt class="docutils literal"><span class="pre">..echomesh.util.Log:</span> <span class="pre">Log</span> <span class="pre">level</span> <span class="pre">is</span> <span class="pre">INFO</span></tt></p>
+<p>Where does that come from and what does it mean?</p>
 <blockquote>
 <div><p>pi3d uses three utilities developed in parallel with it for the
 echomesh project (see ./echomesh/util/ directory). The Log module is
@@ -265,13 +271,13 @@ by-product. It can be used for debugging and recording errors.</p>
 </div></blockquote>
 </li>
 <li><p class="first">How do I use <tt class="docutils literal"><span class="pre">echomesh.util.Log</span></tt> to gather or display useful information
-in my application:</p>
+in my application?</p>
 <blockquote>
 <div><p>You need to create an instance <tt class="docutils literal"><span class="pre">LOGGER</span> <span class="pre">=</span> <span class="pre">Log.logger(__name__)</span></tt> typically
 then call methods of this such as <tt class="docutils literal"><span class="pre">LOGGER.info(&quot;...&quot;)</span></tt> or <tt class="docutils literal"><span class="pre">LOGGER.debug()</span></tt></p>
 </div></blockquote>
 </li>
-<li><p class="first">How do I see the logged information from <tt class="docutils literal"><span class="pre">echomesh.util.Log</span></tt>:</p>
+<li><p class="first">How do I see the logged information from <tt class="docutils literal"><span class="pre">echomesh.util.Log</span></tt>?</p>
 <blockquote>
 <div><p>TODO I can&#8217;t find any file, but it looks like Log needs something in
 echomesh.config.Config otherwise it will get an exception and LOG_FILE
@@ -279,7 +285,7 @@ will be set to a zero length string.</p>
 </div></blockquote>
 </li>
 <li><p class="first">How do I keep two components (Shapes) &#8216;joined together&#8217; as they pitch, roll
-and rotate (yaw), like the TigerTank does with its body, turret and gun:</p>
+and rotate (yaw), like the TigerTank does with its body, turret and gun?</p>
 <blockquote>
 <div><p>First of all it is easiest if you make the zero points of all the shapes
 coincide. When you move and rotate the ojbects you must move and rotate
@@ -292,14 +298,14 @@ by an amount that depends on the degree of y axis rotation. See the
 drawTiger function in demos/TigerTank.py for the kind of formula to use.</p>
 </div></blockquote>
 </li>
-<li><p class="first">I want to give my shape(s) an angle of bank (z axis rotation) which it
-maintains as it turns (y axis rotation) like an aeroplane. However the
-z rotation is always relative to the absolute frame of reference so the shape
-pitches backwards and forwards as it turns, how do I make the frame of
-reference rotate with the shape:</p>
+<li><p class="first">I want to give my shape an angle of bank (z-axis rotation) which it
+maintains as it turns (y-axis rotation) - like an aeroplane. However the
+z-rotation is always relative to the absolute frame of reference so the shape
+pitches backwards and forwards as it turns. How do I make the frame of
+reference rotate with the shape?</p>
 <blockquote>
 <div><p>This is because of the order of the transformations done prior to
-redrawing the scene (z then x then y). You have to work out what the pitch
+redrawing the scene (z, then x, then y). You have to work out what the pitch
 and roll would have to be prior to rotating them about their own y axis!
 To see what I mean watch the behaviour of the tanks in demos/TigerTank.py
 You have to figure out the &#8216;slope of the ground&#8217; so that when your
@@ -315,15 +321,15 @@ roll. For a shape with zero pitch you can use something like:</p>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Is it possible to change the shape of an object once it&#8217;s been made:</p>
+<li><p class="first">Is it possible to change the shape of an object once it&#8217;s been made?</p>
 <blockquote>
-<div><p>The most efficient way is to use the scale(sx, sy, sz) method. However
+<div><p>The most efficient way is to use the scale(sx, sy, sz) method. However,
 this obviously limits the shape changing that can take place. If the
 shape needs to be changed more than this then it can be remade as
 a new instance to replace the old one. When you do this you should
 clear the previous opengles buffers using the unload_opengl() method
-before destroying the old one otherwise there will be a memory leak.
-The alternative way of doing it is to use the Buffer.re_init() method
+before destroying the old one otherwise there will be a memory leak.</p>
+<p>The alternative way of doing it is to use the Buffer.re_init() method
 which takes the same arguments as Buffer.__init__() (see documentation)
 so is a little more technical to use. There is an example of this
 technique demos/IceGrow.py</p>
@@ -334,10 +340,10 @@ disk, everything slows down or freezes.</p>
 <blockquote>
 <div><p>The Display has a frames_per_second argument and if you set this
 lower than the flat out rate it will give the processor some &#8216;slack&#8217;
-to accomplish other jobs. However to perform things like file loading
-(for instance an image or Shape so that it can instantly appear later)
-in the background you need to use threading. demos/Slideshow_2d.py shows
-one way of doing this</p>
+to accomplish other jobs.</p>
+<p>To do things like file loading in the background (for instance, preloading
+an image or Shape so that it can instantly appear later) you need to use
+Python&#8217;s threading - demos/Slideshow_2d.py is an example.</p>
 </div></blockquote>
 </li>
 </ol>
