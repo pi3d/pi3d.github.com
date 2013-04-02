@@ -118,7 +118,11 @@ you might need to use <tt class="docutils literal"><span class="pre">get_mouse_m
 with a device or inputs using the event system it&#8217;s a good idea to run
 <tt class="docutils literal"><span class="pre">python</span> <span class="pre">FindDevices.py</span></tt> from <tt class="docutils literal"><span class="pre">pi3d/event/</span></tt> - this will give you lots
 of additional information.</p>
-<p>TODO - other specific fixes</p>
+<p>There is also an application <tt class="docutils literal"><span class="pre">demos/TestEvents.py</span></tt> that you can run to
+find what information is being returned by your input devices. In some
+circumstances you might need to modify the values returned by the
+<tt class="docutils literal"><span class="pre">pi3d/event/Event.py</span> <span class="pre">InputEvents</span></tt> methods. TODO at the moment this
+involves hacking the file but it will use a lookup table.</p>
 </div></blockquote>
 </li>
 <li><p class="first">It appears from the demos that there are some arguments that are optional.
@@ -162,6 +166,48 @@ myshape.set_normal_shine(normtex, ntiles..) # leaves the first texture if there
 myshape.set_material(mtrl)</pre>
 </div>
 </div></blockquote>
+</div></blockquote>
+</li>
+<li><p class="first">How can I blend objects, why do objects vanish when they go behind a transparent
+object and other questions to do with transparency (or apha property)</p>
+<blockquote>
+<div><p>Transparency of Shapes can be altered by 1. the set_alpha() method 2. the
+alpha value of pixels in a png type image file 3. alpha value of the fog.
+The blending of the pixels with alpha less than 1.0 is controlled by setting
+Texture.blend to True or False.</p>
+<p>The way that transparency is handled is quite hard to understand. Here is
+some good information <a class="reference external" href="http://www.opengl.org/wiki/Transparency_Sorting">http://www.opengl.org/wiki/Transparency_Sorting</a></p>
+<p>The graphics processor has a global setting to enable blending that is
+switched on or off as each Shape is drawn, allowing or preventing the pixels
+to be blended with whatever&#8217;s behind them. In pi3d this can be controlled by
+setting the <tt class="docutils literal"><span class="pre">blend=True</span></tt> argument when the Texture is created or at a later
+point by <tt class="docutils literal"><span class="pre">mytexture.blend</span> <span class="pre">=</span> <span class="pre">True</span></tt> In addition to this setting there is a check
+in the draw() method so that blend is enabled when alpha is set to less than 1.0.</p>
+<p>When the gpu is rendering an object there is a depth buffer that holds
+information on how far from the camera each pixel has been drawn. Because
+of this it is normally optimal to draw foreground objects first as there
+is then less of the background to fill in. If the background was drawn
+first then the same pixel might have to be redrawn several times as the
+gpu found something else nearer to the view point. However the gpu
+<strong>doesn&#8217;t</strong> take into account the transparency of the pixel when it&#8217;s
+deciding if something is nearer or further away, so for blending
+you have to draw things on top of other things...</p>
+<p>Which sounds obvious but to give an example; if a slideshow tries to blend
+between two images, one drawn in front of the other:</p>
+<blockquote>
+<div><p><strong>first</strong> draw the canvasFront (z=0.1) with alpha=0.1
+<strong>then</strong> draw the canvasBack (z=0.2) with alpha=0.9
+the result wll be a very faint image on canvasFront and nothing on canvasBack</p>
+</div></blockquote>
+<p>i.e. canvasBack always has to be drawn first and if the application is purely
+fading from one image to another it can leave canvasBack at apha=1.0 (i.e.
+default value) and just increase then decrease the alpha of canvasFront</p>
+<p>In addition to blending, when the Shader is rendering an object it discards
+some pixels without drawing anything at all. The decision is based on the
+alpha value of the pixel as read from the Texture. If blend is True then
+pixels with alpha &lt; 0.05 are discarded if blend is False then pixels with
+alpha &lt; 0.6 are discarded. This allows objects to be drawn after nearer objects
+but still be seen through &#8216;holes&#8217; in the image. i.e. the trees in ForestWalk</p>
 </div></blockquote>
 </li>
 <li><p class="first">How do I use a joystick, gamepad, xbox controller etc with a pi3d
@@ -259,8 +305,8 @@ it will be overwritten by whichever Texture is the last to be loaded</p>
 </div></blockquote>
 </li>
 <li><p class="first">When the demos start there is a message in the terminal
-<tt class="docutils literal"><span class="pre">..echomesh.util.Log:</span> <span class="pre">Log</span> <span class="pre">level</span> <span class="pre">is</span> <span class="pre">INFO</span></tt></p>
-<p>Where does that come from and what does it mean?</p>
+<tt class="docutils literal"><span class="pre">..echomesh.util.Log:</span> <span class="pre">Log</span> <span class="pre">level</span> <span class="pre">is</span> <span class="pre">INFO</span></tt>
+Where does that come from and what does it mean?</p>
 <blockquote>
 <div><p>pi3d uses three utilities developed in parallel with it for the
 echomesh project (see ./echomesh/util/ directory). The Log module is
