@@ -195,11 +195,14 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 
 <dl class="method">
 <dt id="pi3d.Buffer.Buffer.draw">
-<tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>textures=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>fullset=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.draw" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">draw</tt><big>(</big><em>shape=None</em>, <em>shader=None</em>, <em>textures=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>fullset=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw this Buffer, called by the parent Shape.draw()</p>
 <dl class="docutils">
 <dt>Keyword arguments:</dt>
 <dd><dl class="first last docutils">
+<dt><em>shape</em></dt>
+<dd>Shape object this Buffer belongs to, has to be passed at draw to avoid
+circular reference</dd>
 <dt><em>shader</em></dt>
 <dd>Shader object</dd>
 <dt><em>textures</em></dt>
@@ -572,7 +575,9 @@ the dot product of two vectors.</p>
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>lightpos</em></dt>
-<dd>tuple (x,y,z) vector direction <em>from</em> the light</dd>
+<dd>tuple (x,y,z) vector direction <em>from</em> the light i.e. an object at position
+(0,0,0) would appear to be lit from a light at (-3,4,-5) (left, above and
+nearer) if lightpos=(3,-4,5)</dd>
 <dt><em>lightcol</em></dt>
 <dd>tuple (r,g,b) defines shade and brightness</dd>
 <dt><em>lightamb</em></dt>
@@ -986,6 +991,13 @@ sampler by</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="pi3d.Shape.Shape.offset">
+<tt class="descname">offset</tt><big>(</big><big>)</big><a class="headerlink" href="#pi3d.Shape.Shape.offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get offset as (u, v) tuple of (first) buf uv. Doesnt check that buf array
+exists and has at least one value and only returns offset for that value</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pi3d.Shape.Shape.set_fog">
 <tt class="descname">set_fog</tt><big>(</big><em>fogshade</em>, <em>fogdist</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_fog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_fog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set fog for this Shape only, it uses the shader smoothblend function from
@@ -1014,6 +1026,12 @@ sampler by</dd>
 </dl>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.alpha">
+<tt class="descname">alpha</tt><big>(</big><big>)</big><a class="headerlink" href="#pi3d.Shape.Shape.alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get value of alpha</p>
 </dd></dl>
 
 <dl class="method">

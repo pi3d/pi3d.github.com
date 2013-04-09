@@ -108,7 +108,7 @@ Frequently Asked Questions
 
           myshape.set_draw_details(myshader, [mytexture])
 
-        For Model objects the ambient texture or material shade will normally
+        For Model objects the ambient tecdxture or material shade will normally
         be defined in the 3D object file (egg or obj/mtl) In these cases
         you could use::
 
