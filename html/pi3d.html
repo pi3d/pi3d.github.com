@@ -225,7 +225,7 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 <dl class="class">
 <dt id="pi3d.Camera.Camera">
 <em class="property">class </em><tt class="descclassname">pi3d.Camera.</tt><tt class="descname">Camera</tt><big>(</big><em>at=(0</em>, <em>0</em>, <em>0)</em>, <em>eye=(0</em>, <em>0</em>, <em>-0.1)</em>, <em>lens=(1.0</em>, <em>1000.0</em>, <em>45.0</em>, <em>1.6)</em>, <em>is_3d=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">echomesh.util.DefaultInstance.DefaultInstance</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></tt></p>
 <p>required object for creating and drawing Shape objects. Default instance
 created if none specified in script prior to creating a Shape</p>
 <p>Set up view matrix to look from eye to at including perspective</p>
@@ -329,7 +329,7 @@ a kind of compass!</dd>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
-<dt><em>rx</em> </dt>
+<dt><em>rx</em></dt>
 <dd>x rotation in degrees</dd>
 <dt><em>ry</em></dt>
 <dd>y rotation in degrees</dd>
@@ -561,7 +561,7 @@ terminal window or session.</p>
 <dl class="class">
 <dt id="pi3d.Light.Light">
 <em class="property">class </em><tt class="descclassname">pi3d.Light.</tt><tt class="descname">Light</tt><big>(</big><em>lightpos=(10</em>, <em>-10</em>, <em>20)</em>, <em>lightcol=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>lightamb=(0.1</em>, <em>0.1</em>, <em>0.2)</em><big>)</big><a class="reference internal" href="_modules/pi3d/Light.html#Light"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">echomesh.util.DefaultInstance.DefaultInstance</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></tt></p>
 <p>Holds information about lighting to be used in shaders</p>
 <p>set light values. These are set in Shape.unif as part of the Shape
 constructor. They can be changed using Shape.set_light()

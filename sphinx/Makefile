@@ -50,6 +50,8 @@ html:
 	touch $(BUILDDIR)/.nojekyll
 	touch $(BUILDDIR)/html/.nojekyll
 	touch $(BUILDDIR)/html/_static/.nojekyll
+	cp $(BUILDDIR)/sphinx/ReadMe.rst $(BUILDDIR)/../pi3d/
+	cp $(BUILDDIR)/sphinx/ReadMe.rst $(BUILDDIR)/
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
