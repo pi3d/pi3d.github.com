@@ -232,13 +232,15 @@ or edit the config.txt file (in the boot directory) and set the variable
 Library as this is needed for importing any graphics used by Pi3. The original
 Imaging library is no longer really maintained and doesn&#8217;t run on python_3.
 The better equivalent replacement is Pillow however a couple of issues
-relating to test vertical alignment will not be corrected unti the Oct2013
+relating to text vertical alignment will not be corrected unti the Oct2013
 issue. To install Pillow you need to:</p>
 <div class="highlight-python"><pre>sudo apt-get install python-dev python-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
 sudo apt-get install python-pip
 sudo pip install Pillow
 ...</pre>
 </div>
+<p>If you miss any of the dependent libraries and need to add them later
+you will have to <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">uninstall</span></tt> then re <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></tt></p>
 <p>For python_3 support the first above will provide all the required
 libraries used by either version of Pillow but you will need to:</p>
 <div class="highlight-python"><pre>sudo apt-get install python3-pip
