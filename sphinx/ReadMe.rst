@@ -201,7 +201,7 @@ Setup on alternative Linux platforms
 ====================================
 
 #.  The machine will need to have a gpu that runs OpenGL2+ and obviously
-    it will need to have python istalled. If the Linux is running in vmware
+    it will need to have python installed. If the Linux is running in vmware
     you will need to 'enable 3d acceleration'. You need to install libraries
     that emulate OpenGLES behaviour for the gpu::
 
