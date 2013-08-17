@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pi3d 0.08 documentation</title>
+    <title>Frequently Asked Questions &mdash; pi3d 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.08',
+        VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 0.08 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.0 documentation" href="index.html" />
+    <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="util Package" href="pi3d.util.html" /> 
   </head>
   <body>
@@ -39,9 +40,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="GPUexplain.html" title="3D Graphics Explanation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
           <a href="pi3d.util.html" title="util Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 0.08 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -229,7 +233,7 @@ as <tt class="docutils literal"><span class="pre">blender</span></tt>. This fall
 option is to export the model as an obj file. In Bl2.6 options I specify:</p>
 <div class="highlight-python"><pre>Apply Modifiers (default)
 Include Edges (default)
-Include Normals (have to tick)
+Include Normals (have to tick) &lt;&lt;&lt;&lt;-----------
 Include UVs (default but see below)
 Write Materials (default)
 Object as OBJ Objects (default)
@@ -240,8 +244,11 @@ these last two will mean that..
 Blender.x=&gt;pi3d.x, Blender.y=&gt;pi3d.z, Blender.z=&gt;pi3d.y with no reflection
 of whatever you design</pre>
 </div>
-<p>If you want your 3D model to be textured (have a picture wrapped around it)
-you will need to define uv mapping (after you export you may need to
+<p>NB You will need to define uv mapping even if you define a material
+colour and don&#8217;t intend to use a texture. To do this in blender
+you need to tab to edit mode, select
+all vertices (a), unwrap (u, Unwrap). If the model has multiple objects
+you will need to do this for each one. After you export you may need to
 edit the <tt class="docutils literal"><span class="pre">mtl</span></tt> file so the relative path to the image is correct for
 their locations on the pi. In programs such as blender it is also possible to
 use a more detailed (high polygon) model to create a &#8216;normal map&#8217; image
@@ -255,7 +262,10 @@ technical but lots of instructional videos on youtube!</p>
 be fixed if you update it. If you continue to have problems and you
 are somehow able to read this FAQ somewhere else you should be able
 to download a zipped file from <a class="reference external" href="http://pi3d.github.com">http://pi3d.github.com</a> There is also
-documentation and installation instructions on that webiste.</p>
+documentation and installation instructions on that webiste. Or almost
+as easy install git and use <tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/tipam/pi3d.git</span></tt>
+this will give you the opportunity to upgrade in the future with
+<tt class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">master</span></tt></p>
 </div></blockquote>
 </li>
 <li><p class="first">Can I use pi3d for 2D images?</p>
@@ -281,7 +291,8 @@ camera, which can be the default one that you don&#8217;t have to bother
 creating. See below.</p>
 </div></blockquote>
 </li>
-<li><p class="first">How do I display 2D images in front of a 3D scene?</p>
+<li><p class="first">How do I display 2D images in front of a 3D scene? (or behind, for that
+matter)</p>
 <blockquote>
 <div><p>Either draw them onto a Canvas object using the 2d_flat shader or
 create two cameras one 3D and one 2D and assign the relevant camera
@@ -289,8 +300,12 @@ to the types of objects you want to be drawn by each method. You
 can move the 3D camera around the scene but leave the 2D one stationary,
 that way you won&#8217;t have to keep moving and rotating the 2D objects
 to keep them in front of the camera.</p>
-<p>Orthographic (2D) cameras will render objects so they are in front
-of objects rendered by perspective (3D) cameras.</p>
+<p>Orthographic (2D) cameras will render objects with a z value that is
+severely non linear and does not relate in a simple way to the z values
+for the perspective camera. Generally 2D objects will be in front
+of objects rendered by perspective (3D) cameras unless you assign
+z values in the thousands. Too large a z value, though, and they will
+disappear beyond the &#8216;far plane&#8217;</p>
 <p>If you create a camera it will become the default instance so if you
 need more than one you need to explicitly create them and it&#8217;s a good
 idea to explicitly assign the one you want to each object.</p>
@@ -365,6 +380,8 @@ roll. For a shape with zero pitch you can use something like:</p>
 <span class="n">hull</span><span class="o">.</span><span class="n">rotateToZ</span><span class="p">(</span><span class="n">absheel</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>And see the demos/DogFight.py version which has an extra degree
+of freedom.</p>
 </div></blockquote>
 </li>
 <li><p class="first">Is it possible to change the shape of an object once it&#8217;s been made?</p>
@@ -392,6 +409,21 @@ an image or Shape so that it can instantly appear later) you need to use
 Python&#8217;s threading - demos/Slideshow_2d.py is an example.</p>
 </div></blockquote>
 </li>
+<li><p class="first">I am running pi3d on a Linux machine but it&#8217;s running at a very slow
+frame rate.</p>
+<blockquote>
+<div><p>Probably the GPU can&#8217;t run the OpenGL2+ code that mesa interprets
+from the pi3d OpenGLES2 commands. Check the specification for the
+graphics card.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Using python3 and the InputEvents mouse input (Silo and DogFight demos)
+I get very ragged and unresponsive camera movment.</p>
+<blockquote>
+<div><p>We know about this (but not why) and will
+fix it asap</p>
+</div></blockquote>
+</li>
 </ol>
 </div>
 
@@ -404,6 +436,9 @@ Python&#8217;s threading - demos/Slideshow_2d.py is an example.</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="pi3d.util.html"
                         title="previous chapter">util Package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="GPUexplain.html"
+                        title="next chapter">3D Graphics Explanation</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/FAQ.txt"
@@ -436,9 +471,12 @@ Python&#8217;s threading - demos/Slideshow_2d.py is an example.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="GPUexplain.html" title="3D Graphics Explanation"
+             >next</a> |</li>
+        <li class="right" >
           <a href="pi3d.util.html" title="util Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 0.08 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.event.FindDevices &mdash; pi3d 0.08 documentation</title>
+    <title>pi3d.event.FindDevices &mdash; pi3d 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.08',
+        VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 0.08 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 1.0 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 0.08 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -50,7 +50,7 @@
             
   <h1>Source code for pi3d.event.FindDevices</h1><div class="highlight"><pre>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">Constants</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.Constants</span> <span class="kn">import</span> <span class="o">*</span>
 
 <div class="viewcode-block" id="test_bit"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.FindDevices.test_bit">[docs]</a><span class="k">def</span> <span class="nf">test_bit</span><span class="p">(</span><span class="n">nlst</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
   <span class="n">index</span> <span class="o">=</span> <span class="n">b</span> <span class="o">/</span> <span class="mi">32</span>
@@ -96,7 +96,7 @@
     
     <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&quot;.*Bus=([0-9A-Fa-f]+).*Vendor=([0-9A-Fa-f]+).*Product=([0-9A-Fa-f]+).*Version=([0-9A-Fa-f]+).*&quot;</span><span class="p">,</span> <span class="n">firstLine</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-      <span class="k">print</span> <span class="s">&quot;Do not understand device ID:&quot;</span><span class="p">,</span> <span class="n">line</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">&quot;Do not understand device ID:&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">bus</span> <span class="o">=</span> <span class="mi">0</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">vendor</span> <span class="o">=</span> <span class="mi">0</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">product</span> <span class="o">=</span> <span class="mi">0</span>
@@ -251,13 +251,13 @@
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
   <span class="n">devs</span> <span class="o">=</span> <span class="n">get_devices</span><span class="p">()</span>
   <span class="k">for</span> <span class="n">dev</span> <span class="ow">in</span> <span class="n">devs</span><span class="p">:</span>
-    <span class="k">print</span> <span class="nb">str</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
-    <span class="k">print</span> <span class="s">&quot;   ABS: &quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="n">test_bit</span><span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">EV_ABSevents</span><span class="p">,</span> <span class="n">x</span><span class="p">)]</span>
-    <span class="k">print</span> <span class="s">&quot;   REL: &quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="n">test_bit</span><span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">EV_RELevents</span><span class="p">,</span> <span class="n">x</span><span class="p">)]</span>
-    <span class="k">print</span> <span class="s">&quot;   MSC: &quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="n">test_bit</span><span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">EV_MSCevents</span><span class="p">,</span> <span class="n">x</span><span class="p">)]</span>
-    <span class="k">print</span> <span class="s">&quot;   KEY: &quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span> <span class="k">if</span> <span class="n">test_bit</span><span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">EV_KEYevents</span><span class="p">,</span> <span class="n">x</span><span class="p">)]</span>
-    <span class="k">print</span> <span class="s">&quot;   LED: &quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="n">test_bit</span><span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">EV_LEDevents</span><span class="p">,</span> <span class="n">x</span><span class="p">)]</span>
-    <span class="k">print</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dev</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;   ABS: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="n">test_bit</span><span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">EV_ABSevents</span><span class="p">,</span> <span class="n">x</span><span class="p">)]))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;   REL: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="n">test_bit</span><span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">EV_RELevents</span><span class="p">,</span> <span class="n">x</span><span class="p">)]))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;   MSC: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="n">test_bit</span><span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">EV_MSCevents</span><span class="p">,</span> <span class="n">x</span><span class="p">)]))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;   KEY: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span> <span class="k">if</span> <span class="n">test_bit</span><span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">EV_KEYevents</span><span class="p">,</span> <span class="n">x</span><span class="p">)]))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;   LED: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="n">test_bit</span><span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">EV_LEDevents</span><span class="p">,</span> <span class="n">x</span><span class="p">)]))</span>
+    <span class="k">print</span><span class="p">()</span>
 </pre></div>
 
           </div>
@@ -291,7 +291,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 0.08 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Light &mdash; pi3d 0.08 documentation</title>
+    <title>pi3d.Light &mdash; pi3d 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.08',
+        VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 0.08 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.0 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 0.08 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -49,7 +49,9 @@
           <div class="body">
             
   <h1>Source code for pi3d.Light</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">echomesh.util.DefaultInstance</span> <span class="kn">import</span> <span class="n">DefaultInstance</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">from</span> <span class="nn">pi3d.util.DefaultInstance</span> <span class="kn">import</span> <span class="n">DefaultInstance</span>
 
 <div class="viewcode-block" id="Light"><a class="viewcode-back" href="../../pi3d.html#pi3d.Light.Light">[docs]</a><span class="k">class</span> <span class="nc">Light</span><span class="p">(</span><span class="n">DefaultInstance</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot; Holds information about lighting to be used in shaders &quot;&quot;&quot;</span>
@@ -60,15 +62,17 @@
     <span class="sd">&quot;&quot;&quot; set light values. These are set in Shape.unif as part of the Shape</span>
 <span class="sd">    constructor. They can be changed using Shape.set_light()</span>
 <span class="sd">    The pixel shade is calculated as::</span>
-<span class="sd">    </span>
+
 <span class="sd">      (lightcol * texture) * dot(lightpos, -normal) + (lightamb * texture)</span>
-<span class="sd">    </span>
+
 <span class="sd">    where * means component multiplying if between two vectors and dot() is</span>
 <span class="sd">    the dot product of two vectors.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Arguments:</span>
 <span class="sd">      *lightpos*</span>
-<span class="sd">        tuple (x,y,z) vector direction *from* the light</span>
+<span class="sd">        tuple (x,y,z) vector direction *from* the light i.e. an object at position</span>
+<span class="sd">        (0,0,0) would appear to be lit from a light at (-3,4,-5) (left, above and</span>
+<span class="sd">        nearer) if lightpos=(3,-4,5)</span>
 <span class="sd">      *lightcol*</span>
 <span class="sd">        tuple (r,g,b) defines shade and brightness</span>
 <span class="sd">      *lightamb*</span>
@@ -124,7 +128,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 0.08 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

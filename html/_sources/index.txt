@@ -14,6 +14,7 @@ Contents:
    ReadMe
    pi3d
    FAQ
+   GPUexplain
 
 
 Indices and tables

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Shader &mdash; pi3d 0.08 documentation</title>
+    <title>pi3d.Shader &mdash; pi3d 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.08',
+        VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 0.08 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.0 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 0.08 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -49,12 +49,14 @@
           <div class="body">
             
   <h1>Source code for pi3d.Shader</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
-<span class="kn">from</span> <span class="nn">echomesh.util</span> <span class="kn">import</span> <span class="n">Log</span>
+<span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">import</span> <span class="nn">six</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_chars</span>
+<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Log</span>
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Loadable</span>
 
 <span class="c"># This class based on Peter de Rivaz&#39;s mandlebrot example + Tim Skillman&#39;s work on pi3d2</span>
@@ -83,6 +85,7 @@
 <span class="sd">    of the object. The **2d_flat** shader is a special case of a textured shader</span>
 <span class="sd">    which maps pixels in an image to pixels on the screen with an optional</span>
 <span class="sd">    scaling and offset.</span>
+
 <span class="sd">  * Material - generally defined using the **mat** prefix, where a material</span>
 <span class="sd">    shade (rgb) has to be set for the object to be rendered</span>
 
@@ -91,8 +94,10 @@
 
 <span class="sd">  * flat - no lighting is used, the shade rendered is the rgb value of the</span>
 <span class="sd">    texture or material</span>
+
 <span class="sd">  * light - Light direction, shade and ambient shade are used give a 3D effect</span>
 <span class="sd">    to the surface</span>
+
 <span class="sd">  * bump - a normal map texture needs to be loaded as well and this will be</span>
 <span class="sd">    used to give much finer 3D effect to the surface than can be defined by</span>
 <span class="sd">    the resolution of the vertices. The effect of the normal map drops with</span>
@@ -100,6 +105,7 @@
 <span class="sd">    distance. The shader is passed a variable to use for tiling the normal</span>
 <span class="sd">    map which may be different from the tiling of the general texture. If</span>
 <span class="sd">    set to 0.0 then no normal mapping will occur.</span>
+
 <span class="sd">  * reflect - in addition to a normal map an image needs to be supplied to</span>
 <span class="sd">    act as a reflection. The shader is passed a value from 0.0 to 1.0 to</span>
 <span class="sd">    determine the strength of the reflection.</span>
@@ -113,8 +119,10 @@
 <span class="sd">    Arguments:</span>
 <span class="sd">      *shfile*</span>
 <span class="sd">        Pathname without vs or fs ending i.e. &quot;shaders/uv_light&quot;</span>
+
 <span class="sd">      *vshader_source*</span>
 <span class="sd">        String with the code for the vertex shader.</span>
+
 <span class="sd">      *vshader_source*</span>
 <span class="sd">        String with the code for the fragment shader.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -128,7 +136,7 @@
 
     <span class="k">def</span> <span class="nf">make_shader</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">shader_type</span><span class="p">):</span>
       <span class="n">src</span> <span class="o">=</span> <span class="n">src</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadShader</span><span class="p">(</span><span class="n">shfile</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
-      <span class="n">characters</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+      <span class="n">characters</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
       <span class="n">shader</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glCreateShader</span><span class="p">(</span><span class="n">shader_type</span><span class="p">)</span>
       <span class="n">opengles</span><span class="o">.</span><span class="n">glShaderSource</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">characters</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
       <span class="n">opengles</span><span class="o">.</span><span class="n">glCompileShader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
@@ -145,21 +153,23 @@
     <span class="n">opengles</span><span class="o">.</span><span class="n">glLinkProgram</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">showprogramlog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">attr_vertex</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetAttribLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;vertex&quot;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">attr_normal</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetAttribLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;normal&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">attr_vertex</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetAttribLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;vertex&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">attr_normal</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetAttribLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;normal&#39;</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">unif_modelviewmatrix</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;modelviewmatrix&quot;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unif_cameraviewmatrix</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;cameraviewmatrix&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif_modelviewmatrix</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;modelviewmatrix&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif_cameraviewmatrix</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;cameraviewmatrix&#39;</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">unif_unif</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;unif&quot;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unif_unib</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;unib&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif_unif</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;unif&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif_unib</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;unib&#39;</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">attr_texcoord</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetAttribLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;texcoord&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">attr_texcoord</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetAttribLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;texcoord&#39;</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glEnableVertexAttribArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_texcoord</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif_tex</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">texture</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">unif_tex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="s">&quot;tex&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;tex0&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;tex1&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;tex2&#39;</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">unif_tex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
       <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">      *NB*</span>
 <span class="sd">        for *uv* shaders tex0=texture tex1=normal map tex2=reflection</span>
@@ -177,21 +187,20 @@
     <span class="n">N</span> <span class="o">=</span> <span class="mi">1024</span>
     <span class="n">log</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char</span> <span class="o">*</span> <span class="n">N</span><span class="p">)()</span>
     <span class="n">loglen</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glGetShaderInfoLog</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">loglen</span><span class="p">),</span>
-                                <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">log</span><span class="p">))</span>
-    <span class="k">print</span> <span class="s">&quot;shader&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shfile</span><span class="p">,</span> <span class="n">log</span><span class="o">.</span><span class="n">value</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glGetShaderInfoLog</span><span class="p">(</span>
+      <span class="n">shader</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">loglen</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">log</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;shader {}, {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shfile</span><span class="p">,</span> <span class="n">log</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
 </div>
 <div class="viewcode-block" id="Shader.showprogramlog"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shader.Shader.showprogramlog">[docs]</a>  <span class="k">def</span> <span class="nf">showprogramlog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Prints the compile log for a program&quot;&quot;&quot;</span>
     <span class="n">N</span> <span class="o">=</span> <span class="mi">1024</span>
     <span class="n">log</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char</span> <span class="o">*</span> <span class="n">N</span><span class="p">)()</span>
     <span class="n">loglen</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glGetProgramInfoLog</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">loglen</span><span class="p">),</span>
-                                 <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">log</span><span class="p">))</span>
-    <span class="k">print</span> <span class="s">&quot;program&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shfile</span><span class="p">,</span> <span class="n">log</span><span class="o">.</span><span class="n">value</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glGetProgramInfoLog</span><span class="p">(</span>
+      <span class="n">shader</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">loglen</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">log</span><span class="p">))</span>
 </div>
 <div class="viewcode-block" id="Shader.loadShader"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shader.Shader.loadShader">[docs]</a>  <span class="k">def</span> <span class="nf">loadShader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sfile</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">sfile</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></div></div>
+    <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">sfile</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></div></div>
 </pre></div>
 
           </div>
@@ -225,7 +234,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 0.08 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

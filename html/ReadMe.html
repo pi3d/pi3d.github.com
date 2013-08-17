@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction to Pi3D &mdash; pi3d 0.08 documentation</title>
+    <title>Introduction to Pi3D &mdash; pi3d 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.08',
+        VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 0.08 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.0 documentation" href="index.html" />
     <link rel="next" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="Welcome to pi3d’s documentation!" href="index.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pi3d’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 0.08 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -65,8 +65,10 @@ under the bonnet!</p>
 whilst giving access to the power of the Raspberry Pi GPU. It enables both
 3D and 2D rendering and aims to provide a host of exciting commands to load
 in textured/animated models, create fractal landscapes, shaders and much more.</p>
-<p>This is the fourth release of the pi3d module which now uses the OpenGLES2.0
-functionality of the Raspberry Pi directly. This makes it generally <em>faster</em>
+<p>v1.0 is the fifth release of the pi3d module which now adds support for
+running on platforms other than the raspberry pi (X on linux) and runs with
+python 3 as well as 2 The OpenGLES2.0 functionality of the Raspberry Pi
+is used directly or via mesa on &#8216;big&#8217; machines. This makes it generally <em>faster</em>
 and opens up the world of <em>shaders</em> that allow effects such as normal and
 reflection maps, blurring and many others. It has various demos of built-in
 shapes, landscapes, model loading, walk-about camera and much more! See the demos
@@ -203,7 +205,7 @@ this time  bouncing off each other on the desktop</p>
 /usr/share/fonts/truetype for others, or look online. 1.0 MB</li>
 <li><strong>demos</strong> Source code of the demos included 96 kB</li>
 <li><strong>screenshots</strong> Example screenshots of the demos included 860 kB</li>
-<li><strong>documentation</strong> Where this documentation lives 5.7 MB</li>
+<li><strong>pyxlib</strong> Library to enable use on general linux machines 209 kB</li>
 <li><strong>ChangeLog.txt</strong> Latest changes of Pi3D</li>
 <li><strong>ReadMe.rst</strong> This file</li>
 </ol>
@@ -211,6 +213,13 @@ this time  bouncing off each other on the desktop</p>
 <div class="section" id="setup-on-the-raspberry-pi">
 <h1>Setup on the Raspberry Pi<a class="headerlink" href="#setup-on-the-raspberry-pi" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic">
+<li><p class="first"><strong>Download and unzip</strong></p>
+<p>The latest code can be obtained from <a class="reference external" href="https://github.com/tipam/pi3d/">https://github.com/tipam/pi3d/</a>
+where there is a <tt class="docutils literal"><span class="pre">Download</span> <span class="pre">ZIP</span></tt> link, or you can install git then
+clone using <tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/tipam/pi3d.git</span></tt> this git
+method will give you the option to update the code by running, from
+the pi3d directory <tt class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">master</span></tt></p>
+</li>
 <li><p class="first"><strong>Memory Split setup</strong></p>
 <p>Although most demos work on 64MB of memory, you are strongly advised to have
 a 128MB of graphics memory split, especially for full-screen 3D graphics.
@@ -220,17 +229,58 @@ or edit the config.txt file (in the boot directory) and set the variable
 </li>
 <li><p class="first"><strong>Install Python Imaging</strong></p>
 <p>Before trying any of the demos or Pi3D, you must download the Python Imaging
-Library as this is needed for importing any graphics used by Pi3. To install
-on the terminal, type:</p>
+Library as this is needed for importing any graphics used by Pi3. The original
+Imaging library is no longer really maintained and doesn&#8217;t run on python_3.
+The better equivalent replacement is Pillow however a couple of issues
+relating to test vertical alignment will not be corrected unti the Oct2013
+issue. To install Pillow you need to:</p>
+<div class="highlight-python"><pre>sudo apt-get install python-dev python-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
+sudo apt-get install python-pip
+sudo pip install Pillow
+...</pre>
+</div>
+<p>For python_3 support the first above will provide all the required
+libraries used by either version of Pillow but you will need to:</p>
+<div class="highlight-python"><pre>sudo apt-get install python3-pip
+sudo pip-3.2 install Pillow</pre>
+</div>
+<p>If you do not intend to run python_3 and need nicely aligned text
+strings over the short term you can install the old PIL:  on the
+terminal, type:</p>
 <div class="highlight-python"><pre>sudo apt-get install python-imaging</pre>
 </div>
+<p>If you later switch to Pillow you will need to sudo remove python-imaging
+first</p>
 <p>[To run on Arch linux you will need to install:</p>
 <div class="highlight-python"><pre>pacman -S python2
 pacman -S python-imaging
 pacman -S python2-numpy</pre>
 </div>
-<p>and possibly other things but that worked for me!]</p>
+<p>this worked for me. Presumably you would need the pacman equivalent of
+all the installations outlined above for Pillow and python_3]</p>
 </li>
+</ol>
+</div>
+<div class="section" id="setup-on-alternative-linux-platforms">
+<h1>Setup on alternative Linux platforms<a class="headerlink" href="#setup-on-alternative-linux-platforms" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first">The machine will need to have a gpu that runs OpenGL2+ and obviously
+it will need to have python istalled. If the Linux is running in vmware
+you will need to &#8216;enable 3d acceleration&#8217;. You need to install libraries
+that emulate OpenGLES behaviour for the gpu:</p>
+<div class="highlight-python"><pre>sudo apt-get install mesa-utils-extra</pre>
+</div>
+<p>This should install libEGL.so.1 and libGLESv2.so.2 if these change
+(which I suppose they could in time) then the references will need to
+be altered in pi3d/constants/__init__.py</p>
+<p>The installation of PIL or Pillow should be the same as above but you
+are more likely to need to manually install python-numpy or python3-numpy</p>
+</li>
+</ol>
+</div>
+<div class="section" id="editing-scripts-and-running">
+<h1>Editing scripts and running<a class="headerlink" href="#editing-scripts-and-running" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
 <li><p class="first"><strong>Install Geany to run Pi3D</strong></p>
 <p>Although you can use any editor and run the scripts in a terminal using python,
 Geany is by far the easiest and most compatible application to use for creating
@@ -244,7 +294,8 @@ and running Python scripts. Download and install it with:</p>
 </div>
 </li>
 <li><p class="first"><strong>Load and run</strong></p>
-<p>Load any of the demos into Geany and run (using the cogs icon). As a minimum,
+<p>Either run from the terminal <tt class="docutils literal"><span class="pre">python3</span> <span class="pre">~/pi3d/demos/Minimal.py</span></tt> or
+load any of the demos into Geany and run (using the cogs icon). As a minimum,
 scripts need these elements in order to use the pi3d library:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pi3d</span>
 <span class="n">DISPLAY</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
@@ -264,7 +315,10 @@ instance to get user input in order to stop the program!</p>
 <p>The whole idea of Pi3d is that you don&#8217;t have to get involved in too many of
 the nuts and bolts of how the OpenGL graphics processor works however it might
 help to get an overview of the layout of Pi3d. More detailed explanations can
-be found in the documentation of each of the modules.</p>
+be found in the documentation of each of the modules. Read <a class="reference external" href="FAQ.html">FAQ</a> before
+you try anything ambitious or if anything goes wrong, obviously. There is a
+<a class="reference external" href="GPUexplain.html">3D Graphics Explanation</a> where I try to explain in some more detail what
+is going on.</p>
 <blockquote>
 <div><p><strong>Display</strong> The <a class="reference external" href="pi3d.html#pi3d.Display.Display">Display</a> class is the core and is used to hold screen dimension information,
 to initiate the graphics functionality and for &#8216;central&#8217; information, such as timing,
@@ -368,6 +422,8 @@ David Wallin and others who have contributed to Pi3D - keep up the good work!</p
 <li><a class="reference internal" href="#demos-included-with-pi3d">Demos included with Pi3D</a></li>
 <li><a class="reference internal" href="#files-and-folders-in-this-repository">Files and folders in this repository</a></li>
 <li><a class="reference internal" href="#setup-on-the-raspberry-pi">Setup on the Raspberry Pi</a></li>
+<li><a class="reference internal" href="#setup-on-alternative-linux-platforms">Setup on alternative Linux platforms</a></li>
+<li><a class="reference internal" href="#editing-scripts-and-running">Editing scripts and running</a></li>
 <li><a class="reference internal" href="#a-very-brief-explanation">A Very Brief Explanation</a></li>
 <li><a class="reference internal" href="#documentation">Documentation</a></li>
 <li><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
@@ -416,7 +472,7 @@ David Wallin and others who have contributed to Pi3D - keep up the good work!</p
         <li class="right" >
           <a href="index.html" title="Welcome to pi3d’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 0.08 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

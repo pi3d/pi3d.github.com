@@ -184,7 +184,7 @@ Frequently Asked Questions
 
         Apply Modifiers (default)
         Include Edges (default)
-        Include Normals (have to tick)
+        Include Normals (have to tick) <<<<-----------
         Include UVs (default but see below)
         Write Materials (default)
         Object as OBJ Objects (default)
@@ -195,8 +195,11 @@ Frequently Asked Questions
         Blender.x=>pi3d.x, Blender.y=>pi3d.z, Blender.z=>pi3d.y with no reflection
         of whatever you design
 
-      If you want your 3D model to be textured (have a picture wrapped around it)
-      you will need to define uv mapping (after you export you may need to
+      NB You will need to define uv mapping even if you define a material
+      colour and don't intend to use a texture. To do this in blender
+      you need to tab to edit mode, select
+      all vertices (a), unwrap (u, Unwrap). If the model has multiple objects
+      you will need to do this for each one. After you export you may need to
       edit the ``mtl`` file so the relative path to the image is correct for
       their locations on the pi. In programs such as blender it is also possible to
       use a more detailed (high polygon) model to create a 'normal map' image
@@ -209,7 +212,10 @@ Frequently Asked Questions
       be fixed if you update it. If you continue to have problems and you
       are somehow able to read this FAQ somewhere else you should be able
       to download a zipped file from http://pi3d.github.com There is also
-      documentation and installation instructions on that webiste.
+      documentation and installation instructions on that webiste. Or almost
+      as easy install git and use ``git clone https://github.com/tipam/pi3d.git``
+      this will give you the opportunity to upgrade in the future with
+      ``git pull origin master``
 
 #.  Can I use pi3d for 2D images?
 
@@ -235,7 +241,8 @@ Frequently Asked Questions
       camera, which can be the default one that you don't have to bother
       creating. See below.
 
-#.  How do I display 2D images in front of a 3D scene?
+#.  How do I display 2D images in front of a 3D scene? (or behind, for that
+    matter)
 
       Either draw them onto a Canvas object using the 2d_flat shader or
       create two cameras one 3D and one 2D and assign the relevant camera
@@ -244,8 +251,12 @@ Frequently Asked Questions
       that way you won't have to keep moving and rotating the 2D objects
       to keep them in front of the camera.
 
-      Orthographic (2D) cameras will render objects so they are in front
-      of objects rendered by perspective (3D) cameras.
+      Orthographic (2D) cameras will render objects with a z value that is
+      severely non linear and does not relate in a simple way to the z values
+      for the perspective camera. Generally 2D objects will be in front
+      of objects rendered by perspective (3D) cameras unless you assign
+      z values in the thousands. Too large a z value, though, and they will
+      disappear beyond the 'far plane'
 
       If you create a camera it will become the default instance so if you
       need more than one you need to explicitly create them and it's a good
@@ -315,6 +326,9 @@ Frequently Asked Questions
           hull.rotateToY(-heading)
           hull.rotateToZ(absheel)
 
+      And see the demos/DogFight.py version which has an extra degree
+      of freedom.
+
 #.  Is it possible to change the shape of an object once it's been made?
 
       The most efficient way is to use the scale(sx, sy, sz) method. However,
@@ -339,5 +353,18 @@ Frequently Asked Questions
       To do things like file loading in the background (for instance, preloading
       an image or Shape so that it can instantly appear later) you need to use
       Python's threading - demos/Slideshow_2d.py is an example.
+
+#.  I am running pi3d on a Linux machine but it's running at a very slow
+    frame rate.
+
+      Probably the GPU can't run the OpenGL2+ code that mesa interprets
+      from the pi3d OpenGLES2 commands. Check the specification for the
+      graphics card.
+
+#.  Using python3 and the InputEvents mouse input (Silo and DogFight demos)
+    I get very ragged and unresponsive camera movment.
+
+      We know about this (but not why) and will
+      fix it asap
 
 .. _ReadMe: http://pi3d.github.com/html/index.html

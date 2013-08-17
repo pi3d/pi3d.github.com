@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Shape &mdash; pi3d 0.08 documentation</title>
+    <title>pi3d.Shape &mdash; pi3d 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.08',
+        VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 0.08 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.0 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 0.08 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -49,6 +49,8 @@
           <div class="body">
             
   <h1>Source code for pi3d.Shape</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
 <span class="kn">import</span> <span class="nn">ctypes</span>
 
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span>
@@ -172,13 +174,6 @@
 <span class="sd">    rendering with a different Shader/Texture. self.draw() relies on objects</span>
 <span class="sd">    inheriting from this filling buf with at least one element.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-  <span class="k">def</span> <span class="nf">_unload_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;If recreating Shapes to change their shape then the old buffers must be</span>
-<span class="sd">    tidied up explicitly as the python garbage collector will miss this&quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">vbuf</span><span class="p">))</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">ebuf</span><span class="p">))</span>
 
 <div class="viewcode-block" id="Shape.draw"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">txtrs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;If called without parameters, there has to have been a previous call to</span>
@@ -220,7 +215,7 @@
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="c"># Shape.draw has to be passed either parameter == None or values to pass</span>
       <span class="c"># on.</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">txtrs</span><span class="p">,</span> <span class="n">ntl</span><span class="p">,</span> <span class="n">shny</span><span class="p">)</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">,</span> <span class="n">txtrs</span><span class="p">,</span> <span class="n">ntl</span><span class="p">,</span> <span class="n">shny</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Shape.set_shader"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_shader">[docs]</a>  <span class="k">def</span> <span class="nf">set_shader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper method to set just the Shader for all the Buffer objects of</span>
@@ -233,7 +228,7 @@
 <span class="sd">        Shader to use</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
@@ -311,6 +306,12 @@
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">set_offset</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
 </div>
+<div class="viewcode-block" id="Shape.offset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.offset">[docs]</a>  <span class="k">def</span> <span class="nf">offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get offset as (u, v) tuple of (first) buf uv. Doesnt check that buf array</span>
+<span class="sd">    exists and has at least one value and only returns offset for that value&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span>
+
+</div>
 <div class="viewcode-block" id="Shape.set_fog"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_fog">[docs]</a>  <span class="k">def</span> <span class="nf">set_fog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fogshade</span><span class="p">,</span> <span class="n">fogdist</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set fog for this Shape only, it uses the shader smoothblend function from</span>
 <span class="sd">    1/3 fogdist to fogdist.</span>
@@ -334,6 +335,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span>
 </div>
+<div class="viewcode-block" id="Shape.alpha"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.alpha">[docs]</a>  <span class="k">def</span> <span class="nf">alpha</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get value of alpha&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span>
+</div>
 <div class="viewcode-block" id="Shape.set_light"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_light">[docs]</a>  <span class="k">def</span> <span class="nf">set_light</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set the values of the lights.</span>
 
@@ -344,7 +349,7 @@
 <span class="sd">        number of the light to set</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c">#TODO (pg) need MAXLIGHTS global variable, room for two now but shader</span>
-    <span class="c"># only uses 1. Also shader doesn&#39;t use light colour or ambient colour</span>
+    <span class="c"># only uses 1.</span>
     <span class="k">if</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
       <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">stn</span> <span class="o">=</span> <span class="mi">24</span> <span class="o">+</span> <span class="n">num</span> <span class="o">*</span> <span class="mi">9</span>
@@ -404,6 +409,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="n">index_from</span><span class="p">:(</span><span class="n">index_from</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]</span> <span class="o">=</span> <span class="n">data</span>
 </div>
+<div class="viewcode-block" id="Shape.set_point_size"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_point_size">[docs]</a>  <span class="k">def</span> <span class="nf">set_point_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">point_size</span>
+</div>
 <div class="viewcode-block" id="Shape.x"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.x">[docs]</a>  <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;get value of x&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -415,6 +424,29 @@
 <div class="viewcode-block" id="Shape.z"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.z">[docs]</a>  <span class="k">def</span> <span class="nf">z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;get value of z&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="Shape.get_bounds"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.get_bounds">[docs]</a>  <span class="k">def</span> <span class="nf">get_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find the limits of vertices in three dimensions. Returns a tuple</span>
+<span class="sd">    (left, bottom, front, right, top, back)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">front</span>  <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">10000</span>
+    <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">back</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span><span class="p">,</span> <span class="o">-</span><span class="mi">10000</span><span class="p">,</span> <span class="o">-</span><span class="mi">10000</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">vertices</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">left</span><span class="p">:</span>
+          <span class="n">left</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">right</span><span class="p">:</span>
+          <span class="n">right</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">bottom</span><span class="p">:</span>
+          <span class="n">bottom</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">top</span><span class="p">:</span>
+          <span class="n">top</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">front</span><span class="p">:</span>
+          <span class="n">front</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">back</span><span class="p">:</span>
+          <span class="n">back</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">back</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Shape.scale"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.scale">[docs]</a>  <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
@@ -727,7 +759,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 0.08 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
