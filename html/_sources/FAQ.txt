@@ -70,7 +70,11 @@ Frequently Asked Questions
       ``python FindDevices.py`` from ``pi3d/event/`` - this will give you lots
       of additional information.
 
-      TODO - other specific fixes
+      There is also an application ``demos/TestEvents.py`` that you can run to
+      find what information is being returned by your input devices. In some
+      circumstances you might need to modify the values returned by the
+      ``pi3d/event/Event.py InputEvents`` methods. TODO at the moment this
+      involves hacking the file but it will use a lookup table.
 
 #.  It appears from the demos that there are some arguments that are optional.
     For example, can a Shape be drawn without specifying a shader and a texture?
@@ -104,7 +108,7 @@ Frequently Asked Questions
 
           myshape.set_draw_details(myshader, [mytexture])
 
-        For Model objects the ambient texture or material shade will normally
+        For Model objects the ambient tecdxture or material shade will normally
         be defined in the 3D object file (egg or obj/mtl) In these cases
         you could use::
 
@@ -113,6 +117,53 @@ Frequently Asked Questions
           myshape.set_normal_shine(normtex, ntiles..) # leaves the first texture if there
           ...
           myshape.set_material(mtrl)
+
+#.  How can I blend objects, why do objects vanish when they go behind a transparent
+    object and other questions to do with transparency (or apha property)
+    
+      Transparency of Shapes can be altered by 1. the set_alpha() method 2. the
+      alpha value of pixels in a png type image file 3. alpha value of the fog.
+      The blending of the pixels with alpha less than 1.0 is controlled by setting
+      Texture.blend to True or False.
+    
+      The way that transparency is handled is quite hard to understand. Here is
+      some good information http://www.opengl.org/wiki/Transparency_Sorting
+      
+      The graphics processor has a global setting to enable blending that is
+      switched on or off as each Shape is drawn, allowing or preventing the pixels
+      to be blended with whatever's behind them. In pi3d this can be controlled by
+      setting the ``blend=True`` argument when the Texture is created or at a later
+      point by ``mytexture.blend = True`` In addition to this setting there is a check
+      in the draw() method so that blend is enabled when alpha is set to less than 1.0.
+
+      When the gpu is rendering an object there is a depth buffer that holds
+      information on how far from the camera each pixel has been drawn. Because
+      of this it is normally optimal to draw foreground objects first as there
+      is then less of the background to fill in. If the background was drawn
+      first then the same pixel might have to be redrawn several times as the
+      gpu found something else nearer to the view point. However the gpu
+      **doesn't** take into account the transparency of the pixel when it's
+      deciding if something is nearer or further away, so for blending
+      you have to draw things on top of other things...
+
+      Which sounds obvious but to give an example; if a slideshow tries to blend
+      between two images, one drawn in front of the other:
+      
+        **first** draw the canvasFront (z=0.1) with alpha=0.1
+        **then** draw the canvasBack (z=0.2) with alpha=0.9
+        the result wll be a very faint image on canvasFront and nothing on canvasBack
+        
+      i.e. canvasBack always has to be drawn first and if the application is purely
+      fading from one image to another it can leave canvasBack at apha=1.0 (i.e.
+      default value) and just increase then decrease the alpha of canvasFront
+      
+      In addition to blending, when the Shader is rendering an object it discards
+      some pixels without drawing anything at all. The decision is based on the
+      alpha value of the pixel as read from the Texture. If blend is True then
+      pixels with alpha < 0.05 are discarded if blend is False then pixels with
+      alpha < 0.6 are discarded. This allows objects to be drawn after nearer objects
+      but still be seen through 'holes' in the image. i.e. the trees in ForestWalk
+      
 
 #.  How do I use a joystick, gamepad, xbox controller etc with a pi3d
     application?
@@ -133,7 +184,7 @@ Frequently Asked Questions
 
         Apply Modifiers (default)
         Include Edges (default)
-        Include Normals (have to tick)
+        Include Normals (have to tick) <<<<-----------
         Include UVs (default but see below)
         Write Materials (default)
         Object as OBJ Objects (default)
@@ -144,8 +195,11 @@ Frequently Asked Questions
         Blender.x=>pi3d.x, Blender.y=>pi3d.z, Blender.z=>pi3d.y with no reflection
         of whatever you design
 
-      If you want your 3D model to be textured (have a picture wrapped around it)
-      you will need to define uv mapping (after you export you may need to
+      NB You will need to define uv mapping even if you define a material
+      colour and don't intend to use a texture. To do this in blender
+      you need to tab to edit mode, select
+      all vertices (a), unwrap (u, Unwrap). If the model has multiple objects
+      you will need to do this for each one. After you export you may need to
       edit the ``mtl`` file so the relative path to the image is correct for
       their locations on the pi. In programs such as blender it is also possible to
       use a more detailed (high polygon) model to create a 'normal map' image
@@ -158,7 +212,10 @@ Frequently Asked Questions
       be fixed if you update it. If you continue to have problems and you
       are somehow able to read this FAQ somewhere else you should be able
       to download a zipped file from http://pi3d.github.com There is also
-      documentation and installation instructions on that webiste.
+      documentation and installation instructions on that webiste. Or almost
+      as easy install git and use ``git clone https://github.com/tipam/pi3d.git``
+      this will give you the opportunity to upgrade in the future with
+      ``git pull origin master``
 
 #.  Can I use pi3d for 2D images?
 
@@ -184,7 +241,8 @@ Frequently Asked Questions
       camera, which can be the default one that you don't have to bother
       creating. See below.
 
-#.  How do I display 2D images in front of a 3D scene?
+#.  How do I display 2D images in front of a 3D scene? (or behind, for that
+    matter)
 
       Either draw them onto a Canvas object using the 2d_flat shader or
       create two cameras one 3D and one 2D and assign the relevant camera
@@ -193,8 +251,12 @@ Frequently Asked Questions
       that way you won't have to keep moving and rotating the 2D objects
       to keep them in front of the camera.
 
-      Orthographic (2D) cameras will render objects so they are in front
-      of objects rendered by perspective (3D) cameras.
+      Orthographic (2D) cameras will render objects with a z value that is
+      severely non linear and does not relate in a simple way to the z values
+      for the perspective camera. Generally 2D objects will be in front
+      of objects rendered by perspective (3D) cameras unless you assign
+      z values in the thousands. Too large a z value, though, and they will
+      disappear beyond the 'far plane'
 
       If you create a camera it will become the default instance so if you
       need more than one you need to explicitly create them and it's a good
@@ -209,7 +271,6 @@ Frequently Asked Questions
 
 #.  When the demos start there is a message in the terminal
     ``..echomesh.util.Log: Log level is INFO``
-
     Where does that come from and what does it mean?
 
       pi3d uses three utilities developed in parallel with it for the
@@ -265,6 +326,9 @@ Frequently Asked Questions
           hull.rotateToY(-heading)
           hull.rotateToZ(absheel)
 
+      And see the demos/DogFight.py version which has an extra degree
+      of freedom.
+
 #.  Is it possible to change the shape of an object once it's been made?
 
       The most efficient way is to use the scale(sx, sy, sz) method. However,
@@ -289,5 +353,18 @@ Frequently Asked Questions
       To do things like file loading in the background (for instance, preloading
       an image or Shape so that it can instantly appear later) you need to use
       Python's threading - demos/Slideshow_2d.py is an example.
+
+#.  I am running pi3d on a Linux machine but it's running at a very slow
+    frame rate.
+
+      Probably the GPU can't run the OpenGL2+ code that mesa interprets
+      from the pi3d OpenGLES2 commands. Check the specification for the
+      graphics card.
+
+#.  Using python3 and the InputEvents mouse input (Silo and DogFight demos)
+    I get very ragged and unresponsive camera movment.
+
+      We know about this (but not why) and will
+      fix it asap
 
 .. _ReadMe: http://pi3d.github.com/html/index.html

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>util Package &mdash; pi3d 0.8 documentation</title>
+    <title>util Package &mdash; pi3d 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.8',
+        VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 0.8 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.0 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="next" title="Frequently Asked Questions" href="FAQ.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 0.8 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" accesskey="U">pi3d Package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -132,6 +132,11 @@ Arguments:</p>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="pi3d.util.Defocus.Defocus.delete_buffers">
+<tt class="descname">delete_buffers</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Defocus.html#Defocus.delete_buffers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Defocus.Defocus.delete_buffers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -158,7 +163,7 @@ Arguments:</p>
 
 <dl class="method">
 <dt id="pi3d.util.DisplayOpenGL.DisplayOpenGL.destroy">
-<tt class="descname">destroy</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/DisplayOpenGL.html#DisplayOpenGL.destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.DisplayOpenGL.DisplayOpenGL.destroy" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">destroy</tt><big>(</big><em>display=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/DisplayOpenGL.html#DisplayOpenGL.destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.DisplayOpenGL.DisplayOpenGL.destroy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -173,18 +178,59 @@ Arguments:</p>
 <span id="font-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Font</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Font" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.Font.Font">
-<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color='#ffffff'</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=u'#ffffff'</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=48</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
-<p>A method of writing in pi3d using &#8216;hand designed&#8217; fonts, where the top
-line of the texture contains metainformation about each character.</p>
-<p>Mainly superseded by the Ttffont class.</p>
+<p>A Font contains a TrueType font ready to be rendered in OpenGL.</p>
+<p>A font is just a mapping from codepoints (single Unicode characters) to glyphs
+(graphical representations of those characters).</p>
+<p>Font packs one whole font into a single Texture using PIL.ImageFont,
+then creates a table mapping codepoints to subrectangles of that Texture.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
-<dd><dl class="first last docutils">
+<dd><blockquote class="first">
+<div><dl class="docutils">
 <dt><em>font</em></dt>
-<dd>The name of a file containing a PNG texture.</dd>
+<dd>File path/name to a TrueType font file.</dd>
+</dl>
+</div></blockquote>
+<dl class="last docutils">
+<dt>Keyword arguments:</dt>
+<dd><dl class="first last docutils">
 <dt><em>color</em></dt>
-<dd>A hex string representing a color.</dd>
+<dd>Color in standard hex format #RRGGBB</dd>
+<dt><em>font_size</em></dt>
+<dd>Point size for drawing the letters on the internal Texture</dd>
+<dt><em>codepoints</em></dt>
+<dd><p class="first">Iterable list of characters. All these formats will work:</p>
+<blockquote>
+<div>&#8216;ABCDEabcde &#8216;
+[65, 66, 67, 68, 69, 97, 98, 99, 100, 101, 145, 148, 172, 32]
+[c for c in range(65, 173)]</div></blockquote>
+<p>Note that Font will ONLY use the codepoints in this list - if you
+forget to list a codepoint or character here, it won&#8217;t be displayed.
+If you just want to add a few missing codepoints, you&#8217;re probably better
+off using the <em>add_codepoints</em> parameter.</p>
+<p>If the string version is used then the program file might need to
+have the coding defined at the top:  # -<em>- coding: utf-8 -</em>-</p>
+<p class="last">The default is <a href="#id1"><span class="problematic" id="id2">*</span></a>codepoints*=range(256).</p>
+</dd>
+<dt><em>add_codepoints</em></dt>
+<dd>If you are only wanting to add a few codepoints that are missing, you
+should use the <em>add_codepoints</em> parameter, which just adds codepoints or
+characters to the default list of codepoints. All the other comments for
+the <em>codepoints</em> parameter still apply.</dd>
+<dt><em>image_size</em></dt>
+<dd>Width and height of the Texture that backs the image.
+If it doesn&#8217;t fit then a larger size will be tried up to MAX_SIZE.
+The isses are: maximum image size supported by the gpu (2048x2048?)
+gpu memory usage and time to load by working up the size required
+in 256 pixel steps.</dd>
+<dt><em>italic_adjustment</em></dt>
+<dd>Adjusts the bounding width to take italics into account.  The default
+value is 1.1; you can get a tighter bounding if you set this down
+closer to 1, but italics might get cut off at the right.</dd>
+</dl>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -259,17 +305,23 @@ to it!</p>
 <span id="string-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">String</span></tt> Module<a class="headerlink" href="#module-pi3d.util.String" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.String.String">
-<em class="property">class </em><tt class="descclassname">pi3d.util.String.</tt><tt class="descname">String</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>font=None</em>, <em>string=None</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=1.0</em>, <em>sx=0.003333333333333333</em>, <em>sy=0.003333333333333333</em>, <em>is_3d=True</em>, <em>size=0.24</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/String.html#String"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.String.String" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.String.</tt><tt class="descname">String</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>font=None</em>, <em>string=None</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=1.0</em>, <em>sx=0.003333333333333333</em>, <em>sy=0.003333333333333333</em>, <em>is_3d=True</em>, <em>size=0.24</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>justify=u'C'</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/String.html#String"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.String.String" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></tt></a></p>
 <p>Shape used for writing text on screen. It is a flat, one sided rectangualar plane</p>
-<p>Standard Shape constructor without the facility to change z scale or 
-any of the offset values. Additional keyword arguments:</p>
-<blockquote>
+<dl class="docutils">
+<dt>Standard Shape constructor without the facility to change z scale or</dt>
+<dd><p class="first">any of the offset values. Additional keyword arguments:</p>
+<blockquote class="last">
 <div><dl class="docutils">
 <dt><em>font</em></dt>
-<dd>Font or Ttffont class object.</dd>
+<dd>Pngfont or Font class object.</dd>
 <dt><em>string</em></dt>
-<dd>of ASCI characters in range(32, 128)</dd>
+<dd>of ASCI characters in range(32, 128) plus 10 =</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>Line Feed</dt>
+<dd><dl class="first last docutils">
 <dt><em>sx, sy</em></dt>
 <dd>These change the actual vertex positions of the shape rather than being
 used as scaling factors. This is to avoid distortion when the string is
@@ -281,8 +333,11 @@ drawing</dd>
 <dd>approximate size of the characters in inches - obviously for 3D drawing
 of strings this will depend on camera fov, display size and how far away
 the string is placed</dd>
+<dt><em>justify</em></dt>
+<dd>default C for central, can be R for right or L for left</dd>
 </dl>
-</div></blockquote>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -309,7 +364,7 @@ the string is placed</dd>
 <span id="ttffont-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Ttffont</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Ttffont" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.Ttffont.Ttffont">
-<em class="property">class </em><tt class="descclassname">pi3d.util.Ttffont.</tt><tt class="descname">Ttffont</tt><big>(</big><em>font</em>, <em>col='#ffffff'</em>, <em>fontsize=48</em>, <em>imagesize=512</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Ttffont.html#Ttffont"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Ttffont.Ttffont" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.Ttffont.</tt><tt class="descname">Ttffont</tt><big>(</big><em>font</em>, <em>col='#ffffff'</em>, <em>fontsize=48</em>, <em>imagesize=512</em><big>)</big><a class="headerlink" href="#pi3d.util.Ttffont.Ttffont" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
 <p>Loads a Ttf font from disk and creates a Texture and lookup table for
 the String class to write with</p>
@@ -704,7 +759,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 0.8 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" >pi3d Package</a> &raquo;</li> 
       </ul>
     </div>

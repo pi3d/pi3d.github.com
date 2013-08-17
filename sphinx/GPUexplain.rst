@@ -4,7 +4,7 @@
 This is my understanding of how the gpu and 3D graphics are implemented
 on the Raspberry pi. It is based entirely on what I have had to learn in
 order for me to get the pi3d library working and doing what I wanted. i.e.
-there will be gaps and possibly misapprehension! Also I intentionally
+there will be gaps and possibly misapprehensions! Also I intentionally
 skip over many of the more involved aspects such as rendering to off-screen
 buffers, using masks, etc.
 
@@ -59,7 +59,7 @@ provide information on bumps or reflections.
       between vertices and look up what part of a texture to render at each pixel.
       The final piece of information needed by the shader is to define which
       vertices to use for the corners of each triangle. So if I use as an example
-      a very simple one sides square this could be defined by the vertices:
+      a very simple one sided square this could be defined by the vertices:
 
       [(x=0.0, y= 0.0, z=0.0), (x=0.0, y=1.0, z=0.0), (x=1.0, y=1.0, z=0.0), (x=1.0, y=0.0, z=0.0)]
 

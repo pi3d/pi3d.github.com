@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &mdash; pi3d 0.8 documentation</title>
+    <title>pi3d Package &mdash; pi3d 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.8',
+        VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 0.8 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.0 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Introduction to Pi3D" href="ReadMe.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to Pi3D"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 0.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -130,9 +130,9 @@ meeting at this vertex, otherwise just use first (for speed).</dd>
 <td>5</td>
 </tr>
 <tr class="row-odd"><td>2</td>
-<td>umult, vmult (only 2 used)</td>
+<td>umult, vmult, point_size</td>
 <td>6</td>
-<td>7</td>
+<td>8</td>
 </tr>
 <tr class="row-even"><td>3</td>
 <td>u_off, v_off (only 2 used)</td>
@@ -195,11 +195,14 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 
 <dl class="method">
 <dt id="pi3d.Buffer.Buffer.draw">
-<tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>textures=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>fullset=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.draw" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">draw</tt><big>(</big><em>shape=None</em>, <em>shader=None</em>, <em>textures=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>fullset=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw this Buffer, called by the parent Shape.draw()</p>
 <dl class="docutils">
 <dt>Keyword arguments:</dt>
 <dd><dl class="first last docutils">
+<dt><em>shape</em></dt>
+<dd>Shape object this Buffer belongs to, has to be passed at draw to avoid
+circular reference</dd>
 <dt><em>shader</em></dt>
 <dd>Shader object</dd>
 <dt><em>textures</em></dt>
@@ -221,8 +224,8 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 <span id="camera-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Camera</span></tt> Module<a class="headerlink" href="#module-pi3d.Camera" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Camera.Camera">
-<em class="property">class </em><tt class="descclassname">pi3d.Camera.</tt><tt class="descname">Camera</tt><big>(</big><em>at=(0</em>, <em>0</em>, <em>0)</em>, <em>eye=(0</em>, <em>0</em>, <em>-0.1)</em>, <em>lens=(1.0</em>, <em>1000.0</em>, <em>45.0</em>, <em>1.6)</em>, <em>is_3d=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">echomesh.util.DefaultInstance.DefaultInstance</span></tt></p>
+<em class="property">class </em><tt class="descclassname">pi3d.Camera.</tt><tt class="descname">Camera</tt><big>(</big><em>at=(0</em>, <em>0</em>, <em>0)</em>, <em>eye=(0</em>, <em>0</em>, <em>-0.1)</em>, <em>lens=(1.0</em>, <em>1000.0</em>, <em>45.0</em>, <em>1.6)</em>, <em>is_3d=True</em>, <em>scale=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></tt></p>
 <p>required object for creating and drawing Shape objects. Default instance
 created if none specified in script prior to creating a Shape</p>
 <p>Set up view matrix to look from eye to at including perspective</p>
@@ -239,12 +242,14 @@ display aspect ratio w/h)</dd>
 <dt><em>is_3d</em></dt>
 <dd>determines whether the camera uses a perspective or orthographic
 projection matrix</dd>
+<dt><em>scale</em></dt>
+<dd>number of pixels per unit of size for orthographic camera</dd>
 </dl>
 </dd>
 </dl>
 <dl class="method">
 <dt id="pi3d.Camera.Camera.reset">
-<tt class="descname">reset</tt><big>(</big><em>lens=None</em>, <em>is_3d=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.reset" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">reset</tt><big>(</big><em>lens=None</em>, <em>is_3d=True</em>, <em>scale=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Has to be called each loop if the camera position or rotation changes</p>
 </dd></dl>
 
@@ -326,7 +331,7 @@ a kind of compass!</dd>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
-<dt><em>rx</em> </dt>
+<dt><em>rx</em></dt>
 <dd>x rotation in degrees</dd>
 <dt><em>ry</em></dt>
 <dd>y rotation in degrees</dd>
@@ -469,7 +474,7 @@ an alpha of 1 means full opaque.</dd>
 
 <dl class="function">
 <dt id="pi3d.Display.create">
-<tt class="descclassname">pi3d.Display.</tt><tt class="descname">create</tt><big>(</big><em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>fov=45.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pi3d.Display.</tt><tt class="descname">create</tt><big>(</big><em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>fov=45.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=u''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a pi3d Display.</p>
 <dl class="docutils">
 <dt><em>x</em></dt>
@@ -547,6 +552,32 @@ terminal window or session.</p>
 
 </dd></dl>
 
+<dl class="class">
+<dt id="pi3d.Keyboard.x11Keyboard">
+<em class="property">class </em><tt class="descclassname">pi3d.Keyboard.</tt><tt class="descname">x11Keyboard</tt><a class="reference internal" href="_modules/pi3d/Keyboard.html#x11Keyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.x11Keyboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="pi3d.Keyboard.x11Keyboard.KEYBOARD">
+<tt class="descname">KEYBOARD</tt><em class="property"> = [[0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [27, u'Escape'], [49, u'1'], [50, u'2'], [51, u'3'], [52, u'4'], [53, u'5'], [54, u'6'], [55, u'7'], [56, u'8'], [57, u'9'], [48, u'0'], [45, u'-'], [61, u'='], [8, u'BackSpace'], [9, u'Tab'], [113, u'q'], [119, u'w'], [101, u'e'], [114, u'r'], [116, u't'], [121, u'y'], [117, u'u'], [105, u'i'], [111, u'o'], [112, u'p'], [91, u'['], [93, u']'], [13, u'Return'], [0, u'Control_L'], [97, u'a'], [115, u's'], [100, u'd'], [102, u'f'], [103, u'g'], [104, u'h'], [106, u'j'], [107, u'k'], [108, u'l'], [59, u';'], [39, u&quot;'&quot;], [96, u'`'], [0, u'Shift_L'], [35, u'#'], [122, u'z'], [120, u'x'], [99, u'c'], [118, u'v'], [98, u'b'], [110, u'n'], [109, u'm'], [44, u','], [46, u'.'], [47, u'/'], [0, u'Shift_R'], [0, u''], [0, u'Alt_L'], [32, u'space'], [0, u'Caps'], [145, u'F1'], [146, u'F2'], [147, u'F3'], [148, u'F4'], [149, u'F5'], [150, u'F6'], [151, u'F7'], [152, u'F8'], [153, u'F9'], [154, u'F10'], [0, u'Num_Lock'], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [92, u'\\'], [155, u'F11'], [156, u'F12'], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [0, u''], [13, u'KP_Enter'], [0, u'Control_R'], [0, u''], [0, u''], [0, u'Alt_R'], [0, u''], [129, u'Home'], [134, u'Up'], [130, u'Page_Up'], [136, u'Left'], [137, u'Right'], [132, u'End'], [135, u'Down'], [133, u'Page_Down'], [128, u'Insert'], [131, u'DEL']]</em><a class="headerlink" href="#pi3d.Keyboard.x11Keyboard.KEYBOARD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Keyboard.x11Keyboard.read">
+<tt class="descname">read</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#x11Keyboard.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.x11Keyboard.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Keyboard.x11Keyboard.read_code">
+<tt class="descname">read_code</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#x11Keyboard.read_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.x11Keyboard.read_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Keyboard.x11Keyboard.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#x11Keyboard.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.x11Keyboard.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="function">
 <dt id="pi3d.Keyboard.Keyboard">
 <tt class="descclassname">pi3d.Keyboard.</tt><tt class="descname">Keyboard</tt><big>(</big><em>use_curses=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#Keyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.Keyboard" title="Permalink to this definition">¶</a></dt>
@@ -558,7 +589,7 @@ terminal window or session.</p>
 <dl class="class">
 <dt id="pi3d.Light.Light">
 <em class="property">class </em><tt class="descclassname">pi3d.Light.</tt><tt class="descname">Light</tt><big>(</big><em>lightpos=(10</em>, <em>-10</em>, <em>20)</em>, <em>lightcol=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>lightamb=(0.1</em>, <em>0.1</em>, <em>0.2)</em><big>)</big><a class="reference internal" href="_modules/pi3d/Light.html#Light"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">echomesh.util.DefaultInstance.DefaultInstance</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></tt></p>
 <p>Holds information about lighting to be used in shaders</p>
 <p>set light values. These are set in Shape.unif as part of the Shape
 constructor. They can be changed using Shape.set_light()
@@ -572,7 +603,9 @@ the dot product of two vectors.</p>
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>lightpos</em></dt>
-<dd>tuple (x,y,z) vector direction <em>from</em> the light</dd>
+<dd>tuple (x,y,z) vector direction <em>from</em> the light i.e. an object at position
+(0,0,0) would appear to be lit from a light at (-3,4,-5) (left, above and
+nearer) if lightpos=(3,-4,5)</dd>
 <dt><em>lightcol</em></dt>
 <dd>tuple (r,g,b) defines shade and brightness</dd>
 <dt><em>lightamb</em></dt>
@@ -761,9 +794,9 @@ time consuming.</p>
 <td>14</td>
 </tr>
 <tr class="row-even"><td>5</td>
-<td>fog distance and alph (only 2 used)</td>
+<td>fog distance, fog alpha, shape alpha</td>
 <td>15</td>
-<td>16</td>
+<td>17</td>
 </tr>
 <tr class="row-odd"><td>6</td>
 <td>camera position</td>
@@ -986,6 +1019,13 @@ sampler by</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="pi3d.Shape.Shape.offset">
+<tt class="descname">offset</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get offset as (u, v) tuple of (first) buf uv. Doesnt check that buf array
+exists and has at least one value and only returns offset for that value</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pi3d.Shape.Shape.set_fog">
 <tt class="descname">set_fog</tt><big>(</big><em>fogshade</em>, <em>fogdist</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_fog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_fog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set fog for this Shape only, it uses the shader smoothblend function from
@@ -1000,6 +1040,26 @@ sampler by</dd>
 </dl>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.set_alpha">
+<tt class="descname">set_alpha</tt><big>(</big><em>alpha=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_alpha"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set alpha for this Shape only</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>alpha</em></dt>
+<dd>alpha value between 0.0 and 1.0 (default)</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.alpha">
+<tt class="descname">alpha</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.alpha"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get value of alpha</p>
 </dd></dl>
 
 <dl class="method">
@@ -1072,6 +1132,11 @@ i.e. 2d_flat, defocus etc</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="pi3d.Shape.Shape.set_point_size">
+<tt class="descname">set_point_size</tt><big>(</big><em>point_size=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_point_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_point_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pi3d.Shape.Shape.x">
 <tt class="descname">x</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.x" title="Permalink to this definition">¶</a></dt>
 <dd><p>get value of x</p>
@@ -1087,6 +1152,13 @@ i.e. 2d_flat, defocus etc</dd>
 <dt id="pi3d.Shape.Shape.z">
 <tt class="descname">z</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.z"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.z" title="Permalink to this definition">¶</a></dt>
 <dd><p>get value of z</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.get_bounds">
+<tt class="descname">get_bounds</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.get_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.get_bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the limits of vertices in three dimensions. Returns a tuple
+(left, bottom, front, right, top, back)</p>
 </dd></dl>
 
 <dl class="method">
@@ -1470,7 +1542,7 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to Pi3D"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 0.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pi3d 0.8 documentation</title>
+    <title>Frequently Asked Questions &mdash; pi3d 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.8',
+        VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 0.8 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.0 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="util Package" href="pi3d.util.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="pi3d.util.html" title="util Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 0.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -122,7 +122,11 @@ you might need to use <tt class="docutils literal"><span class="pre">get_mouse_m
 with a device or inputs using the event system it&#8217;s a good idea to run
 <tt class="docutils literal"><span class="pre">python</span> <span class="pre">FindDevices.py</span></tt> from <tt class="docutils literal"><span class="pre">pi3d/event/</span></tt> - this will give you lots
 of additional information.</p>
-<p>TODO - other specific fixes</p>
+<p>There is also an application <tt class="docutils literal"><span class="pre">demos/TestEvents.py</span></tt> that you can run to
+find what information is being returned by your input devices. In some
+circumstances you might need to modify the values returned by the
+<tt class="docutils literal"><span class="pre">pi3d/event/Event.py</span> <span class="pre">InputEvents</span></tt> methods. TODO at the moment this
+involves hacking the file but it will use a lookup table.</p>
 </div></blockquote>
 </li>
 <li><p class="first">It appears from the demos that there are some arguments that are optional.
@@ -156,7 +160,7 @@ at draw time:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">myshader</span><span class="p">,</span> <span class="p">[</span><span class="n">mytexture</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>For Model objects the ambient texture or material shade will normally
+<p>For Model objects the ambient tecdxture or material shade will normally
 be defined in the 3D object file (egg or obj/mtl) In these cases
 you could use:</p>
 <div class="highlight-python"><pre>myshape.set_shader(myshader)
@@ -166,6 +170,48 @@ myshape.set_normal_shine(normtex, ntiles..) # leaves the first texture if there
 myshape.set_material(mtrl)</pre>
 </div>
 </div></blockquote>
+</div></blockquote>
+</li>
+<li><p class="first">How can I blend objects, why do objects vanish when they go behind a transparent
+object and other questions to do with transparency (or apha property)</p>
+<blockquote>
+<div><p>Transparency of Shapes can be altered by 1. the set_alpha() method 2. the
+alpha value of pixels in a png type image file 3. alpha value of the fog.
+The blending of the pixels with alpha less than 1.0 is controlled by setting
+Texture.blend to True or False.</p>
+<p>The way that transparency is handled is quite hard to understand. Here is
+some good information <a class="reference external" href="http://www.opengl.org/wiki/Transparency_Sorting">http://www.opengl.org/wiki/Transparency_Sorting</a></p>
+<p>The graphics processor has a global setting to enable blending that is
+switched on or off as each Shape is drawn, allowing or preventing the pixels
+to be blended with whatever&#8217;s behind them. In pi3d this can be controlled by
+setting the <tt class="docutils literal"><span class="pre">blend=True</span></tt> argument when the Texture is created or at a later
+point by <tt class="docutils literal"><span class="pre">mytexture.blend</span> <span class="pre">=</span> <span class="pre">True</span></tt> In addition to this setting there is a check
+in the draw() method so that blend is enabled when alpha is set to less than 1.0.</p>
+<p>When the gpu is rendering an object there is a depth buffer that holds
+information on how far from the camera each pixel has been drawn. Because
+of this it is normally optimal to draw foreground objects first as there
+is then less of the background to fill in. If the background was drawn
+first then the same pixel might have to be redrawn several times as the
+gpu found something else nearer to the view point. However the gpu
+<strong>doesn&#8217;t</strong> take into account the transparency of the pixel when it&#8217;s
+deciding if something is nearer or further away, so for blending
+you have to draw things on top of other things...</p>
+<p>Which sounds obvious but to give an example; if a slideshow tries to blend
+between two images, one drawn in front of the other:</p>
+<blockquote>
+<div><p><strong>first</strong> draw the canvasFront (z=0.1) with alpha=0.1
+<strong>then</strong> draw the canvasBack (z=0.2) with alpha=0.9
+the result wll be a very faint image on canvasFront and nothing on canvasBack</p>
+</div></blockquote>
+<p>i.e. canvasBack always has to be drawn first and if the application is purely
+fading from one image to another it can leave canvasBack at apha=1.0 (i.e.
+default value) and just increase then decrease the alpha of canvasFront</p>
+<p>In addition to blending, when the Shader is rendering an object it discards
+some pixels without drawing anything at all. The decision is based on the
+alpha value of the pixel as read from the Texture. If blend is True then
+pixels with alpha &lt; 0.05 are discarded if blend is False then pixels with
+alpha &lt; 0.6 are discarded. This allows objects to be drawn after nearer objects
+but still be seen through &#8216;holes&#8217; in the image. i.e. the trees in ForestWalk</p>
 </div></blockquote>
 </li>
 <li><p class="first">How do I use a joystick, gamepad, xbox controller etc with a pi3d
@@ -187,7 +233,7 @@ as <tt class="docutils literal"><span class="pre">blender</span></tt>. This fall
 option is to export the model as an obj file. In Bl2.6 options I specify:</p>
 <div class="highlight-python"><pre>Apply Modifiers (default)
 Include Edges (default)
-Include Normals (have to tick)
+Include Normals (have to tick) &lt;&lt;&lt;&lt;-----------
 Include UVs (default but see below)
 Write Materials (default)
 Object as OBJ Objects (default)
@@ -198,8 +244,11 @@ these last two will mean that..
 Blender.x=&gt;pi3d.x, Blender.y=&gt;pi3d.z, Blender.z=&gt;pi3d.y with no reflection
 of whatever you design</pre>
 </div>
-<p>If you want your 3D model to be textured (have a picture wrapped around it)
-you will need to define uv mapping (after you export you may need to
+<p>NB You will need to define uv mapping even if you define a material
+colour and don&#8217;t intend to use a texture. To do this in blender
+you need to tab to edit mode, select
+all vertices (a), unwrap (u, Unwrap). If the model has multiple objects
+you will need to do this for each one. After you export you may need to
 edit the <tt class="docutils literal"><span class="pre">mtl</span></tt> file so the relative path to the image is correct for
 their locations on the pi. In programs such as blender it is also possible to
 use a more detailed (high polygon) model to create a &#8216;normal map&#8217; image
@@ -213,7 +262,10 @@ technical but lots of instructional videos on youtube!</p>
 be fixed if you update it. If you continue to have problems and you
 are somehow able to read this FAQ somewhere else you should be able
 to download a zipped file from <a class="reference external" href="http://pi3d.github.com">http://pi3d.github.com</a> There is also
-documentation and installation instructions on that webiste.</p>
+documentation and installation instructions on that webiste. Or almost
+as easy install git and use <tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/tipam/pi3d.git</span></tt>
+this will give you the opportunity to upgrade in the future with
+<tt class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">master</span></tt></p>
 </div></blockquote>
 </li>
 <li><p class="first">Can I use pi3d for 2D images?</p>
@@ -239,7 +291,8 @@ camera, which can be the default one that you don&#8217;t have to bother
 creating. See below.</p>
 </div></blockquote>
 </li>
-<li><p class="first">How do I display 2D images in front of a 3D scene?</p>
+<li><p class="first">How do I display 2D images in front of a 3D scene? (or behind, for that
+matter)</p>
 <blockquote>
 <div><p>Either draw them onto a Canvas object using the 2d_flat shader or
 create two cameras one 3D and one 2D and assign the relevant camera
@@ -247,8 +300,12 @@ to the types of objects you want to be drawn by each method. You
 can move the 3D camera around the scene but leave the 2D one stationary,
 that way you won&#8217;t have to keep moving and rotating the 2D objects
 to keep them in front of the camera.</p>
-<p>Orthographic (2D) cameras will render objects so they are in front
-of objects rendered by perspective (3D) cameras.</p>
+<p>Orthographic (2D) cameras will render objects with a z value that is
+severely non linear and does not relate in a simple way to the z values
+for the perspective camera. Generally 2D objects will be in front
+of objects rendered by perspective (3D) cameras unless you assign
+z values in the thousands. Too large a z value, though, and they will
+disappear beyond the &#8216;far plane&#8217;</p>
 <p>If you create a camera it will become the default instance so if you
 need more than one you need to explicitly create them and it&#8217;s a good
 idea to explicitly assign the one you want to each object.</p>
@@ -263,8 +320,8 @@ it will be overwritten by whichever Texture is the last to be loaded</p>
 </div></blockquote>
 </li>
 <li><p class="first">When the demos start there is a message in the terminal
-<tt class="docutils literal"><span class="pre">..echomesh.util.Log:</span> <span class="pre">Log</span> <span class="pre">level</span> <span class="pre">is</span> <span class="pre">INFO</span></tt></p>
-<p>Where does that come from and what does it mean?</p>
+<tt class="docutils literal"><span class="pre">..echomesh.util.Log:</span> <span class="pre">Log</span> <span class="pre">level</span> <span class="pre">is</span> <span class="pre">INFO</span></tt>
+Where does that come from and what does it mean?</p>
 <blockquote>
 <div><p>pi3d uses three utilities developed in parallel with it for the
 echomesh project (see ./echomesh/util/ directory). The Log module is
@@ -323,6 +380,8 @@ roll. For a shape with zero pitch you can use something like:</p>
 <span class="n">hull</span><span class="o">.</span><span class="n">rotateToZ</span><span class="p">(</span><span class="n">absheel</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>And see the demos/DogFight.py version which has an extra degree
+of freedom.</p>
 </div></blockquote>
 </li>
 <li><p class="first">Is it possible to change the shape of an object once it&#8217;s been made?</p>
@@ -348,6 +407,21 @@ to accomplish other jobs.</p>
 <p>To do things like file loading in the background (for instance, preloading
 an image or Shape so that it can instantly appear later) you need to use
 Python&#8217;s threading - demos/Slideshow_2d.py is an example.</p>
+</div></blockquote>
+</li>
+<li><p class="first">I am running pi3d on a Linux machine but it&#8217;s running at a very slow
+frame rate.</p>
+<blockquote>
+<div><p>Probably the GPU can&#8217;t run the OpenGL2+ code that mesa interprets
+from the pi3d OpenGLES2 commands. Check the specification for the
+graphics card.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Using python3 and the InputEvents mouse input (Silo and DogFight demos)
+I get very ragged and unresponsive camera movment.</p>
+<blockquote>
+<div><p>We know about this (but not why) and will
+fix it asap</p>
 </div></blockquote>
 </li>
 </ol>
@@ -402,7 +476,7 @@ Python&#8217;s threading - demos/Slideshow_2d.py is an example.</p>
         <li class="right" >
           <a href="pi3d.util.html" title="util Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 0.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
