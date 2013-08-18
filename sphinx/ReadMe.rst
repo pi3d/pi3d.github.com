@@ -375,4 +375,3 @@ David Wallin and others who have contributed to Pi3D - keep up the good work!
 
 **PLEASE READ LICENSING AND COPYRIGHT NOTICES ESPECIALLY IF USING FOR COMMERCIAL PURPOSES**
 
-
