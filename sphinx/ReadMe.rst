@@ -162,13 +162,16 @@ Setup on the Raspberry Pi
     Library as this is needed for importing any graphics used by Pi3. The original
     Imaging library is no longer really maintained and doesn't run on python_3.
     The better equivalent replacement is Pillow however a couple of issues
-    relating to test vertical alignment will not be corrected unti the Oct2013
+    relating to text vertical alignment will not be corrected unti the Oct2013
     issue. To install Pillow you need to::
 
       sudo apt-get install python-dev python-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
       sudo apt-get install python-pip
       sudo pip install Pillow
       ...
+
+    If you miss any of the dependent libraries and need to add them later
+    you will have to ``pip uninstall`` then re ``pip install``
 
     For python_3 support the first above will provide all the required
     libraries used by either version of Pillow but you will need to::
@@ -198,7 +201,7 @@ Setup on alternative Linux platforms
 ====================================
 
 #.  The machine will need to have a gpu that runs OpenGL2+ and obviously
-    it will need to have python istalled. If the Linux is running in vmware
+    it will need to have python installed. If the Linux is running in vmware
     you will need to 'enable 3d acceleration'. You need to install libraries
     that emulate OpenGLES behaviour for the gpu::
 
@@ -371,5 +374,4 @@ David Wallin and others who have contributed to Pi3D - keep up the good work!
 
 
 **PLEASE READ LICENSING AND COPYRIGHT NOTICES ESPECIALLY IF USING FOR COMMERCIAL PURPOSES**
-
 

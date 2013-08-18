@@ -2,6 +2,38 @@ Frequently Asked Questions
 ==========================
 
 
+#.  I installed using pistore but when I run it all I get is a spinning globe!
+    How do I get it to do anything else?
+
+      Tim Skillman, the original developer, set up the pistore demos as a
+      kind of taster. However there are serious deficiencies in the way
+      pistore hides away all the complexities; pi3d is, after all, a module
+      for helping you to program in python.
+
+      The first issue you will have already suffered: the pistore installation
+      is quite long winded. The second issue is that the installation is in
+      a relatively obscure location /usr/local/indiecity/InstalledApps/pi3d/Full...
+      but it's a good idea to find the actual location of the demos::
+
+        sudo find / -name 'Amazing.py'
+
+      Now you know where they are you can `ReadMe`_ to see how to run and
+      edit the demos. The third issue is that pi3d has moved on almost
+      unrecognisably since the version put up on pistore. Ideally Tim would
+      be keeping it up to date, but in the absence of that, I would strongly
+      recommend anyone who finds they have an interest in actually using
+      pi3d to unistall the pistore version then::
+
+        sudo apt-get install git
+        cd ~
+        git clone https://github.com/tipam/pi3d.git
+
+      This will give you the option to update your version with bug-fixes
+      and improvements by simply::
+
+        cd ~/pi3d
+        git pull origin master
+
 #.  My RPi Crashes or reboots when I try and run a demo.
 
       Any program using a loadable texture, which includes nearly all the demos,
