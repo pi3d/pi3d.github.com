@@ -181,9 +181,9 @@ Frequently Asked Questions
       Which sounds obvious but to give an example; if a slideshow tries to blend
       between two images, one drawn in front of the other:
       
-        **first** draw the canvasFront (z=0.1) with alpha=0.1
-        **then** draw the canvasBack (z=0.2) with alpha=0.9
-        the result wll be a very faint image on canvasFront and nothing on canvasBack
+      If you **first** draw the canvasFront (z=0.1) with alpha=0.1
+      **then** draw the canvasBack (z=0.2) with alpha=0.9 the result will
+      be a very faint image on canvasFront and nothing on canvasBack. Wrong!
         
       i.e. canvasBack always has to be drawn first and if the application is purely
       fading from one image to another it can leave canvasBack at apha=1.0 (i.e.
@@ -328,7 +328,7 @@ Frequently Asked Questions
     and rotate (yaw), like the TigerTank does with its body, turret and gun?
 
       First of all it is easiest if you make the zero points of all the shapes
-      coincide. When you move and rotate the ojbects you must move and rotate
+      coincide. When you move and rotate the objects you must move and rotate
       them all by the same amount. If one component is rotated about the y axis
       by a different amount from the others (i.e. the turret and gun) then
       the difference is just added to the y rotation for that component.
@@ -366,14 +366,15 @@ Frequently Asked Questions
       The most efficient way is to use the scale(sx, sy, sz) method. However,
       this obviously limits the shape changing that can take place. If the
       shape needs to be changed more than this then it can be remade as
-      a new instance to replace the old one. When you do this you should
+      a new instance to replace the old one. (At one stage it was necessary to
       clear the previous opengles buffers using the unload_opengl() method
-      before destroying the old one otherwise there will be a memory leak.
+      before destroying the old shape to stop a graphics memory leak. 
+      This issue seems to be fixed but if you run into memory problems
+      it might be worth trying this. Plus, obviously, report it to us!)
 
       The alternative way of doing it is to use the Buffer.re_init() method
       which takes the same arguments as Buffer.__init__() (see documentation)
-      so is a little more technical to use. There is an example of this
-      technique demos/IceGrow.py
+      so is a little more technical to use.
 
 #.  Sometime, when I move the mouse or the program is loading a file from
     disk, everything slows down or freezes.
@@ -391,7 +392,7 @@ Frequently Asked Questions
 
       Probably the GPU can't run the OpenGL2+ code that mesa interprets
       from the pi3d OpenGLES2 commands. Check the specification for the
-      graphics card.
+      graphics card. ``lspci -v`` and ``feedback.wildfiregames.com/report/opengl/``
 
 #.  Using python3 and the InputEvents mouse input (Silo and DogFight demos)
     I get very ragged and unresponsive camera movment.
