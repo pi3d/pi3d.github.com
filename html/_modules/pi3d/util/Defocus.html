@@ -50,7 +50,7 @@
             
   <h1>Source code for pi3d.util.Defocus</h1><div class="highlight"><pre>
 <span class="kn">import</span> <span class="nn">ctypes</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">Image</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="kn">import</span> <span class="n">Shader</span>
@@ -130,12 +130,8 @@
     <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">44</span><span class="p">]</span> <span class="o">=</span> <span class="n">amount</span>
     <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">45</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="c"># shader unif[15]</span>
     <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">46</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span>
-    <span class="n">shape</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-    </div>
-<div class="viewcode-block" id="Defocus.delete_buffers"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Defocus.Defocus.delete_buffers">[docs]</a>  <span class="k">def</span> <span class="nf">delete_buffers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteFramebuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">framebuffer</span><span class="p">)</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteRenderbuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">depthbuffer</span><span class="p">)</span>
-</pre></div></div></div>
+    <span class="n">shape</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span></div></div>
+</pre></div>
 
           </div>
         </div>

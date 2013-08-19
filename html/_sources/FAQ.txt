@@ -152,15 +152,15 @@ Frequently Asked Questions
 
 #.  How can I blend objects, why do objects vanish when they go behind a transparent
     object and other questions to do with transparency (or apha property)
-    
+
       Transparency of Shapes can be altered by 1. the set_alpha() method 2. the
       alpha value of pixels in a png type image file 3. alpha value of the fog.
       The blending of the pixels with alpha less than 1.0 is controlled by setting
       Texture.blend to True or False.
-    
+
       The way that transparency is handled is quite hard to understand. Here is
       some good information http://www.opengl.org/wiki/Transparency_Sorting
-      
+
       The graphics processor has a global setting to enable blending that is
       switched on or off as each Shape is drawn, allowing or preventing the pixels
       to be blended with whatever's behind them. In pi3d this can be controlled by
@@ -180,22 +180,22 @@ Frequently Asked Questions
 
       Which sounds obvious but to give an example; if a slideshow tries to blend
       between two images, one drawn in front of the other:
-      
-        **first** draw the canvasFront (z=0.1) with alpha=0.1
-        **then** draw the canvasBack (z=0.2) with alpha=0.9
-        the result wll be a very faint image on canvasFront and nothing on canvasBack
-        
+
+      If you **first** draw the canvasFront (z=0.1) with alpha=0.1
+      **then** draw the canvasBack (z=0.2) with alpha=0.9 the result will
+      be a very faint image on canvasFront and nothing on canvasBack. Wrong!
+
       i.e. canvasBack always has to be drawn first and if the application is purely
       fading from one image to another it can leave canvasBack at apha=1.0 (i.e.
       default value) and just increase then decrease the alpha of canvasFront
-      
+
       In addition to blending, when the Shader is rendering an object it discards
       some pixels without drawing anything at all. The decision is based on the
       alpha value of the pixel as read from the Texture. If blend is True then
       pixels with alpha < 0.05 are discarded if blend is False then pixels with
       alpha < 0.6 are discarded. This allows objects to be drawn after nearer objects
       but still be seen through 'holes' in the image. i.e. the trees in ForestWalk
-      
+
 
 #.  How do I use a joystick, gamepad, xbox controller etc with a pi3d
     application?
@@ -301,34 +301,28 @@ Frequently Asked Questions
       Texture is loaded that mipmap=False. Because this is a global setting
       it will be overwritten by whichever Texture is the last to be loaded
 
-#.  When the demos start there is a message in the terminal
-    ``..echomesh.util.Log: Log level is INFO``
+#.  When the demos start there is sometimes a message in the terminal
+    looking like:
+    ``2013-08-19 15:36:46,232 INFO: __main__: Starting CollisionBalls``
     Where does that come from and what does it mean?
 
-      pi3d uses three utilities developed in parallel with it for the
-      echomesh project (see ./echomesh/util/ directory). The Log module is
-      started by several of the basic classes (Buffer, EventStream, Display,
-      Loadable, Mouse, parse_mtl, Shader, Screenshot) This means that all
-      programs using the pi3d modules will create an echomesh Log as a
-      by-product. It can be used for debugging and recording errors.
+      The Log module is started by several of the basic classes (Buffer,
+      EventStream, Display, Loadable, Mouse, parse_mtl, Shader, Screenshot)
+      This means that all programs using the pi3d modules will create a Log
+      as a by-product. It can be used for debugging and recording errors.
 
-#.  How do I use ``echomesh.util.Log`` to gather or display useful information
+#.  How do I use ``pi3d.Log`` to gather or display useful information
     in my application?
 
       You need to create an instance ``LOGGER = Log.logger(__name__)`` typically
-      then call methods of this such as ``LOGGER.info("...")`` or ``LOGGER.debug()``
-
-#.  How do I see the logged information from ``echomesh.util.Log``?
-
-      TODO I can't find any file, but it looks like Log needs something in
-      echomesh.config.Config otherwise it will get an exception and LOG_FILE
-      will be set to a zero length string.
+      then call methods of this such as ``LOGGER.info("...")`` or
+      ``LOGGER.debug()``.
 
 #.  How do I keep two components (Shapes) 'joined together' as they pitch, roll
     and rotate (yaw), like the TigerTank does with its body, turret and gun?
 
       First of all it is easiest if you make the zero points of all the shapes
-      coincide. When you move and rotate the ojbects you must move and rotate
+      coincide. When you move and rotate the objects you must move and rotate
       them all by the same amount. If one component is rotated about the y axis
       by a different amount from the others (i.e. the turret and gun) then
       the difference is just added to the y rotation for that component.
@@ -366,14 +360,15 @@ Frequently Asked Questions
       The most efficient way is to use the scale(sx, sy, sz) method. However,
       this obviously limits the shape changing that can take place. If the
       shape needs to be changed more than this then it can be remade as
-      a new instance to replace the old one. When you do this you should
+      a new instance to replace the old one. (At one stage it was necessary to
       clear the previous opengles buffers using the unload_opengl() method
-      before destroying the old one otherwise there will be a memory leak.
+      before destroying the old shape to stop a graphics memory leak.
+      This issue seems to be fixed but if you run into memory problems
+      it might be worth trying this. Plus, obviously, report it to us!)
 
       The alternative way of doing it is to use the Buffer.re_init() method
       which takes the same arguments as Buffer.__init__() (see documentation)
-      so is a little more technical to use. There is an example of this
-      technique demos/IceGrow.py
+      so is a little more technical to use.
 
 #.  Sometime, when I move the mouse or the program is loading a file from
     disk, everything slows down or freezes.
@@ -391,7 +386,7 @@ Frequently Asked Questions
 
       Probably the GPU can't run the OpenGL2+ code that mesa interprets
       from the pi3d OpenGLES2 commands. Check the specification for the
-      graphics card.
+      graphics card. ``lspci -v`` and ``feedback.wildfiregames.com/report/opengl/``
 
 #.  Using python3 and the InputEvents mouse input (Silo and DogFight demos)
     I get very ragged and unresponsive camera movment.

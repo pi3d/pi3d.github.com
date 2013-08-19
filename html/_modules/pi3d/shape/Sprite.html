@@ -98,7 +98,7 @@
   <span class="sd">&quot;&quot;&quot;A 2D sprite containing a texture and shader. The constructor also</span>
 <span class="sd">  calls set_2d_size so that ImageSprite objects can be used directly to draw</span>
 <span class="sd">  on a Canvas shape (if shader=2d_flat). Additional arguments:</span>
-
+<span class="sd">  </span>
 <span class="sd">    *texture*</span>
 <span class="sd">      either a Texture object or, if not a Texture, will attempt to load</span>
 <span class="sd">      a file using texture as a path and name to an image.</span>
@@ -109,15 +109,11 @@
     <span class="nb">super</span><span class="p">(</span><span class="n">ImageSprite</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">texture</span><span class="p">,</span> <span class="n">Texture</span><span class="p">):</span> <span class="c"># i.e. can load from file name</span>
       <span class="n">texture</span> <span class="o">=</span> <span class="n">Texture</span><span class="p">(</span><span class="n">texture</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">set_shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">texture</span><span class="p">])</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">set_2d_size</span><span class="p">()</span> <span class="c"># method in Shape, default full window size</span>
 
   <span class="k">def</span> <span class="nf">_load_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span>
-
-  <span class="k">def</span> <span class="nf">_unload_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unload_opengl</span><span class="p">()</span></div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span></div>
 </pre></div>
 
           </div>

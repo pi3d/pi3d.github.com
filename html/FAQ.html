@@ -37,9 +37,6 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -228,11 +225,9 @@ deciding if something is nearer or further away, so for blending
 you have to draw things on top of other things...</p>
 <p>Which sounds obvious but to give an example; if a slideshow tries to blend
 between two images, one drawn in front of the other:</p>
-<blockquote>
-<div><p><strong>first</strong> draw the canvasFront (z=0.1) with alpha=0.1
-<strong>then</strong> draw the canvasBack (z=0.2) with alpha=0.9
-the result wll be a very faint image on canvasFront and nothing on canvasBack</p>
-</div></blockquote>
+<p>If you <strong>first</strong> draw the canvasFront (z=0.1) with alpha=0.1
+<strong>then</strong> draw the canvasBack (z=0.2) with alpha=0.9 the result will
+be a very faint image on canvasFront and nothing on canvasBack. Wrong!</p>
 <p>i.e. canvasBack always has to be drawn first and if the application is purely
 fading from one image to another it can leave canvasBack at apha=1.0 (i.e.
 default value) and just increase then decrease the alpha of canvasFront</p>
@@ -349,37 +344,30 @@ Texture is loaded that mipmap=False. Because this is a global setting
 it will be overwritten by whichever Texture is the last to be loaded</p>
 </div></blockquote>
 </li>
-<li><p class="first">When the demos start there is a message in the terminal
-<tt class="docutils literal"><span class="pre">..echomesh.util.Log:</span> <span class="pre">Log</span> <span class="pre">level</span> <span class="pre">is</span> <span class="pre">INFO</span></tt>
+<li><p class="first">When the demos start there is sometimes a message in the terminal
+looking like:
+<tt class="docutils literal"><span class="pre">2013-08-19</span> <span class="pre">15:36:46,232</span> <span class="pre">INFO:</span> <span class="pre">__main__:</span> <span class="pre">Starting</span> <span class="pre">CollisionBalls</span></tt>
 Where does that come from and what does it mean?</p>
 <blockquote>
-<div><p>pi3d uses three utilities developed in parallel with it for the
-echomesh project (see ./echomesh/util/ directory). The Log module is
-started by several of the basic classes (Buffer, EventStream, Display,
-Loadable, Mouse, parse_mtl, Shader, Screenshot) This means that all
-programs using the pi3d modules will create an echomesh Log as a
-by-product. It can be used for debugging and recording errors.</p>
+<div><p>The Log module is started by several of the basic classes (Buffer,
+EventStream, Display, Loadable, Mouse, parse_mtl, Shader, Screenshot)
+This means that all programs using the pi3d modules will create a Log
+as a by-product. It can be used for debugging and recording errors.</p>
 </div></blockquote>
 </li>
-<li><p class="first">How do I use <tt class="docutils literal"><span class="pre">echomesh.util.Log</span></tt> to gather or display useful information
+<li><p class="first">How do I use <tt class="docutils literal"><span class="pre">pi3d.Log</span></tt> to gather or display useful information
 in my application?</p>
 <blockquote>
 <div><p>You need to create an instance <tt class="docutils literal"><span class="pre">LOGGER</span> <span class="pre">=</span> <span class="pre">Log.logger(__name__)</span></tt> typically
-then call methods of this such as <tt class="docutils literal"><span class="pre">LOGGER.info(&quot;...&quot;)</span></tt> or <tt class="docutils literal"><span class="pre">LOGGER.debug()</span></tt></p>
-</div></blockquote>
-</li>
-<li><p class="first">How do I see the logged information from <tt class="docutils literal"><span class="pre">echomesh.util.Log</span></tt>?</p>
-<blockquote>
-<div><p>TODO I can&#8217;t find any file, but it looks like Log needs something in
-echomesh.config.Config otherwise it will get an exception and LOG_FILE
-will be set to a zero length string.</p>
+then call methods of this such as <tt class="docutils literal"><span class="pre">LOGGER.info(&quot;...&quot;)</span></tt> or
+<tt class="docutils literal"><span class="pre">LOGGER.debug()</span></tt>.</p>
 </div></blockquote>
 </li>
 <li><p class="first">How do I keep two components (Shapes) &#8216;joined together&#8217; as they pitch, roll
 and rotate (yaw), like the TigerTank does with its body, turret and gun?</p>
 <blockquote>
 <div><p>First of all it is easiest if you make the zero points of all the shapes
-coincide. When you move and rotate the ojbects you must move and rotate
+coincide. When you move and rotate the objects you must move and rotate
 them all by the same amount. If one component is rotated about the y axis
 by a different amount from the others (i.e. the turret and gun) then
 the difference is just added to the y rotation for that component.
@@ -419,13 +407,14 @@ of freedom.</p>
 <div><p>The most efficient way is to use the scale(sx, sy, sz) method. However,
 this obviously limits the shape changing that can take place. If the
 shape needs to be changed more than this then it can be remade as
-a new instance to replace the old one. When you do this you should
+a new instance to replace the old one. (At one stage it was necessary to
 clear the previous opengles buffers using the unload_opengl() method
-before destroying the old one otherwise there will be a memory leak.</p>
+before destroying the old shape to stop a graphics memory leak.
+This issue seems to be fixed but if you run into memory problems
+it might be worth trying this. Plus, obviously, report it to us!)</p>
 <p>The alternative way of doing it is to use the Buffer.re_init() method
 which takes the same arguments as Buffer.__init__() (see documentation)
-so is a little more technical to use. There is an example of this
-technique demos/IceGrow.py</p>
+so is a little more technical to use.</p>
 </div></blockquote>
 </li>
 <li><p class="first">Sometime, when I move the mouse or the program is loading a file from
@@ -444,7 +433,7 @@ frame rate.</p>
 <blockquote>
 <div><p>Probably the GPU can&#8217;t run the OpenGL2+ code that mesa interprets
 from the pi3d OpenGLES2 commands. Check the specification for the
-graphics card.</p>
+graphics card. <tt class="docutils literal"><span class="pre">lspci</span> <span class="pre">-v</span></tt> and <tt class="docutils literal"><span class="pre">feedback.wildfiregames.com/report/opengl/</span></tt></p>
 </div></blockquote>
 </li>
 <li><p class="first">Using python3 and the InputEvents mouse input (Silo and DogFight demos)
@@ -497,9 +486,6 @@ fix it asap</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
         <li class="right" >
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              >next</a> |</li>

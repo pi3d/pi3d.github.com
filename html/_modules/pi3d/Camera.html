@@ -49,22 +49,20 @@
           <div class="body">
             
   <h1>Source code for pi3d.Camera</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
 <span class="kn">import</span> <span class="nn">ctypes</span>
+
+<span class="kn">from</span> <span class="nn">echomesh.util.DefaultInstance</span> <span class="kn">import</span> <span class="n">DefaultInstance</span>
 
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">radians</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">arctan2</span><span class="p">,</span> <span class="n">sqrt</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Utility</span> <span class="kn">import</span> <span class="n">vec_normal</span><span class="p">,</span> <span class="n">vec_cross</span><span class="p">,</span> <span class="n">vec_sub</span><span class="p">,</span> <span class="n">vec_dot</span>
-<span class="kn">from</span> <span class="nn">pi3d.util.DefaultInstance</span> <span class="kn">import</span> <span class="n">DefaultInstance</span>
 
 <div class="viewcode-block" id="Camera"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera">[docs]</a><span class="k">class</span> <span class="nc">Camera</span><span class="p">(</span><span class="n">DefaultInstance</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;required object for creating and drawing Shape objects. Default instance</span>
 <span class="sd">  created if none specified in script prior to creating a Shape</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">eye</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">lens</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">),</span>
-              <span class="n">is_3d</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">eye</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">lens</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">),</span> <span class="n">is_3d</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set up view matrix to look from eye to at including perspective</span>
 
 <span class="sd">    Arguments:</span>
@@ -78,8 +76,6 @@
 <span class="sd">      *is_3d*</span>
 <span class="sd">        determines whether the camera uses a perspective or orthographic</span>
 <span class="sd">        projection matrix</span>
-<span class="sd">      *scale*</span>
-<span class="sd">        number of pixels per unit of size for orthographic camera</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Camera</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
@@ -91,7 +87,7 @@
     <span class="k">if</span> <span class="n">is_3d</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">_ProjectionMatrix</span><span class="p">(</span><span class="n">lens</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lens</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lens</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">lens</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">_OrthographicMatrix</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">_OrthographicMatrix</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">model_view</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="p">)</span>
     <span class="c"># Apply transform/rotation first, then shift into perspective space.</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_view</span><span class="p">)</span>
@@ -103,12 +99,12 @@
   <span class="nd">@staticmethod</span>
   <span class="k">def</span> <span class="nf">_default_instance</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
-
+    
     <span class="k">return</span> <span class="n">Camera</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span>
-                  <span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">near</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">far</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">fov</span><span class="p">,</span>
+                  <span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">near</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">far</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">fov</span><span class="p">,</span> 
                   <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span><span class="p">)))</span>
 
-<div class="viewcode-block" id="Camera.reset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.reset">[docs]</a>  <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lens</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">is_3d</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<div class="viewcode-block" id="Camera.reset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.reset">[docs]</a>  <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lens</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">is_3d</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Has to be called each loop if the camera position or rotation changes&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">lens</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
       <span class="n">view</span> <span class="o">=</span> <span class="n">_LookAtMatrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">at</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_eye</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
@@ -116,16 +112,16 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">model_view</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">projection</span><span class="p">)</span>
     <span class="k">elif</span> <span class="ow">not</span> <span class="n">is_3d</span><span class="p">:</span>
       <span class="n">view</span> <span class="o">=</span> <span class="n">_LookAtMatrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">at</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_eye</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-      <span class="n">projection</span> <span class="o">=</span> <span class="n">_OrthographicMatrix</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+      <span class="n">projection</span> <span class="o">=</span> <span class="n">_OrthographicMatrix</span><span class="p">()</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">model_view</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">projection</span><span class="p">)</span>
     <span class="c"># TODO some way of resetting to original matrix</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_view</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    </div>
 <div class="viewcode-block" id="Camera.point_at"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.point_at">[docs]</a>  <span class="k">def</span> <span class="nf">point_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot; point the camera at a point also return the tilt and rotation values</span>
-
+<span class="sd">    </span>
 <span class="sd">    Keyword argument:</span>
 <span class="sd">      *target*</span>
 <span class="sd">        Location as [x,y,z] array to point at, defaults to a high +ve z value as</span>
@@ -142,7 +138,7 @@
 </div>
 <div class="viewcode-block" id="Camera.position"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.position">[docs]</a>  <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;position camera</span>
-
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *pt*</span>
 <span class="sd">        tuple (x, y, z) floats</span>
@@ -157,7 +153,7 @@
 </div>
 <div class="viewcode-block" id="Camera.rotateZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.rotateZ">[docs]</a>  <span class="k">def</span> <span class="nf">rotateZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Rotate camera z axis</span>
-
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *angle*</span>
 <span class="sd">        in degrees</span>
@@ -175,7 +171,7 @@
 </div>
 <div class="viewcode-block" id="Camera.rotateY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.rotateY">[docs]</a>  <span class="k">def</span> <span class="nf">rotateY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Rotate camera y axis</span>
-
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *angle*</span>
 <span class="sd">        in degrees</span>
@@ -193,7 +189,7 @@
 </div>
 <div class="viewcode-block" id="Camera.rotateX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.rotateX">[docs]</a>  <span class="k">def</span> <span class="nf">rotateX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Rotate camera x axis</span>
-
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *angle*</span>
 <span class="sd">        in degrees</span>
@@ -210,9 +206,9 @@
 </div>
 <div class="viewcode-block" id="Camera.rotate"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.rotate">[docs]</a>  <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Rotate camera</span>
-
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">      *rx*</span>
+<span class="sd">      *rx* </span>
 <span class="sd">        x rotation in degrees</span>
 <span class="sd">      *ry*</span>
 <span class="sd">        y rotation in degrees</span>
@@ -227,7 +223,7 @@
   <span class="sd">&quot;&quot;&quot;Define a matrix looking at.</span>
 
 <span class="sd">  Arguments:</span>
-<span class="sd">    *at*</span>
+<span class="sd">    *at* </span>
 <span class="sd">      tuple (x,y,z) of point camera pointed at, floats</span>
 <span class="sd">    *eye*</span>
 <span class="sd">      matrix [x,y,z] position of camera, floats</span>
@@ -255,7 +251,7 @@
 
 <span class="k">def</span> <span class="nf">_ProjectionMatrix</span><span class="p">(</span><span class="n">near</span><span class="p">,</span> <span class="n">far</span><span class="p">,</span> <span class="n">fov</span><span class="p">,</span> <span class="n">aspectRatio</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Set up perspective projection matrix</span>
-
+<span class="sd">  </span>
 <span class="sd">  Keyword arguments:</span>
 <span class="sd">    *near*</span>
 <span class="sd">      distance to near plane, float</span>
@@ -268,7 +264,7 @@
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="c"># Matrices are considered to be M[row][col]</span>
   <span class="c"># Use DirectX convention, so need to do rowvec*Matrix to transform</span>
-  <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">fov</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span>
+  <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">fov</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span> 
   <span class="n">M</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
   <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="o">/</span><span class="n">aspectRatio</span>
   <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span>  <span class="c">#negative value reflects scene on the Y axis</span>
@@ -276,24 +272,17 @@
   <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
   <span class="n">M</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">far</span> <span class="o">*</span> <span class="n">near</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">far</span> <span class="o">-</span> <span class="n">near</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">array</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">_OrthographicMatrix</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Set up orthographic projection matrix</span>
-
-<span class="sd">  Keyword argument:</span>
-<span class="sd">    *scale*</span>
-<span class="sd">      number of pixels per unit of size</span>
-
-<span class="sd">  &quot;&quot;&quot;</span>
+  
+<span class="k">def</span> <span class="nf">_OrthographicMatrix</span><span class="p">():</span>
+  <span class="sd">&quot;&quot;&quot;Set up orthographic projection matrix&quot;&quot;&quot;</span>
   <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
   <span class="n">M</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
-  <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">/</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span>
-  <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">/</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span>
-  <span class="c">#M[2][2] = 2.0 / Display.INSTANCE.width</span>
-  <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">10000.0</span>
+  <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span>
+  <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span>
+  <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span>
   <span class="n">M</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
   <span class="n">M</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-  <span class="k">return</span> <span class="n">array</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">array</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">)</span>  
 </pre></div>
 
           </div>

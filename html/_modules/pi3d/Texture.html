@@ -49,23 +49,15 @@
           <div class="body">
             
   <h1>Source code for pi3d.Texture</h1><div class="highlight"><pre>
-<span class="c">#from __future__ import absolute_import, division, print_function, unicode_literals</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
-
 <span class="kn">import</span> <span class="nn">ctypes</span>
-
-<span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
-
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">Image</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_ints</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Loadable</span> <span class="kn">import</span> <span class="n">Loadable</span>
 
-<span class="n">MAX_SIZE</span> <span class="o">=</span> <span class="mi">1024</span>
+<span class="n">MAX_SIZE</span> <span class="o">=</span> <span class="mi">2048</span>
 <span class="n">DEFER_TEXTURE_LOADING</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">WIDTHS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span>
-           <span class="mi">288</span><span class="p">,</span> <span class="mi">384</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">576</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">720</span><span class="p">,</span> <span class="mi">768</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">960</span><span class="p">,</span> <span class="mi">1024</span><span class="p">]</span>
 
 <div class="viewcode-block" id="round_up_to_power_of_2"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.round_up_to_power_of_2">[docs]</a><span class="k">def</span> <span class="nf">round_up_to_power_of_2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span>
@@ -116,69 +108,68 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span>
 
-  <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Texture</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__del__</span><span class="p">()</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span><span class="p">:</span>
-      <span class="k">return</span> <span class="bp">True</span>
-    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
-    <span class="k">if</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="p">:</span>
-      <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-      <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">tidy_needed</span> <span class="o">=</span> <span class="bp">True</span>
-
 <div class="viewcode-block" id="Texture.tex"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.Texture.tex">[docs]</a>  <span class="k">def</span> <span class="nf">tex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;do the deferred opengl work and return texture&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span>
 </div>
+  <span class="k">def</span> <span class="nf">_unload_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;clear it out&quot;&quot;&quot;</span>
+    <span class="n">texture_array</span> <span class="o">=</span> <span class="n">c_ints</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="o">.</span><span class="n">value</span><span class="p">])</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteTextures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">addressof</span><span class="p">(</span><span class="n">texture_array</span><span class="p">))</span>
+
   <span class="k">def</span> <span class="nf">_load_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;overrides method of Loadable</span>
-<span class="sd">    Pngfont, Font, Defocus and ShadowCaster inherit from Texture but</span>
-<span class="sd">    don&#39;t do all this so have to override this</span>
+<span class="sd">    Font, Ttffont and Defocus inherit from Texture but don&#39;t do all this</span>
+<span class="sd">    so have to override this</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">+</span> <span class="s">&#39; &#39;</span>
-    <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">)</span> <span class="c"># TODO only load this if needed because loading a Font</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">s</span> <span class="o">+=</span> <span class="s">&#39;(</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;RGBA&#39;</span> <span class="ow">or</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;LA&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&#39;(</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">mode</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;RGBA&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;LA&#39;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span><span class="p">:</span>
-      <span class="n">resize_type</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">BICUBIC</span>
+    <span class="c"># work out if sizes are not to the power of 2 or &gt; MAX_SIZE</span>
+    <span class="c"># TODO: why must texture sizes be a power of 2?</span>
+    <span class="n">xx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">xx</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">nx</span><span class="p">:</span>
+      <span class="n">xx</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">yy</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">ny</span><span class="p">:</span>
+      <span class="n">yy</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">xx</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">nx</span><span class="p">:</span>
+      <span class="n">nx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">xx</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">yy</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">ny</span><span class="p">:</span>
+      <span class="n">ny</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">yy</span>
+    <span class="n">nx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">MAX_SIZE</span><span class="p">)</span>
+    <span class="n">ny</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="n">MAX_SIZE</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">nx</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="ow">or</span> <span class="n">ny</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
+        <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">+=</span> <span class="s">&#39;Resizing to: </span><span class="si">%d</span><span class="s">, </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="n">resize_type</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">NEAREST</span>
-
-    <span class="c"># work out if sizes &gt; MAX_SIZE or coerce to golden values in WIDTHS</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">&gt;</span> <span class="n">MAX_SIZE</span><span class="p">:</span> <span class="c"># fairly rare circumstance</span>
-      <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="nb">int</span><span class="p">((</span><span class="n">MAX_SIZE</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">),</span> <span class="n">MAX_SIZE</span><span class="p">))</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">WIDTHS</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">==</span> <span class="n">WIDTHS</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-        <span class="k">break</span> <span class="c"># no need to resize as already a golden size</span>
-      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">&gt;</span> <span class="n">WIDTHS</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-        <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">WIDTHS</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">int</span><span class="p">((</span><span class="n">WIDTHS</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">)),</span>
-                        <span class="n">resize_type</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
-        <span class="k">break</span>
+      <span class="n">s</span> <span class="o">+=</span> <span class="s">&#39;Bitmap size: </span><span class="si">%d</span><span class="s">, </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&#39;Loading ...{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+      <span class="k">print</span> <span class="s">&#39;Loading ...&#39;</span><span class="p">,</span> <span class="n">s</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">:</span>
-      <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_TOP_BOTTOM</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_TOP_BOTTOM</span><span class="p">)</span>
 
     <span class="n">RGBs</span> <span class="o">=</span> <span class="s">&#39;RGBA&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="k">else</span> <span class="s">&#39;RGB&#39;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">RGBs</span><span class="p">)</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="s">&#39;raw&#39;</span><span class="p">,</span> <span class="n">RGBs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">RGBs</span><span class="p">)</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="s">&#39;raw&#39;</span><span class="p">,</span> <span class="n">RGBs</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
-    <span class="k">if</span> <span class="s">&#39;fonts/&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">im</span>
 
   <span class="k">def</span> <span class="nf">_load_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;overrides method of Loadable&quot;&quot;&quot;</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glGenTextures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
-    <span class="k">if</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="p">:</span>
-      <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glBindTexture</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)</span>
     <span class="n">RGBv</span> <span class="o">=</span> <span class="n">GL_RGBA</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="k">else</span> <span class="n">GL_RGB</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glTexImage2D</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">RGBv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">RGBv</span><span class="p">,</span>
@@ -197,10 +188,6 @@
 
     <span class="n">opengles</span><span class="o">.</span><span class="n">glGenerateMipmap</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glBlendFunc</span><span class="p">(</span><span class="n">GL_SRC_ALPHA</span><span class="p">,</span> <span class="n">GL_ONE_MINUS_SRC_ALPHA</span><span class="p">)</span>
-
-  <span class="k">def</span> <span class="nf">_unload_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;clear it out&quot;&quot;&quot;</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteTextures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">))</span>
 
 </div>
 <div class="viewcode-block" id="TextureCache"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.TextureCache">[docs]</a><span class="k">class</span> <span class="nc">TextureCache</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>

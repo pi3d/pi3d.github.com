@@ -49,8 +49,6 @@
           <div class="body">
             
   <h1>Source code for pi3d.shape.Cuboid</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
 <span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
@@ -61,29 +59,29 @@
                <span class="n">name</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">tw</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">th</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">td</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;uses standard constructor for Shape extra Keyword arguments:</span>
-
+<span class="sd">    </span>
 <span class="sd">      *w*</span>
 <span class="sd">        width</span>
 <span class="sd">      *h*</span>
 <span class="sd">        height</span>
 <span class="sd">      *d*</span>
-<span class="sd">        depth</span>
+<span class="sd">        depth    </span>
 <span class="sd">      *tw*</span>
 <span class="sd">        scale width</span>
 <span class="sd">      *th*</span>
 <span class="sd">        scale height</span>
 <span class="sd">      *td*</span>
 <span class="sd">        scale depth</span>
-
+<span class="sd">        </span>
 <span class="sd">    The scale factors are the multiple of the texture to show along that</span>
 <span class="sd">    dimension. For no distortion of the image the scale factors need to be</span>
-<span class="sd">    proportional to the relative dimension.</span>
+<span class="sd">    proportional to the relative dimension.    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Cuboid</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>
                                 <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;Creating cuboid ...&quot;</span><span class="p">)</span>
+      <span class="k">print</span> <span class="s">&quot;Creating cuboid ...&quot;</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">w</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">h</span>

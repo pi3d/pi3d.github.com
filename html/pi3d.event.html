@@ -106,29 +106,39 @@ variables accordingly.</p>
 <p>Encapsulates the entire InputEvents subsystem.</p>
 <p>This is generally all you need to import. For efficiency reasons you may
 want to make use of CodeOf[ ], but everything else is hidden behind this class.</p>
-<p>On instanciation, we open all devices that are keyboards, mice or joysticks.
+<p>On instantiation, we open all devices that are keyboards, mice or joysticks.
 That means we might have two of one sort of another, and that might be a problem,
 but it would be rather rare.</p>
-<p>There are several ABS (joystick, touch) events that we do not handle. In
-particular:  THROTTLE, RUDDER, WHEEL, GAS, BRAKE, HAT1, HAT2, HAT3, PRESSURE,
+<p>There are several ABS (joystick, touch) events that we do not handle, specifically
+THROTTLE, RUDDER, WHEEL, GAS, BRAKE, HAT1, HAT2, HAT3, PRESSURE,
 DISTANCE, TILT, TOOL_WIDTH. Implementing these is left as an exercise
 for the interested reader. Similarly, we make no attempt to handle multi-touch.</p>
 <p>Handlers can be supplied, in which case they are called for each event, but
-it isn&#8217;t necessary; API exists for all the events.
-The handler signatures are:</p>
+it isn&#8217;t necessary; API exists for all the events.</p>
+<p>The handler signatures are:</p>
 <blockquote>
-<div>def mouse_handler_func(sourceType, SourceIndex, x, y, v, h):
-def joystick_handler_func(sourceType, SourceIndex, x1, y1, z1, x2, y2, z2, hatx, haty):
-def key_handler_func(sourceType, SourceIndex, key, value):
-def syn_handler_func(sourceType, SourceIndex, code, value):
-def unhandled_handler_func(event):</div></blockquote>
-<p>Where &#8220;sourceType&#8221; is the device type string (keyboard, mouse, joystick),
-sourceIndex is an incrementing number for each device of that type, starting
-at zero, and event is an EventStruct object. Key is the key code, not it&#8217;s
-ASCII value or anything  simple. Use key_to_code() to convert from the name of a
-key to its code, and code_to_key() to convert a code to a name. The keys are
-listed in pi3d.event.Constants.py or /usr/include/linux/input.h Note that the key
-names refer to a US keyboard.</p>
+<div>def mouse_handler_func(sourceType, SourceIndex, x, y, v, h)
+def joystick_handler_func(sourceType, SourceIndex, x1, y1, z1, x2, y2, z2, hatx, haty)
+def key_handler_func(sourceType, SourceIndex, key, value)
+def syn_handler_func(sourceType, SourceIndex, code, value)
+def unhandled_handler_func(event)</div></blockquote>
+<dl class="docutils">
+<dt>where:</dt>
+<dd><dl class="first last docutils">
+<dt>sourceType:</dt>
+<dd>the device type string (keyboard, mouse, joystick),</dd>
+<dt>sourceIndex:</dt>
+<dd>an incrementing number for each device of that type, starting at zero,
+and event is an EventStruct object.</dd>
+<dt>key:</dt>
+<dd>the key code, not its ASCII value or anything simple.</dd>
+</dl>
+</dd>
+</dl>
+<p>Use key_to_code() to convert from the name of a key to its code,
+and code_to_key() to convert a code to a name.</p>
+<p>The keys are listed in pi3d.event.Constants.py or /usr/include/linux/input.h
+Note that the key names refer to a US keyboard.</p>
 <dl class="method">
 <dt id="pi3d.event.Event.InputEvents.do_input_events">
 <tt class="descname">do_input_events</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/event/Event.html#InputEvents.do_input_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.InputEvents.do_input_events" title="Permalink to this definition">¶</a></dt>

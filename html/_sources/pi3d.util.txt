@@ -73,14 +73,6 @@ util Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`Ttffont` Module
----------------------
-
-.. automodule:: pi3d.util.Ttffont
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`Utility` Module
 ---------------------
 

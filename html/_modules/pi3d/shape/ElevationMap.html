@@ -49,13 +49,9 @@
           <div class="body">
             
   <h1>Source code for pi3d.shape.ElevationMap</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
 <span class="kn">import</span> <span class="nn">math</span>
-
-<span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
-
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageOps</span>
+<span class="kn">import</span> <span class="nn">Image</span>
+<span class="kn">import</span> <span class="nn">PIL.ImageOps</span>
 
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">cross</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">arctan2</span><span class="p">,</span> <span class="n">arcsin</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">subtract</span>
 
@@ -74,11 +70,11 @@
                <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;uses standard constructor for Shape</span>
-
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *mapfile*</span>
 <span class="sd">        Greyscale image path/file, string.</span>
-
+<span class="sd">    </span>
 <span class="sd">    Keyword arguments:</span>
 <span class="sd">      *width, depth, height*</span>
 <span class="sd">        Of the map in world units.</span>
@@ -94,15 +90,15 @@
     <span class="nb">super</span><span class="p">(</span><span class="n">ElevationMap</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>
                                        <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;Loading height map ...&quot;</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">)</span>
+      <span class="k">print</span> <span class="s">&quot;Loading height map ...&quot;</span><span class="p">,</span> <span class="n">mapfile</span>
 
     <span class="k">if</span> <span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">or</span> <span class="n">divy</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;... Map size can&#39;t be bigger than 200x200 divisions&quot;</span><span class="p">)</span>
+      <span class="k">print</span> <span class="s">&quot;... Map size can&#39;t be bigger than 200x200 divisions&quot;</span>
       <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
       <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
 
     <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)</span>
-    <span class="n">im</span> <span class="o">=</span> <span class="n">ImageOps</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">PIL</span><span class="o">.</span><span class="n">ImageOps</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
     <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">ix</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
       <span class="k">if</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -124,7 +120,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">ttype</span> <span class="o">=</span> <span class="n">GL_TRIANGLE_STRIP</span>
 
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;Creating Elevation Map ...&quot;</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)</span>
+      <span class="k">print</span> <span class="s">&quot;Creating Elevation Map ...&quot;</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span>
 
     <span class="n">wh</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">0.5</span>
     <span class="n">hh</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">*</span> <span class="mf">0.5</span>
@@ -211,7 +207,7 @@
 </div>
 <div class="viewcode-block" id="ElevationMap.calcHeight"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap.calcHeight">[docs]</a>  <span class="k">def</span> <span class="nf">calcHeight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;accurately return the hight of the map at the point specified</span>
-
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *px, pz*</span>
 <span class="sd">        Location of the point in world coordinates to calculate height.</span>
@@ -256,7 +252,7 @@
 <div class="viewcode-block" id="ElevationMap.clashTest"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap.clashTest">[docs]</a>  <span class="k">def</span> <span class="nf">clashTest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">rad</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Works out if an object at a given location and radius will overlap</span>
 <span class="sd">    with the map surface. Returns four values:</span>
-
+<span class="sd">    </span>
 <span class="sd">    * boolean whether there is a clash</span>
 <span class="sd">    * x, y, z components of the normal vector</span>
 <span class="sd">    * the amount of overlap at the x,z location</span>
@@ -344,9 +340,9 @@
 <div class="viewcode-block" id="ElevationMap.pitch_roll"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap.pitch_roll">[docs]</a>  <span class="k">def</span> <span class="nf">pitch_roll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;works out the pitch (rx) and roll (rz) to apply to an object</span>
 <span class="sd">    on the surface of the map at this point</span>
-
+<span class="sd">    </span>
 <span class="sd">    * returns a tuple (pitch, roll) in degrees</span>
-
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *px*</span>
 <span class="sd">        x location</span>

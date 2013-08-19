@@ -49,8 +49,6 @@
           <div class="body">
             
   <h1>Source code for pi3d.shape.MergeShape</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
 <span class="kn">import</span> <span class="nn">ctypes</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">random</span>
@@ -67,7 +65,7 @@
 <span class="sd">  the shader, each time an object is drawn, it is MUCH faster to use a MergeShape</span>
 <span class="sd">  where several objects will always remain in the same positions relative to</span>
 <span class="sd">  each other. i.e. trees in a forest.</span>
-
+<span class="sd">  </span>
 <span class="sd">  Where the objects have multiple Buffers, each needing a different texture</span>
 <span class="sd">  (i.e. more complex Model objects) each must be combined into a different</span>
 <span class="sd">  MergeShape</span>
@@ -78,11 +76,11 @@
                <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
                <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;uses standard constructor for Shape&quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">MergeShape</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span>
-                                   <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MergeShape</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span>
+                                     <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;Creating Merge Shape ...&quot;</span><span class="p">)</span>
+      <span class="k">print</span> <span class="s">&quot;Creating Merge Shape ...&quot;</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">normals</span> <span class="o">=</span> <span class="p">[]</span>
@@ -90,83 +88,70 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c">#stores all indices for single render</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span>
-                  <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">))</span>
 
-<div class="viewcode-block" id="MergeShape.merge"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.merge">[docs]</a>  <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+
+<div class="viewcode-block" id="MergeShape.merge"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.merge">[docs]</a>  <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span>
             <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-            <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+            <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+            <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;merge the vertices, normals etc from this Buffer with those already there</span>
 <span class="sd">    the position, rotation, scale, offset are set according to the origin of</span>
 <span class="sd">    the MergeShape. If bufr is not a Buffer then it will be treated as if it</span>
 <span class="sd">    is a Shape and its first Buffer object will be merged. Argument additional</span>
 <span class="sd">    to standard Shape:</span>
-
+<span class="sd">    </span>
 <span class="sd">      *bufr*</span>
 <span class="sd">        Buffer object or Shape with a member buf[0] that is a Buffer object.</span>
-<span class="sd">        OR an array or tuple where each element is an array or tuple with</span>
-<span class="sd">        the required arguments i.e. [[bufr1, x1, y1, z1, rx1, ry1....],</span>
-<span class="sd">        [bufr2, x2, y2...],[bufr3, x3, y3...]] this latter is a more efficient</span>
-<span class="sd">        way of building a MergeShape from lots of elements. If multiple</span>
-<span class="sd">        Buffers are passed in this way then the subsequent arguments (x,y,z etc)</span>
-<span class="sd">        will be ignored.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bufr</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bufr</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
-      <span class="n">buflist</span> <span class="o">=</span> <span class="p">[[</span><span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">]]</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="n">buflist</span> <span class="o">=</span> <span class="n">bufr</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">bufr</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Buffer</span><span class="p">):</span>
+      <span class="n">bufr</span> <span class="o">=</span> <span class="n">bufr</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">buflist</span><span class="p">:</span>
-      <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">is</span> <span class="n">Buffer</span><span class="p">):</span>
-        <span class="n">bufr</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">bufr</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c">#assert shape.ttype == GL_TRIANGLES # this is always true of Buffer objects</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">normals</span><span class="p">)</span>
 
-      <span class="c">#assert shape.ttype == GL_TRIANGLES # this is always true of Buffer objects</span>
-      <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">normals</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
+      <span class="k">print</span> <span class="s">&quot;Merging&quot;</span><span class="p">,</span> <span class="n">bufr</span><span class="o">.</span><span class="n">name</span>
 
-      <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Merging&quot;</span><span class="p">,</span> <span class="n">bufr</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">normals</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">original_vertex_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
 
-      <span class="n">original_vertex_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)):</span>
+      <span class="k">def</span> <span class="nf">rotate_slice</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+        <span class="n">vec</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">rz</span><span class="p">:</span>
+          <span class="n">vec</span> <span class="o">=</span> <span class="n">rotate_vec_z</span><span class="p">(</span><span class="n">rz</span><span class="p">,</span> <span class="n">vec</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rx</span><span class="p">:</span>
+          <span class="n">vec</span> <span class="o">=</span> <span class="n">rotate_vec_x</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">vec</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ry</span><span class="p">:</span>
+          <span class="n">vec</span> <span class="o">=</span> <span class="n">rotate_vec_y</span><span class="p">(</span><span class="n">ry</span><span class="p">,</span> <span class="n">vec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vec</span>
 
-      <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)):</span>
-        <span class="k">def</span> <span class="nf">rotate_slice</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
-          <span class="n">vec</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
-          <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span>
-            <span class="n">vec</span> <span class="o">=</span> <span class="n">rotate_vec_z</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">vec</span><span class="p">)</span>
-          <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
-            <span class="n">vec</span> <span class="o">=</span> <span class="n">rotate_vec_x</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">vec</span><span class="p">)</span>
-          <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span>
-            <span class="n">vec</span> <span class="o">=</span> <span class="n">rotate_vec_y</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">vec</span><span class="p">)</span>
-          <span class="k">return</span> <span class="n">vec</span>
+      <span class="c"># Scale, offset and store vertices</span>
+      <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">rotate_slice</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">vx</span> <span class="o">*</span> <span class="n">sx</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="n">vy</span> <span class="o">*</span> <span class="n">sy</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">vz</span> <span class="o">*</span> <span class="n">sz</span> <span class="o">+</span> <span class="n">z</span><span class="p">))</span>
 
-        <span class="c"># Scale, offset and store vertices</span>
-        <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">rotate_slice</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">vx</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vy</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">vz</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+      <span class="c"># Rotate normals</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rotate_slice</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">normals</span><span class="p">))</span>
 
-        <span class="c"># Rotate normals</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rotate_slice</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">normals</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">)</span>
 
-      <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">)</span>
-
-      <span class="n">ctypes</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_short</span>  <span class="c"># TODO: remove this side-effect.</span>
-      <span class="n">indices</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">original_vertex_count</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">original_vertex_count</span><span class="p">,</span>
-                  <span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">original_vertex_count</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bufr</span><span class="o">.</span><span class="n">indices</span><span class="p">]</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+    <span class="n">ctypes</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_short</span>  <span class="c"># TODO: remove this side-effect.</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">original_vertex_count</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">original_vertex_count</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">original_vertex_count</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bufr</span><span class="o">.</span><span class="n">indices</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span>
-                  <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">))</span>
 </div>
 <div class="viewcode-block" id="MergeShape.add"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.add">[docs]</a>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-          <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+          <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;wrapper to alias merge method&quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="MergeShape.cluster"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.cluster">[docs]</a>  <span class="k">def</span> <span class="nf">cluster</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">elevmap</span><span class="p">,</span> <span class="n">xpos</span><span class="p">,</span> <span class="n">zpos</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">minscl</span><span class="p">,</span> <span class="n">maxscl</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;generates a random cluster on an ElevationMap.</span>
-
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *bufr*</span>
 <span class="sd">        Buffer object to merge.</span>
@@ -186,22 +171,18 @@
 <span class="sd">        The maximum scale value for random selection.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c">#create a cluster of shapes on an elevation map</span>
-    <span class="n">blist</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
       <span class="n">x</span> <span class="o">=</span> <span class="n">xpos</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">w</span> <span class="o">*</span> <span class="mf">0.5</span>
       <span class="n">z</span> <span class="o">=</span> <span class="n">zpos</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="n">d</span> <span class="o">-</span> <span class="n">d</span> <span class="o">*</span> <span class="mf">0.5</span>
       <span class="n">rh</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="n">maxscl</span> <span class="o">-</span> <span class="n">minscl</span><span class="p">)</span> <span class="o">+</span> <span class="n">minscl</span>
       <span class="n">rt</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mf">360.0</span>
       <span class="n">y</span> <span class="o">=</span> <span class="n">elevmap</span><span class="o">.</span><span class="n">calcHeight</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="n">rh</span> <span class="o">*</span> <span class="mi">2</span>
-      <span class="n">blist</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">rt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">rh</span><span class="p">,</span> <span class="n">rh</span><span class="p">,</span> <span class="n">rh</span><span class="p">])</span>
-
-    <span class="c">#self.merge(bufr, x, y, z, 0.0, rt, 0.0, rh, rh, rh)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">blist</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">rt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">rh</span><span class="p">,</span> <span class="n">rh</span><span class="p">,</span> <span class="n">rh</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="MergeShape.radialCopy"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.radialCopy">[docs]</a>  <span class="k">def</span> <span class="nf">radialCopy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">startRadius</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">endRadius</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
                  <span class="n">startAngle</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">endAngle</span><span class="o">=</span><span class="mf">360.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;generates a radially copied cluster, axix is in the y direction.</span>
-
+<span class="sd">    </span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *bufr*</span>
 <span class="sd">        Buffer object to merge.</span>
@@ -226,18 +207,15 @@
     <span class="n">rd</span> <span class="o">=</span> <span class="n">startRadius</span>
     <span class="n">sta</span> <span class="o">=</span> <span class="n">startAngle</span>
 
-    <span class="n">blist</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">st</span><span class="p">)):</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;merging &quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+      <span class="k">print</span> <span class="s">&quot;merging &quot;</span><span class="p">,</span> <span class="n">r</span>
       <span class="n">ca</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">sta</span><span class="p">))</span>
       <span class="n">sa</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">sta</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">bufr</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">ca</span> <span class="o">*</span> <span class="n">rd</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="n">sa</span> <span class="o">*</span> <span class="n">rd</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sta</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
       <span class="n">sta</span> <span class="o">+=</span> <span class="n">step</span>
       <span class="n">rd</span> <span class="o">+=</span> <span class="n">rst</span>
-      <span class="n">blist</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">bufr</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">ca</span> <span class="o">*</span> <span class="n">rd</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="n">sa</span> <span class="o">*</span> <span class="n">rd</span><span class="p">,</span>
-                <span class="mi">0</span><span class="p">,</span> <span class="n">sta</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">blist</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;merged all&quot;</span><span class="p">)</span></div></div>
+    <span class="k">print</span> <span class="s">&quot;merged all&quot;</span></div></div>
 </pre></div>
 
           </div>

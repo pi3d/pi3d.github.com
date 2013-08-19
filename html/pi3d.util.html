@@ -134,7 +134,7 @@ Arguments:</p>
 
 <dl class="method">
 <dt id="pi3d.util.Defocus.Defocus.delete_buffers">
-<tt class="descname">delete_buffers</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Defocus.html#Defocus.delete_buffers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Defocus.Defocus.delete_buffers" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">delete_buffers</tt><big>(</big><big>)</big><a class="headerlink" href="#pi3d.util.Defocus.Defocus.delete_buffers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -178,29 +178,23 @@ Arguments:</p>
 <span id="font-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Font</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Font" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.Font.Font">
-<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=u'#ffffff'</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=48</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=u'#ffffff'</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=48</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1000000000000001</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
 <p>A Font contains a TrueType font ready to be rendered in OpenGL.</p>
 <p>A font is just a mapping from codepoints (single Unicode characters) to glyphs
 (graphical representations of those characters).</p>
 <p>Font packs one whole font into a single Texture using PIL.ImageFont,
 then creates a table mapping codepoints to subrectangles of that Texture.</p>
+<p>Arguments:
+<em>font</em>:</p>
+<blockquote>
+<div>File path/name to a TrueType font file.</div></blockquote>
 <dl class="docutils">
-<dt>Arguments:</dt>
-<dd><blockquote class="first">
-<div><dl class="docutils">
-<dt><em>font</em></dt>
-<dd>File path/name to a TrueType font file.</dd>
-</dl>
-</div></blockquote>
-<dl class="last docutils">
-<dt>Keyword arguments:</dt>
-<dd><dl class="first last docutils">
-<dt><em>color</em></dt>
+<dt><em>color</em>:</dt>
 <dd>Color in standard hex format #RRGGBB</dd>
-<dt><em>font_size</em></dt>
+<dt><em>font_size</em>:</dt>
 <dd>Point size for drawing the letters on the internal Texture</dd>
-<dt><em>codepoints</em></dt>
+<dt><em>codepoints</em>:</dt>
 <dd><p class="first">Iterable list of characters. All these formats will work:</p>
 <blockquote>
 <div>&#8216;ABCDEabcde &#8216;
@@ -214,25 +208,21 @@ off using the <em>add_codepoints</em> parameter.</p>
 have the coding defined at the top:  # -<em>- coding: utf-8 -</em>-</p>
 <p class="last">The default is <a href="#id1"><span class="problematic" id="id2">*</span></a>codepoints*=range(256).</p>
 </dd>
-<dt><em>add_codepoints</em></dt>
+<dt><em>add_codepoints</em>:</dt>
 <dd>If you are only wanting to add a few codepoints that are missing, you
 should use the <em>add_codepoints</em> parameter, which just adds codepoints or
 characters to the default list of codepoints. All the other comments for
 the <em>codepoints</em> parameter still apply.</dd>
-<dt><em>image_size</em></dt>
+<dt><em>image_size</em>:</dt>
 <dd>Width and height of the Texture that backs the image.
 If it doesn&#8217;t fit then a larger size will be tried up to MAX_SIZE.
 The isses are: maximum image size supported by the gpu (2048x2048?)
 gpu memory usage and time to load by working up the size required
 in 256 pixel steps.</dd>
-<dt><em>italic_adjustment</em></dt>
+<dt><em>italic_adjustment</em>:</dt>
 <dd>Adjusts the bounding width to take italics into account.  The default
 value is 1.1; you can get a tighter bounding if you set this down
 closer to 1, but italics might get cut off at the right.</dd>
-</dl>
-</dd>
-</dl>
-</dd>
 </dl>
 </dd></dl>
 
@@ -305,7 +295,7 @@ to it!</p>
 <span id="string-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">String</span></tt> Module<a class="headerlink" href="#module-pi3d.util.String" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.String.String">
-<em class="property">class </em><tt class="descclassname">pi3d.util.String.</tt><tt class="descname">String</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>font=None</em>, <em>string=None</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=1.0</em>, <em>sx=0.003333333333333333</em>, <em>sy=0.003333333333333333</em>, <em>is_3d=True</em>, <em>size=0.24</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>justify=u'C'</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/String.html#String"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.String.String" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.String.</tt><tt class="descname">String</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>font=None</em>, <em>string=None</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=1.0</em>, <em>sx=0.0033333333333333331</em>, <em>sy=0.0033333333333333331</em>, <em>is_3d=True</em>, <em>size=0.23999999999999999</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>justify=u'C'</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/String.html#String"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.String.String" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></tt></a></p>
 <p>Shape used for writing text on screen. It is a flat, one sided rectangualar plane</p>
 <dl class="docutils">
@@ -357,35 +347,6 @@ the string is placed</dd>
 <dt><em>width, height</em></dt>
 <dd>Dimensions of window.</dd>
 </dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-pi3d.util.Ttffont">
-<span id="ttffont-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Ttffont</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Ttffont" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pi3d.util.Ttffont.Ttffont">
-<em class="property">class </em><tt class="descclassname">pi3d.util.Ttffont.</tt><tt class="descname">Ttffont</tt><big>(</big><em>font</em>, <em>col='#ffffff'</em>, <em>fontsize=48</em>, <em>imagesize=512</em><big>)</big><a class="headerlink" href="#pi3d.util.Ttffont.Ttffont" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
-<p>Loads a Ttf font from disk and creates a Texture and lookup table for
-the String class to write with</p>
-<p>Arguments:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt><em>font</em></dt>
-<dd>file path/name to a ttf file</dd>
-</dl>
-</div></blockquote>
-<p>Keyword arguments:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt><em>col</em></dt>
-<dd>colour in standard hex format #RRGGBB</dd>
-<dt><em>fontsize</em></dt>
-<dd>point size for drawing the letters on the internal Texture</dd>
-<dt><em>imagesize</em></dt>
-<dd>pixels square, needs to be bigger for large point size</dd>
-</dl>
-</div></blockquote>
 </dd></dl>
 
 </div>
@@ -710,7 +671,6 @@ way to make sure that nothing is drawn past a certain distance.</p>
 <li><a class="reference internal" href="#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.util.Ttffont"><tt class="docutils literal"><span class="pre">Ttffont</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
 </ul>
 </li>
