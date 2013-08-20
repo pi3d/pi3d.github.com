@@ -314,9 +314,7 @@ Frequently Asked Questions
 #.  How do I use ``pi3d.Log`` to gather or display useful information
     in my application?
 
-      You need to create an instance ``LOGGER = Log.logger(__name__)`` typically
-      then call methods of this such as ``LOGGER.info("...")`` or
-      ``LOGGER.debug()``.
+    See the documentation `here <http://pi3d.github.io/html/pi3d.util.html#module-pi3d.util.Log/>`_.
 
 #.  How do I keep two components (Shapes) 'joined together' as they pitch, roll
     and rotate (yaw), like the TigerTank does with its body, turret and gun?

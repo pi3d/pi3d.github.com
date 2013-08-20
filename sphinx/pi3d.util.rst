@@ -41,6 +41,14 @@ util Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`Log` Module
+----------------------
+
+.. automodule:: pi3d.util.Log
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`RotateVec` Module
 -----------------------
 
