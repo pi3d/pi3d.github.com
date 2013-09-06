@@ -37,6 +37,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="pi3d.html" title="pi3d Package"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -62,7 +65,7 @@ under the bonnet!</p>
 whilst giving access to the power of the Raspberry Pi GPU. It enables both
 3D and 2D rendering and aims to provide a host of exciting commands to load
 in textured/animated models, create fractal landscapes, shaders and much more.</p>
-<p>v1.0 is the fifth release of the pi3d module which now adds support for
+<p>v1.2 is the sixth release of the pi3d module which now adds support for
 running on platforms other than the raspberry pi (X on linux) and runs with
 python 3 as well as 2 The OpenGLES2.0 functionality of the Raspberry Pi
 is used directly or via mesa on &#8216;big&#8217; machines. This makes it generally <em>faster</em>
@@ -74,8 +77,24 @@ included with this code and experiment with them ..</p>
 can find the full version of the documentation here
 <a class="reference external" href="http://pi3d.github.com/html/index.html">http://pi3d.github.com/html/index.html</a></p>
 </div>
-<div class="section" id="demos-included-with-pi3d">
-<h1>Demos included with Pi3D<a class="headerlink" href="#demos-included-with-pi3d" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="demos-for-pi3d-are-now-stored-at-https-github-com-pi3d-pi3d-demos">
+<h1>Demos for Pi3D are now stored at <a class="reference external" href="https://github.com/pi3d/pi3d_demos">https://github.com/pi3d/pi3d_demos</a><a class="headerlink" href="#demos-for-pi3d-are-now-stored-at-https-github-com-pi3d-pi3d-demos" title="Permalink to this headline">¶</a></h1>
+<p>N.B. Shaders are now integrated into programs differently. The syntax used
+to be:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">myshader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s">&#39;shaders/uv_flat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and is now:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">myshader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s">&#39;uv_flat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>this will use the default shaders &#8216;bundled&#8217; with the package. The old format
+will be interpreted as &#8216;look in a subdirectory of the directory where the demo
+is being run from.&#8217; This is probably what you would do if you rolled your own
+special shaders for your own project.</p>
+</div>
+<div class="section" id="demos-on-github-com-pi3d-pi3d-demos-include">
+<h1>Demos on github.com/pi3d/pi3d_demos include<a class="headerlink" href="#demos-on-github-com-pi3d-pi3d-demos-include" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic">
 <li><p class="first"><strong>ForestWalk.py</strong> Walk about a forest on a landscape generated from a
 bitmap</p>
@@ -210,7 +229,19 @@ this time  bouncing off each other on the desktop</p>
 <div class="section" id="setup-on-the-raspberry-pi">
 <h1>Setup on the Raspberry Pi<a class="headerlink" href="#setup-on-the-raspberry-pi" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic">
-<li><p class="first"><strong>Download and unzip</strong></p>
+<li><p class="first"><strong>Download, Extract and install</strong></p>
+<p>If you have pip installed you should be able to open a terminal and
+type:</p>
+<div class="highlight-python"><pre>sudo pip install pi3d</pre>
+</div>
+<p>Otherwise you can download from <a class="reference external" href="https://pypi.python.org/pypi/pi3d">https://pypi.python.org/pypi/pi3d</a>
+and extract the package then in a terminal:</p>
+<div class="highlight-python"><pre>sudo python setup.py install</pre>
+</div>
+<p>(or you may need to use python3) this will put the package into the
+relevant location on your device (for instance
+/usr/local/lib/python2.7/dist-packages/) allowing it to be imported
+by your applications.</p>
 <p>The latest code can be obtained from <a class="reference external" href="https://github.com/tipam/pi3d/">https://github.com/tipam/pi3d/</a>
 where there is a <tt class="docutils literal"><span class="pre">Download</span> <span class="pre">ZIP</span></tt> link, or you can install git then
 clone using <tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/tipam/pi3d.git</span></tt> this git
@@ -418,7 +449,8 @@ David Wallin and others who have contributed to Pi3D - keep up the good work!</p
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introduction to Pi3D</a></li>
-<li><a class="reference internal" href="#demos-included-with-pi3d">Demos included with Pi3D</a></li>
+<li><a class="reference internal" href="#demos-for-pi3d-are-now-stored-at-https-github-com-pi3d-pi3d-demos">Demos for Pi3D are now stored at https://github.com/pi3d/pi3d_demos</a></li>
+<li><a class="reference internal" href="#demos-on-github-com-pi3d-pi3d-demos-include">Demos on github.com/pi3d/pi3d_demos include</a></li>
 <li><a class="reference internal" href="#files-and-folders-in-this-repository">Files and folders in this repository</a></li>
 <li><a class="reference internal" href="#setup-on-the-raspberry-pi">Setup on the Raspberry Pi</a></li>
 <li><a class="reference internal" href="#setup-on-alternative-linux-platforms">Setup on alternative Linux platforms</a></li>
@@ -462,6 +494,9 @@ David Wallin and others who have contributed to Pi3D - keep up the good work!</p
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="pi3d.html" title="pi3d Package"
              >next</a> |</li>

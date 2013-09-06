@@ -49,6 +49,30 @@ util Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`OffScreenTexture` Module
+------------------------------
+
+.. automodule:: pi3d.util.OffScreenTexture
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`PngFont` Module
+---------------------
+
+.. automodule:: pi3d.util.PngFont
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`PostProcess` Module
+-------------------------
+
+.. automodule:: pi3d.util.PostProcess
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`RotateVec` Module
 -----------------------
 
@@ -61,6 +85,14 @@ util Package
 ------------------------
 
 .. automodule:: pi3d.util.Screenshot
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`ShadowCaster` Module
+------------------------
+
+.. automodule:: pi3d.util.ShadowCaster
     :members:
     :undoc-members:
     :show-inheritance:

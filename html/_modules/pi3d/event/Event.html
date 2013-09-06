@@ -49,6 +49,8 @@
           <div class="body">
             
   <h1>Source code for pi3d.event.Event</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">six</span>
+
 <span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="kn">import</span> <span class="n">EventHandler</span>
 <span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="kn">import</span> <span class="n">Keys</span>
 <span class="kn">from</span> <span class="nn">pi3d.event.FindDevices</span> <span class="kn">import</span> <span class="n">find_devices</span>
@@ -57,45 +59,56 @@
 
 <span class="n">_KEYS</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">Keys</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">))</span>
 <span class="n">KEY_CODE</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Keys</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_KEYS</span><span class="p">)</span>
-<span class="n">CODE_KEY</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">KEY_CODE</span><span class="o">.</span><span class="n">iteritems</span><span class="p">())</span>
+<span class="n">CODE_KEY</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">KEY_CODE</span><span class="p">))</span>
 
 <div class="viewcode-block" id="key_to_code"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.key_to_code">[docs]</a><span class="k">def</span> <span class="nf">key_to_code</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-  <span class="k">return</span> <span class="n">KEY_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span>
+  <span class="k">return</span> <span class="n">KEY_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span>
 </div>
 <div class="viewcode-block" id="code_to_key"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.code_to_key">[docs]</a><span class="k">def</span> <span class="nf">code_to_key</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">CODE_KEY</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="InputEvents"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents">[docs]</a><span class="k">class</span> <span class="nc">InputEvents</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  Encapsulates the entire InputEvents subsystem.</span>
+  <span class="sd">&quot;&quot;&quot;Encapsulates the entire InputEvents subsystem.</span>
 
 <span class="sd">  This is generally all you need to import. For efficiency reasons you may</span>
 <span class="sd">  want to make use of CodeOf[ ], but everything else is hidden behind this class.</span>
 
-<span class="sd">  On instanciation, we open all devices that are keyboards, mice or joysticks.</span>
+<span class="sd">  On instantiation, we open all devices that are keyboards, mice or joysticks.</span>
 <span class="sd">  That means we might have two of one sort of another, and that might be a problem,</span>
 <span class="sd">  but it would be rather rare.</span>
 
-<span class="sd">  There are several ABS (joystick, touch) events that we do not handle. In</span>
-<span class="sd">  particular:  THROTTLE, RUDDER, WHEEL, GAS, BRAKE, HAT1, HAT2, HAT3, PRESSURE,</span>
+<span class="sd">  There are several ABS (joystick, touch) events that we do not handle, specifically</span>
+<span class="sd">  THROTTLE, RUDDER, WHEEL, GAS, BRAKE, HAT1, HAT2, HAT3, PRESSURE,</span>
 <span class="sd">  DISTANCE, TILT, TOOL_WIDTH. Implementing these is left as an exercise</span>
 <span class="sd">  for the interested reader. Similarly, we make no attempt to handle multi-touch.</span>
 
 <span class="sd">  Handlers can be supplied, in which case they are called for each event, but</span>
 <span class="sd">  it isn&#39;t necessary; API exists for all the events.</span>
+
 <span class="sd">  The handler signatures are:</span>
-<span class="sd">    def mouse_handler_func(sourceType, SourceIndex, x, y, v, h):</span>
-<span class="sd">    def joystick_handler_func(sourceType, SourceIndex, x1, y1, z1, x2, y2, z2, hatx, haty):</span>
-<span class="sd">    def key_handler_func(sourceType, SourceIndex, key, value):</span>
-<span class="sd">    def syn_handler_func(sourceType, SourceIndex, code, value):</span>
-<span class="sd">    def unhandled_handler_func(event):</span>
-<span class="sd">  Where &quot;sourceType&quot; is the device type string (keyboard, mouse, joystick),</span>
-<span class="sd">  sourceIndex is an incrementing number for each device of that type, starting</span>
-<span class="sd">  at zero, and event is an EventStruct object. Key is the key code, not it&#39;s</span>
-<span class="sd">  ASCII value or anything  simple. Use key_to_code() to convert from the name of a</span>
-<span class="sd">  key to its code, and code_to_key() to convert a code to a name. The keys are</span>
-<span class="sd">  listed in pi3d.event.Constants.py or /usr/include/linux/input.h Note that the key</span>
-<span class="sd">  names refer to a US keyboard.</span>
+
+<span class="sd">    def mouse_handler_func(sourceType, SourceIndex, x, y, v, h)</span>
+<span class="sd">    def joystick_handler_func(sourceType, SourceIndex, x1, y1, z1, x2, y2, z2, hatx, haty)</span>
+<span class="sd">    def key_handler_func(sourceType, SourceIndex, key, value)</span>
+<span class="sd">    def syn_handler_func(sourceType, SourceIndex, code, value)</span>
+<span class="sd">    def unhandled_handler_func(event)</span>
+
+<span class="sd">  where:</span>
+<span class="sd">    sourceType:</span>
+<span class="sd">      the device type string (keyboard, mouse, joystick),</span>
+
+<span class="sd">    sourceIndex:</span>
+<span class="sd">      an incrementing number for each device of that type, starting at zero,</span>
+<span class="sd">      and event is an EventStruct object.</span>
+
+<span class="sd">    key:</span>
+<span class="sd">      the key code, not its ASCII value or anything simple.</span>
+
+<span class="sd">  Use key_to_code() to convert from the name of a key to its code,</span>
+<span class="sd">  and code_to_key() to convert a code to a name.</span>
+
+<span class="sd">  The keys are listed in pi3d.event.Constants.py or /usr/include/linux/input.h</span>
+<span class="sd">  Note that the key names refer to a US keyboard.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyboardHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mouseHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">joystickHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">synHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">unhandledHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">wantKeyboard</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">wantMouse</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">wantJoystick</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unhandledHandler</span> <span class="o">=</span> <span class="n">unhandledHandler</span>
@@ -105,16 +118,16 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">streams</span> <span class="o">+=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;keyboard&quot;</span><span class="p">),</span> <span class="n">keyboards</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">keyboards</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
-    <span class="k">print</span> <span class="s">&quot;keyboards =&quot;</span><span class="p">,</span> <span class="n">keyboards</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;keyboards =&quot;</span><span class="p">,</span> <span class="n">keyboards</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">wantMouse</span><span class="p">:</span>
       <span class="n">mice</span> <span class="o">=</span> <span class="n">find_devices</span><span class="p">(</span><span class="s">&quot;mouse&quot;</span><span class="p">,</span> <span class="n">butNot</span><span class="o">=</span><span class="n">keyboards</span><span class="p">)</span>
-      <span class="k">print</span> <span class="s">&quot;mice = &quot;</span><span class="p">,</span> <span class="n">mice</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">&quot;mice = &quot;</span><span class="p">,</span> <span class="n">mice</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">streams</span> <span class="o">+=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;mouse&quot;</span><span class="p">),</span> <span class="n">mice</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">mice</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
     <span class="k">if</span> <span class="n">wantJoystick</span><span class="p">:</span>
       <span class="n">joysticks</span> <span class="o">=</span> <span class="n">find_devices</span><span class="p">(</span><span class="s">&quot;js&quot;</span><span class="p">,</span> <span class="n">butNot</span><span class="o">=</span><span class="n">keyboards</span><span class="o">+</span><span class="n">mice</span><span class="p">)</span>
-      <span class="k">print</span> <span class="s">&quot;joysticks =&quot;</span><span class="p">,</span> <span class="n">joysticks</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">&quot;joysticks =&quot;</span><span class="p">,</span> <span class="n">joysticks</span><span class="p">)</span>
       <span class="n">js_streams</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;joystick&quot;</span><span class="p">),</span> <span class="n">joysticks</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">streams</span> <span class="o">+=</span> <span class="n">js_streams</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="p">:</span>

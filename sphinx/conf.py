@@ -23,7 +23,6 @@ def _fix_path():
   # Make sure we have the right place.
   assert exists(pi3d_root)
   assert exists(join(pi3d_root, 'pi3d'))
-  assert exists(join(pi3d_root, 'demos'))
 
   # Insert the pi3d project root into Python's system path so it finds our code.
   sys.path.insert(0, pi3d_root)

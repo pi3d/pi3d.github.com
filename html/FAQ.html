@@ -442,6 +442,23 @@ I get very ragged and unresponsive camera movment.</p>
 fix it asap</p>
 </div></blockquote>
 </li>
+<li><p class="first">How do I do post rendering processing on a scene, such as blurring,
+edge detection or fancier effects such as oil painting.</p>
+<blockquote>
+<div><p>There is a class PostProcess that can be used to render a scene to
+a texture. The Post.py demo shows a simple 3x3 convolution matrix
+shader, for more complicated effects it&#8217;s over to you!</p>
+</div></blockquote>
+</li>
+<li><p class="first">How can you
+render points.</p>
+<blockquote>
+<div><p>If you use the method set_point_size() on a Shape to a value other
+than 0.0 then the vertices of the Shape will be rendered as points.
+The size will actually vary with distance but will be the size you
+specified at 1 unit of distance from the camera.</p>
+</div></blockquote>
+</li>
 </ol>
 </div>
 

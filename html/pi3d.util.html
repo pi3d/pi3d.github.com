@@ -95,7 +95,7 @@
 <dl class="class">
 <dt id="pi3d.util.Defocus.Defocus">
 <em class="property">class </em><tt class="descclassname">pi3d.util.Defocus.</tt><tt class="descname">Defocus</tt><a class="reference internal" href="_modules/pi3d/util/Defocus.html#Defocus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Defocus.Defocus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="pi3d.util.OffScreenTexture.OffScreenTexture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.OffScreenTexture.OffScreenTexture</span></tt></a></p>
 <p>For creating a depth-of-field blurring effect on selected objects</p>
 <p>calls Texture.__init__ but doesn&#8217;t need to set file name as
 texture generated from the framebuffer</p>
@@ -131,11 +131,6 @@ Arguments:</p>
 <dd>degree of max blur, float. Values over 5 will cause banding</dd>
 </dl>
 </dd></dl>
-
-<dl class="method">
-<dt id="pi3d.util.Defocus.Defocus.delete_buffers">
-<tt class="descname">delete_buffers</tt><big>(</big><big>)</big><a class="headerlink" href="#pi3d.util.Defocus.Defocus.delete_buffers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -178,7 +173,7 @@ Arguments:</p>
 <span id="font-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Font</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Font" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.Font.Font">
-<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=u'#ffffff'</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=48</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1000000000000001</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=u'#ffffff'</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=48</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
 <p>A Font contains a TrueType font ready to be rendered in OpenGL.</p>
 <p>A font is just a mapping from codepoints (single Unicode characters) to glyphs
@@ -211,8 +206,8 @@ have the coding defined at the top:  # -<em>- coding: utf-8 -</em>-</p>
 <dt><em>add_codepoints</em>:</dt>
 <dd>If you are only wanting to add a few codepoints that are missing, you
 should use the <em>add_codepoints</em> parameter, which just adds codepoints or
-characters to the default list of codepoints. All the other comments for
-the <em>codepoints</em> parameter still apply.</dd>
+characters to the default list of codepoints (range(256). All the other
+comments for the <em>codepoints</em> parameter still apply.</dd>
 <dt><em>image_size</em>:</dt>
 <dd>Width and height of the Texture that backs the image.
 If it doesn&#8217;t fit then a larger size will be tried up to MAX_SIZE.
@@ -312,6 +307,67 @@ message if it isn&#8217;t going to be displayed.)</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-pi3d.util.OffScreenTexture">
+<span id="offscreentexture-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">OffScreenTexture</span></tt> Module<a class="headerlink" href="#module-pi3d.util.OffScreenTexture" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.OffScreenTexture.OffScreenTexture">
+<em class="property">class </em><tt class="descclassname">pi3d.util.OffScreenTexture.</tt><tt class="descname">OffScreenTexture</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/OffScreenTexture.html#OffScreenTexture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
+<p>For creating special effect after rendering to texture rather than
+onto the display. Used by Defocus, ShadowCaster, Clashtest etc</p>
+<p>calls Texture.__init__ but doesn&#8217;t need to set file name as
+texture generated from the framebuffer</p>
+<dl class="method">
+<dt id="pi3d.util.OffScreenTexture.OffScreenTexture.delete_buffers">
+<tt class="descname">delete_buffers</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/OffScreenTexture.html#OffScreenTexture.delete_buffers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.OffScreenTexture.OffScreenTexture.delete_buffers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="pngfont-module">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">PngFont</span></tt> Module<a class="headerlink" href="#pngfont-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pi3d.util.PostProcess">
+<span id="postprocess-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">PostProcess</span></tt> Module<a class="headerlink" href="#module-pi3d.util.PostProcess" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.PostProcess.PostProcess">
+<em class="property">class </em><tt class="descclassname">pi3d.util.PostProcess.</tt><tt class="descname">PostProcess</tt><big>(</big><em>shader='post_base'</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="pi3d.util.OffScreenTexture.OffScreenTexture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.OffScreenTexture.OffScreenTexture</span></tt></a></p>
+<p>For creating a depth-of-field blurring effect on selected objects</p>
+<p>calls Texture.__init__ but doesn&#8217;t need to set file name as
+texture generated from the framebuffer</p>
+<dl class="method">
+<dt id="pi3d.util.PostProcess.PostProcess.start_capture">
+<tt class="descname">start_capture</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess.start_capture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess.start_capture" title="Permalink to this definition">¶</a></dt>
+<dd><p>after calling this method all object.draw()s will rendered
+to this texture and not appear on the display. Large objects
+will obviously take a while to draw and re-draw</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.PostProcess.PostProcess.end_capture">
+<tt class="descname">end_capture</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess.end_capture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess.end_capture" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop capturing to texture and resume normal rendering to default</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.PostProcess.PostProcess.draw">
+<tt class="descname">draw</tt><big>(</big><em>unif_vals=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>draw the shape using the saved texture
+Keyword Argument:</p>
+<dl class="docutils">
+<dt><em>unif_vals</em></dt>
+<dd>dictionay object i.e. {a:unif[a], b:unif[b], c:unif[c]} where a,b,c
+are subscripts of the unif array in Shape available for user
+custom space i.e. unif[48]...unif[59] corresponding with the vec3
+uniform variables unif[16][0] to unit[19][2]</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.util.RotateVec">
 <span id="rotatevec-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">RotateVec</span></tt> Module<a class="headerlink" href="#module-pi3d.util.RotateVec" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -347,11 +403,49 @@ to it!</p>
 </dd></dl>
 
 </div>
+<div class="section" id="shadowcaster-module">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">ShadowCaster</span></tt> Module<a class="headerlink" href="#shadowcaster-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pi3d.util.ShadowCaster"></span><dl class="class">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster">
+<em class="property">class </em><tt class="descclassname">pi3d.util.ShadowCaster.</tt><tt class="descname">ShadowCaster</tt><big>(</big><em>emap</em>, <em>light</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="pi3d.util.OffScreenTexture.OffScreenTexture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.OffScreenTexture.OffScreenTexture</span></tt></a></p>
+<p>For creating a depth-of-field blurring effect on selected objects</p>
+<p>calls Texture.__init__ but doesn&#8217;t need to set file name as
+texture generated from the framebuffer</p>
+<dl class="method">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster.start_cast">
+<tt class="descname">start_cast</tt><big>(</big><em>location=(0.0</em>, <em>0.0</em>, <em>0.0)</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.start_cast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.start_cast" title="Permalink to this definition">¶</a></dt>
+<dd><p>after calling this method all object.draw()s will rendered
+to this texture and not appear on the display. If you want blurred
+edges you will have to capture the rendering of an object and its
+background then re-draw them using the blur() method. Large objects
+will obviously take a while to draw and re-draw</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster.end_cast">
+<tt class="descname">end_cast</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.end_cast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.end_cast" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop capturing to texture and resume normal rendering to default</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster.add_shadow">
+<tt class="descname">add_shadow</tt><big>(</big><em>shape</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.add_shadow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.add_shadow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster.draw_shadow">
+<tt class="descname">draw_shadow</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.draw_shadow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.draw_shadow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.util.String">
 <span id="string-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">String</span></tt> Module<a class="headerlink" href="#module-pi3d.util.String" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.String.String">
-<em class="property">class </em><tt class="descclassname">pi3d.util.String.</tt><tt class="descname">String</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>font=None</em>, <em>string=None</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=1.0</em>, <em>sx=0.0033333333333333331</em>, <em>sy=0.0033333333333333331</em>, <em>is_3d=True</em>, <em>size=0.23999999999999999</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>justify=u'C'</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/String.html#String"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.String.String" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.String.</tt><tt class="descname">String</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>font=None</em>, <em>string=None</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=1.0</em>, <em>sx=0.003333333333333333</em>, <em>sy=0.003333333333333333</em>, <em>is_3d=True</em>, <em>size=0.24</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>justify=u'C'</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/String.html#String"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.String.String" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></tt></a></p>
 <p>Shape used for writing text on screen. It is a flat, one sided rectangualar plane</p>
 <dl class="docutils">
@@ -724,8 +818,12 @@ way to make sure that nothing is drawn past a certain distance.</p>
 <li><a class="reference internal" href="#module-pi3d.util.Font"><tt class="docutils literal"><span class="pre">Font</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Loadable"><tt class="docutils literal"><span class="pre">Loadable</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Log"><tt class="docutils literal"><span class="pre">Log</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.OffScreenTexture"><tt class="docutils literal"><span class="pre">OffScreenTexture</span></tt> Module</a></li>
+<li><a class="reference internal" href="#pngfont-module"><tt class="docutils literal"><span class="pre">PngFont</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.PostProcess"><tt class="docutils literal"><span class="pre">PostProcess</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.RotateVec"><tt class="docutils literal"><span class="pre">RotateVec</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
+<li><a class="reference internal" href="#shadowcaster-module"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>

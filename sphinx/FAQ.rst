@@ -392,4 +392,19 @@ Frequently Asked Questions
       We know about this (but not why) and will
       fix it asap
 
+#.  How do I do post rendering processing on a scene, such as blurring,
+    edge detection or fancier effects such as oil painting.
+
+      There is a class PostProcess that can be used to render a scene to
+      a texture. The Post.py demo shows a simple 3x3 convolution matrix
+      shader, for more complicated effects it's over to you!
+
+#.  How can you
+    render points.
+
+      If you use the method set_point_size() on a Shape to a value other
+      than 0.0 then the vertices of the Shape will be rendered as points.
+      The size will actually vary with distance but will be the size you
+      specified at 1 unit of distance from the camera.
+
 .. _ReadMe: http://pi3d.github.com/html/index.html
