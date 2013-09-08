@@ -392,15 +392,67 @@ Frequently Asked Questions
       We know about this (but not why) and will
       fix it asap
 
-#.  How do I do post rendering processing on a scene, such as blurring,
+#.  How do I do post-rendering processing on a scene, such as blurring,
     edge detection or fancier effects such as oil painting.
 
       There is a class PostProcess that can be used to render a scene to
       a texture. The Post.py demo shows a simple 3x3 convolution matrix
       shader, for more complicated effects it's over to you!
 
-#.  How can you
-    render points.
+#.  OK the example for post processing (Post.py) is quite hard to follow
+    how exactly does the PostProcess class work.
+
+      PostProcess inherits from Texture (via OffScreenTexture) so you can
+      use an instance of it anywhere you would use a texture, i.e. you
+      could uv map it onto any other shape or use it as a bump or
+      reflection map. Or use it with your own shader to do something I
+      haven't thought of. PostProcess.sprite is a Sprite shape that can
+      be used just as any other Shape in your program, you could rotate
+      it or change its alpha value or z location to draw it in front of
+      other objects. There is also a 2D camera created in PostProcess
+      which is used to draw the sprite at full screen using the saved
+      texture and the shader you supply in the constructor or post_base
+      if you don't supply one.
+
+      PostProcess.draw({48:1.1414, 49:2013, 50:0.0}) will set the unif
+      array in PostProcess.sprite as unif[48] = 1.1414 unif[49] = 2013
+      unif[50] = 0.0 you can then access these values as uniform
+      variables in your shader as vec3 unif[16][0] unfi[16][1]
+      unfi[16][2]. If the array indices are contiguous you could do the
+      same thing using PostProcess.sprite.set_custom_data(48, [1.1414,
+      2013, 0.0]) or even PostProcess.sprite.unif[48] = 1.1414 etc
+
+      I see no reason why you shouldn't do something like:
+      render the scene to a texture once a second draw it off-screen using
+      a shader to extract edges as dayglo on white, blur them to a second
+      texture, draw this onto a foreground sprite fading from alpha 0 to
+      1 back to 0 over 1s cycle. Use a different shader to draw the original
+      texture onto a spherical surface that gradually changes shape in
+      the background. etc etc. 
+
+#   And why does python set Shape.unif[48] but the shader use
+    vec3 unif[16][0].
+
+      On the shader side it's really efficient to define variables as
+      vec3, vec4, mat4 etc. and at one stage I tried doing a lot of the
+      matrix manipulation in the vertex shader. There were pros and
+      cons but in the end I found that using python's numpy library
+      was the best bet. But in the mean time I had started storing
+      much of the shape information in a form that allowed it to be
+      accessible by the shader i.e. location x,y,z was vec3 unif[0]
+      in the shader, rotation was vec3 unif[1], scale unif[2], origin
+      offset unif[3] etc. Although I no longer needed these for normal
+      rendering I thought that they may come in useful for someone at
+      some stage so I just left them. I only needed to pass one array
+      pionter so there was no cost to having 60 floats available!
+
+      Meanwhile back in the python description of the Shape I had to
+      make the unif array a ctypes.c_float array and that seemed to
+      have to be one-dimensional. So after a long story unif[16][0]
+      in the shader is (same name but different) unif[16*3 + 0] in python
+
+#.  How can you render points like a star field
+    or sparks from an explosion.
 
       If you use the method set_point_size() on a Shape to a value other
       than 0.0 then the vertices of the Shape will be rendered as points.

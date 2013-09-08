@@ -57,7 +57,7 @@ util Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`PngFont` Module
+:mod:`Pngfont` Module
 ---------------------
 
 .. automodule:: pi3d.util.PngFont
