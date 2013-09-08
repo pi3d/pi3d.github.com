@@ -430,7 +430,7 @@ Frequently Asked Questions
       texture onto a spherical surface that gradually changes shape in
       the background. etc etc. 
 
-#   And why does python set Shape.unif[48] but the shader use
+#.  And why does python set Shape.unif[48] but the shader use
     vec3 unif[16][0].
 
       On the shader side it's really efficient to define variables as

@@ -480,11 +480,9 @@ texture onto a spherical surface that gradually changes shape in
 the background. etc etc.</p>
 </div></blockquote>
 </li>
-</ol>
-<dl class="docutils">
-<dt>#   And why does python set Shape.unif[48] but the shader use</dt>
-<dd><p class="first">vec3 unif[16][0].</p>
-<blockquote class="last">
+<li><p class="first">And why does python set Shape.unif[48] but the shader use
+vec3 unif[16][0].</p>
+<blockquote>
 <div><p>On the shader side it&#8217;s really efficient to define variables as
 vec3, vec4, mat4 etc. and at one stage I tried doing a lot of the
 matrix manipulation in the vertex shader. There were pros and
@@ -502,9 +500,7 @@ make the unif array a ctypes.c_float array and that seemed to
 have to be one-dimensional. So after a long story unif[16][0]
 in the shader is (same name but different) unif[16*3 + 0] in python</p>
 </div></blockquote>
-</dd>
-</dl>
-<ol class="arabic">
+</li>
 <li><p class="first">How can you render points like a star field
 or sparks from an explosion.</p>
 <blockquote>
