@@ -1,0 +1,201 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pi3d.util.ShadowCaster &mdash; pi3d 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="pi3d 1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">pi3d 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pi3d.util.ShadowCaster</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="kn">import</span> <span class="n">Shader</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.OffScreenTexture</span> <span class="kn">import</span> <span class="n">OffScreenTexture</span>
+<span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="kn">import</span> <span class="n">Camera</span>
+
+<div class="viewcode-block" id="ShadowCaster"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.ShadowCaster.ShadowCaster">[docs]</a><span class="k">class</span> <span class="nc">ShadowCaster</span><span class="p">(</span><span class="n">OffScreenTexture</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;For creating a depth-of-field blurring effect on selected objects&quot;&quot;&quot;</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">emap</span><span class="p">,</span> <span class="n">light</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; calls Texture.__init__ but doesn&#39;t need to set file name as</span>
+<span class="sd">    texture generated from the framebuffer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">ShadowCaster</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="s">&quot;shadow_caster&quot;</span><span class="p">)</span>
+    <span class="c"># load shader for casting shadows and camera</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cshader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="s">&quot;uv_flat&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mshader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="s">&quot;mat_flat&quot;</span><span class="p">)</span>
+    <span class="c"># keep copy of ElevationMap</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span> <span class="o">=</span> <span class="n">emap</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">set_material</span><span class="p">((</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span> <span class="c"># hide bits below ground</span>
+    <span class="c">#TODO doesn&#39;t cope with  z light positions</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">eye</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">500</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">light</span><span class="o">.</span><span class="n">lightpos</span><span class="p">]</span> <span class="c"># good distance away</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># must have +ve y</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">500.0</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span> <span class="c">#x val is bigger than z val</span>
+      <span class="c">#change scale so map just fits on screen</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">su</span><span class="p">,</span> <span class="n">sv</span>  <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">su</span><span class="p">,</span> <span class="n">sv</span>  <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">width</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">scalev</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">)</span><span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">depth</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="c">#orientation flag</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">53</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">su</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c">#height adjustment</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="c">#change scale so map just fits on screen</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">su</span><span class="p">,</span> <span class="n">sv</span>  <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">su</span><span class="p">,</span> <span class="n">sv</span>  <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">depth</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">scalev</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">)</span><span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">width</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">53</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">su</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scalev</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalev</span> <span class="c"># multiplication factor to reduce pixeliness</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">=</span> <span class="n">su</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="c"># reused later in end_cast</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">scalev</span> <span class="o">=</span> <span class="n">sv</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalev</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera0</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">()</span> <span class="c"># default instance created as normal, just in case!</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">eye</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+    <span class="c"># load shader for drawing map with shadows</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dshader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="s">&quot;shadowcast&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ShadowCaster.start_cast"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.ShadowCaster.ShadowCaster.start_cast">[docs]</a>  <span class="k">def</span> <span class="nf">start_cast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot; after calling this method all object.draw()s will rendered</span>
+<span class="sd">    to this texture and not appear on the display. If you want blurred</span>
+<span class="sd">    edges you will have to capture the rendering of an object and its</span>
+<span class="sd">    background then re-draw them using the blur() method. Large objects</span>
+<span class="sd">    will obviously take a while to draw and re-draw</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glClearColor</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span> 
+                        <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">ShadowCaster</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">position</span><span class="p">((</span><span class="n">location</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">location</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
+</div>
+<div class="viewcode-block" id="ShadowCaster.end_cast"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.ShadowCaster.ShadowCaster.end_cast">[docs]</a>  <span class="k">def</span> <span class="nf">end_cast</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; stop capturing to texture and resume normal rendering to default</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c">#draw the actual map</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">shader</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mshader</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">ShadowCaster</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_end</span><span class="p">()</span>
+    <span class="c"># set third texture to this ShadowCaster texture</span>
+    <span class="n">texs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">textures</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">texs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+      <span class="n">texs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">texs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+    <span class="c"># change background back to blue</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glClearColor</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="mf">0.4</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="mf">0.8</span><span class="p">),</span> 
+                        <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="mf">0.8</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+    <span class="c"># work out left, top, right, bottom for shader</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">48</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span><span class="p">)</span> <span class="c"># left [16][0]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">49</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalev</span><span class="p">)</span> <span class="c"># top [16][1]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">51</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">48</span><span class="p">]</span> <span class="c"># right [17][0]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">52</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">49</span><span class="p">]</span> <span class="c"># bottom [17][1]</span>
+    
+    <span class="n">du</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+    <span class="n">dv</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">depth</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">48</span><span class="p">]</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">*</span> <span class="p">(</span><span class="n">du</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">==</span> <span class="mf">1.0</span> <span class="k">else</span> <span class="n">dv</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">49</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalev</span> <span class="o">*</span> <span class="p">(</span><span class="n">dv</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">==</span> <span class="mf">1.0</span> <span class="k">else</span> <span class="n">du</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">51</span><span class="p">]</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">*</span> <span class="p">(</span><span class="n">du</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">==</span> <span class="mf">1.0</span> <span class="k">else</span> <span class="n">dv</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">52</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalev</span> <span class="o">*</span> <span class="p">(</span><span class="n">dv</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">==</span> <span class="mf">1.0</span> <span class="k">else</span> <span class="n">du</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ShadowCaster.add_shadow"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.ShadowCaster.ShadowCaster.add_shadow">[docs]</a>  <span class="k">def</span> <span class="nf">add_shadow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+    <span class="n">shape</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">shader</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cshader</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="ShadowCaster.draw_shadow"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.ShadowCaster.ShadowCaster.draw_shadow">[docs]</a>  <span class="k">def</span> <span class="nf">draw_shadow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">shader</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dshader</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">pi3d 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, The pi3d team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

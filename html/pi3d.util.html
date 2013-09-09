@@ -332,11 +332,22 @@ texture generated from the framebuffer</p>
 <span id="postprocess-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">PostProcess</span></tt> Module<a class="headerlink" href="#module-pi3d.util.PostProcess" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.PostProcess.PostProcess">
-<em class="property">class </em><tt class="descclassname">pi3d.util.PostProcess.</tt><tt class="descname">PostProcess</tt><big>(</big><em>shader='post_base'</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.PostProcess.</tt><tt class="descname">PostProcess</tt><big>(</big><em>shader='post_base'</em>, <em>mipmap=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="pi3d.util.OffScreenTexture.OffScreenTexture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.OffScreenTexture.OffScreenTexture</span></tt></a></p>
-<p>For creating a depth-of-field blurring effect on selected objects</p>
+<p>For creating a an offscreen texture that can be redrawn using shaders
+as required by the developer</p>
 <p>calls Texture.__init__ but doesn&#8217;t need to set file name as
-texture generated from the framebuffer</p>
+texture generated from the framebuffer. Keyword Arguments:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>shader</em></dt>
+<dd>to use when drawing sprite, defaults to post_base, a simple
+3x3 convolution that does basic edge detection. Can be copied to
+project directory and modified as required.</dd>
+<dt><em>mipmap</em></dt>
+<dd>can be set to False for marginal increase in speed</dd>
+</dl>
+</div></blockquote>
 <dl class="method">
 <dt id="pi3d.util.PostProcess.PostProcess.start_capture">
 <tt class="descname">start_capture</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess.start_capture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess.start_capture" title="Permalink to this definition">¶</a></dt>
