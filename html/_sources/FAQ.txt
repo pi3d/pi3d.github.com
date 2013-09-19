@@ -397,7 +397,11 @@ Frequently Asked Questions
 
       There is a class PostProcess that can be used to render a scene to
       a texture. The Post.py demo shows a simple 3x3 convolution matrix
-      shader, for more complicated effects it's over to you!
+      shader and there are a host of post process filter shaders that
+      are in the pi3d_demos/shaders directory. These wll be loaded in
+      turn by FilterDemo.py but the pi will run out of graphics memory
+      if you leave the full list in. For more complicated effects it's
+      over to you!
 
 #.  OK the example for post processing (Post.py) is quite hard to follow
     how exactly does the PostProcess class work.

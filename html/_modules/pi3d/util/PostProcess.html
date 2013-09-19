@@ -55,13 +55,13 @@
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="kn">import</span> <span class="n">Shader</span>
 <span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="kn">import</span> <span class="n">Camera</span>
-<span class="kn">from</span> <span class="nn">pi3d.shape.Sprite</span> <span class="kn">import</span> <span class="n">Sprite</span>
+<span class="kn">from</span> <span class="nn">pi3d.shape.LodSprite</span> <span class="kn">import</span> <span class="n">LodSprite</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.OffScreenTexture</span> <span class="kn">import</span> <span class="n">OffScreenTexture</span>
 
 <div class="viewcode-block" id="PostProcess"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PostProcess.PostProcess">[docs]</a><span class="k">class</span> <span class="nc">PostProcess</span><span class="p">(</span><span class="n">OffScreenTexture</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;For creating a an offscreen texture that can be redrawn using shaders</span>
 <span class="sd">  as required by the developer&quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="s">&quot;post_base&quot;</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="s">&quot;post_base&quot;</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">add_tex</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">divide</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; calls Texture.__init__ but doesn&#39;t need to set file name as</span>
 <span class="sd">    texture generated from the framebuffer. Keyword Arguments:</span>
 
@@ -71,17 +71,26 @@
 <span class="sd">        project directory and modified as required.</span>
 
 <span class="sd">      *mipmap*</span>
-<span class="sd">        can be set to False for marginal increase in speed</span>
-<span class="sd">      </span>
+<span class="sd">        can be set to True with slight cost to speed, or use fxaa shader</span>
+
+<span class="sd">      *add_tex*</span>
+<span class="sd">        list of textures. If additional textures can be used by the shader</span>
+<span class="sd">        then they can be added here.</span>
+<span class="sd">     </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">PostProcess</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="s">&quot;postprocess&quot;</span><span class="p">)</span>
     <span class="c"># load shader</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
+    <span class="n">dummycam</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span> <span class="c"># in case this is prior to one being created </span>
     <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">Sprite</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">LodSprite</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">divide</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">set_2d_size</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">blend</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span> <span class="o">=</span> <span class="n">mipmap</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="c"># TODO check if this self reference causes graphics memory leaks</span>
+    <span class="k">if</span> <span class="n">add_tex</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">add_tex</span><span class="p">)</span>
 
 <div class="viewcode-block" id="PostProcess.start_capture"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PostProcess.PostProcess.start_capture">[docs]</a>  <span class="k">def</span> <span class="nf">start_capture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; after calling this method all object.draw()s will rendered</span>
@@ -108,7 +117,7 @@
     <span class="k">if</span> <span class="n">unif_vals</span><span class="p">:</span>
       <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">unif_vals</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">unif_vals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="p">)</span>
 </pre></div></div></div>
 
           </div>

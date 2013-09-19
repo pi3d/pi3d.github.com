@@ -12,9 +12,9 @@ Contents:
    :maxdepth: 2
 
    ReadMe
-   pi3d
    FAQ
    GPUexplain
+   pi3d
 
 
 Indices and tables

@@ -54,34 +54,12 @@
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">bisect</span>
 
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_float</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">subtract</span><span class="p">,</span> <span class="n">dot</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_bytes</span>
 
-<span class="n">RECT_NORMALS</span> <span class="o">=</span> <span class="n">c_bytes</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                        <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                        <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                        <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-
-<span class="n">RECT_TRIANGLES</span> <span class="o">=</span> <span class="n">c_bytes</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
-                          <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-
-<div class="viewcode-block" id="rect_triangles"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.rect_triangles">[docs]</a><span class="k">def</span> <span class="nf">rect_triangles</span><span class="p">():</span>
-  <span class="n">opengles</span><span class="o">.</span><span class="n">glDrawElements</span><span class="p">(</span><span class="n">GL_TRIANGLES</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">GL_UNSIGNED_BYTE</span><span class="p">,</span> <span class="n">RECT_TRIANGLES</span><span class="p">)</span>
-
-<span class="c"># TODO: not exact sure what this does but we do it a lot.</span></div>
-<div class="viewcode-block" id="texture_min_mag"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.texture_min_mag">[docs]</a><span class="k">def</span> <span class="nf">texture_min_mag</span><span class="p">():</span>
-  <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="n">GL_TEXTURE_MIN_FILTER</span><span class="p">,</span> <span class="n">GL_TEXTURE_MAG_FILTER</span><span class="p">]:</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glTexParameterf</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="n">GL_LINEAR</span><span class="p">))</span>
-</div>
-<div class="viewcode-block" id="sqsum"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.sqsum">[docs]</a><span class="k">def</span> <span class="nf">sqsum</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Return the sum of the squares of its arguments.</span>
-
-<span class="sd">  DEPRECATED:  use numpy.dot(x, x).</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
-</div>
 <div class="viewcode-block" id="magnitude"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.magnitude">[docs]</a><span class="k">def</span> <span class="nf">magnitude</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Return the magnitude (root mean square) of the vector.&quot;&quot;&quot;</span>
   <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span>
@@ -115,28 +93,7 @@
 <span class="sd">    Vector length.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">return</span> <span class="n">magnitude</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">direction</span><span class="p">),</span> <span class="n">magnitude</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="load_identity"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.load_identity">[docs]</a><span class="k">def</span> <span class="nf">load_identity</span><span class="p">():</span>
-  <span class="n">opengles</span><span class="o">.</span><span class="n">glLoadIdentity</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="dotproduct"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.dotproduct">[docs]</a><span class="k">def</span> <span class="nf">dotproduct</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Return the dot product of two 3-dimensional vectors given by coordinates.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">x2</span> <span class="o">+</span> <span class="n">y1</span> <span class="o">*</span> <span class="n">y2</span> <span class="o">+</span> <span class="n">z1</span> <span class="o">*</span> <span class="n">z2</span>
-</div>
-<div class="viewcode-block" id="crossproduct"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.crossproduct">[docs]</a><span class="k">def</span> <span class="nf">crossproduct</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Return the cross product of two 3-dimensional vectors given by coordinates.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">y1</span> <span class="o">*</span> <span class="n">z2</span> <span class="o">-</span> <span class="n">z1</span> <span class="o">*</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z1</span> <span class="o">*</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">z2</span><span class="p">,</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span> <span class="o">*</span> <span class="n">x2</span>
-</div>
-<div class="viewcode-block" id="translate_matrix"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.translate_matrix">[docs]</a><span class="k">def</span> <span class="nf">translate_matrix</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Return a matrix that translates by the given vector.&quot;&quot;&quot;</span>
-  <span class="n">m</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
-  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
-    <span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">m</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-  <span class="k">return</span> <span class="n">m</span>
+
 </div>
 <div class="viewcode-block" id="vec_sub"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.vec_sub">[docs]</a><span class="k">def</span> <span class="nf">vec_sub</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Return the difference between two vectors.&quot;&quot;&quot;</span>
@@ -157,210 +114,7 @@
 <span class="sd">  otherwise returns the original vector.&quot;&quot;&quot;</span>
   <span class="n">n</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vec</span><span class="p">))</span> <span class="ow">or</span> <span class="mi">1</span>
   <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="o">/</span> <span class="n">n</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vec</span><span class="p">]</span>
-</div>
-<div class="viewcode-block" id="billboard_matrix"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.billboard_matrix">[docs]</a><span class="k">def</span> <span class="nf">billboard_matrix</span><span class="p">():</span>
-  <span class="sd">&quot;&quot;&quot;Return a matrix that copies x, y and sets z to 0.9.&quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
-          <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
-          <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
-          <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]]</span>
 
-<span class="c"># TODO: We should use numpy for all of these.</span></div>
-<div class="viewcode-block" id="mat_mult"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.mat_mult">[docs]</a><span class="k">def</span> <span class="nf">mat_mult</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Return the product of two 4x4 matrices.&quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="p">[[</span><span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-          <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
-          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
-</div>
-<div class="viewcode-block" id="mat_transpose"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.mat_transpose">[docs]</a><span class="k">def</span> <span class="nf">mat_transpose</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Return the transposition of a 4x4 matrix.&quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="p">[[</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
-</div>
-<div class="viewcode-block" id="vec_mat_mult"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.vec_mat_mult">[docs]</a><span class="k">def</span> <span class="nf">vec_mat_mult</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">mat</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Return the product of a 4-d vector and a 4x4 matrix.</span>
-
-<span class="sd">  Arguments:</span>
-<span class="sd">    *vec*</span>
-<span class="sd">      A vector of length 4.</span>
-<span class="sd">    *mat*</span>
-<span class="sd">      A 4x4 matrix.</span>
-
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">vec</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">mat</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
-</div>
-<div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  Rotate, scale and translate a 4x4 matrix.</span>
-
-<span class="sd">  Arguments:</span>
-<span class="sd">    *matrix*</span>
-<span class="sd">      A 4x4 matrix to transform.</span>
-<span class="sd">    *x, y, z*</span>
-<span class="sd">      Translation in x, y and z axes.</span>
-<span class="sd">    *rx, ry, rx*</span>
-<span class="sd">      Rotations in x, y, and x axes.</span>
-<span class="sd">    *sx, sy, sz*</span>
-<span class="sd">      Scale factor in x, y, z axes.</span>
-<span class="sd">    *cx, cy, cz*</span>
-<span class="sd">      Center of the rotation.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="c"># TODO: do we really need this?  Wouldn&#39;t the separate parts suffice?</span>
-  <span class="c">#</span>
-  <span class="c"># TODO: the idea of translating then scaling then performing an inverse</span>
-  <span class="c"># translation seems like it wouldn&#39;t work?</span>
-  <span class="c">#</span>
-
-  <span class="n">matrix</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
-  <span class="c"># TODO: is a copy really needed?  Surely translate returns a new matrix?</span>
-
-  <span class="n">matrix</span> <span class="o">=</span> <span class="n">translate</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">cx</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">cy</span><span class="p">,</span> <span class="n">z</span> <span class="o">-</span> <span class="n">cz</span><span class="p">))</span>
-  <span class="n">matrix</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">)</span>
-  <span class="k">if</span> <span class="n">sx</span> <span class="o">!=</span> <span class="mf">1.0</span> <span class="ow">or</span> <span class="n">sy</span> <span class="o">!=</span> <span class="mf">1.0</span> <span class="ow">or</span> <span class="n">sz</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
-    <span class="n">matrix</span> <span class="o">=</span> <span class="n">scale</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">translate</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">))</span>
-</div>
-<div class="viewcode-block" id="scale"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.scale">[docs]</a><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  Scale a 4x4 matrix.</span>
-
-<span class="sd">  Arguments:</span>
-<span class="sd">    *sx, sy, sz*</span>
-<span class="sd">      Scale factor in x, y, z axes.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">mat_mult</span><span class="p">([[</span><span class="n">sx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">matrix</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="translate"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.translate">[docs]</a><span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">vec</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  Translate a 4x4 matrix by a 3-vector</span>
-
-<span class="sd">  Arguments:</span>
-<span class="sd">    *matrix*</span>
-<span class="sd">      The 4x4 matrix to translate.</span>
-<span class="sd">    *vec*</span>
-<span class="sd">      A 3-vector translation in x, y, z axes.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">mat_mult</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">matrix</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="rotate"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.rotate">[docs]</a><span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  Rotate a 4x4 matrix.</span>
-
-<span class="sd">  Arguments:</span>
-<span class="sd">    *matrix*</span>
-<span class="sd">      A 4x4 matrix.</span>
-<span class="sd">    *rx, ry, rx*</span>
-<span class="sd">      Rotations in x, y, and x axes.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">if</span> <span class="n">rz</span><span class="p">:</span>
-    <span class="n">matrix</span> <span class="o">=</span> <span class="n">rotateZ</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">rz</span><span class="p">)</span>
-  <span class="k">if</span> <span class="n">rx</span><span class="p">:</span>
-    <span class="n">matrix</span> <span class="o">=</span> <span class="n">rotateX</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
-  <span class="k">if</span> <span class="n">ry</span><span class="p">:</span>
-    <span class="n">matrix</span> <span class="o">=</span> <span class="n">rotateY</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">ry</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">matrix</span>
-</div>
-<div class="viewcode-block" id="rotateX"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.rotateX">[docs]</a><span class="k">def</span> <span class="nf">rotateX</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  Rotate a 4x4 matrix around the x axis.</span>
-
-<span class="sd">  Arguments:</span>
-<span class="sd">    *matrix*</span>
-<span class="sd">      A 4x4 matrix.</span>
-<span class="sd">    *angle*</span>
-<span class="sd">      Angle of rotation around the x axis.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="n">angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-  <span class="n">c</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-  <span class="n">s</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">mat_mult</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
-                  <span class="n">matrix</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="rotateY"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.rotateY">[docs]</a><span class="k">def</span> <span class="nf">rotateY</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  Rotate a 4x4 matrix around the y axis.</span>
-
-<span class="sd">  Arguments:</span>
-<span class="sd">    *matrix*</span>
-<span class="sd">      A 4x4 matrix.</span>
-<span class="sd">    *angle*</span>
-<span class="sd">      Angle of rotation around the y axis.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="n">angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-  <span class="n">c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-  <span class="n">s</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">mat_mult</span><span class="p">([[</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
-                  <span class="n">matrix</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="rotateZ"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.rotateZ">[docs]</a><span class="k">def</span> <span class="nf">rotateZ</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  Rotate a 4x4 matrix around the z axis.</span>
-
-<span class="sd">  Arguments:</span>
-<span class="sd">    *matrix*</span>
-<span class="sd">      A 4x4 matrix.</span>
-<span class="sd">    *angle*</span>
-<span class="sd">      Angle of rotation around the z axis.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="n">angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-  <span class="n">c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-  <span class="n">s</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">mat_mult</span><span class="p">([[</span><span class="n">c</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
-                  <span class="n">matrix</span><span class="p">)</span>
-
-<span class="c"># TODO: this next one is also not used in the codebase.</span>
-</div>
-<div class="viewcode-block" id="angle_between"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.angle_between">[docs]</a><span class="k">def</span> <span class="nf">angle_between</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  Return the angle between two 3-vectors, or 0.0 if one or the other vector is</span>
-<span class="sd">  empty.</span>
-
-<span class="sd">  Arguments:</span>
-<span class="sd">    *x1, y1, z1*</span>
-<span class="sd">      The coordinates of the first vector.</span>
-<span class="sd">    *x2, y2, z2*</span>
-<span class="sd">      The coordinates of the second vector.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="n">a</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span>
-  <span class="n">b</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span>
-  <span class="n">c</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x3</span>
-  <span class="n">d</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y3</span>
-
-  <span class="n">sqab</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
-  <span class="n">sqcd</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">c</span> <span class="o">*</span> <span class="n">c</span> <span class="o">+</span> <span class="n">d</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span>
-  <span class="n">l</span> <span class="o">=</span> <span class="n">sqab</span> <span class="o">*</span> <span class="n">sqcd</span>
-  <span class="k">if</span> <span class="n">l</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
-    <span class="k">return</span> <span class="mf">0.0</span>
-
-  <span class="n">aa</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">c</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="n">l</span>
-  <span class="k">if</span> <span class="n">aa</span> <span class="o">==</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
-  <span class="k">if</span> <span class="n">aa</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
-    <span class="c"># TODO: this was originally 0!  But if two vectors have a dot product</span>
-    <span class="c"># of zero, they are surely at right angles?</span>
-
-  <span class="n">dist</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">y3</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x3</span>  <span class="o">+</span>  <span class="n">x1</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="n">y1</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqab</span>
-  <span class="n">angle</span> <span class="o">=</span> <span class="n">acos</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span>
-
-  <span class="k">if</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="n">angle</span>
-  <span class="k">else</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">angle</span>
 </div>
 <div class="viewcode-block" id="draw_level_of_detail"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.draw_level_of_detail">[docs]</a><span class="k">def</span> <span class="nf">draw_level_of_detail</span><span class="p">(</span><span class="n">here</span><span class="p">,</span> <span class="n">there</span><span class="p">,</span> <span class="n">mlist</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
@@ -439,6 +193,248 @@
 <span class="sd">  rotatef(rotz, 0, 0, 1)</span>
 <span class="sd">  rotatef(roty, 0, 1, 0)</span>
 <span class="sd">  rotatef(rotx, 1, 0, 0)</span>
+
+<span class="sd">def angle_between(x1, y1, x2, y2, x3, y3):</span>
+<span class="sd">  #Return the angle between two 3-vectors, or 0.0 if one or the other vector is</span>
+<span class="sd">  #empty.</span>
+
+<span class="sd">  #Arguments:</span>
+<span class="sd">  #  *x1, y1, z1*</span>
+<span class="sd">  #    The coordinates of the first vector.</span>
+<span class="sd">  #  *x2, y2, z2*</span>
+<span class="sd">  #    The coordinates of the second vector.</span>
+<span class="sd">  </span>
+<span class="sd">  a = x2 - x1</span>
+<span class="sd">  b = y2 - y1</span>
+<span class="sd">  c = x2 - x3</span>
+<span class="sd">  d = y2 - y3</span>
+
+<span class="sd">  sqab = sqrt(a * a + b * b)</span>
+<span class="sd">  sqcd = sqrt(c * c + d * d)</span>
+<span class="sd">  l = sqab * sqcd</span>
+<span class="sd">  if l == 0.0:</span>
+<span class="sd">    return 0.0</span>
+
+<span class="sd">  aa = (a * c + b * d) / l</span>
+<span class="sd">  if aa == -1.0:</span>
+<span class="sd">    return math.pi</span>
+<span class="sd">  if aa == 0.0:</span>
+<span class="sd">    return math.pi / 2</span>
+<span class="sd">    # TODO: this was originally 0!  But if two vectors have a dot product</span>
+<span class="sd">    # of zero, they are surely at right angles?</span>
+
+<span class="sd">  dist = (a * y3 - b * x3  +  x1 * b - y1 * a) / sqab</span>
+<span class="sd">  angle = acos(aa)</span>
+
+<span class="sd">  if dist &gt; 0.0:</span>
+<span class="sd">    return math.pi / 2.0 - angle</span>
+<span class="sd">  else:</span>
+<span class="sd">    return angle</span>
+
+<span class="sd">def translate(matrix, vec):</span>
+<span class="sd">  </span>
+<span class="sd">  #Translate a 4x4 matrix by a 3-vector</span>
+
+<span class="sd">  #Arguments:</span>
+<span class="sd">  #  *matrix*</span>
+<span class="sd">  #    The 4x4 matrix to translate.</span>
+<span class="sd">  #  *vec*</span>
+<span class="sd">  #    A 3-vector translation in x, y, z axes.</span>
+<span class="sd">  </span>
+<span class="sd">  return mat_mult([[1, 0, 0, 0],</span>
+<span class="sd">                   [0, 1, 0, 0],</span>
+<span class="sd">                   [0, 0, 1, 0],</span>
+<span class="sd">                   [vec[0], vec[1], vec[2], 1]], matrix)</span>
+
+<span class="sd">def transform(matrix, x, y, z, rx, ry, rz, sx, sy, sz, cx, cy, cz):</span>
+<span class="sd">  #&quot;&quot;</span>
+<span class="sd">  Rotate, scale and translate a 4x4 matrix.</span>
+
+<span class="sd">  Arguments:</span>
+<span class="sd">    *matrix*</span>
+<span class="sd">      A 4x4 matrix to transform.</span>
+<span class="sd">    *x, y, z*</span>
+<span class="sd">      Translation in x, y and z axes.</span>
+<span class="sd">    *rx, ry, rx*</span>
+<span class="sd">      Rotations in x, y, and x axes.</span>
+<span class="sd">    *sx, sy, sz*</span>
+<span class="sd">      Scale factor in x, y, z axes.</span>
+<span class="sd">    *cx, cy, cz*</span>
+<span class="sd">      Center of the rotation.</span>
+<span class="sd">  #&quot;&quot;</span>
+<span class="sd">  # TODO: do we really need this?  Wouldn&#39;t the separate parts suffice?</span>
+<span class="sd">  #</span>
+<span class="sd">  # TODO: the idea of translating then scaling then performing an inverse</span>
+<span class="sd">  # translation seems like it wouldn&#39;t work?</span>
+<span class="sd">  #</span>
+
+<span class="sd">  matrix = copy.deepcopy(matrix)</span>
+<span class="sd">  # TODO: is a copy really needed?  Surely translate returns a new matrix?</span>
+
+<span class="sd">  matrix = translate(matrix, (x - cx, y - cy, z - cz))</span>
+<span class="sd">  matrix = rotate(matrix, rx, ry, rz)</span>
+<span class="sd">  if sx != 1.0 or sy != 1.0 or sz != 1.0:</span>
+<span class="sd">    matrix = scale(matrix, sx, sy, sz)</span>
+<span class="sd">  return translate(matrix, (cx, cy, cz))</span>
+
+<span class="sd">def scale(matrix, sx, sy, sz):</span>
+<span class="sd">  #&quot;&quot;</span>
+<span class="sd">  Scale a 4x4 matrix.</span>
+
+<span class="sd">  Arguments:</span>
+<span class="sd">    *sx, sy, sz*</span>
+<span class="sd">      Scale factor in x, y, z axes.</span>
+<span class="sd">  #&quot;&quot;</span>
+<span class="sd">  return mat_mult([[sx, 0, 0, 0],</span>
+<span class="sd">                   [0, sy, 0, 0],</span>
+<span class="sd">                   [0, 0, sz, 0],</span>
+<span class="sd">                   [0, 0, 0, 1]], matrix)</span>
+
+<span class="sd">def rotate(matrix, rx, ry, rz):</span>
+<span class="sd">  #&quot;&quot;</span>
+<span class="sd">  Rotate a 4x4 matrix.</span>
+
+<span class="sd">  Arguments:</span>
+<span class="sd">    *matrix*</span>
+<span class="sd">      A 4x4 matrix.</span>
+<span class="sd">    *rx, ry, rx*</span>
+<span class="sd">      Rotations in x, y, and x axes.</span>
+<span class="sd">  #&quot;&quot;</span>
+<span class="sd">  if rz:</span>
+<span class="sd">    matrix = rotateZ(matrix, rz)</span>
+<span class="sd">  if rx:</span>
+<span class="sd">    matrix = rotateX(matrix, rx)</span>
+<span class="sd">  if ry:</span>
+<span class="sd">    matrix = rotateY(matrix, ry)</span>
+<span class="sd">  return matrix</span>
+
+<span class="sd">def rotateX(matrix, angle):</span>
+<span class="sd">  #&quot;&quot;</span>
+<span class="sd">  Rotate a 4x4 matrix around the x axis.</span>
+
+<span class="sd">  Arguments:</span>
+<span class="sd">    *matrix*</span>
+<span class="sd">      A 4x4 matrix.</span>
+<span class="sd">    *angle*</span>
+<span class="sd">      Angle of rotation around the x axis.</span>
+<span class="sd">  #&quot;&quot;</span>
+<span class="sd">  angle = math.radians(angle)</span>
+<span class="sd">  c = cos(angle)</span>
+<span class="sd">  s = sin(angle)</span>
+<span class="sd">  return mat_mult([[1, 0, 0, 0],</span>
+<span class="sd">                   [0, c, s, 0],</span>
+<span class="sd">                   [0, -s, c, 0],</span>
+<span class="sd">                   [0, 0, 0, 1]],</span>
+<span class="sd">                  matrix)</span>
+
+<span class="sd">def rotateY(matrix, angle):</span>
+<span class="sd">  #&quot;&quot;</span>
+<span class="sd">  #Rotate a 4x4 matrix around the y axis.#</span>
+
+<span class="sd">  #Arguments:</span>
+<span class="sd">  #  *matrix*</span>
+<span class="sd">  #    A 4x4 matrix.</span>
+<span class="sd">  #  *angle*</span>
+<span class="sd">  #    Angle of rotation around the y axis.</span>
+<span class="sd">  #&quot;&quot;</span>
+<span class="sd">  angle = math.radians(angle)</span>
+<span class="sd">  c = numpy.cos(angle)</span>
+<span class="sd">  s = numpy.sin(angle)</span>
+<span class="sd">  return mat_mult([[c, 0, -s, 0],</span>
+<span class="sd">                   [0, 1, 0, 0],</span>
+<span class="sd">                   [s, 0, c, 0],</span>
+<span class="sd">                   [0, 0, 0, 1]],</span>
+<span class="sd">                  matrix)</span>
+
+<span class="sd">def rotateZ(matrix, angle):</span>
+<span class="sd">  </span>
+<span class="sd">  #Rotate a 4x4 matrix around the z axis.</span>
+
+<span class="sd">  #Arguments:</span>
+<span class="sd">  #  *matrix*</span>
+<span class="sd">  #    A 4x4 matrix.</span>
+<span class="sd">  #  *angle*</span>
+<span class="sd">  #    Angle of rotation around the z axis.</span>
+<span class="sd">  </span>
+<span class="sd">  angle = math.radians(angle)</span>
+<span class="sd">  c = numpy.cos(angle)</span>
+<span class="sd">  s = numpy.sin(angle)</span>
+<span class="sd">  return mat_mult([[c, s, 0, 0],</span>
+<span class="sd">                   [-s, c, 0, 0],</span>
+<span class="sd">                   [0, 0, 1, 0],</span>
+<span class="sd">                   [0, 0, 0, 1]],</span>
+<span class="sd">                  matrix)</span>
+
+<span class="sd">def billboard_matrix():</span>
+<span class="sd">  &quot;&quot;Return a matrix that copies x, y and sets z to 0.9.&quot;&quot;</span>
+<span class="sd">  return [[1.0, 0.0, 0.0, 0.0],</span>
+<span class="sd">          [0.0, 1.0, 0.0, 0.0],</span>
+<span class="sd">          [0.0, 0.0, 0.0, 0.0],</span>
+<span class="sd">          [0.0, 0.0, 0.9, 1.0]]</span>
+
+<span class="sd"># TODO: We should use numpy for all of these.</span>
+<span class="sd">def mat_mult(x, y):</span>
+<span class="sd">  &quot;&quot;Return the product of two 4x4 matrices.&quot;&quot;</span>
+<span class="sd">  return [[sum(x[i][j] * y[j][k] for j in range(4))</span>
+<span class="sd">          for k in range(4)]</span>
+<span class="sd">          for i in range(4)]</span>
+
+<span class="sd">def mat_transpose(x):</span>
+<span class="sd">  &quot;&quot;Return the transposition of a 4x4 matrix.&quot;&quot;</span>
+<span class="sd">  return [[x[k][i] for k in range(4)] for i in range(4)]</span>
+
+<span class="sd">def vec_mat_mult(vec, mat):</span>
+<span class="sd">  &quot;&quot;Return the product of a 4-d vector and a 4x4 matrix.</span>
+
+<span class="sd">  Arguments:</span>
+<span class="sd">    *vec*</span>
+<span class="sd">      A vector of length 4.</span>
+<span class="sd">    *mat*</span>
+<span class="sd">      A 4x4 matrix.</span>
+
+<span class="sd">  &quot;&quot;</span>
+<span class="sd">  return [sum(vec[j] * mat[j][k] for j in range(4)) for k in range(4)]</span>
+
+<span class="sd">def translate_matrix(vec):</span>
+<span class="sd">  &quot;&quot;Return a matrix that translates by the given vector.&quot;&quot;</span>
+<span class="sd">  m = [[0] * 4] * 4</span>
+<span class="sd">  for i in range(4):</span>
+<span class="sd">    m[i][i] = 1.0</span>
+<span class="sd">  for i in range(3):</span>
+<span class="sd">    m[3][i] = vec[i]</span>
+<span class="sd">  return m</span>
+
+<span class="sd">RECT_NORMALS = c_bytes((0, 0, -1,</span>
+<span class="sd">                        0, 0, -1,</span>
+<span class="sd">                        0, 0, -1,</span>
+<span class="sd">                        0, 0, -1))</span>
+
+<span class="sd">RECT_TRIANGLES = c_bytes((3, 0, 1,</span>
+<span class="sd">                          3, 1, 2))</span>
+
+<span class="sd">def rect_triangles():</span>
+<span class="sd">  opengles.glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, RECT_TRIANGLES)</span>
+
+<span class="sd">def sqsum(*args):</span>
+<span class="sd">  &quot;&quot;Return the sum of the squares of its arguments.</span>
+
+<span class="sd">  DEPRECATED:  use numpy.dot(x, x).</span>
+<span class="sd">  &quot;&quot;</span>
+<span class="sd">  return numpy.dot(args, args)</span>
+
+<span class="sd">def load_identity():</span>
+<span class="sd">  opengles.glLoadIdentity()</span>
+
+<span class="sd">def dotproduct(x1, y1, z1, x2, y2, z2):</span>
+<span class="sd">  &quot;&quot;Return the dot product of two 3-dimensional vectors given by coordinates.</span>
+<span class="sd">  &quot;&quot;</span>
+<span class="sd">  return x1 * x2 + y1 * y2 + z1 * z2</span>
+
+<span class="sd">def crossproduct(x1, y1, z1, x2, y2, z2):</span>
+<span class="sd">  &quot;&quot;Return the cross product of two 3-dimensional vectors given by coordinates.</span>
+<span class="sd">  &quot;&quot;</span>
+<span class="sd">  return y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 

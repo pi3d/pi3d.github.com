@@ -60,7 +60,7 @@ util Package
 :mod:`Pngfont` Module
 ---------------------
 
-.. automodule:: pi3d.util.PngFont
+.. automodule:: pi3d.util.Pngfont
     :members:
     :undoc-members:
     :show-inheritance:

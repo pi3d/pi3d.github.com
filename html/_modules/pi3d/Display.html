@@ -189,9 +189,9 @@
 <div class="viewcode-block" id="Display.resize"><a class="viewcode-back" href="../../pi3d.html#pi3d.Display.Display.resize">[docs]</a>  <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reshape the window with the given coordinates.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">w</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="n">w</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">max_width</span>
+      <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_width</span>
     <span class="k">if</span> <span class="n">h</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="n">h</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">max_height</span>
+      <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_height</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">w</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">h</span>
 
@@ -474,23 +474,6 @@
     <span class="kn">from</span> <span class="nn">pi3d.Mouse</span> <span class="kn">import</span> <span class="n">Mouse</span>
     <span class="n">display</span><span class="o">.</span><span class="n">mouse</span> <span class="o">=</span> <span class="n">Mouse</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">h</span><span class="p">,</span> <span class="n">restrict</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="n">display</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-
-  <span class="c"># This code now replaced by camera &#39;lens&#39;</span>
-  <span class="c"># opengles.glMatrixMode(GL_PROJECTION)</span>
-  <span class="c"># Utility.load_identity()</span>
-  <span class="c"># if is_3d:</span>
-  <span class="c">#   hht = near * math.tan(math.radians(aspect / 2.0))</span>
-  <span class="c">#   hwd = hht * w / h</span>
-  <span class="c">#   opengles.glFrustumf(c_float(-hwd), c_float(hwd), c_float(-hht), c_float(hht),</span>
-  <span class="c">#                       c_float(near), c_float(far))</span>
-  <span class="c">#   opengles.glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST)</span>
-  <span class="c"># else:</span>
-  <span class="c">#   opengles.glOrthof(c_float(0), c_float(w), c_float(0), c_float(h),</span>
-  <span class="c">#                     c_float(near), c_float(far))</span>
-
-  <span class="c">#opengles.glMatrixMode(GL_MODELVIEW)</span>
-  <span class="c">#Utility.load_identity()</span>
-
 
   <span class="k">if</span> <span class="n">background</span><span class="p">:</span>
     <span class="n">display</span><span class="o">.</span><span class="n">set_background</span><span class="p">(</span><span class="o">*</span><span class="n">background</span><span class="p">)</span>

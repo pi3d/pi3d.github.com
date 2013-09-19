@@ -93,6 +93,14 @@ hold the vertex information for drawing each of them.
     :undoc-members:
     :show-inheritance:
 
+:mod:`LodSprite` Module
+-----------------------
+
+.. automodule:: pi3d.shape.LodSprite
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`MergeShape` Module
 ------------------------
 

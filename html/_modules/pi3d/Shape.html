@@ -636,17 +636,6 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
-  <span class="k">def</span> <span class="nf">_add_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vert</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="n">texc</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;add vertex,normal and tex_coords ...&quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">verts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vert</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">norms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">norm</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">texcoords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">texc</span><span class="p">)</span>
-
-
-  <span class="k">def</span> <span class="nf">_add_tri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indx</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;add triangle refs.&quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">inds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indx</span><span class="p">)</span>
-
   <span class="k">def</span> <span class="nf">_lathe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">sides</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">rise</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">loops</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns a Buffer object by rotating the points defined in path.</span>
 

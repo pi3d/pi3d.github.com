@@ -83,13 +83,10 @@
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exf</span> <span class="o">==</span> <span class="s">&#39;egg&#39;</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">loaderEgg</span><span class="o">.</span><span class="n">loadFileEGG</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_string</span><span class="p">)</span>
-      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">exf</span> <span class="o">==</span> <span class="s">&#39;obj&#39;</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">loaderObj</span><span class="o">.</span><span class="n">loadFileOBJ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_string</span><span class="p">)</span>
-      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exf</span><span class="p">,</span> <span class="s">&quot;file not supported&quot;</span><span class="p">)</span>
-      <span class="k">return</span> <span class="bp">None</span>
 
 <div class="viewcode-block" id="Model.clone"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.Model.Model.clone">[docs]</a>  <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">light</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;create a new Model but buf points to same array of Buffers</span>
