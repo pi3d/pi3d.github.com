@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>loader Package &mdash; pi3d 1.0 documentation</title>
+    <title>loader Package &mdash; pi3d 1.3 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '1.0',
+        URL_ROOT:    './',
+        VERSION:     '1.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.0 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.3 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="next" title="shape Package" href="pi3d.shape.html" />
     <link rel="prev" title="events Package" href="pi3d.event.html" /> 
@@ -46,7 +44,7 @@
         <li class="right" >
           <a href="pi3d.event.html" title="events Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 1.3 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" accesskey="U">pi3d Package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -105,14 +103,15 @@ as part of a Shape.</p>
 <dt id="pi3d.loader.loaderObj.loadFileOBJ">
 <tt class="descclassname">pi3d.loader.loaderObj.</tt><tt class="descname">loadFileOBJ</tt><big>(</big><em>model</em>, <em>fileName</em><big>)</big><a class="reference internal" href="_modules/pi3d/loader/loaderObj.html#loadFileOBJ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.loader.loaderObj.loadFileOBJ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads an obj file with associated mtl file to produce Buffer object
-as part of a Shape. Arguments:
-<em>model</em></p>
+as part of a Shape. Arguments:</p>
 <blockquote>
-<div>Model object to add to.</div></blockquote>
-<dl class="docutils">
+<div><dl class="docutils">
+<dt><em>model</em></dt>
+<dd>Model object to add to.</dd>
 <dt><em>fileName</em></dt>
 <dd>Path and name of obj file relative to program file.</dd>
 </dl>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -154,13 +153,13 @@ as part of a Shape. Arguments:
 <p>Prop(name, func)</p>
 <dl class="attribute">
 <dt id="pi3d.loader.parse_mtl.Materials.Prop.func">
-<tt class="descname">func</tt><a class="headerlink" href="#pi3d.loader.parse_mtl.Materials.Prop.func" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">func</tt><em class="property"> None</em><a class="headerlink" href="#pi3d.loader.parse_mtl.Materials.Prop.func" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 1</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pi3d.loader.parse_mtl.Materials.Prop.name">
-<tt class="descname">name</tt><a class="headerlink" href="#pi3d.loader.parse_mtl.Materials.Prop.name" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">name</tt><em class="property"> None</em><a class="headerlink" href="#pi3d.loader.parse_mtl.Materials.Prop.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 0</p>
 </dd></dl>
 
@@ -168,7 +167,7 @@ as part of a Shape. Arguments:
 
 <dl class="attribute">
 <dt id="pi3d.loader.parse_mtl.Materials.PROPERTIES">
-<tt class="descclassname">Materials.</tt><tt class="descname">PROPERTIES</tt><em class="property"> = {'Ni': Prop(name='opticalDensity', func=&lt;function &lt;lambda&gt; at 0x1e50f70&gt;), 'Ka': Prop(name='colorAmbient', func=&lt;function &lt;lambda&gt; at 0x1e50f30&gt;), 'Kd': Prop(name='colorDiffuse', func=&lt;function &lt;lambda&gt; at 0x1e50f30&gt;), 'bump': Prop(name='mapBump', func=&lt;function &lt;lambda&gt; at 0x1e55030&gt;), 'Tr': Prop(name='transparency', func=&lt;function &lt;lambda&gt; at 0x1e50f70&gt;), 'illum': Prop(name='illumination', func=&lt;function &lt;lambda&gt; at 0x1e50fb0&gt;), 'Ks': Prop(name='colorSpecular', func=&lt;function &lt;lambda&gt; at 0x1e50f30&gt;), 'Ns': Prop(name='specularCoef', func=&lt;function &lt;lambda&gt; at 0x1e50f70&gt;), 'map_Kd': Prop(name='mapDiffuse', func=&lt;function &lt;lambda&gt; at 0x1e55030&gt;), 'd': Prop(name='transparency', func=&lt;function &lt;lambda&gt; at 0x1e50f70&gt;), 'map_Ka': Prop(name='mapAmbient', func=&lt;function &lt;lambda&gt; at 0x1e55030&gt;), 'map_d': Prop(name='mapAlpha', func=&lt;function &lt;lambda&gt; at 0x1e55030&gt;), 'map_bump': Prop(name='mapBump', func=&lt;function &lt;lambda&gt; at 0x1e55030&gt;), 'map_Ks': Prop(name='mapSpecular', func=&lt;function &lt;lambda&gt; at 0x1e55030&gt;)}</em><a class="headerlink" href="#pi3d.loader.parse_mtl.Materials.PROPERTIES" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">Materials.</tt><tt class="descname">PROPERTIES</tt><em class="property"> = {'Ni': Prop(name='opticalDensity', func=&lt;function &lt;lambda&gt; at 0x375c668&gt;), 'Ka': Prop(name='colorAmbient', func=&lt;function &lt;lambda&gt; at 0x375c5f0&gt;), 'Kd': Prop(name='colorDiffuse', func=&lt;function &lt;lambda&gt; at 0x375c5f0&gt;), 'bump': Prop(name='mapBump', func=&lt;function &lt;lambda&gt; at 0x375c758&gt;), 'Tr': Prop(name='transparency', func=&lt;function &lt;lambda&gt; at 0x375c668&gt;), 'illum': Prop(name='illumination', func=&lt;function &lt;lambda&gt; at 0x375c6e0&gt;), 'Ks': Prop(name='colorSpecular', func=&lt;function &lt;lambda&gt; at 0x375c5f0&gt;), 'Ns': Prop(name='specularCoef', func=&lt;function &lt;lambda&gt; at 0x375c668&gt;), 'map_Kd': Prop(name='mapDiffuse', func=&lt;function &lt;lambda&gt; at 0x375c758&gt;), 'd': Prop(name='transparency', func=&lt;function &lt;lambda&gt; at 0x375c668&gt;), 'map_Ka': Prop(name='mapAmbient', func=&lt;function &lt;lambda&gt; at 0x375c758&gt;), 'map_d': Prop(name='mapAlpha', func=&lt;function &lt;lambda&gt; at 0x375c758&gt;), 'map_bump': Prop(name='mapBump', func=&lt;function &lt;lambda&gt; at 0x375c758&gt;), 'map_Ks': Prop(name='mapSpecular', func=&lt;function &lt;lambda&gt; at 0x375c758&gt;)}</em><a class="headerlink" href="#pi3d.loader.parse_mtl.Materials.PROPERTIES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -289,13 +288,13 @@ not have a method with the specified name.</p>
         <li class="right" >
           <a href="pi3d.event.html" title="events Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 1.3 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" >pi3d Package</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2013, The pi3d team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
     </div>
   </body>
 </html>
