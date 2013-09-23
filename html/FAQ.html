@@ -428,12 +428,24 @@ an image or Shape so that it can instantly appear later) you need to use
 Python&#8217;s threading - demos/Slideshow_2d.py is an example.</p>
 </div></blockquote>
 </li>
-<li><p class="first">I am running pi3d on a Linux machine but it&#8217;s running at a very slow
-frame rate.</p>
+<li><p class="first">I am running pi3d on a non-raspberry pi Linux machine but it&#8217;s running
+at a very slow frame rate.</p>
 <blockquote>
 <div><p>Probably the GPU can&#8217;t run the OpenGL2+ code that mesa interprets
 from the pi3d OpenGLES2 commands. Check the specification for the
 graphics card. <tt class="docutils literal"><span class="pre">lspci</span> <span class="pre">-v</span></tt> and <tt class="docutils literal"><span class="pre">feedback.wildfiregames.com/report/opengl/</span></tt></p>
+</div></blockquote>
+</li>
+<li><p class="first">Some of the demos on a non-raspberry pi Linux machine work fine but
+other don&#8217;t run and give an error:</p>
+<div class="highlight-python"><pre>IOError: [Errno 13] Permission denied: u'/dev/input/mice'</pre>
+</div>
+<p>what is the
+cause of this</p>
+<blockquote>
+<div><p>The Mouse gets its info from the operating system file described in
+the error message. This requires it to be run from root, you can
+do this by <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">python</span> <span class="pre">ForestWalk.py</span></tt>.</p>
 </div></blockquote>
 </li>
 <li><p class="first">Using python3 and the InputEvents mouse input (Silo and DogFight demos)

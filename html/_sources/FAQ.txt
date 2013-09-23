@@ -380,12 +380,24 @@ Frequently Asked Questions
       an image or Shape so that it can instantly appear later) you need to use
       Python's threading - demos/Slideshow_2d.py is an example.
 
-#.  I am running pi3d on a Linux machine but it's running at a very slow
-    frame rate.
+#.  I am running pi3d on a non-raspberry pi Linux machine but it's running
+    at a very slow frame rate.
 
       Probably the GPU can't run the OpenGL2+ code that mesa interprets
       from the pi3d OpenGLES2 commands. Check the specification for the
       graphics card. ``lspci -v`` and ``feedback.wildfiregames.com/report/opengl/``
+
+#.  Some of the demos on a non-raspberry pi Linux machine work fine but
+    other don't run and give an error::
+
+      IOError: [Errno 13] Permission denied: u'/dev/input/mice'
+
+    what is the
+    cause of this
+
+      The Mouse gets its info from the operating system file described in
+      the error message. This requires it to be run from root, you can
+      do this by ``sudo python ForestWalk.py``.
 
 #.  Using python3 and the InputEvents mouse input (Silo and DogFight demos)
     I get very ragged and unresponsive camera movment.
