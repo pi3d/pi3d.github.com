@@ -125,6 +125,14 @@ hold the vertex information for drawing each of them.
     :undoc-members:
     :show-inheritance:
 
+:mod:`Points` Module
+--------------------
+
+.. automodule:: pi3d.shape.Points
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`Sphere` Module
 --------------------
 

@@ -112,6 +112,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">textures_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">vbufs_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ebufs_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">external_mouse</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">event_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -221,6 +222,11 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
       <span class="k">pass</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">external_mouse</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">external_mouse</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+      <span class="k">except</span><span class="p">:</span>
+        <span class="n">pass_</span>
     <span class="k">try</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
     <span class="k">except</span><span class="p">:</span>

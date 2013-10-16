@@ -276,6 +276,8 @@
 
     <span class="n">ilen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">g_vertices</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">ilen</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">g_normals</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">g_vertices</span><span class="p">):</span>
+        <span class="n">g_normals</span> <span class="o">=</span> <span class="bp">None</span> <span class="c"># force Buffer.__init__() to generate normals</span>
       <span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">g_vertices</span><span class="p">,</span> <span class="n">g_tex_coords</span><span class="p">,</span> <span class="n">g_indices</span><span class="p">,</span> <span class="n">g_normals</span><span class="p">))</span>
       <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
       <span class="n">model</span><span class="o">.</span><span class="n">vGroup</span><span class="p">[</span><span class="n">np</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
