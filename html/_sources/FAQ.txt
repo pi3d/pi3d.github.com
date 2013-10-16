@@ -55,7 +55,9 @@ Frequently Asked Questions
 
 #.  I see nothing but a black screen.
 
-      Possibly something has gone wrong in a shader.
+      Possibly something has gone wrong in a shader, such as using a shader
+      requiring texture coords (i.e. mat_relfect) on a Model exported with
+      no uv mapping.
 
       There may be a line number reference output by the shader compiler in the
       terminal window.  It is great fun experimenting with shaders but they are
@@ -216,7 +218,7 @@ Frequently Asked Questions
 
         Apply Modifiers (default)
         Include Edges (default)
-        Include Normals (have to tick) <<<<-----------
+        Include Normals (tick this) <<<<<<<<<<<<<<<<<<<<< *
         Include UVs (default but see below)
         Write Materials (default)
         Object as OBJ Objects (default)
@@ -227,9 +229,16 @@ Frequently Asked Questions
         Blender.x=>pi3d.x, Blender.y=>pi3d.z, Blender.z=>pi3d.y with no reflection
         of whatever you design
 
+      * If you export without getting blender to Include Normals then pi3d
+      will have to generate them when the model is loaded. This is not a
+      good idea for several reasons: It will be slower to do on the pi then
+      on a 'big' computer, it will have to be done every time the model is
+      loaded rather than just once, it will not give the fine control
+      available in blender to define the sharpness of edges.
+
       NB You will need to define uv mapping even if you define a material
-      colour and don't intend to use a texture. To do this in blender
-      you need to tab to edit mode, select
+      colour and don't intend to use a texture but might want to use a normal
+      mapping shader. To do this in blender you need to tab to edit mode, select
       all vertices (a), unwrap (u, Unwrap). If the model has multiple objects
       you will need to do this for each one. After you export you may need to
       edit the ``mtl`` file so the relative path to the image is correct for
@@ -475,5 +484,7 @@ Frequently Asked Questions
       than 0.0 then the vertices of the Shape will be rendered as points.
       The size will actually vary with distance but will be the size you
       specified at 1 unit of distance from the camera.
+
+      pi3d.Points can be used to render points using the mat_flat shader
 
 .. _ReadMe: http://pi3d.github.com/html/index.html
