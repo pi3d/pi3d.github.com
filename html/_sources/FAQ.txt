@@ -229,7 +229,7 @@ Frequently Asked Questions
         Blender.x=>pi3d.x, Blender.y=>pi3d.z, Blender.z=>pi3d.y with no reflection
         of whatever you design
 
-      * If you export without getting blender to Include Normals then pi3d
+      ``*`` If you export without getting blender to Include Normals then pi3d
       will have to generate them when the model is loaded. This is not a
       good idea for several reasons: It will be slower to do on the pi then
       on a 'big' computer, it will have to be done every time the model is
