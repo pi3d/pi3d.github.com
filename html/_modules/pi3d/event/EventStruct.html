@@ -113,7 +113,7 @@
 <span class="sd">        A binary structure packed into a string.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="p">(</span><span class="n">tsec</span><span class="p">,</span> <span class="n">tfrac</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">eventType</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventCode</span><span class="p">,</span>
-     <span class="bp">self</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">Format</span><span class="o">.</span><span class="n">Event</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">Format</span><span class="o">.</span><span class="n">Event</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">tsec</span> <span class="o">+</span> <span class="n">tfrac</span> <span class="o">/</span> <span class="mf">1000000.0</span></div></div>
 </pre></div>

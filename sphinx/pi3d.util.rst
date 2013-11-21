@@ -90,7 +90,7 @@ util Package
     :show-inheritance:
 
 :mod:`ShadowCaster` Module
-------------------------
+--------------------------
 
 .. automodule:: pi3d.util.ShadowCaster
     :members:

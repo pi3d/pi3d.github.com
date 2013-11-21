@@ -76,7 +76,14 @@
   <span class="sd">&quot;&quot;&quot;loads an image file from disk and converts it into an array that</span>
 <span class="sd">  can be used by shaders. It inherits from Loadable in order that the</span>
 <span class="sd">  file access work can happen in another thread. and the conversion</span>
-<span class="sd">  to opengl format can happen just in time when tex() is first called</span>
+<span class="sd">  to opengl format can happen just in time when tex() is first called.</span>
+
+<span class="sd">  NB images loaded as textures can cause distortion effects unless they</span>
+<span class="sd">  are certain sizes (below). **If the image width is a value not in this</span>
+<span class="sd">  list then it will be rescaled with a resulting loss of clarity**</span>
+
+<span class="sd">  Allowed widths 4, 8, 16, 32, 48, 64, 72, 96, 128, 144, 192, 256, 288,</span>
+<span class="sd">  384, 512, 576, 640, 720, 768, 800, 960, 1024, 1080, 1920</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_string</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                <span class="n">defer</span><span class="o">=</span><span class="n">DEFER_TEXTURE_LOADING</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>

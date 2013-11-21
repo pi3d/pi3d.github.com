@@ -187,6 +187,11 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="pi3d.Buffer.Buffer.set_textures">
+<tt class="descname">set_textures</tt><big>(</big><em>textures</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.set_textures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.set_textures" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pi3d.Buffer.Buffer.set_offset">
 <tt class="descname">set_offset</tt><big>(</big><em>offset=(0.0</em>, <em>0.0)</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.set_offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.set_offset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -868,44 +873,6 @@ time consuming.</p>
 </tr>
 </tbody>
 </table>
-<p>Shape holds matrices that are updated each time it is moved or rotated
-this saves time recalculating them each frame as the Shape is drawn</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.tr1">
-<tt class="descname">tr1</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.tr1" title="Permalink to this definition">¶</a></dt>
-<dd><p>translate to position - offset</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.rox">
-<tt class="descname">rox</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.rox" title="Permalink to this definition">¶</a></dt>
-<dd><p>rotate about x axis</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.roy">
-<tt class="descname">roy</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.roy" title="Permalink to this definition">¶</a></dt>
-<dd><p>rotate about y axis</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.roz">
-<tt class="descname">roz</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.roz" title="Permalink to this definition">¶</a></dt>
-<dd><p>rotate about z axis</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.scl">
-<tt class="descname">scl</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.scl" title="Permalink to this definition">¶</a></dt>
-<dd><p>scale</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.tr2">
-<tt class="descname">tr2</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.tr2" title="Permalink to this definition">¶</a></dt>
-<dd><p>translate to offset</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -923,6 +890,11 @@ inheriting from this filling buf with at least one element.</p>
 set_draw_details() for each Buffer in buf[].
 NB there is no facility for setting umult and vmult with draw: they must be
 set using set_draw_details or Buffer.set_draw_details.</p>
+<p>NB When drawing child objects rotation offset of parent and child Shapes
+probably will not work. Also scaling of parent will not translate to
+adjusting position of child relative to parent. Child Shapes <em>have</em>
+to use set_draw_details() prior to drawing as there is no facility
+to pass arguments down.</p>
 </dd></dl>
 
 <dl class="method">
@@ -996,6 +968,20 @@ material rgb rather than from a Texture.</dd>
 <dd><dl class="first last docutils">
 <dt><em>material</em></dt>
 <dd>tuple (rgb)</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.set_textures">
+<tt class="descname">set_textures</tt><big>(</big><em>textures</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_textures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_textures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for setting textures in each Buffer object.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>textures</em></dt>
+<dd>list [Texture0, Texture1..]</dd>
 </dl>
 </dd>
 </dl>
@@ -1338,7 +1324,12 @@ i.e. 2d_flat, defocus etc</dd>
 <p>loads an image file from disk and converts it into an array that
 can be used by shaders. It inherits from Loadable in order that the
 file access work can happen in another thread. and the conversion
-to opengl format can happen just in time when tex() is first called</p>
+to opengl format can happen just in time when tex() is first called.</p>
+<p>NB images loaded as textures can cause distortion effects unless they
+are certain sizes (below). <strong>If the image width is a value not in this
+list then it will be rescaled with a resulting loss of clarity</strong></p>
+<p>Allowed widths 4, 8, 16, 32, 48, 64, 72, 96, 128, 144, 192, 256, 288,
+384, 512, 576, 640, 720, 768, 800, 960, 1024, 1080, 1920</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
@@ -1466,7 +1457,7 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.PostProcess"><tt class="docutils literal"><span class="pre">PostProcess</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.RotateVec"><tt class="docutils literal"><span class="pre">RotateVec</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#shadowcaster-module"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.ShadowCaster"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>

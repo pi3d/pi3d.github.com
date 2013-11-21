@@ -353,6 +353,19 @@ Texture is loaded that mipmap=False. Because this is a global setting
 it will be overwritten by whichever Texture is the last to be loaded</p>
 </div></blockquote>
 </li>
+<li><p class="first">Some of my Textures look a bit blurred or pixely.</p>
+<blockquote>
+<div><p>Early GPUs had to have image sizes of powers of 2 pixels. i.e.
+2,4,8..1024,2048 because of the algorithm used for texture sampling,
+but modern ones can manage with any dimensions. With the raspberry
+pi we have found that some widths can cause rows of pixels to be
+offset unless they fall on certain sizes (below). <strong>If the image
+width is a value not in this list then it will be rescaled with a
+resulting loss of clarity</strong></p>
+<p>Allowed widths 4, 8, 16, 32, 48, 64, 72, 96, 128, 144, 192, 256, 288,
+384, 512, 576, 640, 720, 768, 800, 960, 1024, 1080, 1920</p>
+</div></blockquote>
+</li>
 <li><p class="first">When the demos start there is sometimes a message in the terminal
 looking like:
 <tt class="docutils literal"><span class="pre">2013-08-19</span> <span class="pre">15:36:46,232</span> <span class="pre">INFO:</span> <span class="pre">__main__:</span> <span class="pre">Starting</span> <span class="pre">CollisionBalls</span></tt>

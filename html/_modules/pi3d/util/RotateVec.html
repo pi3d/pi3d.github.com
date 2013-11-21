@@ -52,37 +52,37 @@
 <span class="sd">&quot;&quot;&quot;Calculate position or direction 3D vector after rotation about axis&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="rotate_vec"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.RotateVec.rotate_vec">[docs]</a><span class="k">def</span> <span class="nf">rotate_vec</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">xyz</span><span class="p">):</span>
   <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">xyz</span>
-  <span class="k">if</span> <span class="n">rx</span><span class="p">:</span>
-    <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">from_polar</span><span class="p">(</span><span class="n">rx</span><span class="p">)</span>
-    <span class="n">yy</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">ca</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">sa</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">sa</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">ca</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">yy</span>
-
   <span class="k">if</span> <span class="n">ry</span><span class="p">:</span>
     <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">from_polar</span><span class="p">(</span><span class="n">ry</span><span class="p">)</span>
     <span class="n">zz</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">ca</span> <span class="o">-</span> <span class="n">x</span> <span class="o">*</span> <span class="n">sa</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">sa</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">ca</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">zz</span>
-
+  <span class="k">if</span> <span class="n">rx</span><span class="p">:</span>
+    <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">from_polar</span><span class="p">(</span><span class="n">rx</span><span class="p">)</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">ca</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">sa</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">sa</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">ca</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">yy</span>
   <span class="k">if</span> <span class="n">rz</span><span class="p">:</span>
     <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">from_polar</span><span class="p">(</span><span class="n">rz</span><span class="p">)</span>
     <span class="n">xx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">ca</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">sa</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">sa</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">ca</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">xx</span>
+  <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span></div>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"># no longer used anywhere</span>
 
-  <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span>
-</div>
-<div class="viewcode-block" id="rotate_vec_x"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.RotateVec.rotate_vec_x">[docs]</a><span class="k">def</span> <span class="nf">rotate_vec_x</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">xyz</span><span class="p">):</span>
-  <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">from_polar</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span><span class="p">,</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span> <span class="o">+</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span>
-</div>
-<div class="viewcode-block" id="rotate_vec_y"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.RotateVec.rotate_vec_y">[docs]</a><span class="k">def</span> <span class="nf">rotate_vec_y</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">xyz</span><span class="p">):</span>
-  <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">from_polar</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span> <span class="o">+</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span><span class="p">,</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span>
-</div>
-<div class="viewcode-block" id="rotate_vec_z"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.RotateVec.rotate_vec_z">[docs]</a><span class="k">def</span> <span class="nf">rotate_vec_z</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">xyz</span><span class="p">):</span>
-  <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">from_polar</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span><span class="p">,</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span> <span class="o">+</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span><span class="p">,</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span></div>
+<span class="sd">def rotate_vec_x(r, xyz):</span>
+<span class="sd">  ca, sa = from_polar(r)</span>
+<span class="sd">  return xyz[0], xyz[1] * ca - xyz[2] * sa, xyz[1] * sa + xyz[2] * ca</span>
+
+<span class="sd">def rotate_vec_y(r, xyz):</span>
+<span class="sd">  ca, sa = from_polar(r)</span>
+<span class="sd">  return xyz[2] * sa + xyz[0] * ca, xyz[1], xyz[2] * ca - xyz[0] * sa</span>
+
+<span class="sd">def rotate_vec_z(r, xyz):</span>
+<span class="sd">  ca, sa = from_polar(r)</span>
+<span class="sd">  return xyz[0] * ca - xyz[1] * sa, xyz[0] * sa + xyz[1] * ca, xyz[2]</span>
+<span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 
           </div>

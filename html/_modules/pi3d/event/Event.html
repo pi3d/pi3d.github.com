@@ -113,21 +113,23 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">streams</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
     <span class="k">if</span> <span class="n">wantKeyboard</span><span class="p">:</span>
       <span class="n">keyboards</span> <span class="o">=</span>  <span class="n">find_devices</span><span class="p">(</span><span class="s">&quot;kbd&quot;</span><span class="p">)</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">streams</span> <span class="o">+=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;keyboard&quot;</span><span class="p">),</span> <span class="n">keyboards</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keyboards</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;keyboard&quot;</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">keyboards</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
     <span class="k">print</span><span class="p">(</span><span class="s">&quot;keyboards =&quot;</span><span class="p">,</span> <span class="n">keyboards</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">wantMouse</span><span class="p">:</span>
       <span class="n">mice</span> <span class="o">=</span> <span class="n">find_devices</span><span class="p">(</span><span class="s">&quot;mouse&quot;</span><span class="p">,</span> <span class="n">butNot</span><span class="o">=</span><span class="n">keyboards</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mice</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;mouse&quot;</span><span class="p">))</span>
       <span class="k">print</span><span class="p">(</span><span class="s">&quot;mice = &quot;</span><span class="p">,</span> <span class="n">mice</span><span class="p">)</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">streams</span> <span class="o">+=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;mouse&quot;</span><span class="p">),</span> <span class="n">mice</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">mice</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
     <span class="k">if</span> <span class="n">wantJoystick</span><span class="p">:</span>
       <span class="n">joysticks</span> <span class="o">=</span> <span class="n">find_devices</span><span class="p">(</span><span class="s">&quot;js&quot;</span><span class="p">,</span> <span class="n">butNot</span><span class="o">=</span><span class="n">keyboards</span><span class="o">+</span><span class="n">mice</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">joysticks</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;joystick&quot;</span><span class="p">))</span>
       <span class="k">print</span><span class="p">(</span><span class="s">&quot;joysticks =&quot;</span><span class="p">,</span> <span class="n">joysticks</span><span class="p">)</span>
-      <span class="n">js_streams</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;joystick&quot;</span><span class="p">),</span> <span class="n">joysticks</span><span class="p">)</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">streams</span> <span class="o">+=</span> <span class="n">js_streams</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="p">:</span>
       <span class="n">x</span><span class="o">.</span><span class="n">acquire_abs_info</span><span class="p">()</span>
 

@@ -310,6 +310,19 @@ Frequently Asked Questions
       Texture is loaded that mipmap=False. Because this is a global setting
       it will be overwritten by whichever Texture is the last to be loaded
 
+#.  Some of my Textures look a bit blurred or pixely.
+
+      Early GPUs had to have image sizes of powers of 2 pixels. i.e.
+      2,4,8..1024,2048 because of the algorithm used for texture sampling,
+      but modern ones can manage with any dimensions. With the raspberry
+      pi we have found that some widths can cause rows of pixels to be
+      offset unless they fall on certain sizes (below). **If the image
+      width is a value not in this list then it will be rescaled with a
+      resulting loss of clarity**
+
+      Allowed widths 4, 8, 16, 32, 48, 64, 72, 96, 128, 144, 192, 256, 288,
+      384, 512, 576, 640, 720, 768, 800, 960, 1024, 1080, 1920
+
 #.  When the demos start there is sometimes a message in the terminal
     looking like:
     ``2013-08-19 15:36:46,232 INFO: __main__: Starting CollisionBalls``

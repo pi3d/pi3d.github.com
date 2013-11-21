@@ -76,7 +76,7 @@
 
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">codepoints</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">add_codepoints</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
-               <span class="n">italic_adjustment</span><span class="o">=</span><span class="mf">1.1</span><span class="p">):</span>
+               <span class="n">italic_adjustment</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">background_color</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 <span class="sd">    *font*:</span>
 <span class="sd">      File path/name to a TrueType font file.</span>
@@ -145,7 +145,7 @@
 
     <span class="n">all_fits</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="k">while</span> <span class="n">image_size</span> <span class="o">&lt;</span> <span class="n">MAX_SIZE</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">all_fits</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&quot;RGBA&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">image_size</span><span class="p">,</span> <span class="n">image_size</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&quot;RGBA&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">image_size</span><span class="p">,</span> <span class="n">image_size</span><span class="p">),</span> <span class="n">background_color</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="bp">True</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">image_size</span><span class="p">,</span> <span class="n">image_size</span>
 
@@ -171,7 +171,7 @@
 
         <span class="k">if</span> <span class="n">curX</span> <span class="o">+</span> <span class="n">chwidth</span> <span class="o">*</span> <span class="n">italic_adjustment</span> <span class="o">&gt;=</span> <span class="n">image_size</span><span class="p">:</span>
           <span class="n">curX</span> <span class="o">=</span> <span class="mf">0.0</span>
-          <span class="n">curY</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span>
+          <span class="n">curY</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="c">#leave 1 pixel gap</span>
           <span class="k">if</span> <span class="n">curY</span> <span class="o">&gt;=</span> <span class="n">image_size</span><span class="p">:</span> <span class="c">#run out of space try again with bigger img</span>
             <span class="n">all_fits</span> <span class="o">=</span> <span class="bp">False</span>
             <span class="n">image_size</span> <span class="o">+=</span> <span class="mi">256</span>

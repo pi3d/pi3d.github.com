@@ -48,19 +48,26 @@
             
   <h1>Source code for pi3d.util.Utility</h1><div class="highlight"><pre>
 <span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">bisect</span>
 
 <span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_float</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">subtract</span><span class="p">,</span> <span class="n">dot</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">subtract</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">sqrt</span> <span class="k">as</span> <span class="n">npsqrt</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">radians</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">acos</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_bytes</span>
 
+<div class="viewcode-block" id="normalize_v3"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.normalize_v3">[docs]</a><span class="k">def</span> <span class="nf">normalize_v3</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Normalize a numpy array of 3 component vectors shape=(n,3) &#39;&#39;&#39;</span>
+    <span class="n">lens</span> <span class="o">=</span> <span class="n">npsqrt</span><span class="p">(</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span>
+    <span class="n">arr</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="n">lens</span>
+    <span class="n">arr</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="n">lens</span>
+    <span class="n">arr</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">/=</span> <span class="n">lens</span>                
+    <span class="k">return</span> <span class="n">arr</span>
+</div>
 <div class="viewcode-block" id="magnitude"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.magnitude">[docs]</a><span class="k">def</span> <span class="nf">magnitude</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Return the magnitude (root mean square) of the vector.&quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span>
 </div>
 <div class="viewcode-block" id="distance"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.distance">[docs]</a><span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Return the distance between two points.&quot;&quot;&quot;</span>
@@ -77,7 +84,7 @@
 <span class="sd">  *magnitude*</span>
 <span class="sd">    Vector length.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">from_polar_rad</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">direction</span><span class="p">),</span> <span class="n">magnitude</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">from_polar_rad</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">direction</span><span class="p">),</span> <span class="n">magnitude</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="from_polar_rad"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.from_polar_rad">[docs]</a><span class="k">def</span> <span class="nf">from_polar_rad</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">magnitude</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
@@ -90,7 +97,7 @@
 <span class="sd">  *magnitude*</span>
 <span class="sd">    Vector length.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">magnitude</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">direction</span><span class="p">),</span> <span class="n">magnitude</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">magnitude</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">direction</span><span class="p">),</span> <span class="n">magnitude</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
 
 </div>
 <div class="viewcode-block" id="vec_sub"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.vec_sub">[docs]</a><span class="k">def</span> <span class="nf">vec_sub</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -168,14 +175,14 @@
 <span class="sd">    l = 0.0001</span>
 <span class="sd">  aa = ((a * c) + (b * d)) / l</span>
 <span class="sd">  if aa == -1.0:  # TODO: comparison between floats.</span>
-<span class="sd">    return math.pi</span>
+<span class="sd">    return pi</span>
 <span class="sd">  if aa == 0.0:   # TODO: comparison between floats.</span>
 <span class="sd">    return 0.0</span>
 <span class="sd">  dist = (a * y3 - b * x3 + x1 * b - y1 * a) / sqab</span>
-<span class="sd">  angle = math.acos(aa)</span>
+<span class="sd">  angle = acos(aa)</span>
 
 <span class="sd">  if dist &gt; 0.0:</span>
-<span class="sd">    return math.pi * 2 - angle</span>
+<span class="sd">    return pi * 2 - angle</span>
 <span class="sd">  else:</span>
 <span class="sd">    return angle</span>
 
@@ -215,9 +222,9 @@
 
 <span class="sd">  aa = (a * c + b * d) / l</span>
 <span class="sd">  if aa == -1.0:</span>
-<span class="sd">    return math.pi</span>
+<span class="sd">    return pi</span>
 <span class="sd">  if aa == 0.0:</span>
-<span class="sd">    return math.pi / 2</span>
+<span class="sd">    return pi / 2</span>
 <span class="sd">    # TODO: this was originally 0!  But if two vectors have a dot product</span>
 <span class="sd">    # of zero, they are surely at right angles?</span>
 
@@ -225,7 +232,7 @@
 <span class="sd">  angle = acos(aa)</span>
 
 <span class="sd">  if dist &gt; 0.0:</span>
-<span class="sd">    return math.pi / 2.0 - angle</span>
+<span class="sd">    return pi / 2.0 - angle</span>
 <span class="sd">  else:</span>
 <span class="sd">    return angle</span>
 
@@ -316,7 +323,7 @@
 <span class="sd">    *angle*</span>
 <span class="sd">      Angle of rotation around the x axis.</span>
 <span class="sd">  #&quot;&quot;</span>
-<span class="sd">  angle = math.radians(angle)</span>
+<span class="sd">  angle = radians(angle)</span>
 <span class="sd">  c = cos(angle)</span>
 <span class="sd">  s = sin(angle)</span>
 <span class="sd">  return mat_mult([[1, 0, 0, 0],</span>
@@ -335,9 +342,9 @@
 <span class="sd">  #  *angle*</span>
 <span class="sd">  #    Angle of rotation around the y axis.</span>
 <span class="sd">  #&quot;&quot;</span>
-<span class="sd">  angle = math.radians(angle)</span>
-<span class="sd">  c = numpy.cos(angle)</span>
-<span class="sd">  s = numpy.sin(angle)</span>
+<span class="sd">  angle = radians(angle)</span>
+<span class="sd">  c = cos(angle)</span>
+<span class="sd">  s = sin(angle)</span>
 <span class="sd">  return mat_mult([[c, 0, -s, 0],</span>
 <span class="sd">                   [0, 1, 0, 0],</span>
 <span class="sd">                   [s, 0, c, 0],</span>
@@ -354,9 +361,9 @@
 <span class="sd">  #  *angle*</span>
 <span class="sd">  #    Angle of rotation around the z axis.</span>
 <span class="sd">  </span>
-<span class="sd">  angle = math.radians(angle)</span>
-<span class="sd">  c = numpy.cos(angle)</span>
-<span class="sd">  s = numpy.sin(angle)</span>
+<span class="sd">  angle = radians(angle)</span>
+<span class="sd">  c = cos(angle)</span>
+<span class="sd">  s = sin(angle)</span>
 <span class="sd">  return mat_mult([[c, s, 0, 0],</span>
 <span class="sd">                   [-s, c, 0, 0],</span>
 <span class="sd">                   [0, 0, 1, 0],</span>
@@ -416,9 +423,9 @@
 <span class="sd">def sqsum(*args):</span>
 <span class="sd">  &quot;&quot;Return the sum of the squares of its arguments.</span>
 
-<span class="sd">  DEPRECATED:  use numpy.dot(x, x).</span>
+<span class="sd">  DEPRECATED:  use dot(x, x).</span>
 <span class="sd">  &quot;&quot;</span>
-<span class="sd">  return numpy.dot(args, args)</span>
+<span class="sd">  return dot(args, args)</span>
 
 <span class="sd">def load_identity():</span>
 <span class="sd">  opengles.glLoadIdentity()</span>

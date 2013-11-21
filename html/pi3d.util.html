@@ -169,7 +169,7 @@ Arguments:</p>
 <span id="font-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Font</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Font" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.Font.Font">
-<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=48</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=48</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em>, <em>background_color=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
 <p>A Font contains a TrueType font ready to be rendered in OpenGL.</p>
 <p>A font is just a mapping from codepoints (single Unicode characters) to glyphs
@@ -406,21 +406,6 @@ uniform variables unif[16][0] to unit[19][2]</dd>
 <tt class="descclassname">pi3d.util.RotateVec.</tt><tt class="descname">rotate_vec</tt><big>(</big><em>rx</em>, <em>ry</em>, <em>rz</em>, <em>xyz</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/RotateVec.html#rotate_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.RotateVec.rotate_vec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pi3d.util.RotateVec.rotate_vec_x">
-<tt class="descclassname">pi3d.util.RotateVec.</tt><tt class="descname">rotate_vec_x</tt><big>(</big><em>r</em>, <em>xyz</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/RotateVec.html#rotate_vec_x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.RotateVec.rotate_vec_x" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pi3d.util.RotateVec.rotate_vec_y">
-<tt class="descclassname">pi3d.util.RotateVec.</tt><tt class="descname">rotate_vec_y</tt><big>(</big><em>r</em>, <em>xyz</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/RotateVec.html#rotate_vec_y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.RotateVec.rotate_vec_y" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pi3d.util.RotateVec.rotate_vec_z">
-<tt class="descclassname">pi3d.util.RotateVec.</tt><tt class="descname">rotate_vec_z</tt><big>(</big><em>r</em>, <em>xyz</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/RotateVec.html#rotate_vec_z"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.RotateVec.rotate_vec_z" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="module-pi3d.util.Screenshot">
 <span id="screenshot-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Screenshot</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Screenshot" title="Permalink to this headline">¶</a></h2>
@@ -434,9 +419,9 @@ to it!</p>
 </dd></dl>
 
 </div>
-<div class="section" id="shadowcaster-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">ShadowCaster</span></tt> Module<a class="headerlink" href="#shadowcaster-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-pi3d.util.ShadowCaster"></span><dl class="class">
+<div class="section" id="module-pi3d.util.ShadowCaster">
+<span id="shadowcaster-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ShadowCaster</span></tt> Module<a class="headerlink" href="#module-pi3d.util.ShadowCaster" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
 <dt id="pi3d.util.ShadowCaster.ShadowCaster">
 <em class="property">class </em><tt class="descclassname">pi3d.util.ShadowCaster.</tt><tt class="descname">ShadowCaster</tt><big>(</big><em>emap</em>, <em>light</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="pi3d.util.OffScreenTexture.OffScreenTexture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.OffScreenTexture.OffScreenTexture</span></tt></a></p>
@@ -533,6 +518,12 @@ the string is placed</dd>
 </div>
 <div class="section" id="module-pi3d.util.Utility">
 <span id="utility-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Utility</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Utility" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pi3d.util.Utility.normalize_v3">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">normalize_v3</tt><big>(</big><em>arr</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#normalize_v3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.normalize_v3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize a numpy array of 3 component vectors shape=(n,3)</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="pi3d.util.Utility.magnitude">
 <tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">magnitude</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#magnitude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.magnitude" title="Permalink to this definition">¶</a></dt>
@@ -647,7 +638,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
 <li><a class="reference internal" href="#module-pi3d.util.PostProcess"><tt class="docutils literal"><span class="pre">PostProcess</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.RotateVec"><tt class="docutils literal"><span class="pre">RotateVec</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
-<li><a class="reference internal" href="#shadowcaster-module"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.ShadowCaster"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
