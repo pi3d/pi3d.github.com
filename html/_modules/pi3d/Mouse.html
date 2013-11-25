@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Mouse &mdash; pi3d 1.4 documentation</title>
+    <title>pi3d.Mouse &mdash; pi3d 1.5 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.4',
+        VERSION:     '1.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.4 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.5 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.4 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.5 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -51,7 +51,6 @@
 
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">six</span>
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Log</span>
 
@@ -138,6 +137,7 @@
 
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span>
+
     <span class="k">else</span><span class="p">:</span>
       <span class="k">try</span><span class="p">:</span>
         <span class="n">strn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&quot;latin-1&quot;</span><span class="p">)</span>
@@ -150,77 +150,10 @@
   <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
 
-<span class="k">class</span> <span class="nc">_XMouse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;holds Mouse object, see also (the preferred) events methods&quot;&quot;&quot;</span>
-  <span class="n">BUTTON_1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span>
-  <span class="n">BUTTON_2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
-  <span class="n">BUTTONS</span> <span class="o">=</span> <span class="n">BUTTON_1</span> <span class="o">&amp;</span> <span class="n">BUTTON_2</span>
-  <span class="n">HEADER</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>
-  <span class="n">XSIGN</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span>
-  <span class="n">YSIGN</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span>
-  <span class="n">INSTANCE</span> <span class="o">=</span> <span class="bp">None</span>
-
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse</span><span class="o">=</span><span class="s">&#39;mice&#39;</span><span class="p">,</span> <span class="n">restrict</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1200</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Arguments:</span>
-<span class="sd">      *mouse*</span>
-<span class="sd">        /dev/input/ device name</span>
-<span class="sd">      *restrict*</span>
-<span class="sd">        stops or allows the mouse x and y values to carry on going beyond:</span>
-<span class="sd">      *width*</span>
-<span class="sd">        mouse x limit</span>
-<span class="sd">      *height*</span>
-<span class="sd">        mouse y limit</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">restrict</span> <span class="o">=</span> <span class="n">restrict</span>
-
-    <span class="c">#create a pointer to this for compatibility with threaded mouse</span>
-    <span class="kn">import</span> <span class="nn">ctypes</span>
-    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
-    <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">external_mouse</span> <span class="o">=</span> <span class="bp">self</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">aa</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_ulong</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ab</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_ulong</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ac</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ad</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ae</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">af</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ag</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">d</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">window</span>
-    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">()</span>
-
-  <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">pyxlib</span> <span class="kn">import</span> <span class="n">xlib</span>
-    <span class="n">pp</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XQueryPointer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">aa</span><span class="p">,</span>
-          <span class="bp">self</span><span class="o">.</span><span class="n">ab</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ac</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ad</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ae</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">af</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ag</span><span class="p">)</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrict</span><span class="p">:</span>
-      <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ae</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="c">#check if at edge, carry on moving.</span>
-      <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ae</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-
-  <span class="k">def</span> <span class="nf">velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
-      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span>
-
-  <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">pass</span>
-
-  <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">pass</span>
-
 <div class="viewcode-block" id="Mouse"><a class="viewcode-back" href="../../pi3d.html#pi3d.Mouse.Mouse">[docs]</a><span class="k">def</span> <span class="nf">Mouse</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-  <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">_Mouse</span><span class="o">.</span><span class="n">INSTANCE</span><span class="p">:</span>
-      <span class="n">_Mouse</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="o">=</span> <span class="n">_Mouse</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">_Mouse</span><span class="o">.</span><span class="n">INSTANCE</span>
-  <span class="k">else</span><span class="p">:</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">_XMouse</span><span class="o">.</span><span class="n">INSTANCE</span><span class="p">:</span>
-      <span class="n">_XMouse</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="o">=</span> <span class="n">_XMouse</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">_XMouse</span><span class="o">.</span><span class="n">INSTANCE</span>
-   </div>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">_Mouse</span><span class="o">.</span><span class="n">INSTANCE</span><span class="p">:</span>
+    <span class="n">_Mouse</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="o">=</span> <span class="n">_Mouse</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">_Mouse</span><span class="o">.</span><span class="n">INSTANCE</span></div>
 </pre></div>
 
           </div>
@@ -254,7 +187,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.4 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.5 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

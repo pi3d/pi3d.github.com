@@ -20,19 +20,11 @@ Frequently Asked Questions
       Now you know where they are you can `ReadMe`_ to see how to run and
       edit the demos. The third issue is that pi3d has moved on almost
       unrecognisably since the version put up on pistore. Ideally Tim would
-      be keeping it up to date, but in the absence of that, I would strongly
-      recommend anyone who finds they have an interest in actually using
-      pi3d to unistall the pistore version then::
-
-        sudo apt-get install git
-        cd ~
-        git clone https://github.com/tipam/pi3d.git
-
-      This will give you the option to update your version with bug-fixes
-      and improvements by simply::
-
-        cd ~/pi3d
-        git pull origin master
+      be keeping it up to date, but he has been just too busy. We are trying
+      to arrange matters so that pistore has the latest release but until then,
+      it may be better for anyone with an interest in using pi3d with python
+      to unistall the pistore version then either install via the routes
+      described in `ReadMe`_ (Setup on the Raspberry pi)
 
 #.  My RPi Crashes or reboots when I try and run a demo.
 
