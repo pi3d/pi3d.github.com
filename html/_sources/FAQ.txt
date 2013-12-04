@@ -492,4 +492,60 @@ Frequently Asked Questions
 
       pi3d.Points can be used to render points using the mat_flat shader
 
+#.  Does pi3d work
+    with pypy
+
+      pi3d relies on some of the functionality and speed of numpy and this
+      only really became useable as of pypy-2.2 and I have managed to get
+      pi3d working to some extent with that. At the moment that isn't the
+      current version you get with apt-get so these were the steps I took:
+
+      1. download the relevant version from http://pypy.org/download.html
+      for your machine (Ubuntu, raspbian etc) extract it into a new directory
+      i.e. /home/me/pypy-2.2.1-linux64
+
+      2. in a
+      terminal::
+
+        sudo apt-get install pypy-dev
+
+      3. download and install pypy-numpy so it's also in a subdirectory
+      of pypy-x.x.x-etc I did this cd to that directory then using::
+      
+        git clone https://bitbucket.org/pypy/numpy.git
+        cd numpy
+        sudo ../bin/pypy setup.py install
+
+      4.* download Pillow from https://pypi.python.org/pypi/Pillow and
+      extract it into its own subdirectory of pypy-x.x.x-etc i.e.
+      /home/me/pypy-2.2.1-linux64/Pillow-2.2.1
+
+      5.* download http://python-distribute.org/distribute_setup.py to
+      pypy-x.x.x-etc/bin and run it::
+
+        sudo ./pypy distribute_setup.py
+
+      6.* either cd to pypy-x.x.x-etc/bin
+      and run::
+
+        sudo ./easy_install Pillow
+
+      7.* or cd to the Pillow-x.x directory
+      and run::
+      
+        sudo ../bin/pypy setup.py install
+
+      I did different permutations of these things but confused myself as
+      to which I was 'really' doing (by occasionally forgetting to type
+      ``./pypy`` and thereby running a debian package version that was
+      also installed) so some of these steps are redundant. Also other
+      steps may be missing.
+
+      At the moment (Dec13
+      https://github.com/tipam/pi3d/commit/ce5febc6693115872c7e4653dfea503e029fa0d5)
+      the changes to Shape.draw() have been commented out because they
+      look to add some extra processing at an expensive location. If
+      you want to try pypy you will have to swap the two lines (search
+      for pypy to find them)
+
 .. _ReadMe: http://pi3d.github.com/html/index.html

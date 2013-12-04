@@ -58,6 +58,7 @@
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
 <span class="kn">from</span> <span class="nn">pi3d.Light</span> <span class="kn">import</span> <span class="n">Light</span>
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Utility</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_floats</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.util.Loadable</span> <span class="kn">import</span> <span class="n">Loadable</span>
 
@@ -195,7 +196,9 @@
                 <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">,</span>
                     <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">)))))</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+      <span class="c">#self.M[0:16] = c_floats(self.MRaw.reshape(-1).tolist()) #pypy version</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">16</span><span class="p">:</span><span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+      <span class="c">#self.M[16:32] = c_floats(dot(self.MRaw, camera.mtrx).reshape(-1).tolist()) #pypy</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">False</span>
 
     <span class="k">elif</span> <span class="n">camera</span><span class="o">.</span><span class="n">was_moved</span><span class="p">:</span>

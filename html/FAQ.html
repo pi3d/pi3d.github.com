@@ -542,6 +542,54 @@ specified at 1 unit of distance from the camera.</p>
 <p>pi3d.Points can be used to render points using the mat_flat shader</p>
 </div></blockquote>
 </li>
+<li><p class="first">Does pi3d work
+with pypy</p>
+<blockquote>
+<div><p>pi3d relies on some of the functionality and speed of numpy and this
+only really became useable as of pypy-2.2 and I have managed to get
+pi3d working to some extent with that. At the moment that isn&#8217;t the
+current version you get with apt-get so these were the steps I took:</p>
+<p>1. download the relevant version from <a class="reference external" href="http://pypy.org/download.html">http://pypy.org/download.html</a>
+for your machine (Ubuntu, raspbian etc) extract it into a new directory
+i.e. /home/me/pypy-2.2.1-linux64</p>
+<p>2. in a
+terminal:</p>
+<div class="highlight-python"><pre>sudo apt-get install pypy-dev</pre>
+</div>
+<p>3. download and install pypy-numpy so it&#8217;s also in a subdirectory
+of pypy-x.x.x-etc I did this cd to that directory then using:</p>
+<div class="highlight-python"><pre>git clone https://bitbucket.org/pypy/numpy.git
+cd numpy
+sudo ../bin/pypy setup.py install</pre>
+</div>
+<p>4.* download Pillow from <a class="reference external" href="https://pypi.python.org/pypi/Pillow">https://pypi.python.org/pypi/Pillow</a> and
+extract it into its own subdirectory of pypy-x.x.x-etc i.e.
+/home/me/pypy-2.2.1-linux64/Pillow-2.2.1</p>
+<p>5.* download <a class="reference external" href="http://python-distribute.org/distribute_setup.py">http://python-distribute.org/distribute_setup.py</a> to
+pypy-x.x.x-etc/bin and run it:</p>
+<div class="highlight-python"><pre>sudo ./pypy distribute_setup.py</pre>
+</div>
+<p>6.* either cd to pypy-x.x.x-etc/bin
+and run:</p>
+<div class="highlight-python"><pre>sudo ./easy_install Pillow</pre>
+</div>
+<p>7.* or cd to the Pillow-x.x directory
+and run:</p>
+<div class="highlight-python"><pre>sudo ../bin/pypy setup.py install</pre>
+</div>
+<p>I did different permutations of these things but confused myself as
+to which I was &#8216;really&#8217; doing (by occasionally forgetting to type
+<tt class="docutils literal"><span class="pre">./pypy</span></tt> and thereby running a debian package version that was
+also installed) so some of these steps are redundant. Also other
+steps may be missing.</p>
+<p>At the moment (Dec13
+<a class="reference external" href="https://github.com/tipam/pi3d/commit/ce5febc6693115872c7e4653dfea503e029fa0d5">https://github.com/tipam/pi3d/commit/ce5febc6693115872c7e4653dfea503e029fa0d5</a>)
+the changes to Shape.draw() have been commented out because they
+look to add some extra processing at an expensive location. If
+you want to try pypy you will have to swap the two lines (search
+for pypy to find them)</p>
+</div></blockquote>
+</li>
 </ol>
 </div>
 

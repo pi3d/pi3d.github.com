@@ -181,6 +181,11 @@ both at once, you&#8217;ll see some overlap.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pi3d.event.Event.InputEvents.get_keys">
+<tt class="descname">get_keys</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/event/Event.html#InputEvents.get_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.InputEvents.get_keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pi3d.event.Event.InputEvents.get_joystick">
 <tt class="descname">get_joystick</tt><big>(</big><em>index=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/event/Event.html#InputEvents.get_joystick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.InputEvents.get_joystick" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the x,y coordinates for a joystick or left gamepad analogue stick.</p>
@@ -321,6 +326,14 @@ If the key is not pressed, the returned value will be 0.</p>
 <dt id="pi3d.event.EventHandler.EventHandler.clear_key">
 <tt class="descname">clear_key</tt><big>(</big><em>buttonCode</em><big>)</big><a class="reference internal" href="_modules/pi3d/event/EventHandler.html#EventHandler.clear_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.EventHandler.EventHandler.clear_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clears the  event value for the given key code.</p>
+<p>Key names can be converted to key codes using codeOf[str].
+This emulates a key-up but does not generate any events.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.event.EventHandler.EventHandler.get_keys">
+<tt class="descname">get_keys</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/event/EventHandler.html#EventHandler.get_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.EventHandler.EventHandler.get_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the first of whichever keys have been pressed.</p>
 <p>Key names can be converted to key codes using codeOf[str].
 This emulates a key-up but does not generate any events.</p>
 </dd></dl>

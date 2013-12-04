@@ -184,6 +184,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">clear_key</span><span class="p">(</span><span class="n">key_to_code</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 </div>
+<div class="viewcode-block" id="InputEvents.get_keys"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.get_keys">[docs]</a>  <span class="k">def</span> <span class="nf">get_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">code_to_key</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">get_keys</span><span class="p">()]</span>
+</div>
 <div class="viewcode-block" id="InputEvents.get_joystick"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.get_joystick">[docs]</a>  <span class="k">def</span> <span class="nf">get_joystick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the x,y coordinates for a joystick or left gamepad analogue stick.</span>

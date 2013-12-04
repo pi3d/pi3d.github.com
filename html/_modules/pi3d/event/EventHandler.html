@@ -235,6 +235,23 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="n">buttonCode</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
       <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="EventHandler.get_keys"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventHandler.EventHandler.get_keys">[docs]</a>  <span class="k">def</span> <span class="nf">get_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the first of whichever keys have been pressed.</span>
+
+<span class="sd">    Key names can be converted to key codes using codeOf[str].</span>
+<span class="sd">    This emulates a key-up but does not generate any events.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">k_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="n">k_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">k_list</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+      <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">k_list</span>
 </pre></div></div></div>
 
           </div>
