@@ -33,6 +33,14 @@ util Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`Gui` Module
+-----------------
+
+.. automodule:: pi3d.util.Gui
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`Loadable` Module
 ----------------------
 

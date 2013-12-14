@@ -218,6 +218,212 @@ closer to 1, but italics might get cut off at the right.</dd>
 </dd></dl>
 
 </div>
+<div class="section" id="module-pi3d.util.Gui">
+<span id="gui-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Gui</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Gui" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.Gui.Gui">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Gui</tt><big>(</big><em>font</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Gui"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Gui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>hold information on all widgets and the pointer, creates a 2D Camera
+and uv_flat shader. Needs to have a Font object passed to it keeps track
+of when the last mouse click or key stroke to avoid double counting.
+Arguments</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>font</em></dt>
+<dd>pi3d.Font object</dd>
+</dl>
+</div></blockquote>
+<p>A Gui instance has to be passed to each gui widget (Button, Menu etc)
+as it is created to allow resources to the used and for checking.</p>
+<dl class="method">
+<dt id="pi3d.util.Gui.Gui.draw">
+<tt class="descname">draw</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Gui.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Gui.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>draw all visible widges and pointer at x, y</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Gui.check">
+<tt class="descname">check</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Gui.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Gui.check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Gui.checkkey">
+<tt class="descname">checkkey</tt><big>(</big><em>k</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Gui.checkkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Gui.checkkey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.Widget">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Widget</tt><big>(</big><em>gui</em>, <em>shapes</em>, <em>x</em>, <em>y</em>, <em>callback=None</em>, <em>label=None</em>, <em>label_pos=u'left'</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Widget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>contains functionality of buttons and is inherited by other gui
+components. Arguments:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>gui</em></dt>
+<dd>Gui object parent to this widget</dd>
+<dt><em>shapes</em></dt>
+<dd>drawable object such as Sprite or String, or list of two to toggle</dd>
+<dt><em>x,y</em></dt>
+<dd>location of top left corner of this widget</dd>
+<dt><em>label</em></dt>
+<dd>string to use as label</dd>
+<dt><em>label_pos</em></dt>
+<dd>position of label &#8216;left&#8217;, &#8216;right&#8217;, &#8216;above&#8217;, &#8216;below&#8217;</dd>
+<dt><em>shortcut</em></dt>
+<dd>shortcut key to have same effect as clicking wit mouse???</dd>
+</dl>
+</div></blockquote>
+<dl class="method">
+<dt id="pi3d.util.Gui.Widget.relocate">
+<tt class="descname">relocate</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Widget.relocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Widget.relocate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Widget.draw">
+<tt class="descname">draw</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Widget.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Widget.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Widget.check">
+<tt class="descname">check</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Widget.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Widget.check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Widget.checkkey">
+<tt class="descname">checkkey</tt><big>(</big><em>k</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Widget.checkkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Widget.checkkey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.Button">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Button</tt><big>(</big><em>gui</em>, <em>imgs</em>, <em>x</em>, <em>y</em>, <em>callback=None</em>, <em>label=None</em>, <em>label_pos=u'left'</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Button"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Button" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.Gui.Widget" title="pi3d.util.Gui.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Gui.Widget</span></tt></a></p>
+<p>This inherits pretty much everything it needs from Widget, it just
+takes a list of images rather than Shapes. Otherwise same Arguments.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>imgs</em></dt>
+<dd>list of strings. If these exist as files using the path and file
+name then those will be used. Otherwise the pi3d/util/icons path
+will be prepended</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.Radio">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Radio</tt><big>(</big><em>gui</em>, <em>x</em>, <em>y</em>, <em>callback=None</em>, <em>label=None</em>, <em>label_pos=u'left'</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Radio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Radio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.Gui.Button" title="pi3d.util.Gui.Button"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Gui.Button</span></tt></a></p>
+<p>This is a toggle button with two checkbox images. Same Arguments
+as Widget but missing the list of Shapes completely.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.Scrollbar">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Scrollbar</tt><big>(</big><em>gui</em>, <em>x</em>, <em>y</em>, <em>width</em>, <em>start_val=None</em>, <em>callback=None</em>, <em>label=None</em>, <em>label_pos=u'left'</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Scrollbar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Scrollbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.Gui.Widget" title="pi3d.util.Gui.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Gui.Widget</span></tt></a></p>
+<p>This consists of four Shapes but the first one is duplicated so
+the Widget.draw() method can be used unchanged. The images are hard
+coded so no list of Shapes or images needs to be supplied however
+arguments additional to those for Widget are</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>width</em></dt>
+<dd>width of the scroll (excluding buttons on either end)</dd>
+<dt><em>start_val</em></dt>
+<dd>proportion of the way across i.e. if width = 200 then start_val
+of 150 would be three quarters</dd>
+</dl>
+</div></blockquote>
+<p>NB the callback is called with <a href="#id3"><span class="problematic" id="id4">*</span></a>args equal to the position of the slider
+so the function needs to be defined with this in mind i.e.
+<tt class="docutils literal"><span class="pre">def</span> <span class="pre">cb(*args):</span></tt> args will then be available as a tuple (0.343,)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.MenuItem">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">MenuItem</tt><big>(</big><em>gui</em>, <em>text</em>, <em>callback=None</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#MenuItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.MenuItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.Gui.Widget" title="pi3d.util.Gui.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Gui.Widget</span></tt></a></p>
+<p>These are the clickable Widgets of the menu system. Instead of a
+list of Shapes they have a string argument, there is no label or
+label_pos and the x and y values are obtained from the position and
+orientation of the parent Menu.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>text</em></dt>
+<dd>string used to construct a pi3d.String</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.Menu">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Menu</tt><big>(</big><em>parent_item=None</em>, <em>menuitems=</em><span class="optional">[</span><span class="optional">]</span>, <em>x=0</em>, <em>y=0</em>, <em>horiz=True</em>, <em>position=u'right'</em>, <em>visible=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Menu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Container for MenuItems, forming either a horizontal or vertical
+bar. Arguments</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>parent_item</em></dt>
+<dd>a MenuItem that will make this Menu visible when clicked</dd>
+<dt><em>menuitems</em></dt>
+<dd>a list of MenuItems to be displayed in this Menu</dd>
+<dt><em>x</em></dt>
+<dd>x location will be overwritten unless parent_item == None</dd>
+<dt><em>y</em></dt>
+<dd>similarly the y location</dd>
+<dt><em>horiz</em></dt>
+<dd>set True (default) for horizontal layout on the menu bar, False
+for vertical listing</dd>
+<dt><em>position</em></dt>
+<dd>relative to the MenuItem that gives rise to this Menu when clicked
+&#8216;right&#8217; or any other text interpreted as below</dd>
+<dt><em>visible</em></dt>
+<dd>when an alternative branch of the menu tree is selected or the
+parent_item is re-clicked this menu is hidden, along with all
+its children recursively. They are set to visible = False and
+not drawn and not checked for mouse clicks.</dd>
+</dl>
+</div></blockquote>
+<dl class="method">
+<dt id="pi3d.util.Gui.Menu.hide">
+<tt class="descname">hide</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Menu.hide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Menu.hide" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Menu.show">
+<tt class="descname">show</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Menu.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Menu.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.TextBox">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">TextBox</tt><big>(</big><em>gui</em>, <em>txt</em>, <em>x</em>, <em>y</em>, <em>callback=None</em>, <em>label=None</em>, <em>label_pos=u'left'</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#TextBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.TextBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.Gui.Widget" title="pi3d.util.Gui.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Gui.Widget</span></tt></a></p>
+<dl class="method">
+<dt id="pi3d.util.Gui.TextBox.recreate">
+<tt class="descname">recreate</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#TextBox.recreate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.TextBox.recreate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.TextBox.checkkey">
+<tt class="descname">checkkey</tt><big>(</big><em>k</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#TextBox.checkkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.TextBox.checkkey" title="Permalink to this definition">¶</a></dt>
+<dd><p>have to use a slightly different version without the _click() call</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.TextBox.draw">
+<tt class="descname">draw</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#TextBox.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.TextBox.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.util.Loadable">
 <span id="loadable-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Loadable</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Loadable" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -631,6 +837,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
 <li><a class="reference internal" href="#module-pi3d.util.Defocus"><tt class="docutils literal"><span class="pre">Defocus</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.DisplayOpenGL"><tt class="docutils literal"><span class="pre">DisplayOpenGL</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Font"><tt class="docutils literal"><span class="pre">Font</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Gui"><tt class="docutils literal"><span class="pre">Gui</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Loadable"><tt class="docutils literal"><span class="pre">Loadable</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Log"><tt class="docutils literal"><span class="pre">Log</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.OffScreenTexture"><tt class="docutils literal"><span class="pre">OffScreenTexture</span></tt> Module</a></li>
