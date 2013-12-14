@@ -2,29 +2,31 @@ Frequently Asked Questions
 ==========================
 
 
-#.  I installed using pistore but when I run it all I get is a spinning globe!
-    How do I get it to do anything else?
+#.  I am trying to install using PiStore but it's been running for hours
+    with no sign of completing.
 
-      Tim Skillman, the original developer, set up the pistore demos as a
-      kind of taster. However there are serious deficiencies in the way
-      pistore hides away all the complexities; pi3d is, after all, a module
-      for helping you to program in python.
+      The PiStore install adds `pip` and `Pillow` which take quite a bit
+      of the cpu resources. It could be that you have set the graphics memory share
+      to the higher level needed to run pi3d. In the long run it will be quicker
+      to abort the installation, remove the half installed pi3d, use
+      raspi-config to set the graphics memory low, re-install pi3d, then
+      set the graphics memory back up again!
 
-      The first issue you will have already suffered: the pistore installation
-      is quite long winded. The second issue is that the installation is in
-      a relatively obscure location /usr/local/indiecity/InstalledApps/pi3d/Full...
-      but it's a good idea to find the actual location of the demos::
+#.  I have installed using PiStore and run the demos from the Menu. Now
+    I would like to play around for myself.
 
-        sudo find / -name 'Amazing.py'
+      There is a PiStore button next to `launch` that lets you see the source
+      code. It should open a file browser window to
+      `/usr/local/indiecity/InstalledApps/skillmanmedia/Full/pi3d_demos`
+      which is a very obscure location and also protected against modification.
+      To play around with the code you should either copy the whole
+      of this directory to your home directory (i.e. so you have
+      `/home/pi/pi3d_demos/`) or clone or download the demos from
+      http://github.com/pi3d/pi3d_demos (which will include a couple of
+      other demos excluded from PiStore because they use very large resource
+      files.)
 
-      Now you know where they are you can `ReadMe`_ to see how to run and
-      edit the demos. The third issue is that pi3d has moved on almost
-      unrecognisably since the version put up on pistore. Ideally Tim would
-      be keeping it up to date, but he has been just too busy. We are trying
-      to arrange matters so that pistore has the latest release but until then,
-      it may be better for anyone with an interest in using pi3d with python
-      to unistall the pistore version then either install via the routes
-      described in `ReadMe`_ (Setup on the Raspberry pi)
+      Before going too far it would be a good idea to `ReadMe`_
 
 #.  My RPi Crashes or reboots when I try and run a demo.
 
@@ -134,7 +136,7 @@ Frequently Asked Questions
 
           myshape.set_draw_details(myshader, [mytexture])
 
-        For Model objects the ambient tecdxture or material shade will normally
+        For Model objects the ambient texture or material shade will normally
         be defined in the 3D object file (egg or obj/mtl) In these cases
         you could use::
 
