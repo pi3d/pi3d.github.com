@@ -271,8 +271,8 @@ Editing scripts and running
 
       import pi3d
       DISPLAY = pi3d.Display.create(w=128, h=128)
-      shader = pi3d.Shader("shaders/2d_flat")
-      sprite = pi3d.ImageSprite("textures/PATRN.PNG", shader)
+      shader = pi3d.Shader("2d_flat")
+      sprite = pi3d.ImageSprite("your_texture_locations/PATRN.PNG", shader)
       while DISPLAY.loop_running():
         sprite.draw()
 
