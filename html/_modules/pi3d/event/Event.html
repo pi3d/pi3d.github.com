@@ -59,6 +59,17 @@
 <span class="n">KEY_CODE</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Keys</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_KEYS</span><span class="p">)</span>
 <span class="n">CODE_KEY</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">KEY_CODE</span><span class="p">))</span>
 
+<span class="c">###################################################################</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
+  <span class="kn">from</span> <span class="nn">pyxlib</span> <span class="kn">import</span> <span class="n">xlib</span>
+  <span class="kn">from</span> <span class="nn">pyxlib.x</span> <span class="kn">import</span> <span class="o">*</span>
+  <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
+  <span class="n">USE_X11</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">USE_X11</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="c">###################################################################</span>
+
 <div class="viewcode-block" id="key_to_code"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.key_to_code">[docs]</a><span class="k">def</span> <span class="nf">key_to_code</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">KEY_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span>
 </div>
@@ -108,9 +119,21 @@
 <span class="sd">  The keys are listed in pi3d.event.Constants.py or /usr/include/linux/input.h</span>
 <span class="sd">  Note that the key names refer to a US keyboard.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
+
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyboardHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mouseHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">joystickHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">synHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">unhandledHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">wantKeyboard</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">wantMouse</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">wantJoystick</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unhandledHandler</span> <span class="o">=</span> <span class="n">unhandledHandler</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">streams</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
+
+    <span class="c">###################################################################</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">prevX</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prevY</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prevZ</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">USE_X11</span><span class="p">:</span>
+      <span class="c">#create a pointer to this so Display.destroy can stop the thread</span>
+      <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">DISPLAY</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span>
+      <span class="n">di</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DISPLAY</span><span class="o">.</span><span class="n">opengl</span>
+      <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_mouse_position</span><span class="p">()</span> 
+      <span class="n">wantMouse</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c">###################################################################</span>
     <span class="k">if</span> <span class="n">wantKeyboard</span><span class="p">:</span>
       <span class="n">keyboards</span> <span class="o">=</span>  <span class="n">find_devices</span><span class="p">(</span><span class="s">&quot;kbd&quot;</span><span class="p">)</span>
       <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keyboards</span><span class="p">:</span>
@@ -136,6 +159,16 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">EventHandler</span><span class="o">.</span><span class="n">EventHandler</span><span class="p">(</span>
                   <span class="n">keyboardHandler</span><span class="p">,</span> <span class="n">mouseHandler</span><span class="p">,</span> <span class="n">joystickHandler</span><span class="p">,</span> <span class="n">synHandler</span><span class="p">)</span>
 
+  <span class="c">###################################################################</span>
+<div class="viewcode-block" id="InputEvents.X_mouse_position"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.X_mouse_position">[docs]</a>  <span class="k">def</span> <span class="nf">X_mouse_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">di</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DISPLAY</span><span class="o">.</span><span class="n">opengl</span>
+    <span class="n">aa</span><span class="p">,</span> <span class="n">ab</span> <span class="o">=</span>  <span class="n">Window</span><span class="p">(),</span> <span class="n">Window</span><span class="p">()</span>
+    <span class="n">ac</span><span class="p">,</span> <span class="n">ad</span><span class="p">,</span> <span class="n">ae</span><span class="p">,</span> <span class="n">af</span> <span class="o">=</span> <span class="n">c_int</span><span class="p">(),</span> <span class="n">c_int</span><span class="p">(),</span> <span class="n">c_int</span><span class="p">(),</span> <span class="n">c_int</span><span class="p">()</span>
+    <span class="n">ag</span> <span class="o">=</span> <span class="n">c_uint</span><span class="p">()</span>
+    <span class="n">pp</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XQueryPointer</span><span class="p">(</span><span class="n">di</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="n">di</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">aa</span><span class="p">,</span> <span class="n">ab</span><span class="p">,</span> <span class="n">ac</span><span class="p">,</span> <span class="n">ad</span><span class="p">,</span> <span class="n">ae</span><span class="p">,</span> <span class="n">af</span><span class="p">,</span> <span class="n">ag</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">ae</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">af</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">ag</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+  <span class="c">###################################################################</span>
+    </div>
 <div class="viewcode-block" id="InputEvents.do_input_events"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.do_input_events">[docs]</a>  <span class="k">def</span> <span class="nf">do_input_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle all events that have been triggered since the last call.</span>
@@ -174,6 +207,13 @@
 
 <span class="sd">    The direction pad is hat0 (see get_hat)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c">###################################################################</span>
+    <span class="k">if</span> <span class="n">USE_X11</span><span class="p">:</span>
+      <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_mouse_position</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&quot;BTN_MOUSE&quot;</span> <span class="p">:</span>
+        <span class="k">if</span> <span class="n">z</span> <span class="o">!=</span> <span class="mi">16</span> <span class="p">:</span>
+          <span class="k">return</span> <span class="mi">1</span>
+    <span class="c">###################################################################</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">key_state</span><span class="p">(</span><span class="n">key_to_code</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 </div>
 <div class="viewcode-block" id="InputEvents.clear_key"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.clear_key">[docs]</a>  <span class="k">def</span> <span class="nf">clear_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
@@ -253,6 +293,15 @@
 
 <span class="sd">    The returned value is a tuple: (X, Y, WHEEL, H-WHEEL)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c">###################################################################</span>
+    <span class="k">if</span> <span class="n">USE_X11</span><span class="p">:</span>
+      <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_mouse_position</span><span class="p">()</span>
+      <span class="n">xx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">prevX</span>
+      <span class="n">yy</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">prevY</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">prevX</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prevY</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+      <span class="n">zz</span> <span class="o">=</span> <span class="n">z</span> 
+      <span class="k">return</span> <span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">zz</span><span class="p">)</span>
+    <span class="c">###################################################################</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">get_rel_movement</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="InputEvents.grab_by_type"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.grab_by_type">[docs]</a>  <span class="k">def</span> <span class="nf">grab_by_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deviceType</span><span class="p">,</span> <span class="n">deviceIndex</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">grab</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>

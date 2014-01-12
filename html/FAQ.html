@@ -82,6 +82,27 @@ files.)</p>
 <p>Before going too far it would be a good idea to <a class="reference external" href="http://pi3d.github.com/html/index.html">ReadMe</a></p>
 </div></blockquote>
 </li>
+<li><p class="first">When I try and run the demos I just get a load of error messages such as
+<tt class="docutils literal"><span class="pre">libEGL</span> <span class="pre">warning:</span> <span class="pre">GLX/DRI2</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">supported/failed</span> <span class="pre">to</span> <span class="pre">authenticate</span> <span class="pre">etc</span></tt></p>
+<blockquote>
+<div><p>The chances are this is because &#8216;something&#8217; (such as gedit) has installed
+mesa which added its own versions of libEGL and libGLESv2. If
+you run:</p>
+<div class="highlight-python"><pre>$ sudo find / -name libEGL*
+$ sudo find / -name libGLESv2*</pre>
+</div>
+<p>you should just get /opt/vc/lib/libEGL.so and /opt/vc/lib/libGLESv2.so
+if other ones turn up i.e. /usr/lib/arm-linux-gnueabihf/libEGL.so.1
+you could try creating symbolic links for them all like this:</p>
+<div class="highlight-python"><pre>sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so
+sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so.1
+sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so
+sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2</pre>
+</div>
+<p>Using the actual paths as listed by find. Or just delete them as I did
+<strong>NB DON&#8217;T DELETE THE ONES IN /opt/vc/lib</strong></p>
+</div></blockquote>
+</li>
 <li><p class="first">My RPi Crashes or reboots when I try and run a demo.</p>
 <blockquote>
 <div><p>Any program using a loadable texture, which includes nearly all the demos,

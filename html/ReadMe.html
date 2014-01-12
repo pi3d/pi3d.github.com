@@ -323,13 +323,13 @@ and running Python scripts. Download and install it with:</p>
 </div>
 </li>
 <li><p class="first"><strong>Load and run</strong></p>
-<p>Either run from the terminal <tt class="docutils literal"><span class="pre">python3</span> <span class="pre">~/pi3d/demos/Minimal.py</span></tt> or
+<p>Either run from the terminal <tt class="docutils literal"><span class="pre">python3</span> <span class="pre">~/pi3d_demos/Minimal.py</span></tt> or
 load any of the demos into Geany and run (using the cogs icon). As a minimum,
 scripts need these elements in order to use the pi3d library:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pi3d</span>
 <span class="n">DISPLAY</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
-<span class="n">shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s">&quot;shaders/2d_flat&quot;</span><span class="p">)</span>
-<span class="n">sprite</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">ImageSprite</span><span class="p">(</span><span class="s">&quot;textures/PATRN.PNG&quot;</span><span class="p">,</span> <span class="n">shader</span><span class="p">)</span>
+<span class="n">shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s">&quot;uv_flat&quot;</span><span class="p">)</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">ImageSprite</span><span class="p">(</span><span class="s">&quot;textures/PATRN.PNG&quot;</span><span class="p">,</span> <span class="n">shader</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span> <span class="c"># path relative to program dir</span>
 <span class="k">while</span> <span class="n">DISPLAY</span><span class="o">.</span><span class="n">loop_running</span><span class="p">():</span>
   <span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </pre></div>
@@ -396,8 +396,8 @@ of this code to run using python 3:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">demo</span>
 </pre></div>
 </div>
-<p>Allows the demo files to be put in a subdirectory but still run. If you write
-a program in the top directory then you will need to take this out:</p>
+<p>Allows the demo files to be put in a subdirectory but still run. If you install
+pi3d using pip or <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> then you can take this out:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pi3d</span>
 </pre></div>
 </div>
@@ -415,9 +415,7 @@ a program in the top directory then you will need to take this out:</p>
 </pre></div>
 </div>
 <p>If you import the whole lot using <tt class="docutils literal"><span class="pre">import</span> <span class="pre">pi3d</span></tt> then you need to prefix classes
-and functions with <tt class="docutils literal"><span class="pre">pi3d.</span></tt> And you are loading a large number of variable names
-which might cause a conflict, isn&#8217;t as explicit and is less tidy (in the non-
-superficial sense)! A third way to import the modules would be to use
+and functions with <tt class="docutils literal"><span class="pre">pi3d.</span></tt> A third way to import the modules would be to use
 <tt class="docutils literal"><span class="pre">from</span> <span class="pre">pi3d</span> <span class="pre">import</span> <span class="pre">*</span></tt> this saves having to use the <tt class="docutils literal"><span class="pre">pi3d.</span></tt> prefix but
 is <strong>much harder to debug</strong> if there is a name conflict.</p>
 </div></blockquote>

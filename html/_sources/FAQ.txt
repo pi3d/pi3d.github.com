@@ -28,6 +28,29 @@ Frequently Asked Questions
 
       Before going too far it would be a good idea to `ReadMe`_
 
+#.  When I try and run the demos I just get a load of error messages such as
+    ``libEGL warning: GLX/DRI2 is not supported/failed to authenticate etc``
+
+      The chances are this is because 'something' (such as gedit) has installed
+      mesa which added its own versions of libEGL and libGLESv2. If
+      you run::
+
+        $ sudo find / -name libEGL*
+        $ sudo find / -name libGLESv2*
+
+      you should just get /opt/vc/lib/libEGL.so and /opt/vc/lib/libGLESv2.so
+      if other ones turn up i.e. /usr/lib/arm-linux-gnueabihf/libEGL.so.1
+      you could try creating symbolic links for them all like this::
+
+        sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so
+        sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so.1
+        sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so
+        sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2
+
+      Using the actual paths as listed by find. Or just delete them as I did
+      **NB DON'T DELETE THE ONES IN /opt/vc/lib**
+
+
 #.  My RPi Crashes or reboots when I try and run a demo.
 
       Any program using a loadable texture, which includes nearly all the demos,
