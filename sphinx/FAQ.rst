@@ -441,8 +441,8 @@ Frequently Asked Questions
 #.  Using python3 and the InputEvents mouse input (Silo and DogFight demos)
     I get very ragged and unresponsive camera movment.
 
-      We know about this (but not why) and will
-      fix it asap
+      This should be fixed as of v1.5, try upgrading to the latest
+      version of pi3d
 
 #.  How do I do post-rendering processing on a scene, such as blurring,
     edge detection or fancier effects such as oil painting.
