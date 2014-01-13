@@ -94,13 +94,18 @@ $ sudo find / -name libGLESv2*</pre>
 <p>you should just get /opt/vc/lib/libEGL.so and /opt/vc/lib/libGLESv2.so
 if other ones turn up i.e. /usr/lib/arm-linux-gnueabihf/libEGL.so.1
 you could try creating symbolic links for them all like this:</p>
-<div class="highlight-python"><pre>sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so
-sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so.1
-sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so
-sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2</pre>
+<div class="highlight-python"><pre>$ sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so
+$ sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so.1
+$ sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so
+$ sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2</pre>
 </div>
 <p>Using the actual paths as listed by find. Or just delete them as I did
-<strong>NB DON&#8217;T DELETE THE ONES IN /opt/vc/lib</strong></p>
+<strong>NB DON&#8217;T DELETE THE ONES IN /opt/vc/lib</strong> After creating symbolic links
+or deleting the new files you will need to run:</p>
+<div class="highlight-python"><pre>$ sudo ldconfig</pre>
+</div>
+<p>This issue is being looked into by the maintainers of Raspbian so,
+hopefully, it will be fixed in later releases.</p>
 </div></blockquote>
 </li>
 <li><p class="first">My RPi Crashes or reboots when I try and run a demo.</p>

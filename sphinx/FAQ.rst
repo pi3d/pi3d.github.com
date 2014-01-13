@@ -42,14 +42,19 @@ Frequently Asked Questions
       if other ones turn up i.e. /usr/lib/arm-linux-gnueabihf/libEGL.so.1
       you could try creating symbolic links for them all like this::
 
-        sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so
-        sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so.1
-        sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so
-        sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2
+        $ sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so
+        $ sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so.1
+        $ sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so
+        $ sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2
 
       Using the actual paths as listed by find. Or just delete them as I did
-      **NB DON'T DELETE THE ONES IN /opt/vc/lib**
+      **NB DON'T DELETE THE ONES IN /opt/vc/lib** After creating symbolic links
+      or deleting the new files you will need to run::
 
+        $ sudo ldconfig
+
+      This issue is being looked into by the maintainers of Raspbian so,
+      hopefully, it will be fixed in later releases.
 
 #.  My RPi Crashes or reboots when I try and run a demo.
 
