@@ -55,6 +55,35 @@
   <div class="section" id="frequently-asked-questions">
 <h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic">
+<li><p class="first">When starting any demo I get an AssertionError in DisplayOpenGL
+<tt class="docutils literal"><span class="pre">assert</span> <span class="pre">s</span> <span class="pre">&gt;=</span> <span class="pre">0</span></tt></p>
+<blockquote>
+<div><p>This is generally caused by the graphics memory allocation on the
+Raspberry Pi being too low (less than 32)</p>
+</div></blockquote>
+</li>
+<li><p class="first">When starting any demo I get an AssertionError in DisplayOpenGL
+<tt class="docutils literal"><span class="pre">assert</span> <span class="pre">self.surface</span> <span class="pre">!=</span> <span class="pre">EGL_NO_SURFACE</span></tt></p>
+<blockquote>
+<div><p>This is generally caused by the graphics memory allocation on the
+Raspberry Pi being too low (less than 64)</p>
+</div></blockquote>
+</li>
+<li><p class="first">When running ConferenceHall (or other program with a large number of
+textures) it appears to start ok then shuts down (byebye 3 message) just
+before the main display loop should appear.</p>
+<blockquote>
+<div><p>This is generally caused by the graphics memory allocation on the
+Raspberry Pi being too low (less than 128)</p>
+</div></blockquote>
+</li>
+<li><p class="first">When starting TigerTank, ConferenceHall or MarsStation demos I get an
+error <tt class="docutils literal"><span class="pre">_tkinter.TclError:</span> <span class="pre">couldn't</span> <span class="pre">connect</span> <span class="pre">to</span> <span class="pre">display</span> <span class="pre">&quot;:0&quot;</span></tt></p>
+<blockquote>
+<div><p>tkinter is trying to use a display provided by the X-server. Run
+startx from the command line.</p>
+</div></blockquote>
+</li>
 <li><p class="first">I am trying to install using PiStore but it&#8217;s been running for hours
 with no sign of completing.</p>
 <blockquote>
@@ -180,6 +209,12 @@ find what information is being returned by your input devices. In some
 circumstances you might need to modify the values returned by the
 <tt class="docutils literal"><span class="pre">pi3d/event/Event.py</span> <span class="pre">InputEvents</span></tt> methods. TODO at the moment this
 involves hacking the file but it will use a lookup table.</p>
+<p>When running on my laptop (lenovo T420, ubuntu 13.10), occasionally, the
+mouse doesn&#8217;t work with the <tt class="docutils literal"><span class="pre">event</span></tt> input, but starts to do after
+running <tt class="docutils literal"><span class="pre">demos/TestEvents.py</span></tt> and changing the number in
+<tt class="docutils literal"><span class="pre">get_mouse_movements()</span></tt> a few times. It&#8217;s not clear what causes this
+but it might be when the USB mouse is plugged in after the computer
+has been booted up.</p>
 </div></blockquote>
 </li>
 <li><p class="first">It appears from the demos that there are some arguments that are optional.
@@ -311,18 +346,6 @@ their locations on the pi. In programs such as blender it is also possible to
 use a more detailed (high polygon) model to create a &#8216;normal map&#8217; image
 that can be used to give surface detail to the model in pi3d. Quite
 technical but lots of instructional videos on youtube!</p>
-</div></blockquote>
-</li>
-<li><p class="first">I get error messages trying to install from PiStore?</p>
-<blockquote>
-<div><p>There was an issue with the early versions of PiStore which should
-be fixed if you update it. If you continue to have problems and you
-are somehow able to read this FAQ somewhere else you should be able
-to download a zipped file from <a class="reference external" href="http://pi3d.github.com">http://pi3d.github.com</a> There is also
-documentation and installation instructions on that webiste. Or almost
-as easy install git and use <tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/tipam/pi3d.git</span></tt>
-this will give you the opportunity to upgrade in the future with
-<tt class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">master</span></tt></p>
 </div></blockquote>
 </li>
 <li><p class="first">Can I use pi3d for 2D images?</p>

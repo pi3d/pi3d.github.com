@@ -752,13 +752,17 @@ i.e. [..(0,2),(2,1),(1.5,0)..] has a sharp corner at 2,1 and should be entered a
 <dt id="pi3d.shape.LodSprite.LodSprite">
 <em class="property">class </em><tt class="descclassname">pi3d.shape.LodSprite.</tt><tt class="descname">LodSprite</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>w=1.0</em>, <em>h=1.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=20.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>n=1</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/LodSprite.html#LodSprite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.LodSprite.LodSprite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></tt></a></p>
-<p>3d model inherits from Shape, differs from Plane in being single sided</p>
+<p>3d model inherits from Shape, differs from Plane in being single sided
+Also has the ability to divide into more triangle (than 2) to allow some
+post processing in the vertex shader</p>
 <p>Uses standard constructor for Shape. Extra Keyword arguments:</p>
 <dl class="docutils">
 <dt><em>w</em></dt>
 <dd>Width.</dd>
 <dt><em>h</em></dt>
 <dd>Height.</dd>
+<dt><em>n</em></dt>
+<dd>How many cells to divide the plane into</dd>
 </dl>
 <dl class="method">
 <dt id="pi3d.shape.LodSprite.LodSprite.repaint">

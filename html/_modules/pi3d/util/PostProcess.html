@@ -59,7 +59,8 @@
 <div class="viewcode-block" id="PostProcess"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PostProcess.PostProcess">[docs]</a><span class="k">class</span> <span class="nc">PostProcess</span><span class="p">(</span><span class="n">OffScreenTexture</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;For creating a an offscreen texture that can be redrawn using shaders</span>
 <span class="sd">  as required by the developer&quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="s">&quot;post_base&quot;</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">add_tex</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">divide</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="s">&quot;post_base&quot;</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">add_tex</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+              <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">divide</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; calls Texture.__init__ but doesn&#39;t need to set file name as</span>
 <span class="sd">    texture generated from the framebuffer. Keyword Arguments:</span>
 
@@ -74,15 +75,37 @@
 <span class="sd">      *add_tex*</span>
 <span class="sd">        list of textures. If additional textures can be used by the shader</span>
 <span class="sd">        then they can be added here.</span>
+<span class="sd">        </span>
+<span class="sd">      *scale*</span>
+<span class="sd">        will only render this proportion of the full screen which will</span>
+<span class="sd">        then be mapped to the full uv of the Sprite. The camera object</span>
+<span class="sd">        passed (below) will need to have the same scale set to avoid</span>
+<span class="sd">        perspective distortion</span>
+<span class="sd">        </span>
+<span class="sd">      *camera*</span>
+<span class="sd">        the camera to use for rendering to the offscreen texture</span>
+<span class="sd">        </span>
+<span class="sd">      *divide*</span>
+<span class="sd">        allow the sprite to be created with intermediate vertices to allow</span>
+<span class="sd">        interesting vertex shader effects</span>
 <span class="sd">     </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">PostProcess</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="s">&quot;postprocess&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
     <span class="c"># load shader</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
-    <span class="n">dummycam</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span> <span class="c"># in case this is prior to one being created </span>
+    <span class="k">if</span> <span class="n">camera</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">viewcam</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span> <span class="c"># in case this is prior to one being created</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">viewcam</span> <span class="o">=</span> <span class="n">camera</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">LodSprite</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">divide</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">set_2d_size</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="c"># ufact</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="c"># vfact</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="c"># uoffset</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="c"># voffset</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">blend</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span> <span class="o">=</span> <span class="n">mipmap</span>
@@ -96,11 +119,20 @@
 <span class="sd">    will obviously take a while to draw and re-draw</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">PostProcess</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>
+    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
+    <span class="n">xx</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+    <span class="n">ww</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span>
+    <span class="n">hh</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_SCISSOR_TEST</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glScissor</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">xx</span><span class="p">)),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">yy</span><span class="p">)),</span>
+                  <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ww</span><span class="p">)),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">hh</span><span class="p">)))</span>
 </div>
 <div class="viewcode-block" id="PostProcess.end_capture"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PostProcess.PostProcess.end_capture">[docs]</a>  <span class="k">def</span> <span class="nf">end_capture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; stop capturing to texture and resume normal rendering to default</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">PostProcess</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_end</span><span class="p">()</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glDisable</span><span class="p">(</span><span class="n">GL_SCISSOR_TEST</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="PostProcess.draw"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PostProcess.PostProcess.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unif_vals</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; draw the shape using the saved texture</span>

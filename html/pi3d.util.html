@@ -553,7 +553,7 @@ line of the texture contains metainformation about each character.</p>
 <span id="postprocess-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">PostProcess</span></tt> Module<a class="headerlink" href="#module-pi3d.util.PostProcess" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.PostProcess.PostProcess">
-<em class="property">class </em><tt class="descclassname">pi3d.util.PostProcess.</tt><tt class="descname">PostProcess</tt><big>(</big><em>shader='post_base'</em>, <em>mipmap=False</em>, <em>add_tex=None</em>, <em>divide=1</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.PostProcess.</tt><tt class="descname">PostProcess</tt><big>(</big><em>shader='post_base'</em>, <em>mipmap=False</em>, <em>add_tex=None</em>, <em>scale=1.0</em>, <em>camera=None</em>, <em>divide=1</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="pi3d.util.OffScreenTexture.OffScreenTexture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.OffScreenTexture.OffScreenTexture</span></tt></a></p>
 <p>For creating a an offscreen texture that can be redrawn using shaders
 as required by the developer</p>
@@ -570,6 +570,16 @@ project directory and modified as required.</dd>
 <dt><em>add_tex</em></dt>
 <dd>list of textures. If additional textures can be used by the shader
 then they can be added here.</dd>
+<dt><em>scale</em></dt>
+<dd>will only render this proportion of the full screen which will
+then be mapped to the full uv of the Sprite. The camera object
+passed (below) will need to have the same scale set to avoid
+perspective distortion</dd>
+<dt><em>camera</em></dt>
+<dd>the camera to use for rendering to the offscreen texture</dd>
+<dt><em>divide</em></dt>
+<dd>allow the sprite to be created with intermediate vertices to allow
+interesting vertex shader effects</dd>
 </dl>
 </div></blockquote>
 <dl class="method">

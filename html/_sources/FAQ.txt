@@ -2,6 +2,31 @@ Frequently Asked Questions
 ==========================
 
 
+#.  When starting any demo I get an AssertionError in DisplayOpenGL
+    ``assert s >= 0``
+
+      This is generally caused by the graphics memory allocation on the
+      Raspberry Pi being too low (less than 32)
+
+#.  When starting any demo I get an AssertionError in DisplayOpenGL
+    ``assert self.surface != EGL_NO_SURFACE``
+
+      This is generally caused by the graphics memory allocation on the
+      Raspberry Pi being too low (less than 64)
+
+#.  When running ConferenceHall (or other program with a large number of
+    textures) it appears to start ok then shuts down (byebye 3 message) just
+    before the main display loop should appear.
+
+      This is generally caused by the graphics memory allocation on the
+      Raspberry Pi being too low (less than 128)
+
+#.  When starting TigerTank, ConferenceHall or MarsStation demos I get an
+    error ``_tkinter.TclError: couldn't connect to display ":0"``
+
+      tkinter is trying to use a display provided by the X-server. Run
+      startx from the command line.
+
 #.  I am trying to install using PiStore but it's been running for hours
     with no sign of completing.
 
@@ -131,6 +156,13 @@ Frequently Asked Questions
       circumstances you might need to modify the values returned by the
       ``pi3d/event/Event.py InputEvents`` methods. TODO at the moment this
       involves hacking the file but it will use a lookup table.
+
+      When running on my laptop (lenovo T420, ubuntu 13.10), occasionally, the
+      mouse doesn't work with the ``event`` input, but starts to do after
+      running ``demos/TestEvents.py`` and changing the number in
+      ``get_mouse_movements()`` a few times. It's not clear what causes this
+      but it might be when the USB mouse is plugged in after the computer
+      has been booted up.
 
 #.  It appears from the demos that there are some arguments that are optional.
     For example, can a Shape be drawn without specifying a shader and a texture?
@@ -268,17 +300,6 @@ Frequently Asked Questions
       use a more detailed (high polygon) model to create a 'normal map' image
       that can be used to give surface detail to the model in pi3d. Quite
       technical but lots of instructional videos on youtube!
-
-#.  I get error messages trying to install from PiStore?
-
-      There was an issue with the early versions of PiStore which should
-      be fixed if you update it. If you continue to have problems and you
-      are somehow able to read this FAQ somewhere else you should be able
-      to download a zipped file from http://pi3d.github.com There is also
-      documentation and installation instructions on that webiste. Or almost
-      as easy install git and use ``git clone https://github.com/tipam/pi3d.git``
-      this will give you the opportunity to upgrade in the future with
-      ``git pull origin master``
 
 #.  Can I use pi3d for 2D images?
 
