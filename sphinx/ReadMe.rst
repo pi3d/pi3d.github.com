@@ -220,14 +220,16 @@ Setup on the Raspberry Pi
     If you later switch to Pillow you will need to sudo remove python-imaging
     first
 
-    [To run on Arch linux you will need to install::
+    To run on Arch linux you will need to install::
 
       pacman -S python2
-      pacman -S python-imaging
+      pacman -S python2-pillow
       pacman -S python2-numpy
 
-    this worked for me. Presumably you would need the pacman equivalent of
-    all the installations outlined above for Pillow and python_3]
+    this worked for me. You could install python2-imaging rather than pillow
+    but that's probably a retrograde step. The Arch repository doesn't seem
+    to have python3-pillow or python3-pip etc. See `FAQ`_ for a description
+    of all the steps to get a quick loading stand-alone pi3d SD card.
 
 Setup on alternative Linux platforms
 ====================================

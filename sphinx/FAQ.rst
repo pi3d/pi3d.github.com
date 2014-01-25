@@ -543,6 +543,98 @@ Frequently Asked Questions
 
       pi3d.Points can be used to render points using the mat_flat shader
 
+#.  How can I set up an SD card without all of Raspbian's clutter that will
+    boot quickly and allow me to run a dedicated pi3d application.
+
+      I decided that Arch would be tidiest for this as it will comfortably
+      fit onto 2GB SD and boots in a few seconds. These were the steps:
+
+      1.  download and unzip the image from
+      http://www.raspberrypi.org/downloads
+
+      2. follow the instructions from http://elinux.org/RPi_Easy_SD_Card_Setup
+      to get the image onto the SD card
+
+      3. put card in Pi and boot it up.
+      log in as ``root``, password ``root`` I didn't change these or set
+      up a normal user account with sudo etc. as the card will just be
+      used for running one application not connected to the net. You may
+      want to do otherwise in which case look at this
+      http://elinux.org/ArchLinux_Install_Guide
+
+      4.
+      ``# pacman-key --init``
+
+      4a.
+      <Alt><F2> ``# ls -R / && ls -R / && ls -R /``
+
+      4b. <Alt><F1> to get back to normal terminal, this is all to do with
+      generating entropy to get a random key (apparently).
+
+      5.
+      ``# pacman -Syu`` [update packages]
+
+      6.
+      ``# pacman -S python2``
+
+      7.
+      ``# pacman -S python2-numpy``
+
+      8.
+      ``# pacman -S python2-pillow``
+
+      9.
+      ``# pacman -S python2-pip``
+
+      10.
+      ``# pacman -S git``
+
+      11. ``# pip2 install pi3d --pre`` [the --pre flag tells it to install
+      even if pre-release version i.e. 1.7a]
+
+      12.
+      ``# cd /home/``
+
+      13. ``# git clone https://github.com/paddywwoof/sailsim.git`` [this would
+      be your actual repository, alternatively you could just copy the files
+      onto the SD card from a local machine]
+
+      if you need to access the RPi.GPIO
+      system from your application then you also need to
+
+      14.
+      ``# pacman -S gcc``
+
+      15.
+      ``# pip2 install RPi.GPIO``
+
+      if you want to make it a bit easier to start up the application
+      then you could make a little script file like this::
+
+        #!/bin/bash
+        cd /home/sailsim/
+        python2 sailsim.py
+
+      called ``sailsim`` and you then put that file in the /usr/bin/ directory
+      and make it executable ``# chmod +x sailsim`` then after logging in
+      you will just be able to type ``# sailsim`` and start the app.
+
+      I did managage to get the app to start 'automatically' *before* logging
+      in by adding the file below as /etc/systemd/system/start_sailsim.service ::
+
+        [Unit]
+        Description=Run sailsim on boot
+        After=network.target
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/bin/sailsim
+        [Install]
+        WantedBy=multi-user.target
+
+      Then run ``# systemctl enable start_sailsim.service`` However there
+      were unsatisfactory side effects to do with timing which meant I
+      could not use it in this way.
+      
 #.  Does pi3d work
     with pypy
 

@@ -280,13 +280,15 @@ terminal, type:</p>
 </div>
 <p>If you later switch to Pillow you will need to sudo remove python-imaging
 first</p>
-<p>[To run on Arch linux you will need to install:</p>
+<p>To run on Arch linux you will need to install:</p>
 <div class="highlight-python"><pre>pacman -S python2
-pacman -S python-imaging
+pacman -S python2-pillow
 pacman -S python2-numpy</pre>
 </div>
-<p>this worked for me. Presumably you would need the pacman equivalent of
-all the installations outlined above for Pillow and python_3]</p>
+<p>this worked for me. You could install python2-imaging rather than pillow
+but that&#8217;s probably a retrograde step. The Arch repository doesn&#8217;t seem
+to have python3-pillow or python3-pip etc. See <a class="reference external" href="FAQ.html">FAQ</a> for a description
+of all the steps to get a quick loading stand-alone pi3d SD card.</p>
 </li>
 </ol>
 </div>
