@@ -59,11 +59,11 @@
 <p>There&#8217;s plenty of 3D code flying around at the moment for the Raspberry Pi,
 but much of it is rather complicated to understand and most of it can sit
 under the bonnet!</p>
-<p>pi3d is a Python module that aims to greatly simplify writing 3D in Python
+<p>Pi3D is a Python module that aims to greatly simplify writing 3D in Python
 whilst giving access to the power of the Raspberry Pi GPU. It enables both
 3D and 2D rendering and aims to provide a host of exciting commands to load
 in textured/animated models, create fractal landscapes, shaders and much more.</p>
-<p>v1.7 release of the pi3d module adds support for
+<p>v1.7 release of the Pi3D module adds support for
 running on platforms other than the raspberry pi (X on linux) and runs with
 python 3 as well as 2 The OpenGLES2.0 functionality of the Raspberry Pi
 is used directly or via mesa on &#8216;big&#8217; machines. This makes it generally <em>faster</em>
@@ -254,12 +254,23 @@ or edit the config.txt file (in the boot directory) and set the variable
 <tt class="docutils literal"><span class="pre">gpu_mem=128</span></tt> for 128MB of graphics memory.</p>
 </li>
 <li><p class="first"><strong>Install Python Imaging</strong></p>
-<p>Before trying any of the demos or Pi3D, you must download the Python Imaging
-Library as this is needed for importing any graphics used by Pi3. The original
-Imaging library is no longer really maintained and doesn&#8217;t run on python_3.
-The better equivalent replacement is Pillow however a couple of issues
-relating to text vertical alignment will not be corrected until the Oct2013
-issue. To install Pillow you need to:</p>
+<p>Before trying any of the demos or Pi3D, you must download the Python
+Imaging Library as this is needed for importing any graphics used by
+Pi3D. The original Imaging library is no longer really maintained and
+doesn&#8217;t run on python_3. The better equivalent replacement is Pillow.
+To install Pillow you can get it from the raspbian jessie repository.
+This is the &#8216;trial&#8217; version of raspbian and to install packages from
+there you need to add an additional line to /etc/apt/sources.list:</p>
+<div class="highlight-python"><pre>deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi</pre>
+</div>
+<p>(i.e. the same as the existing line but with jessie for wheezy) then
+run:</p>
+<div class="highlight-python"><pre>sudo apt-get update
+sudo apt-get install python-pil
+   or
+sudo apt-get install python3-pil</pre>
+</div>
+<p>alternatively you need to:</p>
 <div class="highlight-python"><pre>sudo apt-get install python-dev python-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
 sudo apt-get install python-pip
 sudo pip install Pillow
@@ -273,8 +284,7 @@ and <tt class="docutils literal"><span class="pre">python3-setuptools</span></tt
 <div class="highlight-python"><pre>sudo apt-get install python3-pip
 sudo pip-3.2 install Pillow</pre>
 </div>
-<p>If you do not intend to run python_3 and need nicely aligned text
-strings over the short term you can install the old PIL:  on the
+<p>If you do not intend to run python_3 you can install the old PIL: in the
 terminal, type:</p>
 <div class="highlight-python"><pre>sudo apt-get install python-imaging</pre>
 </div>
@@ -288,7 +298,7 @@ pacman -S python2-numpy</pre>
 <p>this worked for me. You could install python2-imaging rather than pillow
 but that&#8217;s probably a retrograde step. The Arch repository doesn&#8217;t seem
 to have python3-pillow or python3-pip etc. See <a class="reference external" href="FAQ.html">FAQ</a> for a description
-of all the steps to get a quick loading stand-alone pi3d SD card.</p>
+of all the steps to get a quick loading stand-alone Pi3D SD card.</p>
 </li>
 </ol>
 </div>
@@ -327,7 +337,7 @@ and running Python scripts. Download and install it with:</p>
 <li><p class="first"><strong>Load and run</strong></p>
 <p>Either run from the terminal <tt class="docutils literal"><span class="pre">python3</span> <span class="pre">~/pi3d_demos/Minimal.py</span></tt> or
 load any of the demos into Geany and run (using the cogs icon). As a minimum,
-scripts need these elements in order to use the pi3d library:</p>
+scripts need these elements in order to use the Pi3D library:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pi3d</span>
 <span class="n">DISPLAY</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
 <span class="n">shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s">&quot;uv_flat&quot;</span><span class="p">)</span>
@@ -343,9 +353,9 @@ instance to get user input in order to stop the program!</p>
 </div>
 <div class="section" id="a-very-brief-explanation">
 <h1>A Very Brief Explanation<a class="headerlink" href="#a-very-brief-explanation" title="Permalink to this headline">¶</a></h1>
-<p>The whole idea of Pi3d is that you don&#8217;t have to get involved in too many of
+<p>The whole idea of Pi3D is that you don&#8217;t have to get involved in too many of
 the nuts and bolts of how the OpenGL graphics processor works however it might
-help to get an overview of the layout of Pi3d. More detailed explanations can
+help to get an overview of the layout of Pi3D. More detailed explanations can
 be found in the documentation of each of the modules. Read <a class="reference external" href="FAQ.html">FAQ</a> before
 you try anything ambitious or if anything goes wrong, obviously. There is a
 <a class="reference external" href="GPUexplain.html">3D Graphics Explanation</a> where I try to explain in some more detail what
@@ -356,7 +366,7 @@ to initiate the graphics functionality and for &#8216;central&#8217; information
 for the animation. There needs to be an instance of <a class="reference external" href="pi3d.html#pi3d.Display.Display">Display</a> in existence
 before some of the other objects are created so it&#8217;s a good idea to create one
 first job.</p>
-<p><strong>Shape</strong> <a class="reference external" href="pi3d.shape.html#module-pi3d.shape.Cone">All objects to be drawn by Pi3d</a> inherit from the <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> class which holds
+<p><strong>Shape</strong> <a class="reference external" href="pi3d.shape.html#module-pi3d.shape.Cone">All objects to be drawn by Pi3D</a> inherit from the <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> class which holds
 details of position, rotation, scale as well as specific data needed for
 drawing the shape. Each <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> contains an array of <a class="reference external" href="pi3d.html#pi3d.Buffer.Buffer">Buffer</a> objects; normally
 only containing one but there could be more in complicated models created
@@ -368,7 +378,7 @@ using a different image or shade (RGB) value and, if needed, a different <a clas
 <p><strong>Shader</strong> The <a class="reference external" href="pi3d.html#pi3d.Shader.Shader">Shader</a> class is used to compile <em>very fast</em> programs that are run on
 the graphics processor. They have two parts: <em>Vertex Shaders</em> that do calculation
 for each of the vertices of the <a class="reference external" href="pi3d.html#pi3d.Buffer.Buffer">Buffer</a> and <em>Fragment Shaders</em> applied to
-each pixel. In Pi3d we have kept the shaders out of the main python files
+each pixel. In Pi3D we have kept the shaders out of the main python files
 and divided them using the two extensions .vs and .fs The shader language
 is C like, very clever indeed, but rather hard to fathom out.</p>
 <p><strong>Camera</strong> In order to draw a <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> on the <a class="reference external" href="pi3d.html#pi3d.Display.Display">Display</a> the <a class="reference external" href="pi3d.html#pi3d.Shader.Shader">Shader</a> needs to be passed the
@@ -399,7 +409,7 @@ of this code to run using python 3:</p>
 </pre></div>
 </div>
 <p>Allows the demo files to be put in a subdirectory but still run. If you install
-pi3d using pip or <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> then you can take this out:</p>
+Pi3D using pip or <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> then you can take this out:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pi3d</span>
 </pre></div>
 </div>
