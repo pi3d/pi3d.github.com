@@ -924,7 +924,7 @@ inheriting from this filling buf with at least one element.</p>
 
 <dl class="method">
 <dt id="pi3d.Shape.Shape.draw">
-<tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.draw" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em>, <em>mlist=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>If called without parameters, there has to have been a previous call to
 set_draw_details() for each Buffer in buf[].
 NB there is no facility for setting umult and vmult with draw: they must be
@@ -1138,7 +1138,14 @@ i.e. 2d_flat, defocus etc</dd>
 <dl class="method">
 <dt id="pi3d.Shape.Shape.set_point_size">
 <tt class="descname">set_point_size</tt><big>(</big><em>point_size=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_point_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_point_size" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>if this is &gt; 0.0  the vertices will be drawn as points</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.add_child">
+<tt class="descname">add_child</tt><big>(</big><em>child</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.add_child"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.add_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>puts a Shape into the children list</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pi3d.Shape.Shape.x">

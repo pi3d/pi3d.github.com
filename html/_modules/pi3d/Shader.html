@@ -166,9 +166,10 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">attr_texcoord</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetAttribLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;texcoord&#39;</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glEnableVertexAttribArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_texcoord</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif_tex</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">texture</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;tex0&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;tex1&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;tex2&#39;</span><span class="p">]:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">unif_tex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">opengles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
       <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">      *NB*</span>
 <span class="sd">        for *uv* shaders tex0=texture tex1=normal map tex2=reflection</span>

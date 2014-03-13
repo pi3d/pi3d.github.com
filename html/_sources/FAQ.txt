@@ -691,4 +691,101 @@ Frequently Asked Questions
       you want to try pypy you will have to swap the two lines (search
       for pypy to find them)
 
+#.  How can I make my own EnvironmentCube images using pictures of my
+    garden or school playground?
+  
+      There are lots of ways of doing this and different software as well
+      as special cameras. However this is the method I have followed using
+      freely available software: gimp and blender (running on a 'normal'
+      computer rather than the pi at this stage).
+    
+      The first half of the job is to get a set of images into a 'seamless'
+      band. Obviously you need to have taken a set of pictures that overlap
+      25% to 50%. In gimp make a new image that is higher and wider than
+      you will need to paste all the images side by side. You will need to
+      have the same image repeated at the left end and the right end.
+    
+      Open each image in gimp then copy it, go to the new 'wide strip'
+      image and paste as new layer. Use the four headed arrow to position
+      each layer so it 'joins up'. When you put the duplicate left most
+      image at the right end you need to make sure that it is at exactly
+      the same vertical position as it is on the left.
+    
+      Working down from the top layer add layer masks (default white, full
+      opacity) then using gradient fill tool make the mask fade from
+      transparent to opaque across the overlapping portion. You might need
+      to slightly rotate some images to make them join up nicely from one
+      side to the other.
+
+      When it looks perfect (!) merge the layers down then crop the image
+      so there are no gaps at the top and bottom and so the left and right
+      edges join seamlessly. You will probably have to zoom to maximum and
+      choose an easily identifiable pixel. The rectangular selection tool
+      in gimp allows the edges to be dragged to fine tune it. Export the
+      image to jpg or png possibly after reducing to a reasonable size. Have
+      some suitable sky only image to patch into the top of the sphere you
+      will create in blender...
+
+      I used blender 2.69, it's not a trivial application if you've not used
+      it before and it might take a bit of effort to figure out what I'm
+      referring to [tab] means tab key, otherwise it's probably a menu
+      item or an icon in the right hand. Lots of youtube videos to look at.
+      In blender:
+
+      1. [del] delete the
+      startup cube
+      
+      2. ``Add Mesh UV Sphere``, on left tools
+      set ``Shading Smooth``
+      
+      3. [s] to scale up
+      to about 10x
+
+      4. [tab] to edit mode [a] to deselect all vertices. R-click on top
+      vertex the Ctrl-numpad+ to select vertices down to about 45 degrees
+      north (or use [b] and box select) [del] delete vertices. You should
+      now have a sphere with the top cut off
+
+      5. [tab] back to object mode then create another sphere at the same
+      location but scale it up very slightly bigger and chop off the bottom
+      but so they overlap just a little.
+
+      6. [tab] back to object mode then ``Add Empty Cube`` at the same location
+      (NB if you accidentally left click on the view window you will move
+      the starting point marker where new things appear). You should be able
+      to zoom in with the mouse wheel and see this cube inside the spheres.
+
+      7. still in object mode right click to select the bottom (inner and larger)
+      sphere. The edge should go yellow to indicate it's been selected.
+
+      8. on the right properties window click the Materials icon (CofG circle
+      4th from right), then + new.
+
+      9. then click the Textures icon (red/white check 3rd from right),
+      then + new, ``Type Image or movie``, ``Image New`` browse to the wide horizon
+      image you made, ``Mapping Projection Tube``
+
+      10. still in object mode right click on the top sphere, add material and
+      texture exactly as for the bottom sphere but select the patch of sky
+      image mentioned above and choose ``Mapping Projection Flat``
+
+      11. in object mode right click on the Empty Cube and add a new Texture (you
+      should see a reduced list of options so it's 2nd from right in the list)
+
+      12. select under ``Type Environment Map`` then under ``Environment Map Static``,
+      ``Mapping Cube`` and ``Viewpoint Object  Empty``
+
+      13. in the properties icons select render (camera left most) then under
+      Render press the render button. This should flash up a series of six
+      smaller images then go black!
+
+      14. re-select the Texture icon (all of these steps should have the Empty
+      Cube as the selected object) and the little down arrow under Environment
+      Map should produce a drop-down menu with an option to save the image.
+
+    The texture can then be used in pi3d with EnvironmentMap type BLENDER. However
+    there will be a sharp line where the edge of the bottom sphere fell. You can
+    smooth this out using clone, repair, blur and blend tools in gimp; be
+    careful not to blur the boundaries between the six images.
+
 .. _ReadMe: http://pi3d.github.com/html/index.html

@@ -112,6 +112,8 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">textures_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">vbufs_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ebufs_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">last_shader</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">last_textures</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span> <span class="c"># if more than 3 used this will break in Buffer.draw()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">external_mouse</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
