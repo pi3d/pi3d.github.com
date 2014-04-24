@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>shape Package &mdash; pi3d 1.7 documentation</title>
+    <title>shape Package &mdash; pi3d 1.8 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.7',
+        VERSION:     '1.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.7 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.8 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="next" title="sprite Package" href="pi3d.sprite.html" />
     <link rel="prev" title="loader Package" href="pi3d.loader.html" /> 
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.7 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 1.8 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" accesskey="U">pi3d Package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -907,6 +907,37 @@ so much quicker to create than reloading all the vertices etc</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-pi3d.shape.MultiSprite">
+<span id="multisprite-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">MultiSprite</span></tt> Module<a class="headerlink" href="#module-pi3d.shape.MultiSprite" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.shape.MultiSprite.MultiSprite">
+<em class="property">class </em><tt class="descclassname">pi3d.shape.MultiSprite.</tt><tt class="descname">MultiSprite</tt><big>(</big><em>textures</em>, <em>shader</em>, <em>camera=None</em>, <em>light=None</em>, <em>w=1.0</em>, <em>h=1.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=20.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/MultiSprite.html#MultiSprite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MultiSprite.MultiSprite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></tt></a></p>
+<p>3d model inherits from Shape, this is a series of Sprites
+edge to edge to allow larger images than the maximum size of 1920
+imposed by the Texture class</p>
+<p>Uses standard constructor for Shape. Arguments:
+<em>textures</em></p>
+<blockquote>
+<div><p>must be a two dimensional list of lists of textures or strings 
+(which must be the path/names of image files) The array runs left
+to right then down so six textures in spreadsheet notation would be</p>
+<p>[[R1C1, R1C2], [R2C1, R2C2], [R3C1, R3C2]]</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><em>shader</em></dt>
+<dd>shader to use</dd>
+</dl>
+<p>Extra keyword arguments:</p>
+<dl class="docutils">
+<dt><em>w</em></dt>
+<dd>Width.</dd>
+<dt><em>h</em></dt>
+<dd>Height.</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.shape.Plane">
 <span id="plane-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Plane</span></tt> Module<a class="headerlink" href="#module-pi3d.shape.Plane" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -947,7 +978,7 @@ so much quicker to create than reloading all the vertices etc</p>
 <span id="sphere-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Sphere</span></tt> Module<a class="headerlink" href="#module-pi3d.shape.Sphere" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Sphere.Sphere">
-<em class="property">class </em><tt class="descclassname">pi3d.shape.Sphere.</tt><tt class="descname">Sphere</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>radius=1</em>, <em>slices=12</em>, <em>sides=12</em>, <em>hemi=0.0</em>, <em>name=u''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/Sphere.html#Sphere"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Sphere.Sphere" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.shape.Sphere.</tt><tt class="descname">Sphere</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>radius=1</em>, <em>slices=12</em>, <em>sides=12</em>, <em>hemi=0.0</em>, <em>name=u''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>invert=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/Sphere.html#Sphere"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Sphere.Sphere" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></tt></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
@@ -960,6 +991,8 @@ so much quicker to create than reloading all the vertices etc</p>
 <dd>if set to 0.5 it will only construct the top half of sphere</dd>
 <dt><em>sides</em></dt>
 <dd>number of sides for Shape._lathe() to use</dd>
+<dt><em>invert</em></dt>
+<dd>normals will face inwards, Texture will need flip=True</dd>
 </dl>
 </dd></dl>
 
@@ -1135,6 +1168,7 @@ peak at 0.5, 0.86603 Keyword argument:</p>
 <li><a class="reference internal" href="#module-pi3d.shape.LodSprite"><tt class="docutils literal"><span class="pre">LodSprite</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.MergeShape"><tt class="docutils literal"><span class="pre">MergeShape</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Model"><tt class="docutils literal"><span class="pre">Model</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.MultiSprite"><tt class="docutils literal"><span class="pre">MultiSprite</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Plane"><tt class="docutils literal"><span class="pre">Plane</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Points"><tt class="docutils literal"><span class="pre">Points</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Sphere"><tt class="docutils literal"><span class="pre">Sphere</span></tt> Module</a></li>
@@ -1191,12 +1225,12 @@ peak at 0.5, 0.86603 Keyword argument:</p>
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.7 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 1.8 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" >pi3d Package</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2013, The pi3d team.
+        &copy; Copyright 2014, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
     </div>
   </body>

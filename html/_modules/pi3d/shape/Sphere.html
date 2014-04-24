@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.shape.Sphere &mdash; pi3d 1.7 documentation</title>
+    <title>pi3d.shape.Sphere &mdash; pi3d 1.8 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '1.7',
+        VERSION:     '1.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.7 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 1.8 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.7 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.8 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -60,7 +60,7 @@
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">light</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">slices</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">sides</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
                <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-               <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+               <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;uses standard constructor for Shape extra Keyword arguments:</span>
 
 <span class="sd">      *radius*</span>
@@ -71,6 +71,8 @@
 <span class="sd">        if set to 0.5 it will only construct the top half of sphere</span>
 <span class="sd">      *sides*</span>
 <span class="sd">        number of sides for Shape._lathe() to use</span>
+<span class="sd">      *invert*</span>
+<span class="sd">        normals will face inwards, Texture will need flip=True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Sphere</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>
                                 <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
@@ -79,10 +81,16 @@
       <span class="k">print</span><span class="p">(</span><span class="s">&quot;Creating sphere ...&quot;</span><span class="p">)</span>
 
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">st</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">hemi</span><span class="p">))</span> <span class="o">/</span> <span class="n">slices</span>
+    <span class="c">#extra points added at poles to reduce distortion (mainly normals)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="p">((</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="mf">0.002</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">hemi</span><span class="p">))</span> <span class="o">/</span> <span class="n">slices</span>
+    <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">radius</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">slices</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-      <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">Utility</span><span class="o">.</span><span class="n">from_polar_rad</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">st</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
-      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>  <span class="c"># TODO: why is the reversal here?</span>
+      <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">Utility</span><span class="o">.</span><span class="n">from_polar_rad</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">st</span> <span class="o">+</span> <span class="mf">0.001</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">Utility</span><span class="o">.</span><span class="n">from_polar_rad</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">st</span> <span class="o">+</span> <span class="mf">0.002</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+    <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">invert</span><span class="p">:</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">slices</span> <span class="o">=</span> <span class="n">slices</span>
@@ -124,12 +132,12 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.7 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.8 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2013, The pi3d team.
+        &copy; Copyright 2014, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
     </div>
   </body>

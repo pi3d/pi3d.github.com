@@ -117,6 +117,14 @@ hold the vertex information for drawing each of them.
     :undoc-members:
     :show-inheritance:
 
+:mod:`MultiSprite` Module
+-------------------------
+
+.. automodule:: pi3d.shape.MultiSprite
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`Plane` Module
 -------------------
 

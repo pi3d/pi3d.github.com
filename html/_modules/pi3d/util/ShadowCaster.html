@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.ShadowCaster &mdash; pi3d 1.7 documentation</title>
+    <title>pi3d.util.ShadowCaster &mdash; pi3d 1.8 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '1.7',
+        VERSION:     '1.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.7 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 1.8 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.7 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.8 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -69,7 +69,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">emap</span> <span class="o">=</span> <span class="n">emap</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">set_material</span><span class="p">((</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span> <span class="c"># hide bits below ground</span>
     <span class="c">#TODO doesn&#39;t cope with  z light positions</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">eye</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">500</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">light</span><span class="o">.</span><span class="n">lightpos</span><span class="p">]</span> <span class="c"># good distance away</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">eye</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">500.0</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">light</span><span class="o">.</span><span class="n">lightpos</span><span class="p">]</span> <span class="c"># good distance away</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># must have +ve y</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">500.0</span>
     <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span> <span class="c">#x val is bigger than z val</span>
@@ -81,9 +81,9 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">width</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">scalev</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">)</span><span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">depth</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="c">#orientation flag</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">53</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">su</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c">#height adjustment</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">53</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">su</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c">#height adjustment</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="c">#change scale so map just fits on screen</span>
       <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -93,9 +93,9 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">depth</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">scalev</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">)</span><span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">width</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">53</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">su</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">53</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">su</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">emap</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scaleu</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scalev</span><span class="p">):</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalev</span> <span class="c"># multiplication factor to reduce pixeliness</span>
     <span class="k">else</span><span class="p">:</span>
@@ -187,12 +187,12 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.7 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.8 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2013, The pi3d team.
+        &copy; Copyright 2014, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
     </div>
   </body>
