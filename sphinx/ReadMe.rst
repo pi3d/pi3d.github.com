@@ -162,8 +162,9 @@ Setup on the Raspberry Pi
 
       sudo pip install pi3d
     
-    Otherwise you can download from https://pypi.python.org/pypi/pi3d
-    and extract the package then in a terminal::
+    (or pip3 for use with python3) Otherwise you can download from
+    https://pypi.python.org/pypi/pi3d and extract the package then in a
+    terminal::
 
       sudo python setup.py install
 
@@ -222,10 +223,11 @@ Setup on the Raspberry Pi
     and ``python3-setuptools`` also pip is different::
 
       sudo apt-get install python3-pip
-      sudo pip-3.2 install Pillow
+      sudo pip3 install Pillow
 
-    If you do not intend to run python_3 you can install the old PIL: in the
-    terminal, type::
+    (used to be ``pip-3.2``, google for the latest botch!) If you do not
+    intend to run python_3 you can install the old PIL: in the terminal,
+    type::
 
       sudo apt-get install python-imaging
 

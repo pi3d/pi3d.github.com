@@ -232,8 +232,9 @@ this time  bouncing off each other on the desktop</p>
 type:</p>
 <div class="highlight-python"><pre>sudo pip install pi3d</pre>
 </div>
-<p>Otherwise you can download from <a class="reference external" href="https://pypi.python.org/pypi/pi3d">https://pypi.python.org/pypi/pi3d</a>
-and extract the package then in a terminal:</p>
+<p>(or pip3 for use with python3) Otherwise you can download from
+<a class="reference external" href="https://pypi.python.org/pypi/pi3d">https://pypi.python.org/pypi/pi3d</a> and extract the package then in a
+terminal:</p>
 <div class="highlight-python"><pre>sudo python setup.py install</pre>
 </div>
 <p>(or you may need to use python3) this will put the package into the
@@ -282,10 +283,11 @@ you will have to <tt class="docutils literal"><span class="pre">pip</span> <span
 libraries used by Pillow but you will need to swap to <tt class="docutils literal"><span class="pre">python3-dev</span></tt>
 and <tt class="docutils literal"><span class="pre">python3-setuptools</span></tt> also pip is different:</p>
 <div class="highlight-python"><pre>sudo apt-get install python3-pip
-sudo pip-3.2 install Pillow</pre>
+sudo pip3 install Pillow</pre>
 </div>
-<p>If you do not intend to run python_3 you can install the old PIL: in the
-terminal, type:</p>
+<p>(used to be <tt class="docutils literal"><span class="pre">pip-3.2</span></tt>, google for the latest botch!) If you do not
+intend to run python_3 you can install the old PIL: in the terminal,
+type:</p>
 <div class="highlight-python"><pre>sudo apt-get install python-imaging</pre>
 </div>
 <p>If you later switch to Pillow you will need to sudo remove python-imaging
