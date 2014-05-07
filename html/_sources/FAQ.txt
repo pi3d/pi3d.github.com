@@ -694,6 +694,9 @@ Frequently Asked Questions
 #.  How can I make my own EnvironmentCube images using pictures of my
     garden or school playground?
   
+      Option 1. Using an EnvironmentCube (as the question says) but see
+      below for using a Sphere, which is probably easier.
+      
       There are lots of ways of doing this and different software as well
       as special cameras. However this is the method I have followed using
       freely available software: gimp and blender (running on a 'normal'
@@ -783,9 +786,45 @@ Frequently Asked Questions
       Cube as the selected object) and the little down arrow under Environment
       Map should produce a drop-down menu with an option to save the image.
 
-    The texture can then be used in pi3d with EnvironmentMap type BLENDER. However
-    there will be a sharp line where the edge of the bottom sphere fell. You can
-    smooth this out using clone, repair, blur and blend tools in gimp; be
-    careful not to blur the boundaries between the six images.
+      The texture can then be used in pi3d with EnvironmentMap type BLENDER. However
+      there will be a sharp line where the edge of the bottom sphere fell. You can
+      smooth this out using clone, repair, blur and blend tools in gimp; be
+      careful not to blur the boundaries between the six images.
+    
+#.  How do I make an Environment Sphere (such as can use the Photo Sphere
+    images created by later versions of Android)
+    
+      First you need an image very much like the one outlined in the previous
+      question. If you have the software on your phone or tablet to do a
+      Photo Sphere that's going to be a lot easier but you can do something
+      similar with a series of panoramas as modern cameras can make. The
+      image needs to be twice as wide as it is high using a standard cylindrical 
+      projection http://en.wikipedia.org/wiki/Equirectangular_projection
+      
+      This image is used for a Texture uv mapped to a standard pi3d.Sphere
+      but the Texture needs to have the argument ``flip=True`` and the Sphere
+      needs the argument ``invert=True``
+      
+#.  How can I speed up loading Models. Even quite low polygon counts
+    seem to take ages on the Raspberry Pi
+    
+      Thanks to Avishay https://github.com/avishorp it is possible to use 
+      the python pickle functionality to serialise pi3d Shapes including
+      Model. [develop branch as at 2014-05-07]
+      
+      There is an example on github.com/pi3d/pi3d_demos
+      LoadModelPickle.py which shows the process but basically:
+      
+        load the models once normally, create a file (has to be 
+        binary for python3) to write to, then ``pickle.dump(mymodel, f)``
+        
+        subsequently open the file to read from and ``mymodel = pickle.read(f)``
+        the loaded file will have any required Textures included automatically
+        including bump and reflection maps. However the shader will still
+        need to be set with ``set_shader()``
+        
+      Loading from a pickle file is significantly faster than parsing a
+      wavefront obj file but (because of the less efficient image compression)
+      the disk space used will be much higher.
 
 .. _ReadMe: http://pi3d.github.com/html/index.html

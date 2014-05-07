@@ -96,16 +96,21 @@
       <span class="k">print</span><span class="p">(</span><span class="s">&quot;... Map size can&#39;t be bigger than 200x200 divisions&quot;</span><span class="p">)</span>
       <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
       <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
-    <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">mapfile</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)):</span> <span class="c">#HORRIBLE. Only way to cope with python2v3</span>
-      <span class="k">if</span> <span class="n">mapfile</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;/&#39;</span><span class="p">:</span>
-        <span class="n">mapfile</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span>
-      <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Loading height map ...&quot;</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">mapfile</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">))</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">if</span> <span class="s">&#39;&#39;</span> <span class="o">+</span> <span class="n">mapfile</span> <span class="o">==</span> <span class="n">mapfile</span><span class="p">:</span> <span class="c">#HORRIBLE. Only way to cope with python2v3</span>
+        <span class="k">if</span> <span class="n">mapfile</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;/&#39;</span><span class="p">:</span>
+          <span class="n">mapfile</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span>
+        <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
+          <span class="k">print</span><span class="p">(</span><span class="s">&quot;Loading height map ...&quot;</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">)</span>
 
-      <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)</span>
-      <span class="n">im</span> <span class="o">=</span> <span class="n">ImageOps</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="n">im</span> <span class="o">=</span> <span class="n">mapfile</span> <span class="c">#allow image files to be passed as mapfile</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ImageOps</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">mapfile</span> <span class="c">#allow image files to be passed as mapfile</span>
+    <span class="k">except</span><span class="p">:</span>
+      <span class="n">im</span> <span class="o">=</span> <span class="n">mapfile</span>
     <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">ix</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
       <span class="k">if</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -436,7 +441,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2014, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

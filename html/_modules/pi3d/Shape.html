@@ -51,7 +51,7 @@
 
 <span class="kn">import</span> <span class="nn">ctypes</span>
 
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">savez</span><span class="p">,</span> <span class="n">load</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">radians</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
@@ -121,7 +121,23 @@
 <span class="sd">      18  custom data space                           54  56</span>
 <span class="sd">      19  custom data space                           57  59</span>
 <span class="sd">    ===== ========================================== ==== ==</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[]</span>
 
+    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="sd">&quot;&quot;&quot;self.buf contains a buffer for each part of this shape that needs</span>
+<span class="sd">    rendering with a different Shader/Texture. self.draw() relies on objects</span>
+<span class="sd">    inheriting from this filling buf with at least one element.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="n">camera</span>
+    
+    <span class="bp">self</span><span class="o">.</span><span class="n">__init_matrices</span><span class="p">()</span>
+
+  <span class="k">def</span> <span class="nf">__init_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Shape holds matrices that are updated each time it is moved or rotated</span>
 <span class="sd">    this saves time recalculating them each frame as the Shape is drawn</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -164,17 +180,6 @@
                             <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
                             <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="n">camera</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="sd">&quot;&quot;&quot;self.buf contains a buffer for each part of this shape that needs</span>
-<span class="sd">    rendering with a different Shader/Texture. self.draw() relies on objects</span>
-<span class="sd">    inheriting from this filling buf with at least one element.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="Shape.draw"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">txtrs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mlist</span><span class="o">=</span><span class="p">[]):</span>
     <span class="sd">&quot;&quot;&quot;If called without parameters, there has to have been a previous call to</span>
@@ -731,8 +736,31 @@
       <span class="n">opx</span> <span class="o">=</span> <span class="n">px</span>
       <span class="n">opy</span> <span class="o">=</span> <span class="n">py</span>
 
-    <span class="k">return</span> <span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verts</span><span class="p">,</span> <span class="n">tex_coords</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">norms</span><span class="p">)</span></div>
-</pre></div>
+    <span class="k">return</span> <span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verts</span><span class="p">,</span> <span class="n">tex_coords</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">norms</span><span class="p">)</span>
+  
+  <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="s">&#39;unif&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">),</span>
+      <span class="s">&#39;childModel&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">childModel</span><span class="p">,</span>
+      <span class="s">&#39;children&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">,</span>
+      <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+      <span class="s">&#39;buf&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">,</span>
+      <span class="s">&#39;textures&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures</span>
+      <span class="p">}</span>
+  
+  <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+    <span class="n">unif_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s">&#39;unif&#39;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)(</span><span class="o">*</span><span class="n">unif_tuple</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">childModel</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;childModel&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;children&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;buf&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;textures&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">disk_loaded</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__init_matrices</span><span class="p">()</span>
+</pre></div></div>
 
           </div>
         </div>
@@ -771,7 +799,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2014, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

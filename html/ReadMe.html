@@ -230,12 +230,14 @@ this time  bouncing off each other on the desktop</p>
 <li><p class="first"><strong>Download, Extract and install</strong></p>
 <p>If you have pip installed you should be able to open a terminal and
 type:</p>
-<div class="highlight-python"><pre>sudo pip install pi3d</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo pip install pi3d
+</pre></div>
 </div>
 <p>(or pip3 for use with python3) Otherwise you can download from
 <a class="reference external" href="https://pypi.python.org/pypi/pi3d">https://pypi.python.org/pypi/pi3d</a> and extract the package then in a
 terminal:</p>
-<div class="highlight-python"><pre>sudo python setup.py install</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo python setup.py install
+</pre></div>
 </div>
 <p>(or you may need to use python3) this will put the package into the
 relevant location on your device (for instance
@@ -262,40 +264,46 @@ doesn&#8217;t run on python_3. The better equivalent replacement is Pillow.
 To install Pillow you can get it from the raspbian jessie repository.
 This is the &#8216;trial&#8217; version of raspbian and to install packages from
 there you need to add an additional line to /etc/apt/sources.list:</p>
-<div class="highlight-python"><pre>deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi</pre>
+<div class="highlight-python"><div class="highlight"><pre>deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi
+</pre></div>
 </div>
 <p>(i.e. the same as the existing line but with jessie for wheezy) then
 run:</p>
-<div class="highlight-python"><pre>sudo apt-get update
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get update
 sudo apt-get install python-pil
    or
-sudo apt-get install python3-pil</pre>
+sudo apt-get install python3-pil
+</pre></div>
 </div>
 <p>alternatively you need to:</p>
-<div class="highlight-python"><pre>sudo apt-get install python-dev python-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-dev python-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
 sudo apt-get install python-pip
 sudo pip install Pillow
-...</pre>
+...
+</pre></div>
 </div>
 <p>If you miss any of the dependent libraries and need to add them later
 you will have to <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">uninstall</span></tt> then re <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></tt></p>
 <p>For python_3 support the first above will provide the required graphics
 libraries used by Pillow but you will need to swap to <tt class="docutils literal"><span class="pre">python3-dev</span></tt>
 and <tt class="docutils literal"><span class="pre">python3-setuptools</span></tt> also pip is different:</p>
-<div class="highlight-python"><pre>sudo apt-get install python3-pip
-sudo pip3 install Pillow</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python3-pip
+sudo pip3 install Pillow
+</pre></div>
 </div>
 <p>(used to be <tt class="docutils literal"><span class="pre">pip-3.2</span></tt>, google for the latest botch!) If you do not
 intend to run python_3 you can install the old PIL: in the terminal,
 type:</p>
-<div class="highlight-python"><pre>sudo apt-get install python-imaging</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-imaging
+</pre></div>
 </div>
 <p>If you later switch to Pillow you will need to sudo remove python-imaging
 first</p>
 <p>To run on Arch linux you will need to install:</p>
-<div class="highlight-python"><pre>pacman -S python2
+<div class="highlight-python"><div class="highlight"><pre>pacman -S python2
 pacman -S python2-pillow
-pacman -S python2-numpy</pre>
+pacman -S python2-numpy
+</pre></div>
 </div>
 <p>this worked for me. You could install python2-imaging rather than pillow
 but that&#8217;s probably a retrograde step. The Arch repository doesn&#8217;t seem
@@ -311,7 +319,8 @@ of all the steps to get a quick loading stand-alone Pi3D SD card.</p>
 it will need to have python installed. If the Linux is running in vmware
 you will need to &#8216;enable 3d acceleration&#8217;. You need to install libraries
 that emulate OpenGLES behaviour for the gpu:</p>
-<div class="highlight-python"><pre>sudo apt-get install mesa-utils-extra</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install mesa-utils-extra
+</pre></div>
 </div>
 <p>This should install libEGL.so.1 and libGLESv2.so.2 if these change
 (which I suppose they could in time) then the references will need to
@@ -328,12 +337,14 @@ are more likely to need to manually install python-numpy or python3-numpy</p>
 <p>Although you can use any editor and run the scripts in a terminal using python,
 Geany is by far the easiest and most compatible application to use for creating
 and running Python scripts. Download and install it with:</p>
-<div class="highlight-python"><pre>sudo apt-get install geany xterm</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install geany xterm
+</pre></div>
 </div>
 </li>
 <li><p class="first"><strong>Optionally, install tk.</strong></p>
 <p>Some of the demos require the tk graphics toolkit.  To download and install it:</p>
-<div class="highlight-python"><pre>sudo apt-get install tk</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install tk
+</pre></div>
 </div>
 </li>
 <li><p class="first"><strong>Load and run</strong></p>
@@ -519,7 +530,7 @@ David Wallin and others who have contributed to Pi3D - keep up the good work!</p
     </div>
     <div class="footer">
         &copy; Copyright 2014, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

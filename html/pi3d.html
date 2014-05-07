@@ -686,17 +686,15 @@ determine the strength of the reflection.</li>
 <p>The reason for using a host of different shaders rather than one that can
 do everything is that &#8216;if&#8217; statements within the shader language are <strong>very</strong>
 time consuming.</p>
+<p>Arguments:
+<em>shfile</em></p>
+<blockquote>
+<div>Pathname without vs or fs ending i.e. &#8220;shaders/uv_light&#8221;</div></blockquote>
 <dl class="docutils">
-<dt>Arguments:</dt>
-<dd><dl class="first last docutils">
-<dt><em>shfile</em></dt>
-<dd>Pathname without vs or fs ending i.e. &#8220;shaders/uv_light&#8221;</dd>
 <dt><em>vshader_source</em></dt>
 <dd>String with the code for the vertex shader.</dd>
 <dt><em>vshader_source</em></dt>
 <dd>String with the code for the fragment shader.</dd>
-</dl>
-</dd>
 </dl>
 <dl class="method">
 <dt id="pi3d.Shader.Shader.use">
@@ -731,11 +729,11 @@ time consuming.</p>
 <em class="property">class </em><tt class="descclassname">pi3d.Shape.</tt><tt class="descname">Shape</tt><big>(</big><em>camera</em>, <em>light</em>, <em>name</em>, <em>x</em>, <em>y</em>, <em>z</em>, <em>rx</em>, <em>ry</em>, <em>rz</em>, <em>sx</em>, <em>sy</em>, <em>sz</em>, <em>cx</em>, <em>cy</em>, <em>cz</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Loadable.Loadable</span></tt></a></p>
 <p>inherited by all shape objects, including simple 2D sprite types</p>
+<p>Arguments:
+<em>light</em></p>
+<blockquote>
+<div>Light instance: if None then Light.instance() will be used.</div></blockquote>
 <dl class="docutils">
-<dt>Arguments:</dt>
-<dd><dl class="first last docutils">
-<dt><em>light</em></dt>
-<dd>Light instance: if None then Light.instance() will be used.</dd>
 <dt><em>name</em></dt>
 <dd>Name string for identification.</dd>
 <dt><em>x, y, z</em></dt>
@@ -746,8 +744,6 @@ time consuming.</p>
 <dd>Scale in each direction.</dd>
 <dt><em>cx, cy, cz</em></dt>
 <dd>Offset vertices from origin in each direction.</dd>
-</dl>
-</dd>
 </dl>
 <dl class="attribute">
 <dt id="pi3d.Shape.Shape.unif">
@@ -874,44 +870,6 @@ time consuming.</p>
 </tr>
 </tbody>
 </table>
-<p>Shape holds matrices that are updated each time it is moved or rotated
-this saves time recalculating them each frame as the Shape is drawn</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.tr1">
-<tt class="descname">tr1</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.tr1" title="Permalink to this definition">¶</a></dt>
-<dd><p>translate to position - offset</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.rox">
-<tt class="descname">rox</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.rox" title="Permalink to this definition">¶</a></dt>
-<dd><p>rotate about x axis</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.roy">
-<tt class="descname">roy</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.roy" title="Permalink to this definition">¶</a></dt>
-<dd><p>rotate about y axis</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.roz">
-<tt class="descname">roz</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.roz" title="Permalink to this definition">¶</a></dt>
-<dd><p>rotate about z axis</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.scl">
-<tt class="descname">scl</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.scl" title="Permalink to this definition">¶</a></dt>
-<dd><p>scale</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pi3d.Shape.Shape.tr2">
-<tt class="descname">tr2</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Shape.Shape.tr2" title="Permalink to this definition">¶</a></dt>
-<dd><p>translate to offset</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1357,11 +1315,11 @@ are certain sizes (below). <strong>If the image width is a value not in this
 list then it will be rescaled with a resulting loss of clarity</strong></p>
 <p>Allowed widths 4, 8, 16, 32, 48, 64, 72, 96, 128, 144, 192, 256, 288,
 384, 512, 576, 640, 720, 768, 800, 960, 1024, 1080, 1920</p>
+<p>Arguments:
+<em>file_string</em></p>
+<blockquote>
+<div>path and name of image file relative to top dir</div></blockquote>
 <dl class="docutils">
-<dt>Arguments:</dt>
-<dd><dl class="first last docutils">
-<dt><em>file_string</em></dt>
-<dd>path and name of image file relative to top dir</dd>
 <dt><em>blend</em></dt>
 <dd>controls if low alpha pixels are discarded (if False) or drawn
 by the shader. If set to true then this texture needs to be
@@ -1380,8 +1338,6 @@ ation of images. <strong>NB BECAUSE THIS BEHAVIOUR IS SET GLOBALLY AT
 THE TIME THAT THE TEXTURE IS LOADED IT WILL BE SET BY THE LAST
 TEXTURE TO BE LOADED PRIOR TO DRAWING</strong>
 TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
-</dl>
-</dd>
 </dl>
 <dl class="method">
 <dt id="pi3d.Texture.Texture.tex">
@@ -1488,7 +1444,7 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.ShadowCaster"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#tkwin-module"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
 </ul>
 </li>
@@ -1516,9 +1472,7 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 <li><a class="reference internal" href="#module-pi3d.Shader"><tt class="docutils literal"><span class="pre">Shader</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.Shape"><tt class="docutils literal"><span class="pre">Shape</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.Texture"><tt class="docutils literal"><span class="pre">Texture</span></tt> Module</a></li>
-<li><a class="reference internal" href="#subpackages">Subpackages</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 </ul>
 </li>
 </ul>
@@ -1571,7 +1525,7 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
     </div>
     <div class="footer">
         &copy; Copyright 2014, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

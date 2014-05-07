@@ -117,21 +117,24 @@ files.)</p>
 <div><p>The chances are this is because &#8216;something&#8217; (such as gedit) has installed
 mesa which added its own versions of libEGL and libGLESv2. If
 you run:</p>
-<div class="highlight-python"><pre>$ sudo find / -name libEGL*
-$ sudo find / -name libGLESv2*</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo find / -name libEGL*
+$ sudo find / -name libGLESv2*
+</pre></div>
 </div>
 <p>you should just get /opt/vc/lib/libEGL.so and /opt/vc/lib/libGLESv2.so
 if other ones turn up i.e. /usr/lib/arm-linux-gnueabihf/libEGL.so.1
 you could try creating symbolic links for them all like this:</p>
-<div class="highlight-python"><pre>$ sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so
+<div class="highlight-python"><div class="highlight"><pre>$ sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so
 $ sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so.1
 $ sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so
-$ sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2</pre>
+$ sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2
+</pre></div>
 </div>
 <p>Using the actual paths as listed by find. Or just delete them as I did
 <strong>NB DON&#8217;T DELETE THE ONES IN /opt/vc/lib</strong> After creating symbolic links
 or deleting the new files you will need to run:</p>
-<div class="highlight-python"><pre>$ sudo ldconfig</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo ldconfig
+</pre></div>
 </div>
 <p>This issue is being looked into by the maintainers of Raspbian so,
 hopefully, it will be fixed in later releases.</p>
@@ -251,11 +254,12 @@ at draw time:</p>
 <p>For Model objects the ambient texture or material shade will normally
 be defined in the 3D object file (egg or obj/mtl) In these cases
 you could use:</p>
-<div class="highlight-python"><pre>myshape.set_shader(myshader)
+<div class="highlight-python"><div class="highlight"><pre>myshape.set_shader(myshader)
 ...
 myshape.set_normal_shine(normtex, ntiles..) # leaves the first texture if there
 ...
-myshape.set_material(mtrl)</pre>
+myshape.set_material(mtrl)
+</pre></div>
 </div>
 </div></blockquote>
 </div></blockquote>
@@ -307,8 +311,9 @@ application?</p>
 sometimes you may need to use a different InputEvents method, for instance
 with an xbox 360 you get the left joystick from <tt class="docutils literal"><span class="pre">get_joystickB3d()</span></tt>
 Also you would need to install the driver and start it running first:</p>
-<div class="highlight-python"><pre>sudo apt-get install xboxdrv
-sudo xboxdrv -s -i 0</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install xboxdrv
+sudo xboxdrv -s -i 0
+</pre></div>
 </div>
 </div></blockquote>
 </li>
@@ -317,7 +322,7 @@ sudo xboxdrv -s -i 0</pre>
 <div><p>You will need to &#8216;make&#8217; one on a bigger computer using 3D software such
 as <tt class="docutils literal"><span class="pre">blender</span></tt>. This falls outside the scope of this FAQ but your best
 option is to export the model as an obj file. In Bl2.6 options I specify:</p>
-<div class="highlight-python"><pre>Apply Modifiers (default)
+<div class="highlight-python"><div class="highlight"><pre>Apply Modifiers (default)
 Include Edges (default)
 Include Normals (tick this) &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; *
 Include UVs (default but see below)
@@ -328,7 +333,8 @@ Forward -Z Forward (default)
 Up Y Up (default)
 these last two will mean that..
 Blender.x=&gt;pi3d.x, Blender.y=&gt;pi3d.z, Blender.z=&gt;pi3d.y with no reflection
-of whatever you design</pre>
+of whatever you design
+</pre></div>
 </div>
 <p><tt class="docutils literal"><span class="pre">*</span></tt> If you export without getting blender to Include Normals then pi3d
 will have to generate them when the model is loaded. This is not a
@@ -505,7 +511,8 @@ graphics card. <tt class="docutils literal"><span class="pre">lspci</span> <span
 </li>
 <li><p class="first">Some of the demos on a non-raspberry pi Linux machine work fine but
 other don&#8217;t run and give an error:</p>
-<div class="highlight-python"><pre>IOError: [Errno 13] Permission denied: u'/dev/input/mice'</pre>
+<div class="highlight-python"><div class="highlight"><pre>IOError: [Errno 13] Permission denied: u&#39;/dev/input/mice&#39;
+</pre></div>
 </div>
 <p>what is the
 cause of this</p>
@@ -643,23 +650,25 @@ system from your application then you also need to</p>
 <tt class="docutils literal"><span class="pre">#</span> <span class="pre">pip2</span> <span class="pre">install</span> <span class="pre">RPi.GPIO</span></tt></p>
 <p>if you want to make it a bit easier to start up the application
 then you could make a little script file like this:</p>
-<div class="highlight-python"><pre>#!/bin/bash
+<div class="highlight-python"><div class="highlight"><pre>#!/bin/bash
 cd /home/sailsim/
-python2 sailsim.py</pre>
+python2 sailsim.py
+</pre></div>
 </div>
 <p>called <tt class="docutils literal"><span class="pre">sailsim</span></tt> and you then put that file in the /usr/bin/ directory
 and make it executable <tt class="docutils literal"><span class="pre">#</span> <span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">sailsim</span></tt> then after logging in
 you will just be able to type <tt class="docutils literal"><span class="pre">#</span> <span class="pre">sailsim</span></tt> and start the app.</p>
 <p>I did managage to get the app to start &#8216;automatically&#8217; <em>before</em> logging
 in by adding the file below as /etc/systemd/system/start_sailsim.service</p>
-<div class="highlight-python"><pre>[Unit]
+<div class="highlight-python"><div class="highlight"><pre>[Unit]
 Description=Run sailsim on boot
 After=network.target
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/sailsim
 [Install]
-WantedBy=multi-user.target</pre>
+WantedBy=multi-user.target
+</pre></div>
 </div>
 <p>Then run <tt class="docutils literal"><span class="pre">#</span> <span class="pre">systemctl</span> <span class="pre">enable</span> <span class="pre">start_sailsim.service</span></tt> However there
 were unsatisfactory side effects to do with timing which meant I
@@ -678,28 +687,33 @@ for your machine (Ubuntu, raspbian etc) extract it into a new directory
 i.e. /home/me/pypy-2.2.1-linux64</p>
 <p>2. in a
 terminal:</p>
-<div class="highlight-python"><pre>sudo apt-get install pypy-dev</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install pypy-dev
+</pre></div>
 </div>
 <p>3. download and install pypy-numpy so it&#8217;s also in a subdirectory
 of pypy-x.x.x-etc I did this cd to that directory then using:</p>
-<div class="highlight-python"><pre>git clone https://bitbucket.org/pypy/numpy.git
+<div class="highlight-python"><div class="highlight"><pre>git clone https://bitbucket.org/pypy/numpy.git
 cd numpy
-sudo ../bin/pypy setup.py install</pre>
+sudo ../bin/pypy setup.py install
+</pre></div>
 </div>
 <p>4.* download Pillow from <a class="reference external" href="https://pypi.python.org/pypi/Pillow">https://pypi.python.org/pypi/Pillow</a> and
 extract it into its own subdirectory of pypy-x.x.x-etc i.e.
 /home/me/pypy-2.2.1-linux64/Pillow-2.2.1</p>
 <p>5.* download <a class="reference external" href="http://python-distribute.org/distribute_setup.py">http://python-distribute.org/distribute_setup.py</a> to
 pypy-x.x.x-etc/bin and run it:</p>
-<div class="highlight-python"><pre>sudo ./pypy distribute_setup.py</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo ./pypy distribute_setup.py
+</pre></div>
 </div>
 <p>6.* either cd to pypy-x.x.x-etc/bin
 and run:</p>
-<div class="highlight-python"><pre>sudo ./easy_install Pillow</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo ./easy_install Pillow
+</pre></div>
 </div>
 <p>7.* or cd to the Pillow-x.x directory
 and run:</p>
-<div class="highlight-python"><pre>sudo ../bin/pypy setup.py install</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo ../bin/pypy setup.py install
+</pre></div>
 </div>
 <p>I did different permutations of these things but confused myself as
 to which I was &#8216;really&#8217; doing (by occasionally forgetting to type
@@ -717,7 +731,9 @@ for pypy to find them)</p>
 <li><p class="first">How can I make my own EnvironmentCube images using pictures of my
 garden or school playground?</p>
 <blockquote>
-<div><p>There are lots of ways of doing this and different software as well
+<div><p>Option 1. Using an EnvironmentCube (as the question says) but see
+below for using a Sphere, which is probably easier.</p>
+<p>There are lots of ways of doing this and different software as well
 as special cameras. However this is the method I have followed using
 freely available software: gimp and blender (running on a &#8216;normal&#8217;
 computer rather than the pi at this stage).</p>
@@ -786,11 +802,46 @@ smaller images then go black!</p>
 <p>14. re-select the Texture icon (all of these steps should have the Empty
 Cube as the selected object) and the little down arrow under Environment
 Map should produce a drop-down menu with an option to save the image.</p>
-</div></blockquote>
 <p>The texture can then be used in pi3d with EnvironmentMap type BLENDER. However
 there will be a sharp line where the edge of the bottom sphere fell. You can
 smooth this out using clone, repair, blur and blend tools in gimp; be
 careful not to blur the boundaries between the six images.</p>
+</div></blockquote>
+</li>
+<li><p class="first">How do I make an Environment Sphere (such as can use the Photo Sphere
+images created by later versions of Android)</p>
+<blockquote>
+<div><p>First you need an image very much like the one outlined in the previous
+question. If you have the software on your phone or tablet to do a
+Photo Sphere that&#8217;s going to be a lot easier but you can do something
+similar with a series of panoramas as modern cameras can make. The
+image needs to be twice as wide as it is high using a standard cylindrical
+projection <a class="reference external" href="http://en.wikipedia.org/wiki/Equirectangular_projection">http://en.wikipedia.org/wiki/Equirectangular_projection</a></p>
+<p>This image is used for a Texture uv mapped to a standard pi3d.Sphere
+but the Texture needs to have the argument <tt class="docutils literal"><span class="pre">flip=True</span></tt> and the Sphere
+needs the argument <tt class="docutils literal"><span class="pre">invert=True</span></tt></p>
+</div></blockquote>
+</li>
+<li><p class="first">How can I speed up loading Models. Even quite low polygon counts
+seem to take ages on the Raspberry Pi</p>
+<blockquote>
+<div><p>Thanks to Avishay <a class="reference external" href="https://github.com/avishorp">https://github.com/avishorp</a> it is possible to use
+the python pickle functionality to serialise pi3d Shapes including
+Model. [develop branch as at 2014-05-07]</p>
+<p>There is an example on github.com/pi3d/pi3d_demos
+LoadModelPickle.py which shows the process but basically:</p>
+<blockquote>
+<div><p>load the models once normally, create a file (has to be
+binary for python3) to write to, then <tt class="docutils literal"><span class="pre">pickle.dump(mymodel,</span> <span class="pre">f)</span></tt></p>
+<p>subsequently open the file to read from and <tt class="docutils literal"><span class="pre">mymodel</span> <span class="pre">=</span> <span class="pre">pickle.read(f)</span></tt>
+the loaded file will have any required Textures included automatically
+including bump and reflection maps. However the shader will still
+need to be set with <tt class="docutils literal"><span class="pre">set_shader()</span></tt></p>
+</div></blockquote>
+<p>Loading from a pickle file is significantly faster than parsing a
+wavefront obj file but (because of the less efficient image compression)
+the disk space used will be much higher.</p>
+</div></blockquote>
 </li>
 </ol>
 </div>
@@ -849,7 +900,7 @@ careful not to blur the boundaries between the six images.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2014, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

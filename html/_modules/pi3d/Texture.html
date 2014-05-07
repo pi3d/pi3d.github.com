@@ -120,6 +120,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span> <span class="o">=</span> <span class="n">mipmap</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">byte_size</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="k">if</span> <span class="n">defer</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">load_disk</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
@@ -145,6 +146,11 @@
 <span class="sd">    Pngfont, Font, Defocus and ShadowCaster inherit from Texture but</span>
 <span class="sd">    don&#39;t do all this so have to override this</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c"># If already loaded, abort</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
+      <span class="k">return</span>
+
     <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">+</span> <span class="s">&#39; &#39;</span>
     <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">)</span>
 
@@ -182,6 +188,8 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
     <span class="k">if</span> <span class="s">&#39;fonts/&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">im</span>
+      
+    <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="bp">True</span>
 
   <span class="k">def</span> <span class="nf">_load_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;overrides method of Loadable&quot;&quot;&quot;</span>
@@ -217,6 +225,28 @@
     <span class="sd">&quot;&quot;&quot;clear it out&quot;&quot;&quot;</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteTextures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">))</span>
 
+    
+  <span class="c"># Implement pickle/unpickle support</span>
+  <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Make sure the image is actually loaded</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_load_disk</span><span class="p">()</span>
+      
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="s">&#39;blend&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">blend</span><span class="p">,</span>
+      <span class="s">&#39;flip&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">,</span>
+      <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+      <span class="s">&#39;mipmap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span><span class="p">,</span>
+      <span class="s">&#39;file_string&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">,</span>
+      <span class="s">&#39;ix&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span>
+      <span class="s">&#39;iy&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span>
+      <span class="s">&#39;alpha&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span>
+      <span class="s">&#39;image&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
+      <span class="s">&#39;_tex&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">,</span>
+      <span class="s">&#39;_loaded&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">,</span>
+      <span class="s">&#39;opengl_loaded&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+      <span class="s">&#39;disk_loaded&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">disk_loaded</span>
+      <span class="p">}</span>
 </div>
 <div class="viewcode-block" id="TextureCache"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.TextureCache">[docs]</a><span class="k">class</span> <span class="nc">TextureCache</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span> <span class="c">#TODO use max_size in some way</span>
@@ -272,7 +302,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2014, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

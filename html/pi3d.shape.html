@@ -73,7 +73,7 @@ Each cell is width on the x axis and depth on the z axis, and the walls are heig
 <p>The function returns a merged shape with the entire building in it.</p>
 <dl class="attribute">
 <dt id="pi3d.shape.Building.Building.baseScheme">
-<tt class="descname">baseScheme</tt><em class="property"> = {(0, None): [[u'R', 0]], u'#models': 1, (0, 0, u'edge'): [[u'W', 0], [u'CE', 0]], (1, 0, u'edge'): [[u'W', 0], [u'CE', 0]], (1, 0): [[u'W', 0], [u'CE', 0]], (1, None): [[u'R', 0], [u'C', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.baseScheme" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">baseScheme</tt><em class="property"> = {(1, None): [[u'R', 0], [u'C', 0]], (0, None): [[u'R', 0]], u'#models': 1, (0, 0, u'edge'): [[u'W', 0], [u'CE', 0]], (1, 0, u'edge'): [[u'W', 0], [u'CE', 0]], (1, 0): [[u'W', 0], [u'CE', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.baseScheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -144,7 +144,7 @@ The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis
 
 <dl class="attribute">
 <dt id="pi3d.shape.Building.Building.openSectionScheme">
-<tt class="descname">openSectionScheme</tt><em class="property"> = {(1, 2): [[u'CE', 0]], (1, 0, u'edge'): [[u'W', 0], [u'CE', 0]], (2, 0): [[u'W', 0]], (2, 0, u'edge'): [[u'W', 0], [u'CE', 0]], (0, None): [[u'R', 0]], (1, 0): [[u'W', 0], [u'CE', 0]], u'#models': 1, (2, 2, u'edge'): [[u'CE', 0]], (2, None): [[u'C', 0], [u'R', 0]], (0, 0, u'edge'): [[u'W', 0], [u'CE', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.openSectionScheme" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">openSectionScheme</tt><em class="property"> = {(1, 2): [[u'CE', 0]], (1, 0, u'edge'): [[u'W', 0], [u'CE', 0]], (2, 0, u'edge'): [[u'W', 0], [u'CE', 0]], (2, None): [[u'C', 0], [u'R', 0]], (2, 0): [[u'W', 0]], (0, None): [[u'R', 0]], u'#models': 1, (1, 0): [[u'W', 0], [u'CE', 0]], (2, 2, u'edge'): [[u'CE', 0]], (0, 0, u'edge'): [[u'W', 0], [u'CE', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.openSectionScheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -916,14 +916,15 @@ so much quicker to create than reloading all the vertices etc</p>
 <p>3d model inherits from Shape, this is a series of Sprites
 edge to edge to allow larger images than the maximum size of 1920
 imposed by the Texture class</p>
-<p>Uses standard constructor for Shape. Arguments:</p>
-<dl class="docutils">
-<dt><em>textures</em></dt>
-<dd><p class="first">must be a two dimensional list of lists of textures or strings 
+<p>Uses standard constructor for Shape. Arguments:
+<em>textures</em></p>
+<blockquote>
+<div><p>must be a two dimensional list of lists of textures or strings 
 (which must be the path/names of image files) The array runs left
 to right then down so six textures in spreadsheet notation would be</p>
-<p class="last">[[R1C1, R1C2], [R2C1, R2C2], [R3C1, R3C2]]</p>
-</dd>
+<p>[[R1C1, R1C2], [R2C1, R2C2], [R3C1, R3C2]]</p>
+</div></blockquote>
+<dl class="docutils">
 <dt><em>shader</em></dt>
 <dd>shader to use</dd>
 </dl>
@@ -958,7 +959,7 @@ to right then down so six textures in spreadsheet notation would be</p>
 <span id="points-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Points</span></tt> Module<a class="headerlink" href="#module-pi3d.shape.Points" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Points.Points">
-<em class="property">class </em><tt class="descclassname">pi3d.shape.Points.</tt><tt class="descname">Points</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>vertices=</em><span class="optional">[</span><span class="optional">]</span>, <em>material=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>point_size=1</em>, <em>name=u''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/Points.html#Points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Points.Points" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.shape.Points.</tt><tt class="descname">Points</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>vertices=</em>, <span class="optional">[</span><span class="optional">]</span><em>material=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>point_size=1</em>, <em>name=u''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/Points.html#Points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Points.Points" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></tt></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
@@ -1230,7 +1231,7 @@ peak at 0.5, 0.86603 Keyword argument:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2014, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
