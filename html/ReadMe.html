@@ -231,15 +231,19 @@ this time  bouncing off each other on the desktop</p>
 <p>If you have pip installed you should be able to open a terminal and
 type:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo pip install pi3d
+  or for python3
+sudo pip3 install pi3d
 </pre></div>
 </div>
-<p>(or pip3 for use with python3) Otherwise you can download from
+<p>(or pip-3.2 or whatever see below*) Otherwise you can download from
 <a class="reference external" href="https://pypi.python.org/pypi/pi3d">https://pypi.python.org/pypi/pi3d</a> and extract the package then in a
 terminal:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo python setup.py install
+  or for python3
+sudo python3 setup.py install
 </pre></div>
 </div>
-<p>(or you may need to use python3) this will put the package into the
+<p>This will put the package into the
 relevant location on your device (for instance
 /usr/local/lib/python2.7/dist-packages/) allowing it to be imported
 by your applications.</p>
@@ -261,7 +265,8 @@ or edit the config.txt file (in the boot directory) and set the variable
 Imaging Library as this is needed for importing any graphics used by
 Pi3D. The original Imaging library is no longer really maintained and
 doesn&#8217;t run on python_3. The better equivalent replacement is Pillow.
-To install Pillow you can get it from the raspbian jessie repository.
+In the near future Pillow will be the default imaging library but at the
+time of writing you have to use the raspbian jessie repository.
 This is the &#8216;trial&#8217; version of raspbian and to install packages from
 there you need to add an additional line to /etc/apt/sources.list:</p>
 <div class="highlight-python"><div class="highlight"><pre>deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi
@@ -291,7 +296,7 @@ and <tt class="docutils literal"><span class="pre">python3-setuptools</span></tt
 sudo pip3 install Pillow
 </pre></div>
 </div>
-<p>(used to be <tt class="docutils literal"><span class="pre">pip-3.2</span></tt>, google for the latest botch!) If you do not
+<p>(<a href="#id1"><span class="problematic" id="id2">*</span></a>used to be <tt class="docutils literal"><span class="pre">pip-3.2</span></tt>, google for the latest botch!) If you do not
 intend to run python_3 you can install the old PIL: in the terminal,
 type:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-imaging
