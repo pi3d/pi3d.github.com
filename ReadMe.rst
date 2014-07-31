@@ -421,7 +421,8 @@ Pi3D started with code based on Peter de Rivaz 'pyopengles'
 code (jonmacey.blogspot.co.uk/2012/06/).
 
 Many Thanks, especially to Peter de Rivaz, Jon Macey, Richar Urwin, Peter Hess,
-David Wallin and others who have contributed to Pi3D - keep up the good work!
+David Wallin, Avishay Orpaz (avishorp) and others who have contributed to Pi3D
+- keep up the good work!
 
 
 **PLEASE READ LICENSING AND COPYRIGHT NOTICES ESPECIALLY IF USING FOR COMMERCIAL PURPOSES**

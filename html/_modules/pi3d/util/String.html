@@ -160,7 +160,42 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">texcoords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">norms</span><span class="p">))</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[</span><span class="n">font</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span></div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+    
+    <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span> <span class="c">#for later use in quick_change() method</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">maxlen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
+  
+<div class="viewcode-block" id="String.quick_change"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.String.String.quick_change">[docs]</a>  <span class="k">def</span> <span class="nf">quick_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Method for quickly changing some characters within a previously</span>
+<span class="sd">    generated String. i.e. for changing digits in a readout etc.</span>
+<span class="sd">    </span>
+<span class="sd">    NB: 1. if you use a variable width font there will be some distortion</span>
+<span class="sd">    as characters are stretched or squashed to the original character&#39;s</span>
+<span class="sd">    dimensions. 2. there is no account made of new line characters (TODO)</span>
+<span class="sd">    3. you must make the original string long enough to fit any additional</span>
+<span class="sd">    characters you add to new_string 4. you must make sure the Font as</span>
+<span class="sd">    used for the String.__init__ contains all the glyphs you may need for</span>
+<span class="sd">    subsequent changes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">ctypes</span>
+    <span class="k">if</span> <span class="n">new_string</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">:</span>
+      <span class="n">trunc_string</span> <span class="o">=</span> <span class="n">new_string</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">maxlen</span><span class="p">]</span> <span class="c">#chop to length</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trunc_string</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+          <span class="n">stride</span> <span class="o">=</span> <span class="mi">8</span>
+          <span class="n">offset</span> <span class="o">=</span> <span class="mi">6</span>
+          <span class="n">texc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">glyph_table</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+          <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">tc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">texc</span><span class="p">):</span> <span class="c">#patch values directly into array_buffer</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="n">stride</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">tc</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+          <span class="n">uvmod</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_select</span><span class="p">()</span> <span class="c">#then just call glBufferData</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glBufferData</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span>
+                        <span class="n">ctypes</span><span class="o">.</span><span class="n">sizeof</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">),</span>
+                        <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">),</span>
+                        <span class="n">GL_STATIC_DRAW</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">new_string</span></div></div>
 </pre></div>
 
           </div>

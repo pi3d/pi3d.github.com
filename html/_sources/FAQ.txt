@@ -826,5 +826,19 @@ Frequently Asked Questions
       Loading from a pickle file is significantly faster than parsing a
       wavefront obj file but (because of the less efficient image compression)
       the disk space used will be much higher.
+      
+#.  How to have lots of rapidly changing text on the screen (such as location
+    game-status readouts etc) whithout having to create new String objects
+    all the time (with associated processor load)
+    
+      This can be done using the String.quick_change() method. NB at the
+      moment only in the develop branch.
+      
+      When you first create the string you need to make it big enough to
+      fit in any additional characters you may send to quick_change()
+      subsequently. At the moment it doesn't cope with multi-line Strings.
+      
+      There is an example in pi3d_demos/ForestQuickNumbers.py (at the moment
+      only in develop branch)
 
 .. _ReadMe: http://pi3d.github.com/html/index.html

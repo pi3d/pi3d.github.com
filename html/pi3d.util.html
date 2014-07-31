@@ -710,6 +710,20 @@ the string is placed</dd>
 </dl>
 </dd>
 </dl>
+<dl class="method">
+<dt id="pi3d.util.String.String.quick_change">
+<tt class="descname">quick_change</tt><big>(</big><em>new_string</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/String.html#String.quick_change"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.String.String.quick_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for quickly changing some characters within a previously
+generated String. i.e. for changing digits in a readout etc.</p>
+<p>NB: 1. if you use a variable width font there will be some distortion
+as characters are stretched or squashed to the original character&#8217;s
+dimensions. 2. there is no account made of new line characters (TODO)
+3. you must make the original string long enough to fit any additional
+characters you add to new_string 4. you must make sure the Font as
+used for the String.__init__ contains all the glyphs you may need for
+subsequent changes.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
