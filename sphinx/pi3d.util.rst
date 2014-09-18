@@ -25,6 +25,14 @@ util Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`FixedString` Module
+-------------------------
+
+.. automodule:: pi3d.util.FixedString
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`Font` Module
 ------------------
 
@@ -50,7 +58,7 @@ util Package
     :show-inheritance:
 
 :mod:`Log` Module
-----------------------
+-----------------
 
 .. automodule:: pi3d.util.Log
     :members:

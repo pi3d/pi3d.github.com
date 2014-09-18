@@ -840,5 +840,28 @@ Frequently Asked Questions
       
       There is an example in pi3d_demos/ForestQuickNumbers.py (at the moment
       only in develop branch)
+      
+#.  How to have a large amount of text without creating hundreds of extra
+    polygons for the gpu to render?
+      
+      The String object has a little rectangle for each letter, each of
+      which needs four vertices and two triangles. If the text does not
+      need to be changed then it is better to use the FixedString class. 
+      The object inherits from Texture with the provided text drawn onto it.
+      It also creates a simple sprite with four vertices and two triangles 
+      that can be used to draw the texture. There are filters that can
+      produce effects such as blurring, outlining and normal map generation.
+      
+#.  How to profile code to find where the bottlenecks are? For example
+    to find if it's worth doing something complicated with numpy or 'blitting'
+    small areas of the screen as in the NumpyBalls demo?
+    
+      The python profiler cProfile is very easy to use but I have found
+      it struggles to find directories from the code and gives quirky 
+      information unless I do something like::
+      
+        $ cd ~/pi3d_demos
+        $ python -m cProfile ~/pi3d_demos/NumpyBalls.py > result.txt
 
 .. _ReadMe: http://pi3d.github.com/html/index.html
+

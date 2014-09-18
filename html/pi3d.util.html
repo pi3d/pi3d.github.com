@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>util Package &mdash; pi3d 1.8 documentation</title>
+    <title>util Package &mdash; pi3d 1.9 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.8',
+        VERSION:     '1.9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.8 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.9 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.8 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 1.9 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" accesskey="U">pi3d Package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -161,6 +161,64 @@ Arguments:</p>
 <dt id="pi3d.util.DisplayOpenGL.DisplayOpenGL.swap_buffers">
 <tt class="descname">swap_buffers</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/DisplayOpenGL.html#DisplayOpenGL.swap_buffers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.DisplayOpenGL.DisplayOpenGL.swap_buffers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pi3d.util.FixedString">
+<span id="fixedstring-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">FixedString</span></tt> Module<a class="headerlink" href="#module-pi3d.util.FixedString" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.FixedString.FixedString">
+<em class="property">class </em><tt class="descclassname">pi3d.util.FixedString.</tt><tt class="descname">FixedString</tt><big>(</big><em>font</em>, <em>string</em>, <em>camera=None</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>font_size=24</em>, <em>margin=5.0</em>, <em>justify=u'C'</em>, <em>background_color=None</em>, <em>shader=None</em>, <em>f_type=u''</em><big>)</big><a class="headerlink" href="#pi3d.util.FixedString.FixedString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
+<p>A texture containing a simple string drawn using ImageDraw.</p>
+<p>The advantage over a standard String is that it only requires a simple
+Sprite shape for drawing so the gpu has to only draw two triangles
+rather than two triangles for each letter.</p>
+<p>Arguments:</p>
+<dl class="docutils">
+<dt><em>font</em>:</dt>
+<dd>File path/name to a TrueType font file.</dd>
+<dt><em>string</em>:</dt>
+<dd>String to write.</dd>
+<dt><em>camera</em>:</dt>
+<dd>Camera object passed on to constructor of sprite</dd>
+<dt><em>color</em>:</dt>
+<dd>Color in format #RRGGBB, (255,0,0,255) etc (as accepted by PIL.ImageDraw)
+default (255, 255, 255, 255) i.e. white 100% alpha</dd>
+<dt><em>font_size</em>:</dt>
+<dd>Point size for drawing the letters on the internal Texture. default 24</dd>
+<dt><em>margin</em>:</dt>
+<dd>Offsets from the top left corner for the text and space on right
+and bottom. default 5.0</dd>
+<dt><em>justify</em>:</dt>
+<dd>L(eft), C(entre), R(ight) default C</dd>
+<dt><em>background_color</em>:</dt>
+<dd>filled background in ImageDraw format as above. default None i.e.
+transparent.</dd>
+<dt><em>shader</em>:</dt>
+<dd>can be passed to init otherwise needs to be set in set_shader or
+draw. default None</dd>
+<dt><em>f_type</em>:</dt>
+<dd>filter type. BUMP will generate a normal map, EMBOSS, CONTOUR, BLUR
+and SMOOTH do what they sound like they will do.</dd>
+</dl>
+<dl class="method">
+<dt id="pi3d.util.FixedString.FixedString.draw">
+<tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em>, <em>mlist=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#pi3d.util.FixedString.FixedString.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>wrapper for Shape.draw()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.FixedString.FixedString.make_bump_map">
+<tt class="descname">make_bump_map</tt><big>(</big><big>)</big><a class="headerlink" href="#pi3d.util.FixedString.FixedString.make_bump_map" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.FixedString.FixedString.set_shader">
+<tt class="descname">set_shader</tt><big>(</big><em>shader</em><big>)</big><a class="headerlink" href="#pi3d.util.FixedString.FixedString.set_shader" title="Permalink to this definition">¶</a></dt>
+<dd><p>wrapper for Shape.set_shader</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -844,6 +902,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
 <li><a class="reference internal" href="#module-pi3d.util.Ctypes"><tt class="docutils literal"><span class="pre">Ctypes</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Defocus"><tt class="docutils literal"><span class="pre">Defocus</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.DisplayOpenGL"><tt class="docutils literal"><span class="pre">DisplayOpenGL</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.FixedString"><tt class="docutils literal"><span class="pre">FixedString</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Font"><tt class="docutils literal"><span class="pre">Font</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Gui"><tt class="docutils literal"><span class="pre">Gui</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Loadable"><tt class="docutils literal"><span class="pre">Loadable</span></tt> Module</a></li>
@@ -898,7 +957,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.8 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 1.9 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" >pi3d Package</a> &raquo;</li> 
       </ul>
     </div>
