@@ -280,7 +280,9 @@ sudo apt-get install python-pil
 sudo apt-get install python3-pil
 </pre></div>
 </div>
-<p>alternatively you need to:</p>
+<p>NB after installing pillow it&#8217;s a good idea to take the jessie line out
+again otherwise your next apt-get update will load a host of development
+applications and possible break something! Alternatively you need to:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-dev python-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
 sudo apt-get install python-pip
 sudo pip install Pillow
@@ -353,8 +355,14 @@ and running Python scripts. Download and install it with:</p>
 </div>
 </li>
 <li><p class="first"><strong>Load and run</strong></p>
-<p>Either run from the terminal <tt class="docutils literal"><span class="pre">python3</span> <span class="pre">~/pi3d_demos/Minimal.py</span></tt> or
-load any of the demos into Geany and run (using the cogs icon). As a minimum,
+<p>NB to get all the demos from github and run, in
+a terminal:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ git clone https://github.com/pi3d/pi3d_demos.git
+$ cd ~/pi3d_demos
+$ python3 Minimal.py
+</pre></div>
+</div>
+<p>or load any of the demos into Geany and run (using the cogs icon). As a minimum,
 scripts need these elements in order to use the Pi3D library:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pi3d</span>
 <span class="n">DISPLAY</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>

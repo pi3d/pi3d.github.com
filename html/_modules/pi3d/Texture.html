@@ -134,7 +134,7 @@
         <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">tidy_needed</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="k">except</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;couldn&#39;t set to delete&quot;</span><span class="p">)</span> <span class="c">#TODO debug messages here</span>
+      <span class="k">pass</span> <span class="c">#many reasonable reasons why this might fail</span>
 
 <div class="viewcode-block" id="Texture.tex"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.Texture.tex">[docs]</a>  <span class="k">def</span> <span class="nf">tex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;do the deferred opengl work and return texture&quot;&quot;&quot;</span>

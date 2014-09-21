@@ -114,8 +114,8 @@
 <span class="sd">      11  light1 position, direction vector           33  35</span>
 <span class="sd">      12  light1 strength per shade                   36  38</span>
 <span class="sd">      13  light1 ambient values                       39  41</span>
-<span class="sd">      14  defocus dist, amount (only 2 used)          42  43</span>
-<span class="sd">      15  defocus frame width, height (only 2 used)   45  46</span>
+<span class="sd">      14  defocus dist, amount (only 2 used)          42  43 # also 2D x, y</span>
+<span class="sd">      15  defocus frame width, height (only 2 used)   45  46 # also 2D w, h, tot_ht</span>
 <span class="sd">      16  custom data space                           48  50</span>
 <span class="sd">      17  custom data space                           51  53</span>
 <span class="sd">      18  custom data space                           54  56</span>
@@ -311,6 +311,16 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">material</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Shape.set_textures"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_textures">[docs]</a>  <span class="k">def</span> <span class="nf">set_textures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">textures</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wrapper for setting textures in each Buffer object.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">      *textures*</span>
+<span class="sd">        list of Texture objects</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">set_textures</span><span class="p">(</span><span class="n">textures</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Shape.set_offset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_offset">[docs]</a>  <span class="k">def</span> <span class="nf">set_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper for setting uv texture offset in each Buffer object.</span>
