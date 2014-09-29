@@ -862,6 +862,36 @@ Frequently Asked Questions
       
         $ cd ~/pi3d_demos
         $ python -m cProfile ~/pi3d_demos/NumpyBalls.py > result.txt
+        
+#.  Is it possible to use pi3d on my laptop or desktop computer
+    ideally running windows?
+    
+      If your computer has a suitable graphics card then it is possible
+      to set up pi3d in a linux environment see ReadMe_ . It ought to be 
+      pssible to set it up with a very similar procedure on mac but I havn't
+      tried (let me know if you do!) On windows the only route at the
+      moment is using something like VMWare::
+      
+        Setup:
+
+        VMWare Client
+        3d Accel.. activated!
+        LinuxMint Installation (Ubundu-based and Debian base version works)
+
+        very important
+            mesa-utils-extra
+            python-numpy
+        and the rest as described in the Pi3D documentation
+
+        Important: pi3d scripts must be started with sudo
+
+        e.g. sudo python ./Pi3D2.py
+
+        In the VM it does not run very smooth, but it works without errors.
+
+        After testing this setup  I've installed the setup to a partition... runs like a charm :-)
+
+      comments by @hesspet in groups.google.com
 
 .. _ReadMe: http://pi3d.github.com/html/index.html
 

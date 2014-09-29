@@ -527,11 +527,7 @@ proportional to the relative dimension.</p>
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>mapfile</em></dt>
-<dd>Greyscale image path/file, string. If multiple bytes per pixel
-only the first one will be used for elevation. jpg files will
-create slight errors that will cause mis-matching of edges for
-tiled maps (i.e. use png for these) NB also see divx, divy below
-i.e. div=64x64 requires image 65x65 pixels</dd>
+<dd>Greyscale image path/file, string.</dd>
 </dl>
 </dd>
 <dt>Keyword arguments:</dt>
@@ -540,10 +536,7 @@ i.e. div=64x64 requires image 65x65 pixels</dd>
 <dd>Of the map in world units.</dd>
 <dt><em>divx, divy</em></dt>
 <dd>Number of divisions into which the map will be divided.
-to create vertices (vertices += 1) NB if you want to create a map
-with 64x64 divisions there will be 65x65 vertices in each direction so
-the mapfile (above) needs to 65x65 pixels in order to specify
-elevations precisely and avoid resizing errors.</dd>
+to create vertices</dd>
 <dt><em>ntiles</em></dt>
 <dd>Number of repeats for tiling the texture image.</dd>
 <dt><em>smooth</em></dt>
@@ -834,8 +827,7 @@ will be ignored.</dd>
 <dt><em>elevmap</em></dt>
 <dd>ElevationMap object to merge onto.</dd>
 <dt><em>xpos, zpos</em></dt>
-<dd>x and z location of centre of cluster. These are locations RELATIVE
-to the origin of the MergeShape</dd>
+<dd>x and z location of centre of cluster.</dd>
 <dt><em>w, d</em></dt>
 <dd>x and z direction size of the cluster.</dd>
 <dt><em>count</em></dt>

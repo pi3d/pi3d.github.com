@@ -159,8 +159,7 @@
 <span class="sd">      *elevmap*</span>
 <span class="sd">        ElevationMap object to merge onto.</span>
 <span class="sd">      *xpos, zpos*</span>
-<span class="sd">        x and z location of centre of cluster. These are locations RELATIVE</span>
-<span class="sd">        to the origin of the MergeShape</span>
+<span class="sd">        x and z location of centre of cluster.</span>
 <span class="sd">      *w, d*</span>
 <span class="sd">        x and z direction size of the cluster.</span>
 <span class="sd">      *count*</span>
@@ -179,8 +178,10 @@
       <span class="n">z</span> <span class="o">=</span> <span class="n">zpos</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="n">d</span> <span class="o">-</span> <span class="n">d</span> <span class="o">*</span> <span class="mf">0.5</span>
       <span class="n">rh</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="n">maxscl</span> <span class="o">-</span> <span class="n">minscl</span><span class="p">)</span> <span class="o">+</span> <span class="n">minscl</span>
       <span class="n">rt</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mf">360.0</span>
-      <span class="n">y</span> <span class="o">=</span> <span class="n">elevmap</span><span class="o">.</span><span class="n">calcHeight</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="n">rh</span> <span class="o">*</span> <span class="mi">2</span>
+      <span class="n">y</span> <span class="o">=</span> <span class="n">elevmap</span><span class="o">.</span><span class="n">calcHeight</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="n">rh</span> <span class="o">*</span> <span class="mi">2</span>
       <span class="n">blist</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">rt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">rh</span><span class="p">,</span> <span class="n">rh</span><span class="p">,</span> <span class="n">rh</span><span class="p">])</span>
+
+    <span class="c">#self.merge(bufr, x, y, z, 0.0, rt, 0.0, rh, rh, rh)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">blist</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="MergeShape.radialCopy"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.radialCopy">[docs]</a>  <span class="k">def</span> <span class="nf">radialCopy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">startRadius</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">endRadius</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
