@@ -169,7 +169,7 @@ Arguments:</p>
 <span id="fixedstring-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">FixedString</span></tt> Module<a class="headerlink" href="#module-pi3d.util.FixedString" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.FixedString.FixedString">
-<em class="property">class </em><tt class="descclassname">pi3d.util.FixedString.</tt><tt class="descname">FixedString</tt><big>(</big><em>font</em>, <em>string</em>, <em>camera=None</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>font_size=24</em>, <em>margin=5.0</em>, <em>justify=u'C'</em>, <em>background_color=None</em>, <em>shader=None</em>, <em>f_type=u''</em><big>)</big><a class="headerlink" href="#pi3d.util.FixedString.FixedString" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.FixedString.</tt><tt class="descname">FixedString</tt><big>(</big><em>font</em>, <em>string</em>, <em>camera=None</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>font_size=24</em>, <em>margin=5.0</em>, <em>justify=u'C'</em>, <em>background_color=None</em>, <em>shader=None</em>, <em>f_type=u''</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
 <p>A texture containing a simple string drawn using ImageDraw.</p>
 <p>The advantage over a standard String is that it only requires a simple
@@ -204,21 +204,21 @@ draw. default None</dd>
 and SMOOTH do what they sound like they will do.</dd>
 </dl>
 <dl class="method">
+<dt id="pi3d.util.FixedString.FixedString.set_shader">
+<tt class="descname">set_shader</tt><big>(</big><em>shader</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString.set_shader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString.set_shader" title="Permalink to this definition">¶</a></dt>
+<dd><p>wrapper for Shape.set_shader</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pi3d.util.FixedString.FixedString.draw">
-<tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em>, <em>mlist=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#pi3d.util.FixedString.FixedString.draw" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em>, <em>mlist=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>wrapper for Shape.draw()</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pi3d.util.FixedString.FixedString.make_bump_map">
-<tt class="descname">make_bump_map</tt><big>(</big><big>)</big><a class="headerlink" href="#pi3d.util.FixedString.FixedString.make_bump_map" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">make_bump_map</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString.make_bump_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString.make_bump_map" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="method">
-<dt id="pi3d.util.FixedString.FixedString.set_shader">
-<tt class="descname">set_shader</tt><big>(</big><em>shader</em><big>)</big><a class="headerlink" href="#pi3d.util.FixedString.FixedString.set_shader" title="Permalink to this definition">¶</a></dt>
-<dd><p>wrapper for Shape.set_shader</p>
-</dd></dl>
 
 </dd></dl>
 
@@ -785,8 +785,24 @@ subsequent changes.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="tkwin-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">TkWin</span></tt> Module<a class="headerlink" href="#tkwin-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.TkWin">
+<span id="tkwin-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">TkWin</span></tt> Module<a class="headerlink" href="#module-pi3d.util.TkWin" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.TkWin.TkWin">
+<em class="property">class </em><tt class="descclassname">pi3d.util.TkWin.</tt><tt class="descname">TkWin</tt><big>(</big><em>parent</em>, <em>title</em>, <em>width</em>, <em>height</em>, <em>bg='#000000'</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TkWin.html#TkWin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TkWin.TkWin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">Tkinter.Tk</span></tt></p>
+<p><em>TkWin</em> encapsulates a Tk window and keeps track of the mouse and keyboard.</p>
+<p>Arguments:</p>
+<dl class="docutils">
+<dt><em>parent</em></dt>
+<dd>Parent Tk window or Null for none.</dd>
+<dt><em>title</em></dt>
+<dd>Title for window.</dd>
+<dt><em>width, height</em></dt>
+<dd>Dimensions of window.</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-pi3d.util.Utility">
 <span id="utility-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Utility</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Utility" title="Permalink to this headline">¶</a></h2>
@@ -914,7 +930,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
 <li><a class="reference internal" href="#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.ShadowCaster"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
-<li><a class="reference internal" href="#tkwin-module"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
 </ul>
 </li>

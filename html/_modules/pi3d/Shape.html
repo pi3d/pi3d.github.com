@@ -114,8 +114,8 @@
 <span class="sd">      11  light1 position, direction vector           33  35</span>
 <span class="sd">      12  light1 strength per shade                   36  38</span>
 <span class="sd">      13  light1 ambient values                       39  41</span>
-<span class="sd">      14  defocus dist, amount (only 2 used)          42  43</span>
-<span class="sd">      15  defocus frame width, height (only 2 used)   45  46</span>
+<span class="sd">      14  defocus dist, amount (only 2 used)          42  43 # also 2D x, y</span>
+<span class="sd">      15  defocus frame width, height (only 2 used)   45  46 # also 2D w, h, tot_ht</span>
 <span class="sd">      16  custom data space                           48  50</span>
 <span class="sd">      17  custom data space                           51  53</span>
 <span class="sd">      18  custom data space                           54  56</span>
@@ -146,34 +146,51 @@
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">]])</span>
     <span class="sd">&quot;&quot;&quot;translate to position - offset&quot;&quot;&quot;</span>
+
     <span class="n">s</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">3</span><span class="p">])),</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rox</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">roxflg</span> <span class="o">=</span> <span class="bp">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="bp">False</span>
     <span class="sd">&quot;&quot;&quot;rotate about x axis&quot;&quot;&quot;</span>
+
     <span class="n">s</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">4</span><span class="p">])),</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">roy</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="n">c</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">royflg</span> <span class="o">=</span> <span class="bp">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="bp">False</span>
     <span class="sd">&quot;&quot;&quot;rotate about y axis&quot;&quot;&quot;</span>
+
     <span class="n">s</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">5</span><span class="p">])),</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">roz</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="n">c</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rozflg</span> <span class="o">=</span> <span class="bp">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="bp">False</span>
     <span class="sd">&quot;&quot;&quot;rotate about z axis&quot;&quot;&quot;</span>
+
     <span class="bp">self</span><span class="o">.</span><span class="n">scl</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">1.0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">1.0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">sclflg</span> <span class="o">=</span> <span class="bp">True</span> 
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">sclflg</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="sd">&quot;&quot;&quot;scale&quot;&quot;&quot;</span>
+
     <span class="bp">self</span><span class="o">.</span><span class="n">tr2</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">]])</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">tr2flg</span> <span class="o">=</span> <span class="bp">True</span> 
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">tr2flg</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="sd">&quot;&quot;&quot;translate to offset&quot;&quot;&quot;</span>
+
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">32</span><span class="p">)(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
                             <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
@@ -195,13 +212,27 @@
     <span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">shader</span>
     <span class="n">shader</span><span class="o">.</span><span class="n">use</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">==</span> <span class="bp">True</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">):</span>
-      <span class="c"># Calculate rotation and translation matrix for this model using numpy.</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr2</span><span class="p">,</span>
-        <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scl</span><span class="p">,</span>
-            <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">,</span>
-                <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">,</span>
-                    <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">)))))</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">):</span>
+      <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">      # Calculate rotation and translation matrix for this model using numpy.</span>
+<span class="sd">      self.MRaw = dot(self.tr2,</span>
+<span class="sd">        dot(self.scl,</span>
+<span class="sd">            dot(self.roy,</span>
+<span class="sd">                dot(self.rox,</span>
+<span class="sd">                    dot(self.roz, self.tr1)))))</span>
+<span class="sd">      &#39;&#39;&#39;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rozflg</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">)</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">roxflg</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">)</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">royflg</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">)</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sclflg</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">)</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr2flg</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">)</span>
+
       <span class="c"># child drawing addition #############</span>
       <span class="n">newmlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mlist</span><span class="p">]</span>
       <span class="n">newmlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">)</span>
@@ -311,6 +342,16 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">material</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Shape.set_textures"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_textures">[docs]</a>  <span class="k">def</span> <span class="nf">set_textures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">textures</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wrapper for setting textures in each Buffer object.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">      *textures*</span>
+<span class="sd">        list of Texture objects</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">set_textures</span><span class="p">(</span><span class="n">textures</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Shape.set_offset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_offset">[docs]</a>  <span class="k">def</span> <span class="nf">set_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper for setting uv texture offset in each Buffer object.</span>
@@ -485,6 +526,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">scl</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sz</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sclflg</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
 <div class="viewcode-block" id="Shape.position"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.position">[docs]</a>  <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
@@ -592,6 +634,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">roxflg</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
 <div class="viewcode-block" id="Shape.rotateToY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateToY">[docs]</a>  <span class="k">def</span> <span class="nf">rotateToY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
@@ -605,6 +648,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">royflg</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
 <div class="viewcode-block" id="Shape.rotateToZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateToZ">[docs]</a>  <span class="k">def</span> <span class="nf">rotateToZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
@@ -618,6 +662,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rozflg</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
 <div class="viewcode-block" id="Shape.rotateIncX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncX">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
@@ -631,6 +676,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">roxflg</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
 <div class="viewcode-block" id="Shape.rotateIncY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncY">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
@@ -644,6 +690,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">royflg</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
 <div class="viewcode-block" id="Shape.rotateIncZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncZ">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
@@ -657,6 +704,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rozflg</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
   <span class="k">def</span> <span class="nf">_lathe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">sides</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">rise</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">loops</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns a Buffer object by rotating the points defined in path.</span>

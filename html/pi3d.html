@@ -751,10 +751,10 @@ time consuming.</p>
 <dd><p>pass to shader array of vec3 uniform variables:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="9%" />
-<col width="79%" />
-<col width="8%" />
-<col width="4%" />
+<col width="7%" />
+<col width="55%" />
+<col width="5%" />
+<col width="33%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">vec3</th>
@@ -841,12 +841,12 @@ time consuming.</p>
 <tr class="row-odd"><td>14</td>
 <td>defocus dist, amount (only 2 used)</td>
 <td>42</td>
-<td>43</td>
+<td>43 # also 2D x, y</td>
 </tr>
 <tr class="row-even"><td>15</td>
 <td>defocus frame width, height (only 2 used)</td>
 <td>45</td>
-<td>46</td>
+<td>46 # also 2D w, h, tot_ht</td>
 </tr>
 <tr class="row-odd"><td>16</td>
 <td>custom data space</td>
@@ -960,6 +960,20 @@ material rgb rather than from a Texture.</dd>
 <dd><dl class="first last docutils">
 <dt><em>material</em></dt>
 <dd>tuple (rgb)</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.set_textures">
+<tt class="descname">set_textures</tt><big>(</big><em>textures</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_textures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_textures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for setting textures in each Buffer object.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>textures</em></dt>
+<dd>list of Texture objects</dd>
 </dl>
 </dd>
 </dl>
@@ -1304,7 +1318,7 @@ i.e. 2d_flat, defocus etc</dd>
 
 <dl class="class">
 <dt id="pi3d.Texture.Texture">
-<em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">Texture</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">Texture</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em>, <em>m_repeat=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Loadable.Loadable</span></tt></a></p>
 <p>loads an image file from disk and converts it into an array that
 can be used by shaders. It inherits from Loadable in order that the
@@ -1338,6 +1352,9 @@ ation of images. <strong>NB BECAUSE THIS BEHAVIOUR IS SET GLOBALLY AT
 THE TIME THAT THE TEXTURE IS LOADED IT WILL BE SET BY THE LAST
 TEXTURE TO BE LOADED PRIOR TO DRAWING</strong>
 TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
+<dt><em>m_repeat</em></dt>
+<dd>if the texture is repeated (see umult and vmult in Shape.set_draw_details)
+then this can be used to make a non-seamless texture tile</dd>
 </dl>
 <dl class="method">
 <dt id="pi3d.Texture.Texture.tex">
@@ -1445,7 +1462,7 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.ShadowCaster"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#tkwin-module"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
 </ul>
 </li>

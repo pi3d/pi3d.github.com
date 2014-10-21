@@ -527,7 +527,11 @@ proportional to the relative dimension.</p>
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>mapfile</em></dt>
-<dd>Greyscale image path/file, string.</dd>
+<dd>Greyscale image path/file, string. If multiple bytes per pixel
+only the first one will be used for elevation. jpg files will
+create slight errors that will cause mis-matching of edges for
+tiled maps (i.e. use png for these) NB also see divx, divy below
+i.e. div=64x64 requires image 65x65 pixels</dd>
 </dl>
 </dd>
 <dt>Keyword arguments:</dt>
@@ -536,7 +540,10 @@ proportional to the relative dimension.</p>
 <dd>Of the map in world units.</dd>
 <dt><em>divx, divy</em></dt>
 <dd>Number of divisions into which the map will be divided.
-to create vertices</dd>
+to create vertices (vertices += 1) NB if you want to create a map
+with 64x64 divisions there will be 65x65 vertices in each direction so
+the mapfile (above) needs to 65x65 pixels in order to specify
+elevations precisely and avoid resizing errors.</dd>
 <dt><em>ntiles</em></dt>
 <dd>Number of repeats for tiling the texture image.</dd>
 <dt><em>smooth</em></dt>
@@ -554,13 +561,15 @@ straight up, slightly faster if false.</dd>
 
 <dl class="method">
 <dt id="pi3d.shape.ElevationMap.ElevationMap.calcHeight">
-<tt class="descname">calcHeight</tt><big>(</big><em>px</em>, <em>pz</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#ElevationMap.calcHeight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.ElevationMap.calcHeight" title="Permalink to this definition">¶</a></dt>
-<dd><p>accurately return the hight of the map at the point specified</p>
+<tt class="descname">calcHeight</tt><big>(</big><em>px</em>, <em>pz</em>, <em>inc_normal=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#ElevationMap.calcHeight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.ElevationMap.calcHeight" title="Permalink to this definition">¶</a></dt>
+<dd><p>accurately return the height of the map at the point specified</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>px, pz</em></dt>
 <dd>Location of the point in world coordinates to calculate height.</dd>
+<dt><em>inc_normal</em></dt>
+<dd>optionall return a tuple with height and normal vector (h, (nx,ny,nz))</dd>
 </dl>
 </dd>
 </dl>
@@ -608,24 +617,6 @@ on the surface of the map at this point</p>
 </dl>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="function">
-<dt id="pi3d.shape.ElevationMap.intersect_triangle">
-<tt class="descclassname">pi3d.shape.ElevationMap.</tt><tt class="descname">intersect_triangle</tt><big>(</big><em>v1</em>, <em>v2</em>, <em>v3</em>, <em>pos</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#intersect_triangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.intersect_triangle" title="Permalink to this definition">¶</a></dt>
-<dd><p>calculates the y intersection of a point on a triangle and returns the y
-value of the intersection of the line defined by x,z of pos through the
-triange defined by v1,v2,v3</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd><dl class="first last docutils">
-<dt><em>v1,v2,v3</em></dt>
-<dd>tuples (x1,y1,z1), (x2,y2,z2).. defining the corners of the triangle</dd>
-<dt><em>pos</em></dt>
-<dd>tuple (x,y,z) defining the x,z of the vertical line intersecting triangle</dd>
-</dl>
-</dd>
-</dl>
 </dd></dl>
 
 </div>
@@ -827,7 +818,8 @@ will be ignored.</dd>
 <dt><em>elevmap</em></dt>
 <dd>ElevationMap object to merge onto.</dd>
 <dt><em>xpos, zpos</em></dt>
-<dd>x and z location of centre of cluster.</dd>
+<dd>x and z location of centre of cluster. These are locations RELATIVE
+to the origin of the MergeShape</dd>
 <dt><em>w, d</em></dt>
 <dd>x and z direction size of the cluster.</dd>
 <dt><em>count</em></dt>

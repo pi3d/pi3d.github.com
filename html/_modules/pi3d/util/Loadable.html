@@ -70,12 +70,13 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span> <span class="o">=</span> <span class="bp">False</span>
 
   <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;__del__: </span><span class="si">%s</span><span class="s">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
       <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">unload_opengl</span><span class="p">(</span><span class="bp">False</span><span class="p">):</span>  <span class="c"># Why does this sometimes fail?</span>
         <span class="n">Display</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">unload_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+      <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;__del__: </span><span class="si">%s</span><span class="s">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
       <span class="c"># Many legit reasons why this might fail, particularly during shutdown.</span>
+      <span class="c"># LOGGER may have been tidied away by shutdown</span>
       <span class="k">pass</span>
 
 <div class="viewcode-block" id="Loadable.load_disk"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Loadable.Loadable.load_disk">[docs]</a>  <span class="k">def</span> <span class="nf">load_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

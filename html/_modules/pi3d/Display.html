@@ -435,8 +435,15 @@
         <span class="c"># ... just force full screen - TK will automatically fit itself into the screen</span>
         <span class="n">w</span> <span class="o">=</span> <span class="mi">1920</span>
         <span class="n">h</span> <span class="o">=</span> <span class="mi">1180</span>
-      <span class="n">tkwin</span> <span class="o">=</span> <span class="n">TkWin</span><span class="o">.</span><span class="n">TkWin</span><span class="p">(</span><span class="n">window_parent</span><span class="p">,</span> <span class="n">window_title</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">background</span><span class="p">:</span>
+        <span class="n">bg_i</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">background</span><span class="p">]</span>
+        <span class="n">bg</span> <span class="o">=</span> <span class="s">&#39;#{:02X}{:02X}{:02X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bg_i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bg_i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bg_i</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">bg</span> <span class="o">=</span> <span class="s">&#39;#000000&#39;</span>
+      <span class="n">tkwin</span> <span class="o">=</span> <span class="n">TkWin</span><span class="o">.</span><span class="n">TkWin</span><span class="p">(</span><span class="n">window_parent</span><span class="p">,</span> <span class="n">window_title</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">bg</span><span class="p">)</span>
       <span class="n">tkwin</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+      <span class="n">w</span> <span class="o">=</span> <span class="n">tkwin</span><span class="o">.</span><span class="n">winfo_width</span><span class="p">()</span>
+      <span class="n">h</span> <span class="o">=</span> <span class="n">tkwin</span><span class="o">.</span><span class="n">winfo_height</span><span class="p">()</span>
       <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">tkwin</span><span class="o">.</span><span class="n">winx</span>
       <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
