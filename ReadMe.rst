@@ -157,6 +157,9 @@ Setup on the Raspberry Pi
 
 #.  **Download, Extract and install**
 
+    There are various possibilities depending on the machine, what's already
+    installed and what you
+
     If you have pip installed you should be able to open a terminal and
     type::
 
@@ -164,9 +167,12 @@ Setup on the Raspberry Pi
         or for python3
       sudo pip3 install pi3d
         
-    (or pip-3.2 or whatever see below*) Otherwise you can download from
-    https://pypi.python.org/pypi/pi3d and extract the package then in a
-    terminal::
+    (or pip-3.2 or whatever see below*) If you don't have pip installed
+    you probably should install it as described below under ``Python Imaging``
+    as it's the easiest way to install Pillow at the moment. If you might
+    want to use features being added in the develop branch (i.e. between
+    issues) you will need to download from https://pypi.python.org/pypi/pi3d
+    and extract the package then in a terminal::
 
       sudo python setup.py install
         or for python3

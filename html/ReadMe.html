@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction to Pi3D &mdash; pi3d 1.9 documentation</title>
+    <title>Introduction to Pi3D &mdash; pi3d 1.10 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.9',
+        VERSION:     '1.10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.9 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.10 documentation" href="index.html" />
     <link rel="next" title="Frequently Asked Questions" href="FAQ.html" />
     <link rel="prev" title="Welcome to pi3d’s documentation!" href="index.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pi3d’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.9 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.10 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -228,6 +228,8 @@ this time  bouncing off each other on the desktop</p>
 <h1>Setup on the Raspberry Pi<a class="headerlink" href="#setup-on-the-raspberry-pi" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic">
 <li><p class="first"><strong>Download, Extract and install</strong></p>
+<p>There are various possibilities depending on the machine, what&#8217;s already
+installed and what you</p>
 <p>If you have pip installed you should be able to open a terminal and
 type:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo pip install pi3d
@@ -235,9 +237,12 @@ type:</p>
 sudo pip3 install pi3d
 </pre></div>
 </div>
-<p>(or pip-3.2 or whatever see below*) Otherwise you can download from
-<a class="reference external" href="https://pypi.python.org/pypi/pi3d">https://pypi.python.org/pypi/pi3d</a> and extract the package then in a
-terminal:</p>
+<p>(or pip-3.2 or whatever see below*) If you don&#8217;t have pip installed
+you probably should install it as described below under <tt class="docutils literal"><span class="pre">Python</span> <span class="pre">Imaging</span></tt>
+as it&#8217;s the easiest way to install Pillow at the moment. If you might
+want to use features being added in the develop branch (i.e. between
+issues) you will need to download from <a class="reference external" href="https://pypi.python.org/pypi/pi3d">https://pypi.python.org/pypi/pi3d</a>
+and extract the package then in a terminal:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo python setup.py install
   or for python3
 sudo python3 setup.py install
@@ -539,7 +544,7 @@ contributed to Pi3D - keep up the good work!</p>
         <li class="right" >
           <a href="index.html" title="Welcome to pi3d’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.9 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.10 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
