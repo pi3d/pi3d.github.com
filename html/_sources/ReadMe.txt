@@ -158,7 +158,7 @@ Setup on the Raspberry Pi
 #.  **Download, Extract and install**
 
     There are various possibilities depending on the machine, what's already
-    installed and what you
+    installed and whether you want to work with some of the latest additions.
 
     If you have pip installed you should be able to open a terminal and
     type::
