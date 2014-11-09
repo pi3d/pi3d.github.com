@@ -592,6 +592,45 @@ have to be one-dimensional. So after a long story unif[16][0]
 in the shader is (same name but different) unif[16*3 + 0] in python</p>
 </div></blockquote>
 </li>
+<li><p class="first">How do the blend shaders work as used in the PictureFrame
+demo</p>
+<blockquote>
+<div><p>These shaders are based on the 2d_flat shader (as mentioned above)
+that uses the screen coordinates of each pixel, rather than the
+interpolated coordinates of 3D polygon uv values, to look up the
+colour values. The main differences from 2d_flat are 1. There are
+two textures passed to the shader 2. There are two sets of x, y, w,
+h and screen height values passed to the shaders (one for each texture)
+3. There is a time value passed to the shader varying from 0.0 to 1.0
+to control the proportion of blending 4. There is a blending function!</p>
+<p>If you look at the code for blend_bump.vs (and the other blend vertex
+shaders) you will see that it calculates two vec2 varying values that
+are passed to the fragment shader. The sole reason for doing this is
+relative expense of dividing by a variable compared with multiplication
+in the fragment shader. The values are used to scale the pixel locations
+to texture lookup locations.</p>
+<p>All of the fragment shaders then operate in a fairly similar way: pick
+up the fading factor (tm = unif[14][2]), define coord as the pixel
+location on the screen, for the foreground and background textures
+check if the pixel falls outside the texture, if it doesn&#8217;t then look
+up the RGBA value from the texture.</p>
+<p>Having got the foreground and background pixel values there is then
+a process of combining them which generally involves calculating a
+factor dependent on some or all of a) pixel values b) x,y location
+on the screen c) tm. Using the factor in a mix() function.</p>
+<p><tt class="docutils literal"><span class="pre">bump</span></tt>: generates a factor as if the background texture was a normal
+map to modify the foreground as it blends from one to the other
+<tt class="docutils literal"><span class="pre">burn</span></tt>: compares the brightness of the background pixel with a sliding
+threshold to determine how much to mix the foreground and background
+<tt class="docutils literal"><span class="pre">false</span></tt>: creates a false middle colour using factors acting on the
+foreground and background RGB values and blends to and from the mid
+colour
+<tt class="docutils literal"><span class="pre">holes</span></tt>: uses the distance from a grid of points to determine the proportion
+of mixing
+<tt class="docutils literal"><span class="pre">star</span></tt>: calculates the pixel position in polar coordinates (angle and
+radius) then does some trig to determine the blend proportion</p>
+</div></blockquote>
+</li>
 <li><p class="first">How can you render points like a star field
 or sparks from an explosion.</p>
 <blockquote>
