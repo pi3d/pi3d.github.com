@@ -565,11 +565,17 @@ Frequently Asked Questions
 
       ``bump``: generates a factor as if the background texture was a normal
       map to modify the foreground as it blends from one to the other
+
+        .. image:: images/blend_bump_exp.png
+      
       ``burn``: compares the brightness of the background pixel with a sliding
       threshold to determine how much to mix the foreground and background
       ``false``: creates a false middle colour using factors acting on the
       foreground and background RGB values and blends to and from the mid
       colour
+
+        .. image:: images/blend_false_exp.png
+      
       ``holes``: uses the distance from a grid of points to determine the proportion
       of mixing
       ``star``: calculates the pixel position in polar coordinates (angle and
@@ -910,7 +916,7 @@ Frequently Asked Questions
     
       If your computer has a suitable graphics card then it is possible
       to set up pi3d in a linux environment see ReadMe_ . It ought to be 
-      pssible to set it up with a very similar procedure on mac but I havn't
+      possible to set it up with a very similar procedure on mac but I havn't
       tried (let me know if you do!) On windows the only route at the
       moment is using something like VMWare::
       

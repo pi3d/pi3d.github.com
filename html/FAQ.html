@@ -619,13 +619,19 @@ a process of combining them which generally involves calculating a
 factor dependent on some or all of a) pixel values b) x,y location
 on the screen c) tm. Using the factor in a mix() function.</p>
 <p><tt class="docutils literal"><span class="pre">bump</span></tt>: generates a factor as if the background texture was a normal
-map to modify the foreground as it blends from one to the other
-<tt class="docutils literal"><span class="pre">burn</span></tt>: compares the brightness of the background pixel with a sliding
+map to modify the foreground as it blends from one to the other</p>
+<blockquote>
+<div><img alt="_images/blend_bump_exp.png" src="_images/blend_bump_exp.png" />
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">burn</span></tt>: compares the brightness of the background pixel with a sliding
 threshold to determine how much to mix the foreground and background
 <tt class="docutils literal"><span class="pre">false</span></tt>: creates a false middle colour using factors acting on the
 foreground and background RGB values and blends to and from the mid
-colour
-<tt class="docutils literal"><span class="pre">holes</span></tt>: uses the distance from a grid of points to determine the proportion
+colour</p>
+<blockquote>
+<div><img alt="_images/blend_false_exp.png" src="_images/blend_false_exp.png" />
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">holes</span></tt>: uses the distance from a grid of points to determine the proportion
 of mixing
 <tt class="docutils literal"><span class="pre">star</span></tt>: calculates the pixel position in polar coordinates (angle and
 radius) then does some trig to determine the blend proportion</p>
@@ -925,7 +931,7 @@ ideally running windows?</p>
 <blockquote>
 <div><p>If your computer has a suitable graphics card then it is possible
 to set up pi3d in a linux environment see <a class="reference external" href="http://pi3d.github.com/html/index.html">ReadMe</a> . It ought to be
-pssible to set it up with a very similar procedure on mac but I havn&#8217;t
+possible to set it up with a very similar procedure on mac but I havn&#8217;t
 tried (let me know if you do!) On windows the only route at the
 moment is using something like VMWare:</p>
 <div class="highlight-python"><div class="highlight"><pre>Setup:
