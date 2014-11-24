@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pi3d 1.10 documentation</title>
+    <title>Frequently Asked Questions &mdash; pi3d 1.11 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.10',
+        VERSION:     '1.11',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.10 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.11 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to Pi3D" href="ReadMe.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to Pi3D"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.10 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.11 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -220,6 +220,20 @@ but it might be when the USB mouse is plugged in after the computer
 has been booted up.</p>
 </div></blockquote>
 </li>
+</ol>
+<dl class="docutils">
+<dt>#   When I try to run a demo I get an error ending <a href="#id1"><span class="problematic" id="id2">``</span></a>curses.cbreak()</dt>
+<dd><p class="first">error: cbreak() returned ERR``</p>
+<blockquote class="last">
+<div>The chances are that you are trying to run python directly from the
+IDLE editor. Although IDLE works fine for most things, it seems to
+have issues with the curses module that is used for keyboard input
+and is incorporated in pi3d. Try running the demo from the command
+line. Geany seems to run ok on the Raspberry pi and has python highlighting
+and context suggestions.</div></blockquote>
+</dd>
+</dl>
+<ol class="arabic">
 <li><p class="first">It appears from the demos that there are some arguments that are optional.
 For example, can a Shape be drawn without specifying a shader and a texture?</p>
 <blockquote>
@@ -1009,7 +1023,7 @@ After testing this setup  I&#39;ve installed the setup to a partition... runs li
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to Pi3D"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.10 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.11 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

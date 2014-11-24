@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Texture &mdash; pi3d 1.10 documentation</title>
+    <title>pi3d.Texture &mdash; pi3d 1.11 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.10',
+        VERSION:     '1.11',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.10 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.11 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.10 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.11 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -90,7 +90,8 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *file_string*</span>
-<span class="sd">        path and name of image file relative to top dir</span>
+<span class="sd">        path and name of image file relative to top dir. Can now pass an</span>
+<span class="sd">        already created PIL.Image object instead.</span>
 <span class="sd">      *blend*</span>
 <span class="sd">        controls if low alpha pixels are discarded (if False) or drawn</span>
 <span class="sd">        by the shader. If set to true then this texture needs to be</span>
@@ -114,10 +115,19 @@
 <span class="sd">        then this can be used to make a non-seamless texture tile</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Texture</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">file_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;/&#39;</span><span class="p">:</span> <span class="c">#absolute address</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">file_string</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">file_string</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">if</span> <span class="s">&#39;&#39;</span> <span class="o">+</span> <span class="n">file_string</span> <span class="o">==</span> <span class="n">file_string</span><span class="p">:</span> <span class="c">#HORRIBLE. Only way to cope with python2v3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_file</span> <span class="o">=</span> <span class="bp">True</span> <span class="c"># read image from file</span>
+        <span class="k">if</span> <span class="n">file_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;/&#39;</span><span class="p">:</span> <span class="c">#absolute address</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">file_string</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">file_string</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">file_string</span> <span class="c"># file_string is a PIL Image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_file</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">except</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">file_string</span> <span class="c"># file_string is a PIL Image</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">is_file</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">blend</span> <span class="o">=</span> <span class="n">blend</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">flip</span> <span class="o">=</span> <span class="n">flip</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
@@ -155,8 +165,12 @@
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
       <span class="k">return</span>
 
-    <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">+</span> <span class="s">&#39; &#39;</span>
-    <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_file</span><span class="p">:</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">+</span> <span class="s">&#39; &#39;</span>
+      <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s">&#39;PIL.Image &#39;</span>
+      <span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
     <span class="n">s</span> <span class="o">+=</span> <span class="s">&#39;(</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span>
@@ -190,9 +204,9 @@
     <span class="n">RGBs</span> <span class="o">=</span> <span class="s">&#39;RGBA&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="k">else</span> <span class="s">&#39;RGB&#39;</span>
     <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="n">RGBs</span><span class="p">:</span>
       <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">RGBs</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">tobytes</span><span class="p">(</span><span class="s">&#39;raw&#39;</span><span class="p">,</span> <span class="n">RGBs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="s">&#39;raw&#39;</span><span class="p">,</span> <span class="n">RGBs</span><span class="p">)</span> <span class="c"># TODO change to tobytes WHEN Pillow is default PIL in debian (jessie becomes current)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
-    <span class="k">if</span> <span class="s">&#39;fonts/&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_file</span> <span class="ow">and</span> <span class="s">&#39;fonts/&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">im</span>
       
     <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="bp">True</span>
@@ -303,7 +317,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.10 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.11 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

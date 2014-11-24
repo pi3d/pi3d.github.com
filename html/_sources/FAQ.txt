@@ -164,6 +164,16 @@ Frequently Asked Questions
       but it might be when the USB mouse is plugged in after the computer
       has been booted up.
 
+#   When I try to run a demo I get an error ending ``curses.cbreak()
+    error: cbreak() returned ERR``
+
+      The chances are that you are trying to run python directly from the
+      IDLE editor. Although IDLE works fine for most things, it seems to
+      have issues with the curses module that is used for keyboard input
+      and is incorporated in pi3d. Try running the demo from the command
+      line. Geany seems to run ok on the Raspberry pi and has python highlighting
+      and context suggestions.
+
 #.  It appears from the demos that there are some arguments that are optional.
     For example, can a Shape be drawn without specifying a shader and a texture?
 
