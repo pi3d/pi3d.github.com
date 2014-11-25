@@ -220,20 +220,17 @@ but it might be when the USB mouse is plugged in after the computer
 has been booted up.</p>
 </div></blockquote>
 </li>
-</ol>
-<dl class="docutils">
-<dt>#   When I try to run a demo I get an error ending <a href="#id1"><span class="problematic" id="id2">``</span></a>curses.cbreak()</dt>
-<dd><p class="first">error: cbreak() returned ERR``</p>
-<blockquote class="last">
-<div>The chances are that you are trying to run python directly from the
+<li><p class="first">When I try to run a demo I get an error ending <tt class="docutils literal"><span class="pre">curses.cbreak()</span>
+<span class="pre">error:</span> <span class="pre">cbreak()</span> <span class="pre">returned</span> <span class="pre">ERR</span></tt></p>
+<blockquote>
+<div><p>The chances are that you are trying to run python directly from the
 IDLE editor. Although IDLE works fine for most things, it seems to
 have issues with the curses module that is used for keyboard input
 and is incorporated in pi3d. Try running the demo from the command
 line. Geany seems to run ok on the Raspberry pi and has python highlighting
-and context suggestions.</div></blockquote>
-</dd>
-</dl>
-<ol class="arabic">
+and context suggestions.</p>
+</div></blockquote>
+</li>
 <li><p class="first">It appears from the demos that there are some arguments that are optional.
 For example, can a Shape be drawn without specifying a shader and a texture?</p>
 <blockquote>
@@ -318,6 +315,22 @@ alpha &lt; 0.6 are discarded. This allows objects to be drawn after nearer objec
 but still be seen through &#8216;holes&#8217; in the image. i.e. the trees in ForestWalk</p>
 </div></blockquote>
 </li>
+<li><p class="first">All the demos use images to create the surface patterns for shapes. Is
+it possible to define a material color.</p>
+<blockquote>
+<div><p>The method myshape.set_material((0.9, 0.4, 0.0)) can be used (the default
+is (0.5, 0.5, 0.5)) but to render using this you need to use an appropriate
+<a href="#id1"><span class="problematic" id="id2">mat_</span></a> shader:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[])</span> <span class="c"># shader = Shader(&#39;mat_flat&#39;) uses no lighting</span>
+<span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[])</span> <span class="c"># mat_light uses a light</span>
+<span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">bumptex</span><span class="p">],</span> <span class="mf">4.0</span><span class="p">)</span> <span class="c"># mat_bump uses light and normal map</span>
+<span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">bumptex</span><span class="p">,</span> <span class="n">shinetex</span><span class="p">],</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span> <span class="c"># mat_shine uses light, normal map, reflection texture</span>
+</pre></div>
+</div>
+<p>and one demo does use material color: Shapes.py look at the code for
+the wine glass.</p>
+</div></blockquote>
+</li>
 <li><p class="first">How do I use a joystick, gamepad, xbox controller etc with a pi3d
 application?</p>
 <blockquote>
@@ -357,7 +370,7 @@ on a &#8216;big&#8217; computer, it will have to be done every time the model is
 loaded rather than just once, it will not give the fine control
 available in blender to define the sharpness of edges.</p>
 <p>NB You will need to define uv mapping even if you define a material
-colour and don&#8217;t intend to use a texture but might want to use a normal
+color and don&#8217;t intend to use a texture but might want to use a normal
 mapping shader. To do this in blender you need to tab to edit mode, select
 all vertices (a), unwrap (u, Unwrap). If the model has multiple objects
 you will need to do this for each one. After you export you may need to
@@ -404,11 +417,31 @@ to keep them in front of the camera.</p>
 severely non linear and does not relate in a simple way to the z values
 for the perspective camera. Generally 2D objects will be in front
 of objects rendered by perspective (3D) cameras unless you assign
-z values in the thousands. Too large a z value, though, and they will
-disappear beyond the &#8216;far plane&#8217;</p>
+z values in the thousands. Too large a z value (&gt; 10000), though, and
+they will disappear beyond the &#8216;far plane&#8217;. If z_o is the z value of a
+Shape viewed with an orthographic camera and z_p is the z value of a Shape
+viewed with a perspective camera then their relative distances during
+rendering by the Shader (i.e. which obscures the other) follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">z_p</span> <span class="o">=</span> <span class="mi">10000</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10000</span> <span class="o">-</span> <span class="n">z_o</span><span class="p">)</span> <span class="c"># so z_o of 9000 gives z_p of 10</span>
+<span class="n">z_o</span> <span class="o">=</span> <span class="mi">10000</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">z_p</span><span class="p">)</span>   <span class="c"># so z_p of 500 gives z_o of 9980</span>
+</pre></div>
+</div>
 <p>If you create a camera it will become the default instance so if you
-need more than one you need to explicitly create them and it&#8217;s a good
-idea to explicitly assign the one you want to each object.</p>
+need more than one you need to explicitly create them, and it&#8217;s a good
+idea to assign the one you want to each object as an argument while
+the object is being created.</p>
+</div></blockquote>
+</li>
+<li><p class="first">I&#8217;ve moved my yellow plane behind other objects by setting z=9900 and
+viewing it with an orthographic camera. But it has become grey and
+slightly transparent!</p>
+<blockquote>
+<div><p>The default Fog distance was set up before the orthographic camera
+had been implemented. It is mid grey and ramps up to full strength at
+z=5000. From v1.12 This will be increased but in the mean time you can:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">myshape</span><span class="o">.</span><span class="n">set_fog</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="mi">30000</span><span class="p">)</span>
+</pre></div>
+</div>
 </div></blockquote>
 </li>
 <li><p class="first">How do I display an image exactly without anti-aliasing or smoothing
@@ -612,7 +645,7 @@ demo</p>
 <div><p>These shaders are based on the 2d_flat shader (as mentioned above)
 that uses the screen coordinates of each pixel, rather than the
 interpolated coordinates of 3D polygon uv values, to look up the
-colour values. The main differences from 2d_flat are 1. There are
+color values. The main differences from 2d_flat are 1. There are
 two textures passed to the shader 2. There are two sets of x, y, w,
 h and screen height values passed to the shaders (one for each texture)
 3. There is a time value passed to the shader varying from 0.0 to 1.0
@@ -639,9 +672,9 @@ map to modify the foreground as it blends from one to the other</p>
 </div></blockquote>
 <p><tt class="docutils literal"><span class="pre">burn</span></tt>: compares the brightness of the background pixel with a sliding
 threshold to determine how much to mix the foreground and background
-<tt class="docutils literal"><span class="pre">false</span></tt>: creates a false middle colour using factors acting on the
+<tt class="docutils literal"><span class="pre">false</span></tt>: creates a false middle color using factors acting on the
 foreground and background RGB values and blends to and from the mid
-colour</p>
+color</p>
 <blockquote>
 <div><img alt="_images/blend_false_exp.png" src="_images/blend_false_exp.png" />
 </div></blockquote>

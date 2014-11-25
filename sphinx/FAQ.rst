@@ -164,7 +164,7 @@ Frequently Asked Questions
       but it might be when the USB mouse is plugged in after the computer
       has been booted up.
 
-#   When I try to run a demo I get an error ending ``curses.cbreak()
+#.  When I try to run a demo I get an error ending ``curses.cbreak()
     error: cbreak() returned ERR``
 
       The chances are that you are trying to run python directly from the
@@ -262,6 +262,20 @@ Frequently Asked Questions
       alpha < 0.6 are discarded. This allows objects to be drawn after nearer objects
       but still be seen through 'holes' in the image. i.e. the trees in ForestWalk
 
+#.  All the demos use images to create the surface patterns for shapes. Is
+    it possible to define a material color.
+
+      The method myshape.set_material((0.9, 0.4, 0.0)) can be used (the default
+      is (0.5, 0.5, 0.5)) but to render using this you need to use an appropriate
+      mat_ shader::
+
+        myshape.set_draw_details(shader, []) # shader = Shader('mat_flat') uses no lighting
+        myshape.set_draw_details(shader, []) # mat_light uses a light
+        myshape.set_draw_details(shader, [bumptex], 4.0) # mat_bump uses light and normal map
+        myshape.set_draw_details(shader, [bumptex, shinetex], 4.0, 0.2) # mat_shine uses light, normal map, reflection texture
+
+      and one demo does use material color: Shapes.py look at the code for
+      the wine glass.
 
 #.  How do I use a joystick, gamepad, xbox controller etc with a pi3d
     application?
@@ -301,7 +315,7 @@ Frequently Asked Questions
       available in blender to define the sharpness of edges.
 
       NB You will need to define uv mapping even if you define a material
-      colour and don't intend to use a texture but might want to use a normal
+      color and don't intend to use a texture but might want to use a normal
       mapping shader. To do this in blender you need to tab to edit mode, select
       all vertices (a), unwrap (u, Unwrap). If the model has multiple objects
       you will need to do this for each one. After you export you may need to
@@ -349,12 +363,29 @@ Frequently Asked Questions
       severely non linear and does not relate in a simple way to the z values
       for the perspective camera. Generally 2D objects will be in front
       of objects rendered by perspective (3D) cameras unless you assign
-      z values in the thousands. Too large a z value, though, and they will
-      disappear beyond the 'far plane'
+      z values in the thousands. Too large a z value (> 10000), though, and
+      they will disappear beyond the 'far plane'. If z_o is the z value of a
+      Shape viewed with an orthographic camera and z_p is the z value of a Shape
+      viewed with a perspective camera then their relative distances during
+      rendering by the Shader (i.e. which obscures the other) follows::
+
+        z_p = 10000 / (10000 - z_o) # so z_o of 9000 gives z_p of 10
+        z_o = 10000 * (1 - 1/z_p)   # so z_p of 500 gives z_o of 9980
 
       If you create a camera it will become the default instance so if you
-      need more than one you need to explicitly create them and it's a good
-      idea to explicitly assign the one you want to each object.
+      need more than one you need to explicitly create them, and it's a good
+      idea to assign the one you want to each object as an argument while
+      the object is being created.
+
+#.  I've moved my yellow plane behind other objects by setting z=9900 and
+    viewing it with an orthographic camera. But it has become grey and
+    slightly transparent!
+
+      The default Fog distance was set up before the orthographic camera
+      had been implemented. It is mid grey and ramps up to full strength at
+      z=5000. From v1.12 This will be increased but in the mean time you can::
+
+        myshape.set_fog((0.5, 0.5, 0.5, 1.0), 30000)
 
 #.  How do I display an image exactly without anti-aliasing or smoothing
     i.e. pixel perfect?
@@ -549,7 +580,7 @@ Frequently Asked Questions
       These shaders are based on the 2d_flat shader (as mentioned above)
       that uses the screen coordinates of each pixel, rather than the
       interpolated coordinates of 3D polygon uv values, to look up the
-      colour values. The main differences from 2d_flat are 1. There are
+      color values. The main differences from 2d_flat are 1. There are
       two textures passed to the shader 2. There are two sets of x, y, w,
       h and screen height values passed to the shaders (one for each texture)
       3. There is a time value passed to the shader varying from 0.0 to 1.0
@@ -580,9 +611,9 @@ Frequently Asked Questions
       
       ``burn``: compares the brightness of the background pixel with a sliding
       threshold to determine how much to mix the foreground and background
-      ``false``: creates a false middle colour using factors acting on the
+      ``false``: creates a false middle color using factors acting on the
       foreground and background RGB values and blends to and from the mid
-      colour
+      color
 
         .. image:: images/blend_false_exp.png
       
