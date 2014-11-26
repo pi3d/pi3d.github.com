@@ -227,6 +227,27 @@ this time  bouncing off each other on the desktop</p>
 <div class="section" id="setup-on-the-raspberry-pi">
 <h1>Setup on the Raspberry Pi<a class="headerlink" href="#setup-on-the-raspberry-pi" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic">
+<li><p class="first"><strong>Qick Start Guide, NB take the time to read the paragraphs below too</strong></p>
+<p>Here&#8217;s a list of commands that have definitely worked on a couple of
+fresh rasbpian installs. Please take check out the paragraphs below
+even if you use this quick start recipe... <em>certainly</em> if you want to
+use python3 or have any non-standard aspirations or set-up. The long
+list of dependencies (3rd apt-get line) may take a while to run as well
+as the install Pillow. Both will create hundreds of lines of messages:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cd ~
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get install python-dev python-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
+$ sudo apt-get install python-pip
+$ sudo pip install pi3d
+$ sudo pip install Pillow
+$ sudo raspi-config # set gpu_mem=128
+$ git clone git://github.com/pi3d/pi3d_demos
+$ cd ~/pi3d_demos
+$ python Earth.py
+</pre></div>
+</div>
+</li>
 <li><p class="first"><strong>Download, Extract and install</strong></p>
 <p>There are various possibilities depending on the machine, what&#8217;s already
 installed and whether you want to work with some of the latest additions.</p>
