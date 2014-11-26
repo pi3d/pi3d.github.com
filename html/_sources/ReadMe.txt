@@ -158,7 +158,7 @@ Setup on the Raspberry Pi
 #.  **Qick Start Guide, NB take the time to read the paragraphs below too**
 
     Here's a list of commands that have definitely worked on a couple of
-    fresh rasbpian installs. Please take check out the paragraphs below
+    fresh rasbpian installs. Please take time to check out the paragraphs below
     even if you use this quick start recipe... *certainly* if you want to
     use python3 or have any non-standard aspirations or set-up. The long
     list of dependencies (3rd apt-get line) may take a while to run as well
