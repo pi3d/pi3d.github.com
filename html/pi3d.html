@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &mdash; pi3d 1.11 documentation</title>
+    <title>pi3d Package &mdash; pi3d 1.12 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.11',
+        VERSION:     '1.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.11 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.12 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="3D Graphics Explanation" href="GPUexplain.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.11 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.12 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -592,7 +592,7 @@ terminal window or session.</p>
 <span id="light-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Light</span></tt> Module<a class="headerlink" href="#module-pi3d.Light" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Light.Light">
-<em class="property">class </em><tt class="descclassname">pi3d.Light.</tt><tt class="descname">Light</tt><big>(</big><em>lightpos=(10</em>, <em>-10</em>, <em>20)</em>, <em>lightcol=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>lightamb=(0.1</em>, <em>0.1</em>, <em>0.2)</em><big>)</big><a class="reference internal" href="_modules/pi3d/Light.html#Light"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Light.</tt><tt class="descname">Light</tt><big>(</big><em>lightpos=(10</em>, <em>-10</em>, <em>20)</em>, <em>lightcol=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>lightamb=(0.1</em>, <em>0.1</em>, <em>0.2)</em>, <em>is_point=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Light.html#Light"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></tt></p>
 <p>Holds information about lighting to be used in shaders</p>
 <p>set light values. These are set in Shape.unif as part of the Shape
@@ -609,11 +609,17 @@ the dot product of two vectors.</p>
 <dt><em>lightpos</em></dt>
 <dd>tuple (x,y,z) vector direction <em>from</em> the light i.e. an object at position
 (0,0,0) would appear to be lit from a light at (-3,4,-5) (left, above and
-nearer) if lightpos=(3,-4,5)</dd>
+nearer) if lightpos=(3,-4,5). <em>ALTERNATIVELY</em> if is_point is set
+to True then this is the actual position of the light</dd>
 <dt><em>lightcol</em></dt>
-<dd>tuple (r,g,b) defines shade and brightness</dd>
+<dd>tuple (r,g,b) defines shade and brightness 0.0 to 1.0 but see below
+for point lights</dd>
 <dt><em>lightamb</em></dt>
-<dd>tuple (r,g,b) ambient lighting multiplier</dd>
+<dd>tuple (r,g,b) ambient lighting values</dd>
+<dt><em>is_point</em></dt>
+<dd>the light behaves as a point and brightness falls off with distance.
+This means that the r,g,b values of lightcol usually have to be set
+higher than 1.0, objects close to the light will &#8216;white out&#8217;</dd>
 </dl>
 </dd>
 </dl>
@@ -630,6 +636,16 @@ nearer) if lightpos=(3,-4,5)</dd>
 <dl class="method">
 <dt id="pi3d.Light.Light.ambient">
 <tt class="descname">ambient</tt><big>(</big><em>lightamb</em><big>)</big><a class="reference internal" href="_modules/pi3d/Light.html#Light.ambient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light.ambient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Light.Light.make_point">
+<tt class="descname">make_point</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Light.html#Light.make_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light.make_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Light.Light.make_directional">
+<tt class="descname">make_directional</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Light.html#Light.make_directional"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light.make_directional" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -713,11 +729,6 @@ time consuming.</p>
 <tt class="descname">showprogramlog</tt><big>(</big><em>shader</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shader.html#Shader.showprogramlog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shader.Shader.showprogramlog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints the compile log for a program</p>
 </dd></dl>
-
-<dl class="method">
-<dt id="pi3d.Shader.Shader.loadShader">
-<tt class="descname">loadShader</tt><big>(</big><em>sfile</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shader.html#Shader.loadShader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shader.Shader.loadShader" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -804,7 +815,7 @@ time consuming.</p>
 <td>20</td>
 </tr>
 <tr class="row-even"><td>7</td>
-<td>unused: custom data space</td>
+<td>point light if 1: light0, light1, unused</td>
 <td>21</td>
 <td>23</td>
 </tr>
@@ -1539,11 +1550,11 @@ then this can be used to make a non-seamless texture tile</dd>
         <li class="right" >
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.11 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.12 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2014, The pi3d team.
+        &copy; Copyright 2015, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

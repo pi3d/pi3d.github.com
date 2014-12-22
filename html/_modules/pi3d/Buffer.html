@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Buffer &mdash; pi3d 1.11 documentation</title>
+    <title>pi3d.Buffer &mdash; pi3d 1.12 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.11',
+        VERSION:     '1.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.11 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.12 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.11 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.12 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -126,7 +126,7 @@
 
       <span class="n">fv</span> <span class="o">=</span> <span class="n">pts</span><span class="p">[</span><span class="n">faces</span><span class="p">]</span> <span class="c">#expand faces with x,y,z values for each vertex</span>
       <span class="c">#cross product of two edges of triangles</span>
-      <span class="n">fn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">fv</span><span class="p">[:][:][:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">fv</span><span class="p">[:][:][:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">fv</span><span class="p">[:][:][:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">fv</span><span class="p">[:][:][:,</span><span class="mi">0</span><span class="p">])</span>
+      <span class="n">fn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">fv</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">fv</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">fv</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">fv</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
       <span class="n">fn</span> <span class="o">=</span> <span class="n">Utility</span><span class="o">.</span><span class="n">normalize_v3</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
       <span class="n">normals</span><span class="p">[</span><span class="n">faces</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">fn</span> <span class="c">#add up all normal vectors for a vertex</span>
       <span class="n">normals</span><span class="p">[</span><span class="n">faces</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">fn</span>
@@ -377,12 +377,12 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.11 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.12 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2014, The pi3d team.
+        &copy; Copyright 2015, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

@@ -36,14 +36,14 @@ autodoc_member_order = 'bysource'
 # order in the first place.
 
 # The short X.Y version.
-version = '1.11'
+version = '1.12'
 
 # The full version, including alpha/beta/rc tags.
-release = '1.11'
+release = '1.12'
 
 # General information about the project.
 project = u'pi3d'
-copyright = u'2014, The pi3d team'
+copyright = u'2015, The pi3d team'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

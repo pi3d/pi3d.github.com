@@ -899,7 +899,7 @@ Frequently Asked Questions
     
       Thanks to Avishay https://github.com/avishorp it is possible to use 
       the python pickle functionality to serialise pi3d Shapes including
-      Model. [develop branch as at 2014-05-07]
+      Model.
       
       There is an example on github.com/pi3d/pi3d_demos
       LoadModelPickle.py which shows the process but basically:
@@ -920,15 +920,13 @@ Frequently Asked Questions
     game-status readouts etc) whithout having to create new String objects
     all the time (with associated processor load)
     
-      This can be done using the String.quick_change() method. NB at the
-      moment only in the develop branch.
+      This can be done using the String.quick_change() method.
       
       When you first create the string you need to make it big enough to
       fit in any additional characters you may send to quick_change()
       subsequently. At the moment it doesn't cope with multi-line Strings.
       
-      There is an example in pi3d_demos/ForestQuickNumbers.py (at the moment
-      only in develop branch)
+      There is an example in pi3d_demos/ForestQuickNumbers.py
       
 #.  How to have a large amount of text without creating hundreds of extra
     polygons for the gpu to render?

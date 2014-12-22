@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Shader &mdash; pi3d 1.11 documentation</title>
+    <title>pi3d.Shader &mdash; pi3d 1.12 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.11',
+        VERSION:     '1.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.11 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.12 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.11 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.12 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -135,7 +135,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">shfile</span> <span class="o">=</span> <span class="n">shfile</span>
 
     <span class="k">def</span> <span class="nf">make_shader</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">shader_type</span><span class="p">):</span>
-      <span class="n">src</span> <span class="o">=</span> <span class="n">src</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadShader</span><span class="p">(</span><span class="n">shfile</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+      <span class="n">src</span> <span class="o">=</span> <span class="n">src</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_shader</span><span class="p">(</span><span class="n">shfile</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
       <span class="n">characters</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
       <span class="n">shader</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glCreateShader</span><span class="p">(</span><span class="n">shader_type</span><span class="p">)</span>
       <span class="n">opengles</span><span class="o">.</span><span class="n">glShaderSource</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">characters</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
@@ -204,16 +204,24 @@
     <span class="n">opengles</span><span class="o">.</span><span class="n">glGetProgramInfoLog</span><span class="p">(</span>
       <span class="n">shader</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">loglen</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">log</span><span class="p">))</span>
 </div>
-<div class="viewcode-block" id="Shader.loadShader"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shader.Shader.loadShader">[docs]</a>  <span class="k">def</span> <span class="nf">loadShader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sfile</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_load_shader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sfile</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">sfile</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">sfile</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-      <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/shaders/&#39;</span> <span class="o">+</span> <span class="n">sfile</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/shaders/&#39;</span> <span class="o">+</span> <span class="n">sfile</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-      <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/pi3d/shaders/&#39;</span> <span class="o">+</span> <span class="n">sfile</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/pi3d/shaders/&#39;</span> <span class="o">+</span> <span class="n">sfile</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-      <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">sfile</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">sfile</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></div></div>
+      <span class="k">for</span> <span class="n">prest</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;/shaders/&#39;</span><span class="p">,</span> <span class="s">&#39;/pi3d/shaders/&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">prest</span> <span class="o">+</span> <span class="n">sfile</span><span class="p">):</span>
+          <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_include_includes</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">prest</span><span class="p">,</span> <span class="n">sfile</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">sfile</span><span class="p">):</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_include_includes</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">sfile</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_include_includes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">sfile</span><span class="p">):</span>
+    <span class="n">new_text</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">sfile</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s">&#39;#include&#39;</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+          <span class="n">inc_file</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+          <span class="n">new_text</span> <span class="o">=</span> <span class="n">new_text</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_include_includes</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">inc_file</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">new_text</span> <span class="o">=</span> <span class="n">new_text</span> <span class="o">+</span> <span class="n">l</span>
+    <span class="k">return</span> <span class="n">new_text</span></div>
 </pre></div>
 
           </div>
@@ -247,12 +255,12 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.11 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.12 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2014, The pi3d team.
+        &copy; Copyright 2015, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

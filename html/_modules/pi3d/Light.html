@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Light &mdash; pi3d 1.11 documentation</title>
+    <title>pi3d.Light &mdash; pi3d 1.12 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.11',
+        VERSION:     '1.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.11 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.12 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.11 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.12 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -56,7 +56,7 @@
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                <span class="n">lightpos</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
                <span class="n">lightcol</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
-               <span class="n">lightamb</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)):</span>
+               <span class="n">lightamb</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">is_point</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; set light values. These are set in Shape.unif as part of the Shape</span>
 <span class="sd">    constructor. They can be changed using Shape.set_light()</span>
 <span class="sd">    The pixel shade is calculated as::</span>
@@ -70,16 +70,23 @@
 <span class="sd">      *lightpos*</span>
 <span class="sd">        tuple (x,y,z) vector direction *from* the light i.e. an object at position</span>
 <span class="sd">        (0,0,0) would appear to be lit from a light at (-3,4,-5) (left, above and</span>
-<span class="sd">        nearer) if lightpos=(3,-4,5)</span>
+<span class="sd">        nearer) if lightpos=(3,-4,5). *ALTERNATIVELY* if is_point is set</span>
+<span class="sd">        to True then this is the actual position of the light</span>
 <span class="sd">      *lightcol*</span>
-<span class="sd">        tuple (r,g,b) defines shade and brightness</span>
+<span class="sd">        tuple (r,g,b) defines shade and brightness 0.0 to 1.0 but see below</span>
+<span class="sd">        for point lights</span>
 <span class="sd">      *lightamb*</span>
-<span class="sd">        tuple (r,g,b) ambient lighting multiplier</span>
+<span class="sd">        tuple (r,g,b) ambient lighting values</span>
+<span class="sd">      *is_point*</span>
+<span class="sd">        the light behaves as a point and brightness falls off with distance.</span>
+<span class="sd">        This means that the r,g,b values of lightcol usually have to be set</span>
+<span class="sd">        higher than 1.0, objects close to the light will &#39;white out&#39; </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Light</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lightpos</span> <span class="o">=</span> <span class="n">lightpos</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lightcol</span> <span class="o">=</span> <span class="n">lightcol</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lightamb</span> <span class="o">=</span> <span class="n">lightamb</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">is_point</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">is_point</span> <span class="k">else</span> <span class="mf">0.0</span>
 
 <div class="viewcode-block" id="Light.position"><a class="viewcode-back" href="../../pi3d.html#pi3d.Light.Light.position">[docs]</a>  <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lightpos</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lightpos</span> <span class="o">=</span> <span class="n">lightpos</span>
@@ -89,6 +96,12 @@
 </div>
 <div class="viewcode-block" id="Light.ambient"><a class="viewcode-back" href="../../pi3d.html#pi3d.Light.Light.ambient">[docs]</a>  <span class="k">def</span> <span class="nf">ambient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lightamb</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lightamb</span> <span class="o">=</span> <span class="n">lightamb</span>
+</div>
+<div class="viewcode-block" id="Light.make_point"><a class="viewcode-back" href="../../pi3d.html#pi3d.Light.Light.make_point">[docs]</a>  <span class="k">def</span> <span class="nf">make_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">is_point</span> <span class="o">=</span> <span class="mf">1.0</span>
+</div>
+<div class="viewcode-block" id="Light.make_directional"><a class="viewcode-back" href="../../pi3d.html#pi3d.Light.Light.make_directional">[docs]</a>  <span class="k">def</span> <span class="nf">make_directional</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">is_point</span> <span class="o">=</span> <span class="mf">0.0</span>
 </div>
   <span class="nd">@staticmethod</span>
   <span class="k">def</span> <span class="nf">_default_instance</span><span class="p">():</span>
@@ -126,12 +139,12 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.11 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.12 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2014, The pi3d team.
+        &copy; Copyright 2015, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
