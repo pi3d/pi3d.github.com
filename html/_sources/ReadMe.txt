@@ -15,9 +15,8 @@ whilst giving access to the power of the Raspberry Pi GPU. It enables both
 3D and 2D rendering and aims to provide a host of exciting commands to load
 in textured/animated models, create fractal landscapes, shaders and much more.
 
-v1.11 release of the pi3d module adds support for
-running on platforms other than the raspberry pi (X on linux) and runs with
-python 3 as well as 2 The OpenGLES2.0 functionality of the Raspberry Pi
+The pi3d module runs on platforms other than the raspberry pi (X on linux) and
+runs with python 3 as well as 2 The OpenGLES2.0 functionality of the Raspberry Pi
 is used directly or via mesa on 'big' machines. This makes it generally *faster*
 and opens up the world of *shaders* that allow effects such as normal and 
 reflection maps, blurring and many others. It has various demos of built-in
@@ -381,6 +380,10 @@ is going on.
   if you draw a `Shape`_ without creating a `Light`_ a default instance will be
   created by the `Display`_. The `Light`_ has properties defining the direction,
   the colour (and strength i.e. RGB values) and ambient colour (and strength).
+
+  Although drawing a Shape requires references to ``Shader``, ``Light`` and ``Camera``
+  objects, default instances will be created automatically if they are not
+  specified (as in the example minimal code above)
 
   When you look through the demos you will see one or two things that may
   not be immediately obvious. All the demos start with::

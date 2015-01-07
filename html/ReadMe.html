@@ -63,9 +63,8 @@ under the bonnet!</p>
 whilst giving access to the power of the Raspberry Pi GPU. It enables both
 3D and 2D rendering and aims to provide a host of exciting commands to load
 in textured/animated models, create fractal landscapes, shaders and much more.</p>
-<p>v1.11 release of the pi3d module adds support for
-running on platforms other than the raspberry pi (X on linux) and runs with
-python 3 as well as 2 The OpenGLES2.0 functionality of the Raspberry Pi
+<p>The pi3d module runs on platforms other than the raspberry pi (X on linux) and
+runs with python 3 as well as 2 The OpenGLES2.0 functionality of the Raspberry Pi
 is used directly or via mesa on &#8216;big&#8217; machines. This makes it generally <em>faster</em>
 and opens up the world of <em>shaders</em> that allow effects such as normal and
 reflection maps, blurring and many others. It has various demos of built-in
@@ -439,6 +438,9 @@ faster way to make surfaces look shiny than ray tracing.</p>
 if you draw a <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> without creating a <a class="reference external" href="pi3d.html#pi3d.Light.Light">Light</a> a default instance will be
 created by the <a class="reference external" href="pi3d.html#pi3d.Display.Display">Display</a>. The <a class="reference external" href="pi3d.html#pi3d.Light.Light">Light</a> has properties defining the direction,
 the colour (and strength i.e. RGB values) and ambient colour (and strength).</p>
+<p>Although drawing a Shape requires references to <tt class="docutils literal"><span class="pre">Shader</span></tt>, <tt class="docutils literal"><span class="pre">Light</span></tt> and <tt class="docutils literal"><span class="pre">Camera</span></tt>
+objects, default instances will be created automatically if they are not
+specified (as in the example minimal code above)</p>
 <p>When you look through the demos you will see one or two things that may
 not be immediately obvious. All the demos start with:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
