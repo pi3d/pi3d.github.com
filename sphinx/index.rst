@@ -14,6 +14,7 @@ Contents:
    ReadMe
    FAQ
    GPUexplain
+   AndroidUse
    pi3d
 
 
