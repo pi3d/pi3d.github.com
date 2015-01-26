@@ -185,7 +185,7 @@ Using pi3d with Android devices
       import math
       import pi3d
 
-      DISPLAY = pi3d.Display.create(w=480, h=320)
+      DISPLAY = pi3d.Display.create(depth=16) # NB need to set here, see build.py below
       tex = pi3d.Texture('textures/PATRN.PNG')
       ball = pi3d.Sphere(z=5.0)
       shader = pi3d.Shader('uv_light')
@@ -221,12 +221,17 @@ Using pi3d with Android devices
     I have to recreate this file each time I run distribute.sh) From this
     directory run::
 
-      $ ./build.py --dir ~/pi3d_android/pi3dtest --package org.demo.pi3dtest --name "pi3dtest" --version 1.0.0 debug
+      $ ./build.py --dir ~/pi3d_android/pi3dtest --package org.demo.pi3dtest --name "pi3dtest" --meta-data surface.depth=16 --version 1.0.0 debug
 
     Which shouldn't take too long and will put the android apk package
-    file into the ``bin`` subdirectory. The quickest way to run this on
-    my computer is to download it to a phone (you will need to enable
-    PC connection and Security/Unknown sources from settings). However if
+    file into the ``bin`` subdirectory. I found that some phones needed to
+    have the bits set for the depth buffer so if the app needs to be deployed
+    generally you need to include this in the build meta-data. You will need
+    to set the same value when you run Display.create(), see above.
+
+    The quickest way to run this on my computer is to download it to a phone
+    (you will need to enable PC connection and Security/Unknown sources from
+    settings. Quite a hack on some phone but google details). However if
     it doesn't work you will have no information as to why. For proper
     development and debugging you will need to install an emulator.
 
@@ -266,6 +271,17 @@ Using pi3d with Android devices
 
         $ .adb install -r whereveryouput/python-for-android/dist/default/bin/pi3dtest-0.0.1-debug.apk
 
+4.  For info on changing the icon or loading image, building to enable
+    other features, publishing on play.google; read the docs on the
+    python-for-android website.
+
+5.  At the moment I am aware of the following deficiencies or incompatible
+    modules when running pi3d on android::
+
+      Mouse 
+      Keyboard
+      Event
+      Font (However Pngfont *does* work and pi3d_demos/fonts/Arial.png has been tidied)
 
 .. _ReadMe: http://pi3d.github.com/html/index.html
 
