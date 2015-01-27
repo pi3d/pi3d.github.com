@@ -173,7 +173,7 @@ Using pi3d with Android devices
 
       $ mkdir ~/pi3d_android
       $ mkdir ~/pi3d_android/pi3dtest/
-      $ mkdir ~/pi3d_android/pi3dtest/
+      $ mkdir ~/pi3d_android/pi3dtest/textures/
       $ cp ~/pi3d_demos/textures/PATRN.PNG ~/pi3d_android/pi3dtest/textures/
 
     Now create a minimal demo file in ~/pi3d_android/pi3dtest/ (in this example)
