@@ -213,7 +213,13 @@ Using pi3d with Android devices
       DISPLAY.android.run()
 
       DISPLAY.destroy()
-      
+
+    There is also a more ``professional`` layout of the ForestWalk demo in
+    the develop (as at 16 Jan 15) branch of github.com/pi3d/pi3d_demos in
+    a directory called ``android``. This shows how the project can be
+    constructed as a class with a method containing the main loop. That
+    example should run unaltered on Raspberry Pi, unix or android.
+    
     3.6 Running ./distribute.sh (in step 3.4) should have generated a
     default distribution in ``whereveryouput/python-for-android/dist/default/``
     this needs to have a ``project.properties`` file with a minimum single
@@ -224,14 +230,19 @@ Using pi3d with Android devices
       $ ./build.py --dir ~/pi3d_android/pi3dtest --package org.demo.pi3dtest --name "pi3dtest" --meta-data surface.depth=16 --version 1.0.0 debug
 
     Which shouldn't take too long and will put the android apk package
-    file into the ``bin`` subdirectory. I found that some phones needed to
-    have the bits set for the depth buffer so if the app needs to be deployed
-    generally you need to include this in the build meta-data. You will need
-    to set the same value when you run Display.create(), see above.
+    file into the ``bin`` subdirectory. The script will complain if the
+    four ``export`` commands (see python-for-android instructions) haven't
+    been run.
+
+    I found that some phones needed to have the bits set for the depth buffer
+    so if the app needs to be deployed generally you need to include this
+    in the build meta-data. You will need to set the same value when you
+    run Display.create(), see above.
 
     The quickest way to run this on my computer is to download it to a phone
     (you will need to enable PC connection and Security/Unknown sources from
-    settings. Quite a hack on some phone but google details). However if
+    settings. Quite a hack on some phones (eg samsung connection software
+    for non-linux only!) but possible, google details). However if
     it doesn't work you will have no information as to why. For proper
     development and debugging you will need to install an emulator.
 
@@ -272,8 +283,9 @@ Using pi3d with Android devices
         $ .adb install -r whereveryouput/python-for-android/dist/default/bin/pi3dtest-0.0.1-debug.apk
 
 4.  For info on changing the icon or loading image, building to enable
-    other features, publishing on play.google; read the docs on the
-    python-for-android website.
+    other features read the docs on the python-for-android website. For
+    publishing on play.google you will need to register as a developer and
+    sign the apk see http://developer.android.com/tools/publishing/app-signing.html#signing-manually
 
 5.  At the moment I am aware of the following deficiencies or incompatible
     modules when running pi3d on android::
