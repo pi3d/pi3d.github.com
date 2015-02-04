@@ -12,7 +12,10 @@ Frequently Asked Questions
     ``assert self.surface != EGL_NO_SURFACE``
 
       This is generally caused by the graphics memory allocation on the
-      Raspberry Pi being too low (less than 64)
+      Raspberry Pi being too low (less than 64) It has also been caused
+      by extra shared libraries such as ``/usr/lib/arm-linux-gnueabihf/libEGL.so.1``
+      and symbolic links being added by other programs see five questions
+      below...
 
 #.  When running ConferenceHall (or other program with a large number of
     textures) it appears to start ok then shuts down (byebye 3 message) just
@@ -979,6 +982,13 @@ Frequently Asked Questions
         After testing this setup  I've installed the setup to a partition... runs like a charm :-)
 
       comments by @hesspet in groups.google.com
+
+#.  Is is possible to run pi3d on my Android phone or tablet which uses
+    a chip and operating system very similar to the Raspberry Pi?
+
+      Is is possible; but you have to compile an apk package using
+      python-for-android from a linux machine. There are instructions here
+      http://pi3d.github.io/html/AndroidUse.html
 
 .. _ReadMe: http://pi3d.github.com/html/index.html
 

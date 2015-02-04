@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="pi3d 1.12 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
-    <link rel="prev" title="Introduction to Pi3D" href="ReadMe.html" /> 
+    <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
   <body>
     <div class="related">
@@ -41,7 +41,7 @@
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ReadMe.html" title="Introduction to Pi3D"
+          <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">pi3d 1.12 documentation</a> &raquo;</li> 
       </ul>
@@ -66,7 +66,10 @@ Raspberry Pi being too low (less than 32)</p>
 <tt class="docutils literal"><span class="pre">assert</span> <span class="pre">self.surface</span> <span class="pre">!=</span> <span class="pre">EGL_NO_SURFACE</span></tt></p>
 <blockquote>
 <div><p>This is generally caused by the graphics memory allocation on the
-Raspberry Pi being too low (less than 64)</p>
+Raspberry Pi being too low (less than 64) It has also been caused
+by extra shared libraries such as <tt class="docutils literal"><span class="pre">/usr/lib/arm-linux-gnueabihf/libEGL.so.1</span></tt>
+and symbolic links being added by other programs see five questions
+below...</p>
 </div></blockquote>
 </li>
 <li><p class="first">When running ConferenceHall (or other program with a large number of
@@ -1002,6 +1005,14 @@ After testing this setup  I&#39;ve installed the setup to a partition... runs li
 <p>comments by &#64;hesspet in groups.google.com</p>
 </div></blockquote>
 </li>
+<li><p class="first">Is is possible to run pi3d on my Android phone or tablet which uses
+a chip and operating system very similar to the Raspberry Pi?</p>
+<blockquote>
+<div><p>Is is possible; but you have to compile an apk package using
+python-for-android from a linux machine. There are instructions here
+<a class="reference external" href="http://pi3d.github.io/html/AndroidUse.html">http://pi3d.github.io/html/AndroidUse.html</a></p>
+</div></blockquote>
+</li>
 </ol>
 </div>
 
@@ -1013,7 +1024,7 @@ After testing this setup  I&#39;ve installed the setup to a partition... runs li
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="ReadMe.html"
-                        title="previous chapter">Introduction to Pi3D</a></p>
+                        title="previous chapter">Introduction to pi3d</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="GPUexplain.html"
                         title="next chapter">3D Graphics Explanation</a></p>
@@ -1052,7 +1063,7 @@ After testing this setup  I&#39;ve installed the setup to a partition... runs li
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              >next</a> |</li>
         <li class="right" >
-          <a href="ReadMe.html" title="Introduction to Pi3D"
+          <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
         <li><a href="index.html">pi3d 1.12 documentation</a> &raquo;</li> 
       </ul>

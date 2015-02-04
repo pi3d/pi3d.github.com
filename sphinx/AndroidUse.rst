@@ -61,7 +61,7 @@ Using pi3d with Android devices
         #!/bin/bash
 
         VERSION_pi3d=${VERSION_pi3d:-stable}
-        URL_pi3d=https://github.com/tipam/pi3d/archive/android.zip
+        URL_pi3d=https://github.com/tipam/pi3d/archive/develop.zip
         DEPS_pi3d=(pil kivy numpy android)
         MD5_pi3d=
         BUILD_pi3d=$BUILD_PATH/pi3d/$(get_directory $URL_pi3d)
@@ -103,9 +103,9 @@ Using pi3d with Android devices
           true
         }
 
-    At the moment the android-capable version of pi3d is in the android
+    At the moment the android-capable version of pi3d is in the develop
     branch as specified above, but this will be merged into master as
-    soon as it becomes stable.
+    soon as it becomes stable (probably February 2015)
 
     3.3 See posts here: https://github.com/kivy/python-for-android/issues/301
     To get python-for-android to be able to use ctypes you need to

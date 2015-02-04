@@ -49,11 +49,9 @@
   <h1>Source code for pi3d.Keyboard</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
-<span class="kn">import</span> <span class="nn">curses</span><span class="o">,</span> <span class="nn">termios</span><span class="o">,</span> <span class="nn">fcntl</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">platform</span>
-
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
   <span class="kn">from</span> <span class="nn">pyxlib</span> <span class="kn">import</span> <span class="n">x</span>
 
 <span class="n">USE_CURSES</span> <span class="o">=</span> <span class="bp">True</span>
@@ -63,6 +61,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="CursesKeyboard"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.CursesKeyboard">[docs]</a><span class="k">class</span> <span class="nc">CursesKeyboard</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">curses</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">curses</span><span class="o">.</span><span class="n">initscr</span><span class="p">()</span>
     <span class="n">curses</span><span class="o">.</span><span class="n">cbreak</span><span class="p">()</span>
     <span class="n">curses</span><span class="o">.</span><span class="n">noecho</span><span class="p">()</span>
@@ -73,6 +72,7 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">getch</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="CursesKeyboard.close"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.CursesKeyboard.close">[docs]</a>  <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">curses</span>
     <span class="n">curses</span><span class="o">.</span><span class="n">nocbreak</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">keypad</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">curses</span><span class="o">.</span><span class="n">echo</span><span class="p">()</span>
@@ -91,6 +91,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="SysKeyboard"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.SysKeyboard">[docs]</a><span class="k">class</span> <span class="nc">SysKeyboard</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">termios</span><span class="o">,</span> <span class="nn">fcntl</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">fileno</span><span class="p">()</span>
     <span class="c"># save old state</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">flags_save</span> <span class="o">=</span> <span class="n">fcntl</span><span class="o">.</span><span class="n">fcntl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="p">,</span> <span class="n">fcntl</span><span class="o">.</span><span class="n">F_GETFL</span><span class="p">)</span>
@@ -197,8 +198,29 @@
     <span class="k">except</span><span class="p">:</span>
       <span class="k">pass</span>
 </div>
+<span class="sd">&quot;&quot;&quot;Android keyboard - TODO all of this</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="AndroidKeyboard"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.AndroidKeyboard">[docs]</a><span class="k">class</span> <span class="nc">AndroidKeyboard</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<div class="viewcode-block" id="AndroidKeyboard.read"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.AndroidKeyboard.read">[docs]</a>  <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="AndroidKeyboard.close"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.AndroidKeyboard.close">[docs]</a>  <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">pass</span>
+</div>
+  <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+      <span class="k">pass</span>
+
+</div>
 <div class="viewcode-block" id="Keyboard"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.Keyboard">[docs]</a><span class="k">def</span> <span class="nf">Keyboard</span><span class="p">(</span><span class="n">use_curses</span><span class="o">=</span><span class="n">USE_CURSES</span><span class="p">):</span>
-  <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
+  <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">AndroidKeyboard</span><span class="p">()</span>
+  <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">x11Keyboard</span><span class="p">()</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">CursesKeyboard</span><span class="p">()</span> <span class="k">if</span> <span class="n">use_curses</span> <span class="k">else</span> <span class="n">SysKeyboard</span><span class="p">()</span>

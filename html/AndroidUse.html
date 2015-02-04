@@ -107,7 +107,7 @@ contents:</p>
 <div class="highlight-python"><div class="highlight"><pre>#!/bin/bash
 
 VERSION_pi3d=${VERSION_pi3d:-stable}
-URL_pi3d=https://github.com/tipam/pi3d/archive/android.zip
+URL_pi3d=https://github.com/tipam/pi3d/archive/develop.zip
 DEPS_pi3d=(pil kivy numpy android)
 MD5_pi3d=
 BUILD_pi3d=$BUILD_PATH/pi3d/$(get_directory $URL_pi3d)
@@ -150,9 +150,9 @@ function postbuild_pi3d() {
 }
 </pre></div>
 </div>
-<p>At the moment the android-capable version of pi3d is in the android
+<p>At the moment the android-capable version of pi3d is in the develop
 branch as specified above, but this will be merged into master as
-soon as it becomes stable.</p>
+soon as it becomes stable (probably February 2015)</p>
 <p>3.3 See posts here: <a class="reference external" href="https://github.com/kivy/python-for-android/issues/301">https://github.com/kivy/python-for-android/issues/301</a>
 To get python-for-android to be able to use ctypes you need to
 edit <tt class="docutils literal"><span class="pre">whereveritis/android/platform/android-ndk-r9c/platforms/android-14/arch-arm/usr/include/malloc.h</span></tt>
