@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using pi3d with Android devices &mdash; pi3d 1.12 documentation</title>
+    <title>Using pi3d with Android devices &mdash; pi3d 1.13 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.12',
+        VERSION:     '1.13',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.12 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.13 documentation" href="index.html" />
     <link rel="next" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="3D Graphics Explanation" href="GPUexplain.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.12 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.13 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -107,7 +107,7 @@ contents:</p>
 <div class="highlight-python"><div class="highlight"><pre>#!/bin/bash
 
 VERSION_pi3d=${VERSION_pi3d:-stable}
-URL_pi3d=https://github.com/tipam/pi3d/archive/develop.zip
+URL_pi3d=https://github.com/tipam/pi3d/archive/master.zip
 DEPS_pi3d=(pil kivy numpy android)
 MD5_pi3d=
 BUILD_pi3d=$BUILD_PATH/pi3d/$(get_directory $URL_pi3d)
@@ -150,9 +150,8 @@ function postbuild_pi3d() {
 }
 </pre></div>
 </div>
-<p>At the moment the android-capable version of pi3d is in the develop
-branch as specified above, but this will be merged into master as
-soon as it becomes stable (probably February 2015)</p>
+<p>Merged the android-capable version of pi3d into master as
+it seems stable (and no-negative feedback!) 5th February 2015.</p>
 <p>3.3 See posts here: <a class="reference external" href="https://github.com/kivy/python-for-android/issues/301">https://github.com/kivy/python-for-android/issues/301</a>
 To get python-for-android to be able to use ctypes you need to
 edit <tt class="docutils literal"><span class="pre">whereveritis/android/platform/android-ndk-r9c/platforms/android-14/arch-arm/usr/include/malloc.h</span></tt>
@@ -387,7 +386,7 @@ Font (However Pngfont *does* work and pi3d_demos/fonts/Arial.png has been tidied
         <li class="right" >
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.12 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.13 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
