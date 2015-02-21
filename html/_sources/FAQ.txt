@@ -188,26 +188,28 @@ Frequently Asked Questions
       color or direction for a Light or field of view for a Camera by using the
       syntax: ``Camera.instance()``.
 
-      You do, however need to explicitly
-      create the Shader so it does the kind of rendering you want, but you
-      can feed that in by various means, many of which also cater for specifying
-      the Texture(s) to use as well:
+      However the default instance of Shader is ``mat_light`` which uses
+      the 'self color' of the Shape (defaulting a neutral (0.5, 0.5, 0.5))
+      as it would be messy to try to figure out if or what Textures to use.
+      Generally you choose the Shader to do the kind of rendering you want,
+      but you can feed that in by various means, many of which also cater
+      for specifying the Texture(s) to use at the same time:
 
         Set them directly in the Buffer array - the other methods are
         really just wrappers for this i.e.::
 
           myshape.buf[0].shader = myshader
-          myshape.buf[0].textures = [mytexture]
+          myshape.buf[0].textures = [mytex, normtex, refltex]
 
         Include them
         at draw time::
 
-          myshape.draw(myshader, [mytexture])
+          myshape.draw(myshader, [mytex, normtex, refltex], 1.0, 0.1)
 
         Set them beforehand
         (probably the most usual way)::
 
-          myshape.set_draw_details(myshader, [mytexture])
+          myshape.set_draw_details(myshader, [mytex, normtex, refltex], 1.0, 0.1)
 
         For Model objects the ambient texture or material shade will normally
         be defined in the 3D object file (egg or obj/mtl) In these cases
@@ -278,7 +280,9 @@ Frequently Asked Questions
         myshape.set_draw_details(shader, [bumptex, shinetex], 4.0, 0.2) # mat_shine uses light, normal map, reflection texture
 
       and one demo does use material color: Shapes.py look at the code for
-      the wine glass.
+      the wine glass. Also, there is now a default instance for Shader so
+      if you try to draw a Shape without specifying a Shader it will load
+      and use ``mat_light`` which gives 3D shading but requires no Textures.
 
 #.  How do I use a joystick, gamepad, xbox controller etc with a pi3d
     application?
@@ -395,7 +399,20 @@ Frequently Asked Questions
 
       This can be done by using the 2d_flat shader and spcifying when the
       Texture is loaded that mipmap=False. Because this is a global setting
-      it will be overwritten by whichever Texture is the last to be loaded
+      it will be overwritten by whichever Texture is the last to be loaded.
+
+#.  Where I have one shape in front of another with contrasting colors can
+    the diagonal line be anti-aliased to prevent 'steppyness'?
+
+      This can be done when the Display is created by setting the samples
+      argument to 4::
+
+        DISPLAY = pi3d.Display.create(x=150, y=150, samples=4)
+
+      Generally the edges don't look too bad, there is a small processing
+      cost associated with this sampling and there is a recorded instance
+      of the sampling causing an error when running pi3d on vmware on a
+      mac.
 
 #.  Some of my Textures look a bit blurred or pixely.
 

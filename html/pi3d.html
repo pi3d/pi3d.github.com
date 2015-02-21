@@ -478,7 +478,7 @@ an alpha of 1 means full opaque.</dd>
 
 <dl class="function">
 <dt id="pi3d.Display.create">
-<tt class="descclassname">pi3d.Display.</tt><tt class="descname">create</tt><big>(</big><em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>fov=45.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=u''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em>, <em>samples=4</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pi3d.Display.</tt><tt class="descname">create</tt><big>(</big><em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>fov=45.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=u''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em>, <em>samples=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a pi3d Display.</p>
 <dl class="docutils">
 <dt><em>x</em></dt>
@@ -512,7 +512,7 @@ the tkwindow parent, if any.</dd>
 <dt><em>frames_per_second</em></dt>
 <dd>Maximum frames per second to render (None means &#8220;free running&#8221;).</dd>
 <dt><em>samples</em></dt>
-<dd>ELG_SAMPLES default 4 improved anti-aliasing</dd>
+<dd>EGL_SAMPLES default 0, set to 4 for improved anti-aliasing</dd>
 </dl>
 </dd></dl>
 
