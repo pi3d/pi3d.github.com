@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.loader.loaderObj &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d.loader.loaderObj &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -286,16 +286,14 @@
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="n">model</span><span class="o">.</span><span class="n">vGroup</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
 
-    <span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">indicesLen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">indices</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">indicesLen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">ttype</span> <span class="o">=</span> <span class="n">GL_TRIANGLES</span>
 
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
       <span class="k">print</span><span class="p">()</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;indices=&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">indices</span><span class="p">))</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;vertices=&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">vertices</span><span class="p">))</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;normals=&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">normals</span><span class="p">))</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;tex_coords=&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">))</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">&quot;indices=&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">))</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">&quot;vertices=&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">))</span>
 
   <span class="k">try</span><span class="p">:</span>
     <span class="n">material_lib</span> <span class="o">=</span> <span class="n">parse_mtl</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filePath</span><span class="p">,</span> <span class="n">mtllib</span><span class="p">),</span> <span class="s">&#39;r&#39;</span><span class="p">))</span>
@@ -351,7 +349,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

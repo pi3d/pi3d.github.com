@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.Font &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d.util.Font &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -50,6 +50,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
 <span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -201,7 +202,9 @@
         <span class="n">all_fits</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="n">RGBs</span> <span class="o">=</span> <span class="s">&#39;RGBA&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="k">else</span> <span class="s">&#39;RGB&#39;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">RGBs</span><span class="p">)</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="s">&#39;raw&#39;</span><span class="p">,</span> <span class="n">RGBs</span><span class="p">)</span>
+    <span class="c">#self.image = self.im.convert(RGBs).tostring(&#39;raw&#39;, RGBs)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">RGBs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
 
   <span class="k">def</span> <span class="nf">_load_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -241,7 +244,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

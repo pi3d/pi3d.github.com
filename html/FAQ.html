@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pi3d 1.13 documentation</title>
+    <title>Frequently Asked Questions &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.13 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.14 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -554,8 +554,12 @@ before destroying the old shape to stop a graphics memory leak.
 This issue seems to be fixed but if you run into memory problems
 it might be worth trying this. Plus, obviously, report it to us!)</p>
 <p>The alternative way of doing it is to use the Buffer.re_init() method
-which takes the same arguments as Buffer.__init__() (see documentation)
-so is a little more technical to use.</p>
+which takes arguments to set new values for pts (i.e. vertices), texcoords
+and normals. These are passes as lists of xyz or uv lists or tuples or
+better, two dimentional numpy arrays. An offset argument can also be
+passed to allow only a section of vertices (normals or texcoords) to
+be modified. re_init() can&#8217;t change the number of vertices, just move
+them around. See the demos IceGrow and ProceduralTerrain.</p>
 </div></blockquote>
 </li>
 <li><p class="first">Sometime, when I move the mouse or the program is loading a file from
@@ -1083,7 +1087,7 @@ python-for-android from a linux machine. There are instructions here
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.13 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.14 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

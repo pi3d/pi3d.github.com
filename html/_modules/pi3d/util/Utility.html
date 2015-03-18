@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.Utility &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d.util.Utility &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -59,7 +59,7 @@
 
 <div class="viewcode-block" id="normalize_v3"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.normalize_v3">[docs]</a><span class="k">def</span> <span class="nf">normalize_v3</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Normalize a numpy array of 3 component vectors shape=(n,3) &#39;&#39;&#39;</span>
-    <span class="n">lens</span> <span class="o">=</span> <span class="n">npsqrt</span><span class="p">(</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">lens</span> <span class="o">=</span> <span class="n">npsqrt</span><span class="p">(</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.000001</span>
     <span class="k">return</span> <span class="n">divide</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lens</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 </div>
 <div class="viewcode-block" id="magnitude"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.magnitude">[docs]</a><span class="k">def</span> <span class="nf">magnitude</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
@@ -471,7 +471,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

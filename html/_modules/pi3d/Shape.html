@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Shape &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d.Shape &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -51,7 +51,7 @@
 
 <span class="kn">import</span> <span class="nn">ctypes</span>
 
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">savez</span><span class="p">,</span> <span class="n">load</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">savez</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="n">zeros</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">radians</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
@@ -192,10 +192,7 @@
     <span class="sd">&quot;&quot;&quot;translate to offset&quot;&quot;&quot;</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">32</span><span class="p">)(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
-                            <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
-                            <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
-                            <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;float32&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Shape.draw"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">txtrs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mlist</span><span class="o">=</span><span class="p">[]):</span>
@@ -243,22 +240,22 @@
       <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mlist</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
       <span class="c">######################################</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">[:,:]</span>
       <span class="c">#self.M[0:16] = c_floats(self.MRaw.reshape(-1).tolist()) #pypy version</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">16</span><span class="p">:</span><span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)[:,:]</span>
       <span class="c">#self.M[16:32] = c_floats(dot(self.MRaw, camera.mtrx).reshape(-1).tolist()) #pypy</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">False</span>
 
     <span class="k">elif</span> <span class="n">camera</span><span class="o">.</span><span class="n">was_moved</span><span class="p">:</span>
       <span class="c"># Only do this if it&#39;s not done because model moved.</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">16</span><span class="p">:</span><span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)[:,:]</span>
 
     <span class="k">if</span> <span class="n">camera</span><span class="o">.</span><span class="n">was_moved</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">18</span><span class="p">:</span><span class="mi">21</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
 
     <span class="n">opengles</span><span class="o">.</span><span class="n">glUniformMatrix4fv</span><span class="p">(</span><span class="n">shader</span><span class="o">.</span><span class="n">unif_modelviewmatrix</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
                                 <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
-                                <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">))</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
     <span class="n">opengles</span><span class="o">.</span><span class="n">glUniform3fv</span><span class="p">(</span><span class="n">shader</span><span class="o">.</span><span class="n">unif_unif</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
@@ -470,9 +467,28 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="n">index_from</span><span class="p">:(</span><span class="n">index_from</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]</span> <span class="o">=</span> <span class="n">data</span>
 </div>
 <div class="viewcode-block" id="Shape.set_point_size"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_point_size">[docs]</a>  <span class="k">def</span> <span class="nf">set_point_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;if this is &gt; 0.0  the vertices will be drawn as points&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This will set the draw_method in all Buffers of this Shape&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">point_size</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_POINTS</span>
+</div>
+<div class="viewcode-block" id="Shape.set_line_width"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_line_width">[docs]</a>  <span class="k">def</span> <span class="nf">set_line_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This will set the draw_method in all Buffers of this Shape</span>
+<span class="sd">    </span>
+<span class="sd">    NB it differs from point size in that glLineWidth() is called here</span>
+<span class="sd">    and that line width will be used for all subsequent draw() operations</span>
+<span class="sd">    so if you want to draw shapes with different thickness lines you will</span>
+<span class="sd">    have to call this method repeatedly just before each draw()</span>
+<span class="sd">    </span>
+<span class="sd">    Also, there doens&#39;t seem to be an equivalent of gl_PointSize as used</span>
+<span class="sd">    in the shader language to make lines shrink with distance.</span>
+
+<span class="sd">    If you are drawing lines with high contrast they will look better</span>
+<span class="sd">    anti aliased which is done by Display.create(samples=4) &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">line_width</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glLineWidth</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="n">line_width</span><span class="p">))</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_LINE_STRIP</span>
 </div>
 <div class="viewcode-block" id="Shape.add_child"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.add_child">[docs]</a>  <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;puts a Shape into the children list&quot;&quot;&quot;</span>
@@ -494,22 +510,16 @@
     <span class="sd">&quot;&quot;&quot;Find the limits of vertices in three dimensions. Returns a tuple</span>
 <span class="sd">    (left, bottom, front, right, top, back)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">front</span>  <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">10000</span>
-    <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">back</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span><span class="p">,</span> <span class="o">-</span><span class="mi">10000</span><span class="p">,</span> <span class="o">-</span><span class="mi">10000</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">front</span>  <span class="o">=</span> <span class="mf">10000.0</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">,</span> <span class="mf">10000.0</span>
+    <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">back</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10000.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">10000.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">10000.0</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
-      <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">vertices</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">left</span><span class="p">:</span>
-          <span class="n">left</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">right</span><span class="p">:</span>
-          <span class="n">right</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">bottom</span><span class="p">:</span>
-          <span class="n">bottom</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">top</span><span class="p">:</span>
-          <span class="n">top</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">front</span><span class="p">:</span>
-          <span class="n">front</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">back</span><span class="p">:</span>
-          <span class="n">back</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">array_buffer</span> <span class="c"># alias to simplify code. vertices are array_buffer[:,0:3]</span>
+      <span class="n">left</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+      <span class="n">bottom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">bottom</span><span class="p">,</span> <span class="n">v</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+      <span class="n">front</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">front</span><span class="p">,</span> <span class="n">v</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+      <span class="n">right</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+      <span class="n">top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">v</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+      <span class="n">back</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">back</span><span class="p">,</span> <span class="n">v</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
 
     <span class="k">return</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">back</span><span class="p">)</span>
 </div>
@@ -843,7 +853,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

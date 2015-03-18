@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Display &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d.Display &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -96,13 +96,17 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">last_down</span> <span class="o">=</span> <span class="mf">0.0</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">last_last_down</span> <span class="o">=</span> <span class="mf">0.0</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">touch</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">previous_touch</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
       <span class="k">pass</span>
 
     <span class="k">def</span> <span class="nf">on_touch_down</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">touch</span><span class="p">):</span>
+      <span class="n">touch</span><span class="o">.</span><span class="n">ud</span><span class="p">[</span><span class="s">&#39;down&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c">#needed for keeping track of &#39;other&#39; touch location</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">last_last_down</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_down</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">last_down</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">previous_touch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">touch</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">touch</span> <span class="o">=</span> <span class="n">touch</span>
 
     <span class="k">def</span> <span class="nf">on_touch_move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">touch</span><span class="p">):</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">moved</span> <span class="o">=</span> <span class="bp">True</span>
@@ -117,7 +121,7 @@
         <span class="k">else</span><span class="p">:</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">tapped</span> <span class="o">=</span> <span class="bp">True</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">double_tapped</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">touch</span> <span class="o">=</span> <span class="n">touch</span>
+      <span class="n">touch</span><span class="o">.</span><span class="n">ud</span><span class="p">[</span><span class="s">&#39;down&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
 
   <span class="k">class</span> <span class="nc">Pi3dApp</span><span class="p">(</span><span class="n">App</span><span class="p">):</span>
     <span class="n">frames_per_second</span> <span class="o">=</span> <span class="mf">60.0</span>
@@ -590,7 +594,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

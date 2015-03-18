@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.String &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d.util.String &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -189,13 +189,12 @@
           <span class="n">texc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">glyph_table</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
           <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">tc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">texc</span><span class="p">):</span> <span class="c">#patch values directly into array_buffer</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
-              <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="n">stride</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">tc</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">j</span><span class="p">),(</span><span class="n">offset</span> <span class="o">+</span> <span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">tc</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
           <span class="n">uvmod</span> <span class="o">=</span> <span class="bp">True</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_select</span><span class="p">()</span> <span class="c">#then just call glBufferData</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glBufferData</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span>
-                        <span class="n">ctypes</span><span class="o">.</span><span class="n">sizeof</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">),</span>
-                        <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">),</span>
-                        <span class="n">GL_STATIC_DRAW</span><span class="p">)</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glBufferSubData</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="o">.</span><span class="n">nbytes</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">new_string</span></div></div>
 </pre></div>
 
@@ -230,7 +229,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

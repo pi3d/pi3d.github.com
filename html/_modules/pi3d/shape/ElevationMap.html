@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.shape.ElevationMap &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d.shape.ElevationMap &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -263,10 +263,10 @@
     <span class="n">p1</span> <span class="o">=</span> <span class="n">p0</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">p2</span> <span class="o">=</span> <span class="n">p0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span>
     <span class="n">p3</span> <span class="o">=</span> <span class="n">p0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">v0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">p0</span><span class="p">]</span>
-    <span class="n">v1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span>
-    <span class="n">v2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">p2</span><span class="p">]</span>
-    <span class="n">v3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">p3</span><span class="p">]</span>
+    <span class="n">v0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">p0</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">v1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">p1</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">v2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">p2</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">v3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">p3</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">pz</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">v0</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">hs</span> <span class="o">/</span> <span class="n">ws</span> <span class="o">*</span> <span class="p">(</span><span class="n">px</span> <span class="o">-</span> <span class="n">v0</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
     <span class="c">#opposite side of the diagonal so swap base corners</span>
@@ -321,8 +321,8 @@
         <span class="n">p</span> <span class="o">=</span> <span class="n">j</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">+</span> <span class="n">i</span> <span class="c"># pointer to the start of xyz for i,j in the vertices array</span>
         <span class="n">p1</span> <span class="o">=</span> <span class="n">j</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">+</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span> <span class="c"># pointer to the start of xyz for i-1,j</span>
         <span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">+</span> <span class="n">i</span> <span class="c"># pointer to the start of xyz for i, j-1</span>
-        <span class="n">vertp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
-        <span class="n">normp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">normals</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+        <span class="n">vertp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">normp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
         <span class="c"># work out distance squared from this vertex to the point</span>
         <span class="n">distSq</span> <span class="o">=</span> <span class="p">(</span><span class="n">px</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">py</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">pz</span> <span class="o">-</span> <span class="n">vertp</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
         <span class="k">if</span> <span class="n">distSq</span> <span class="o">&lt;</span> <span class="n">minDist</span><span class="p">:</span> <span class="c"># this vertex is nearest so keep a record</span>
@@ -338,10 +338,10 @@
 
         <span class="c">#if the intersection point is in this rectangle then the x,z values</span>
         <span class="c">#will lie between edges</span>
-        <span class="k">if</span> <span class="n">xIsect</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">p1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> \
-           <span class="n">xIsect</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> \
-           <span class="n">zIsect</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">p2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="ow">and</span> \
-           <span class="n">zIsect</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">xIsect</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">p1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> \
+           <span class="n">xIsect</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> \
+           <span class="n">zIsect</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">p2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="ow">and</span> \
+           <span class="n">zIsect</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="mi">2</span><span class="p">]:</span>
           <span class="n">pDistSq</span> <span class="o">=</span> <span class="n">pDist</span><span class="o">**</span><span class="mi">2</span>
           <span class="c"># finally if the perpendicular distance is less than the nearest so far</span>
           <span class="c">#keep a record</span>
@@ -356,7 +356,7 @@
 
     <span class="k">if</span> <span class="n">minDist</span> <span class="o">&lt;=</span> <span class="n">radSq</span><span class="p">:</span> <span class="c">#i.e. near enough to clash so return normal</span>
       <span class="n">p</span> <span class="o">=</span> <span class="n">minLoc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">+</span> <span class="n">minLoc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="n">normp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">normals</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+      <span class="n">normp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
       <span class="k">if</span> <span class="n">minDist</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">jump</span> <span class="o">=</span> <span class="n">rad</span> <span class="o">-</span> <span class="n">minDist</span>
       <span class="k">else</span><span class="p">:</span>
@@ -389,7 +389,7 @@
     <span class="n">z0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">halfd</span> <span class="o">+</span> <span class="n">pz</span><span class="p">)</span><span class="o">/</span><span class="n">dz</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">z0</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">z0</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="n">z0</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="n">z0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="o">-</span><span class="mi">1</span>
-    <span class="n">normp</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">normals</span><span class="p">[</span><span class="n">z0</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">+</span> <span class="n">x0</span><span class="p">])</span>
+    <span class="n">normp</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">z0</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">+</span> <span class="n">x0</span><span class="p">,</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
     <span class="c"># slight simplification to working out cross products as dirctn always 0,0,1</span>
     <span class="c">#sidev = cross(normp, dirctn)</span>
     <span class="n">sidev</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">normp</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">normp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">])</span>
@@ -468,7 +468,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

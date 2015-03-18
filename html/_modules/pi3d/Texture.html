@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Texture &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d.Texture &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -52,6 +52,7 @@
 
 <span class="kn">import</span> <span class="nn">ctypes</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
 
@@ -207,7 +208,8 @@
     <span class="n">RGBs</span> <span class="o">=</span> <span class="s">&#39;RGBA&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="k">else</span> <span class="s">&#39;RGB&#39;</span>
     <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="n">RGBs</span><span class="p">:</span>
       <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">RGBs</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="s">&#39;raw&#39;</span><span class="p">,</span> <span class="n">RGBs</span><span class="p">)</span> <span class="c"># TODO change to tobytes WHEN Pillow is default PIL in debian (jessie becomes current)</span>
+    <span class="c">#self.image = im.tostring(&#39;raw&#39;, RGBs) # TODO change to tobytes WHEN Pillow is default PIL in debian (jessie becomes current)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_file</span> <span class="ow">and</span> <span class="s">&#39;fonts/&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">im</span>
@@ -224,7 +226,8 @@
     <span class="n">RGBv</span> <span class="o">=</span> <span class="n">GL_RGBA</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="k">else</span> <span class="n">GL_RGB</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glTexImage2D</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">RGBv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">RGBv</span><span class="p">,</span>
                           <span class="n">GL_UNSIGNED_BYTE</span><span class="p">,</span>
-                          <span class="n">ctypes</span><span class="o">.</span><span class="n">string_at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)))</span>
+                          <span class="c">#ctypes.string_at(self.image, len(self.image)))</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_short</span><span class="p">)))</span>
 
     <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glGenerateMipmap</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">)</span>
@@ -321,7 +324,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

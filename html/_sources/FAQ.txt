@@ -492,8 +492,12 @@ Frequently Asked Questions
       it might be worth trying this. Plus, obviously, report it to us!)
 
       The alternative way of doing it is to use the Buffer.re_init() method
-      which takes the same arguments as Buffer.__init__() (see documentation)
-      so is a little more technical to use.
+      which takes arguments to set new values for pts (i.e. vertices), texcoords
+      and normals. These are passes as lists of xyz or uv lists or tuples or
+      better, two dimentional numpy arrays. An offset argument can also be
+      passed to allow only a section of vertices (normals or texcoords) to
+      be modified. re_init() can't change the number of vertices, just move
+      them around. See the demos IceGrow and ProceduralTerrain.
 
 #.  Sometime, when I move the mouse or the program is loading a file from
     disk, everything slows down or freezes.

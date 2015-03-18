@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d Package &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.13 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.14 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -133,7 +133,7 @@ meeting at this vertex, otherwise just use first (for speed).</dd>
 <td>8</td>
 </tr>
 <tr class="row-even"><td>3</td>
-<td>u_off, v_off (only 2 used)</td>
+<td>u_off, v_off, line_width</td>
 <td>9</td>
 <td>10</td>
 </tr>
@@ -142,13 +142,35 @@ meeting at this vertex, otherwise just use first (for speed).</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="pi3d.Buffer.Buffer.calc_normals">
+<tt class="descname">calc_normals</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.calc_normals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.calc_normals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pi3d.Buffer.Buffer.re_init">
-<tt class="descname">re_init</tt><big>(</big><em>shape</em>, <em>pts</em>, <em>texcoords</em>, <em>faces</em>, <em>normals=None</em>, <em>smooth=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.re_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.re_init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Only reset the opengl buffer variables: vertices, tex_coords, indices
-normals (which is generated if not supplied) <strong>NB this method will
-go horribly wrong if you change the size of the arrays supplied in
-the argument as the opengles buffers are reused</strong> Arguments are
-as per __init__()</p>
+<tt class="descname">re_init</tt><big>(</big><em>pts=None</em>, <em>texcoords=None</em>, <em>normals=None</em>, <em>offset=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.re_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.re_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only reset the opengl buffer variables: vertices, tex_coords, normals
+(which will not be generated if not supplied)
+<strong>NB this method will go horribly wrong if you change the size of the
+arrays supplied in the argument as the opengles buffers are reused
+At least one of pts, texcoords or normals must be a list</strong>
+This method will run faster if the new data is passed as numpy 2D arrays.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>pts</em></dt>
+<dd>numpy 2D array or list of (x,y,z) tuples, default None</dd>
+<dt><em>texcoords</em></dt>
+<dd>numpy 2D array or list of (u,v) tuples, default None</dd>
+<dt><em>normals</em></dt>
+<dd>numpy 2D array or list of (x,y,z) tuples, default None</dd>
+<dt><em>offset</em></dt>
+<dd>number of vertices offset from the start of vertices, default 0</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -1139,7 +1161,21 @@ i.e. 2d_flat, defocus etc</dd>
 <dl class="method">
 <dt id="pi3d.Shape.Shape.set_point_size">
 <tt class="descname">set_point_size</tt><big>(</big><em>point_size=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_point_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_point_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>if this is &gt; 0.0  the vertices will be drawn as points</p>
+<dd><p>This will set the draw_method in all Buffers of this Shape</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.set_line_width">
+<tt class="descname">set_line_width</tt><big>(</big><em>line_width=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_line_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_line_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will set the draw_method in all Buffers of this Shape</p>
+<p>NB it differs from point size in that glLineWidth() is called here
+and that line width will be used for all subsequent draw() operations
+so if you want to draw shapes with different thickness lines you will
+have to call this method repeatedly just before each draw()</p>
+<p>Also, there doens&#8217;t seem to be an equivalent of gl_PointSize as used
+in the shader language to make lines shrink with distance.</p>
+<p>If you are drawing lines with high contrast they will look better
+anti aliased which is done by Display.create(samples=4)</p>
 </dd></dl>
 
 <dl class="method">
@@ -1568,7 +1604,7 @@ then this can be used to make a non-seamless texture tile</dd>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.13 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 1.14 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

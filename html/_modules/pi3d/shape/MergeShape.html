@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.shape.MergeShape &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d.shape.MergeShape &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -49,9 +49,10 @@
   <h1>Source code for pi3d.shape.MergeShape</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
-<span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="c">#import ctypes</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
@@ -114,37 +115,51 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="n">buflist</span> <span class="o">=</span> <span class="n">bufr</span>
 
+    <span class="n">buf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span> <span class="c"># alias to tidy code</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">buf</span>
+    <span class="n">normals</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[:,</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">buf</span>
+    <span class="n">tex_coords</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[:,</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">buf</span> <span class="c">#TODO this will only cope with N_BYTES == 32</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">[:]</span>
+
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">buflist</span><span class="p">:</span>
       <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">is</span> <span class="n">Buffer</span><span class="p">):</span>
         <span class="n">bufr</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="n">bufr</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-      <span class="c">#assert shape.ttype == GL_TRIANGLES # this is always true of Buffer objects</span>
-      <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">normals</span><span class="p">)</span>
-
+      <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">)</span>
+      
       <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s">&quot;Merging&quot;</span><span class="p">,</span> <span class="n">bufr</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-      <span class="n">original_vertex_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+      <span class="n">original_vertex_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span>
 
-      <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)):</span>
+      <span class="n">vrot</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="n">nrot</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
         <span class="c"># Scale, offset and store vertices</span>
-        <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">rotate_vec</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">bufr</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">vx</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vy</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">vz</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
-
+        <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">rotate_vec</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">bufr</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">v</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">vrot</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">vx</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vy</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">vz</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
         <span class="c"># Rotate normals</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rotate_vec</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">bufr</span><span class="o">.</span><span class="n">normals</span><span class="p">[</span><span class="n">v</span><span class="p">]))</span>
+        <span class="n">nrot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rotate_vec</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">bufr</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">v</span><span class="p">,</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]))</span>
+      <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">vrot</span><span class="p">)</span>
+      <span class="n">normals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">normals</span><span class="p">,</span> <span class="n">nrot</span><span class="p">)</span>
+      <span class="n">tex_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tex_coords</span><span class="p">,</span> <span class="n">bufr</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[:,</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span>
 
-      <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">)</span>
+      <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+      <span class="n">vertices</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+      <span class="n">normals</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+      <span class="n">tex_coords</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-      <span class="n">ctypes</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_short</span>  <span class="c"># TODO: remove this side-effect.</span>
-      <span class="n">indices</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">original_vertex_count</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">original_vertex_count</span><span class="p">,</span>
-                  <span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">original_vertex_count</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bufr</span><span class="o">.</span><span class="n">indices</span><span class="p">]</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+      <span class="c">#ctypes.restype = ctypes.c_short  # TODO: remove this side-effect.</span>
+      <span class="n">faces</span> <span class="o">=</span> <span class="n">bufr</span><span class="o">.</span><span class="n">element_array_buffer</span> <span class="o">+</span> <span class="n">original_vertex_count</span>
+      <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">faces</span><span class="p">)</span>
+
+      <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+      <span class="n">indices</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">tex_coords</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">normals</span><span class="p">))</span>
 </div>
 <div class="viewcode-block" id="MergeShape.add"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.add">[docs]</a>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
           <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
@@ -257,7 +272,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

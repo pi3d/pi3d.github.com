@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Buffer &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d.Buffer &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -110,59 +110,78 @@
 <span class="sd">        0  ntile, shiny, blend           0   2</span>
 <span class="sd">        1  material                      3   5</span>
 <span class="sd">        2  umult, vmult, point_size      6   8</span>
-<span class="sd">        3  u_off, v_off (only 2 used)    9  10</span>
+<span class="sd">        3  u_off, v_off, line_width      9  10</span>
 <span class="sd">    ===== ============================ ==== ==</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c">#self.shape = shape</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-    <span class="n">texcoords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">texcoords</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-    <span class="n">faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">normals</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span> <span class="c">#i.e. normals will only be generated if explictly None</span>
-      <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Calculating normals ...&#39;</span><span class="p">)</span>
+    <span class="c">#self.indices = np.array(faces, dtype=&quot;short&quot;) # needed in calc_normals</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;short&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ntris</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">)</span>
 
-      <span class="n">normals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">pts</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="c">#empty array rights size</span>
-
-      <span class="n">fv</span> <span class="o">=</span> <span class="n">pts</span><span class="p">[</span><span class="n">faces</span><span class="p">]</span> <span class="c">#expand faces with x,y,z values for each vertex</span>
-      <span class="c">#cross product of two edges of triangles</span>
-      <span class="n">fn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">fv</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">fv</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">fv</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">fv</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
-      <span class="n">fn</span> <span class="o">=</span> <span class="n">Utility</span><span class="o">.</span><span class="n">normalize_v3</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
-      <span class="n">normals</span><span class="p">[</span><span class="n">faces</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">fn</span> <span class="c">#add up all normal vectors for a vertex</span>
-      <span class="n">normals</span><span class="p">[</span><span class="n">faces</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">fn</span>
-      <span class="n">normals</span><span class="p">[</span><span class="n">faces</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">fn</span>
-      <span class="n">normals</span> <span class="o">=</span> <span class="n">Utility</span><span class="o">.</span><span class="n">normalize_v3</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="n">normals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span>
-      
-    <span class="c"># keep a copy for speeding up the collision testing of ElevationMap</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span> <span class="o">=</span> <span class="n">pts</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">normals</span> <span class="o">=</span> <span class="n">normals</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span> <span class="o">=</span> <span class="n">texcoords</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="n">faces</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">__pack_data</span><span class="p">()</span>
-
-  <span class="k">def</span> <span class="nf">__pack_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="c"># Pack points,normals and texcoords into tuples and convert to ctype floats.</span>
-    <span class="n">n_verts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_verts</span><span class="p">:</span>
-      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_verts</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">N_BYTES</span> <span class="o">=</span> <span class="mi">12</span> <span class="c"># only use pts</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span> <span class="o">=</span> <span class="n">c_floats</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="n">n_verts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">texcoords</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_verts</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">normals</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_verts</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N_BYTES</span> <span class="o">=</span> <span class="mi">12</span> <span class="c"># only use vertices</span>
+        <span class="n">bufw</span> <span class="o">=</span> <span class="mi">3</span> <span class="c"># width to create array_buffer</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">N_BYTES</span> <span class="o">=</span> <span class="mi">24</span> <span class="c"># use pts and normals</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span> <span class="o">=</span> <span class="n">c_floats</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">),</span>
-                            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="n">bufw</span> <span class="o">=</span> <span class="mi">6</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">N_BYTES</span> <span class="o">=</span> <span class="mi">32</span> <span class="c"># use all three NB doesn&#39;t check that normals are there</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span> <span class="o">=</span> <span class="n">c_floats</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">),</span>
-                          <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">ntris</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span> <span class="o">=</span> <span class="n">c_shorts</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+      <span class="n">bufw</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_verts</span><span class="p">,</span> <span class="n">bufw</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;float32&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_verts</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># TODO Mergeshape starts out with an empty buffer</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;float32&quot;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">bufw</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[:,</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">texcoords</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;float32&quot;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">bufw</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">normals</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span> <span class="c">#i.e. normals will only be generated if explictly None</span>
+          <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Calculating normals ...&#39;</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[:,</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_normals</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[:,</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">normals</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;float32&quot;</span><span class="p">)</span>
+      
+    <span class="bp">self</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_TRIANGLES</span>
     <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">disp</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="c"># rely on there always being one!</span>
+
+
+<div class="viewcode-block" id="Buffer.calc_normals"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.calc_normals">[docs]</a>  <span class="k">def</span> <span class="nf">calc_normals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">normals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;float32&quot;</span><span class="p">)</span> <span class="c">#empty array rights size</span>
+    <span class="n">fv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="c">#expand faces with x,y,z values for each vertex</span>
+    <span class="c">#cross product of two edges of triangles</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">fv</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">fv</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">fv</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">fv</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">Utility</span><span class="o">.</span><span class="n">normalize_v3</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">normals</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">fn</span> <span class="c">#add up all normal vectors for a vertex</span>
+    <span class="n">normals</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">fn</span>
+    <span class="n">normals</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">fn</span>
+    <span class="k">return</span> <span class="n">Utility</span><span class="o">.</span><span class="n">normalize_v3</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span>
+</div>
+  <span class="sd">&quot;&quot;&quot;def _pack_array_buffer(self):</span>
+<span class="sd">    # Pack points,normals and texcoords into tuples and convert to ctype floats.</span>
+<span class="sd">    n_verts = len(self.vertices)</span>
+<span class="sd">    if len(self.tex_coords) != n_verts:</span>
+<span class="sd">      if len(self.normals) != n_verts:</span>
+<span class="sd">        self.N_BYTES = 12 # only use pts</span>
+<span class="sd">        self.array_buffer = self.vertices</span>
+<span class="sd">      else:</span>
+<span class="sd">        self.N_BYTES = 24 # use pts and normals</span>
+<span class="sd">        self.array_buffer = np.concatenate((self.vertices, self.normals),</span>
+<span class="sd">                            axis=1)</span>
+<span class="sd">    else:</span>
+<span class="sd">      self.N_BYTES = 32 # use all three NB doesn&#39;t check that normals are there</span>
+<span class="sd">      self.array_buffer = np.concatenate((self.vertices, self.normals, self.tex_coords),</span>
+<span class="sd">                          axis=1)</span>
+
+<span class="sd">  def _pack_element_array_buffer(self):</span>
+<span class="sd">    self.ntris = len(self.indices)</span>
+<span class="sd">    self.element_array_buffer = self.indices</span>
+<span class="sd">    from pi3d.Display import Display</span>
+<span class="sd">    self.disp = Display.INSTANCE # rely on there always being one!&quot;&quot;&quot;</span>
+
 
   <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="c">#super(Buffer, self).__del__() #TODO supposed to always call super.__del__</span>
@@ -172,27 +191,47 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">disp</span><span class="o">.</span><span class="n">ebufs_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ebuf</span><span class="p">)][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">disp</span><span class="o">.</span><span class="n">tidy_needed</span> <span class="o">=</span> <span class="bp">True</span>
 
-<div class="viewcode-block" id="Buffer.re_init"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.re_init">[docs]</a>  <span class="k">def</span> <span class="nf">re_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">pts</span><span class="p">,</span> <span class="n">texcoords</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">normals</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Only reset the opengl buffer variables: vertices, tex_coords, indices</span>
-<span class="sd">    normals (which is generated if not supplied) **NB this method will</span>
-<span class="sd">    go horribly wrong if you change the size of the arrays supplied in</span>
-<span class="sd">    the argument as the opengles buffers are reused** Arguments are</span>
-<span class="sd">    as per __init__()&quot;&quot;&quot;</span>
-    <span class="n">tmp_unib</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-                              <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
-                              <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
-                              <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">pts</span><span class="p">,</span> <span class="n">texcoords</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">normals</span><span class="p">,</span> <span class="n">smooth</span><span class="p">)</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glBufferData</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span>
-                          <span class="n">ctypes</span><span class="o">.</span><span class="n">sizeof</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">),</span>
-                          <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">),</span>
-                          <span class="n">GL_STATIC_DRAW</span><span class="p">)</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glBufferData</span><span class="p">(</span><span class="n">GL_ELEMENT_ARRAY_BUFFER</span><span class="p">,</span>
-                          <span class="n">ctypes</span><span class="o">.</span><span class="n">sizeof</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">),</span>
-                          <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">),</span>
-                          <span class="n">GL_STATIC_DRAW</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unib</span> <span class="o">=</span> <span class="n">tmp_unib</span>
+
+<div class="viewcode-block" id="Buffer.re_init"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.re_init">[docs]</a>  <span class="k">def</span> <span class="nf">re_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pts</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">texcoords</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">normals</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Only reset the opengl buffer variables: vertices, tex_coords, normals</span>
+<span class="sd">    (which will not be generated if not supplied)</span>
+<span class="sd">    **NB this method will go horribly wrong if you change the size of the</span>
+<span class="sd">    arrays supplied in the argument as the opengles buffers are reused</span>
+<span class="sd">    At least one of pts, texcoords or normals must be a list**</span>
+<span class="sd">    This method will run faster if the new data is passed as numpy 2D arrays.</span>
+
+<span class="sd">      Arguments:</span>
+<span class="sd">        *pts*</span>
+<span class="sd">          numpy 2D array or list of (x,y,z) tuples, default None</span>
+<span class="sd">        *texcoords*</span>
+<span class="sd">          numpy 2D array or list of (u,v) tuples, default None</span>
+<span class="sd">        *normals*</span>
+<span class="sd">          numpy 2D array or list of (x,y,z) tuples, default None</span>
+<span class="sd">        *offset*</span>
+<span class="sd">          number of vertices offset from the start of vertices, default 0</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+    <span class="n">stride</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N_BYTES</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> <span class="c">#i.e. 3, 6 or 8 This can&#39;t change from init</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">pts</span> <span class="o">==</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">offset</span><span class="p">:(</span><span class="n">offset</span> <span class="o">+</span> <span class="n">n</span><span class="p">),</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">pts</span><span class="p">[:,:]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">normals</span> <span class="o">==</span> <span class="bp">None</span><span class="p">):</span> 
+      <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">normals</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+        <span class="n">normals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">offset</span><span class="p">:(</span><span class="n">offset</span> <span class="o">+</span> <span class="n">n</span><span class="p">),</span> <span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">normals</span><span class="p">[:,:]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">texcoords</span> <span class="o">==</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">texcoords</span><span class="p">)</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">texcoords</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+        <span class="n">texcoords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">texcoords</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">offset</span><span class="p">:(</span><span class="n">offset</span> <span class="o">+</span> <span class="n">n</span><span class="p">),</span> <span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">texcoords</span><span class="p">[:,:]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span> <span class="c"># has to be called prior to _select</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">()</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glBufferSubData</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="o">.</span><span class="n">nbytes</span><span class="p">,</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
 </div>
   <span class="k">def</span> <span class="nf">_load_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">vbuf</span> <span class="o">=</span> <span class="n">c_int</span><span class="p">()</span>
@@ -203,22 +242,25 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">disp</span><span class="o">.</span><span class="n">ebufs_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ebuf</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ebuf</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">()</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glBufferData</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span>
-                          <span class="n">ctypes</span><span class="o">.</span><span class="n">sizeof</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">),</span>
-                          <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">),</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="o">.</span><span class="n">nbytes</span><span class="p">,</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
                           <span class="n">GL_STATIC_DRAW</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glBufferData</span><span class="p">(</span><span class="n">GL_ELEMENT_ARRAY_BUFFER</span><span class="p">,</span>
-                          <span class="n">ctypes</span><span class="o">.</span><span class="n">sizeof</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">),</span>
-                          <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">),</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="o">.</span><span class="n">nbytes</span><span class="p">,</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
                           <span class="n">GL_STATIC_DRAW</span><span class="p">)</span>
+
 
   <span class="k">def</span> <span class="nf">_unload_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vbuf</span><span class="p">))</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ebuf</span><span class="p">))</span>
 
+
   <span class="k">def</span> <span class="nf">_select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Makes our buffers active.&quot;&quot;&quot;</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glBindBuffer</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vbuf</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glBindBuffer</span><span class="p">(</span><span class="n">GL_ELEMENT_ARRAY_BUFFER</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ebuf</span><span class="p">)</span>
+
 
 <div class="viewcode-block" id="Buffer.set_draw_details"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.set_draw_details">[docs]</a>  <span class="k">def</span> <span class="nf">set_draw_details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">,</span> <span class="n">textures</span><span class="p">,</span> <span class="n">ntiles</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">shiny</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                        <span class="n">umult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">vmult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
@@ -248,15 +290,19 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">shiny</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">umult</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">vmult</span>
+
 </div>
 <div class="viewcode-block" id="Buffer.set_material"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.set_material">[docs]</a>  <span class="k">def</span> <span class="nf">set_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mtrl</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">mtrl</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
 </div>
 <div class="viewcode-block" id="Buffer.set_textures"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.set_textures">[docs]</a>  <span class="k">def</span> <span class="nf">set_textures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">textures</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="n">textures</span>
+
 </div>
 <div class="viewcode-block" id="Buffer.set_offset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.set_offset">[docs]</a>  <span class="k">def</span> <span class="nf">set_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">offset</span>
+
 </div>
 <div class="viewcode-block" id="Buffer.draw"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">textures</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fullset</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Draw this Buffer, called by the parent Shape.draw()</span>
@@ -322,35 +368,37 @@
 
     <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_DEPTH_TEST</span><span class="p">)</span> <span class="c"># TODO find somewhere more efficient to do this</span>
 
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glDrawElements</span><span class="p">(</span><span class="n">GL_TRIANGLES</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntris</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">GL_UNSIGNED_SHORT</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glDrawElements</span><span class="p">(</span><span class="n">GL_POINTS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntris</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">GL_UNSIGNED_SHORT</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glDrawElements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_method</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntris</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">GL_UNSIGNED_SHORT</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
 
   <span class="c"># Implement pickle/unpickle support</span></div>
   <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">{</span>
       <span class="s">&#39;unib&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">),</span>
-      <span class="s">&#39;vertices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span>
-      <span class="s">&#39;normals&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">,</span>
-      <span class="s">&#39;tex_coords&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">,</span>
-      <span class="s">&#39;indices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span>
+      <span class="s">&#39;array_buffer&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">,</span>
+      <span class="s">&#39;element_array_buffer&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">,</span>
       <span class="s">&#39;material&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">material</span><span class="p">,</span>
-      <span class="s">&#39;textures&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures</span>
+      <span class="s">&#39;textures&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">,</span>
+      <span class="s">&#39;draw_method&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_method</span><span class="p">,</span>
+      <span class="s">&#39;ntris&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntris</span><span class="p">,</span>
+      <span class="s">&#39;N_BYTES&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">N_BYTES</span>
       <span class="p">}</span>
+
   
   <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
     <span class="n">unib_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s">&#39;unib&#39;</span><span class="p">])</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)(</span><span class="o">*</span><span class="n">unib_tuple</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;vertices&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">normals</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;normals&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;tex_coords&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;indices&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;array_buffer&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;element_array_buffer&#39;</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;material&#39;</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;textures&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;draw_method&#39;</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">disk_loaded</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">__pack_data</span><span class="p">()</span></div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ntris</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;ntris&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">N_BYTES</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;N_BYTES&#39;</span><span class="p">]</span>
+    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">disp</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="c"># rely on there always being one!</span></div>
 </pre></div>
 
           </div>
@@ -384,7 +432,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

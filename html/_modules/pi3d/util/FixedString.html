@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.FixedString &mdash; pi3d 1.13 documentation</title>
+    <title>pi3d.util.FixedString &mdash; pi3d 1.14 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '1.13',
+        VERSION:     '1.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.13 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 1.14 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -50,6 +50,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
 <span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -173,7 +174,9 @@
       <span class="k">elif</span> <span class="n">f_type</span> <span class="o">==</span> <span class="s">&#39;SMOOTH&#39;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="o">.</span><span class="n">SMOOTH_MORE</span><span class="p">)</span>
         
-    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="s">&#39;raw&#39;</span><span class="p">,</span> <span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+    <span class="c">#self.image = self.im.convert(&#39;RGBA&#39;).tostring(&#39;raw&#39;, &#39;RGBA&#39;)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
     
     <span class="n">bmedge</span> <span class="o">=</span> <span class="n">nlines</span> <span class="o">*</span> <span class="n">height</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">margin</span>
@@ -198,11 +201,11 @@
     <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span>
-          <span class="p">[</span><span class="mf">0.025</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.065</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">],</span>
-          <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.065</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span><span class="mf">0.065</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
-          <span class="p">[</span><span class="mf">0.025</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.065</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">],</span>
-          <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">0.025</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.065</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.025</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.065</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span>  <span class="mf">0.065</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">0.025</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.065</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.025</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]]</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
     <span class="n">steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">istep</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
@@ -254,7 +257,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.13 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
