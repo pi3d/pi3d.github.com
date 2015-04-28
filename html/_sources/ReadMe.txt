@@ -286,7 +286,7 @@ Windows
 =======
 
   In order for pi3d to run on windows you need to install python, Pillow
-  and numpy (as above) but pi3d also require pygame to provide the graphics
+  and numpy (as above) but pi3d also requires pygame to provide the graphics
   surface and UI, also ANGLE to provide the EGL and GLESv2 emulator libraries.
   Fortunately these files are used by many common applications such as
   the Chrome and Firefox browsers.
@@ -294,7 +294,7 @@ Windows
   There are the usual issues of 32v.64bit and python2v3. and while
   testing and developing I used python2.7 and 32 bits as this seemed to
   be the most straightforward installation for pygame. However there are
-  resources and instructions for all the components in all flavours is you
+  resources and instructions for all the components in all flavours if you
   search around on line! These were the steps I took::
 
     1. download and run the msi for python2.7.9 from python.org. I had to
@@ -337,6 +337,12 @@ Windows
 
   On windows the pi3d events system (as used by Silo and a couple of other
   demos) does not work as it uses fairly low level linux specific code.
+
+  If you ``mymouse = pi3d.Mouse(restrict=False)`` as in most of the demos
+  then the cursor becomes hidden and stuck the centre of the pygame window.
+  This means you can't move or resize the window or close it with the X.
+  i.e. you must make sure that you have a keyboard methods of escaping from
+  the program (presumably Ctrl+Alt+Del would be a route!).
 
 Android
 =======
