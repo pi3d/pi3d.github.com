@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &mdash; pi3d 1.14 documentation</title>
+    <title>pi3d Package &mdash; pi3d 2.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.14',
+        VERSION:     '2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.14 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.0 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.14 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -622,6 +622,22 @@ terminal window or session.</p>
 
 </dd></dl>
 
+<dl class="class">
+<dt id="pi3d.Keyboard.WindowsKeyboard">
+<em class="property">class </em><tt class="descclassname">pi3d.Keyboard.</tt><tt class="descname">WindowsKeyboard</tt><a class="reference internal" href="_modules/pi3d/Keyboard.html#WindowsKeyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.WindowsKeyboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="pi3d.Keyboard.WindowsKeyboard.read">
+<tt class="descname">read</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#WindowsKeyboard.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.WindowsKeyboard.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Keyboard.WindowsKeyboard.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#WindowsKeyboard.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.WindowsKeyboard.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="function">
 <dt id="pi3d.Keyboard.Keyboard">
 <tt class="descclassname">pi3d.Keyboard.</tt><tt class="descname">Keyboard</tt><big>(</big><em>use_curses=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#Keyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.Keyboard" title="Permalink to this definition">¶</a></dt>
@@ -1149,25 +1165,33 @@ that will fit into the space available in the unif array</strong></p>
 <blockquote>
 <div><dl class="docutils">
 <dt><em>index_from</em></dt>
-<dd>start index in unif array for filling data should be 48 to 59 though
+<dd>start index in unif array for filling data should be 48 to 59
 42 to 47 could be used if they do not conflict with existing shaders
 i.e. 2d_flat, defocus etc</dd>
 <dt><em>data</em></dt>
-<dd>array of values to put in</dd>
+<dd>2D array of values to put in [[a,b,c],[d,e,f]]</dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="pi3d.Shape.Shape.set_point_size">
-<tt class="descname">set_point_size</tt><big>(</big><em>point_size=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_point_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_point_size" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_point_size</tt><big>(</big><em>point_size=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_point_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_point_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>This will set the draw_method in all Buffers of this Shape</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pi3d.Shape.Shape.set_line_width">
-<tt class="descname">set_line_width</tt><big>(</big><em>line_width=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_line_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_line_width" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_line_width</tt><big>(</big><em>line_width=1.0</em>, <em>closed=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_line_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_line_width" title="Permalink to this definition">¶</a></dt>
 <dd><p>This will set the draw_method in all Buffers of this Shape</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>line-width</em></dt>
+<dd>line width default 1</dd>
+<dt><em>closed</em></dt>
+<dd>if set to True then the last leg will be filled in. ie polygon</dd>
+</dl>
+</div></blockquote>
 <p>NB it differs from point size in that glLineWidth() is called here
 and that line width will be used for all subsequent draw() operations
 so if you want to draw shapes with different thickness lines you will
@@ -1176,6 +1200,12 @@ have to call this method repeatedly just before each draw()</p>
 in the shader language to make lines shrink with distance.</p>
 <p>If you are drawing lines with high contrast they will look better
 anti aliased which is done by Display.create(samples=4)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.re_init">
+<tt class="descname">re_init</tt><big>(</big><em>pts=None</em>, <em>texcoords=None</em>, <em>normals=None</em>, <em>offset=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.re_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.re_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>wrapper for Buffer.re_init()</p>
 </dd></dl>
 
 <dl class="method">
@@ -1604,7 +1634,7 @@ then this can be used to make a non-seamless texture tile</dd>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.14 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

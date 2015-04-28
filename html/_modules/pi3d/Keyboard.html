@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Keyboard &mdash; pi3d 1.14 documentation</title>
+    <title>pi3d.Keyboard &mdash; pi3d 2.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.14',
+        VERSION:     '2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.14 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.0 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -51,7 +51,9 @@
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
+  <span class="kn">import</span> <span class="nn">pygame</span>
+<span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
   <span class="kn">from</span> <span class="nn">pyxlib</span> <span class="kn">import</span> <span class="n">x</span>
 
 <span class="n">USE_CURSES</span> <span class="o">=</span> <span class="bp">True</span>
@@ -165,7 +167,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">key_code</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
 
   <span class="k">def</span> <span class="nf">_update_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">:</span> <span class="c">#Because DummyTkWin Keyboard instance created before Display!</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="c">#Because DummyTkWin Keyboard instance created before Display!</span>
       <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">display</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">event_list</span><span class="p">)</span>
@@ -215,11 +217,40 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="k">except</span><span class="p">:</span>
       <span class="k">pass</span>
+</div>
+<span class="sd">&quot;&quot;&quot;Windows keyboard - uses pygame</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="WindowsKeyboard"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.WindowsKeyboard">[docs]</a><span class="k">class</span> <span class="nc">WindowsKeyboard</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">key_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span> <span class="c"># shoudn&#39;t matter re-doing this. Some demos have Keyboard before Display</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">set_repeat</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+    <span class="k">pass</span>
+
+<div class="viewcode-block" id="WindowsKeyboard.read"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.WindowsKeyboard.read">[docs]</a>  <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">KEYUP</span><span class="p">)</span> <span class="c"># discard these TODO use them in some way?</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">key_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">key</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">key_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+      <span class="k">return</span> <span class="n">key</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="WindowsKeyboard.close"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.WindowsKeyboard.close">[docs]</a>  <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">pass</span>
+</div>
+  <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+      <span class="k">pass</span>
 
 </div>
 <div class="viewcode-block" id="Keyboard"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.Keyboard">[docs]</a><span class="k">def</span> <span class="nf">Keyboard</span><span class="p">(</span><span class="n">use_curses</span><span class="o">=</span><span class="n">USE_CURSES</span><span class="p">):</span>
   <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">AndroidKeyboard</span><span class="p">()</span>
+  <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">WindowsKeyboard</span><span class="p">()</span>
   <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">x11Keyboard</span><span class="p">()</span>
   <span class="k">else</span><span class="p">:</span>
@@ -257,7 +288,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

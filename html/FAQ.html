@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pi3d 1.14 documentation</title>
+    <title>Frequently Asked Questions &mdash; pi3d 2.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.14',
+        VERSION:     '2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.14 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.0 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.14 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -409,6 +409,14 @@ method is that it can use the even simpler Canvas object and it always
 stays in the same place relative to the camera so you only need one
 camera, which can be the default one that you don&#8217;t have to bother
 creating. See below.</p>
+<p>From v1.14 the Buffer.re_init() method (see below under <tt class="docutils literal"><span class="pre">Is</span> <span class="pre">it</span>
+<span class="pre">possible</span> <span class="pre">to</span> <span class="pre">change</span> <span class="pre">the</span> <span class="pre">shape...</span></tt>) allows vertices to be moved
+around quite easily. These vertices can be rendered as points and
+the Shader can be made to draw an image or part of an image at each
+point. This technique allows much larger numbers of sprites to be
+drawn per frame, especially if the fast array processing power of
+numpy is used as well. See the demos <tt class="docutils literal"><span class="pre">SpriteBalls.py</span></tt> and
+<tt class="docutils literal"><span class="pre">SpriteMulti.py</span></tt></p>
 </div></blockquote>
 </li>
 <li><p class="first">How do I display 2D images in front of a 3D scene? (or behind, for that
@@ -507,15 +515,10 @@ in my application?</p>
 <li><p class="first">How do I keep two components (Shapes) &#8216;joined together&#8217; as they pitch, roll
 and rotate (yaw), like the TigerTank does with its body, turret and gun?</p>
 <blockquote>
-<div><p>First of all it is easiest if you make the zero points of all the shapes
-coincide. When you move and rotate the objects you must move and rotate
-them all by the same amount. If one component is rotated about the y axis
-by a different amount from the others (i.e. the turret and gun) then
-the difference is just added to the y rotation for that component.
-However if the component is rotated about the y axis and the x axis
-(i.e. the gun) then you have to adjust the x axis and the z axis rotation
-by an amount that depends on the degree of y axis rotation. See the
-drawTiger function in demos/TigerTank.py for the kind of formula to use.</p>
+<div><p>This can be done automatically by adding Shapes to other Shapes.children
+lists which can be done using the Shape.add_child() method. All transformation
+applied to a Shape will then be relative to its parent and will be
+inherited its children. See the drawTiger function in <tt class="docutils literal"><span class="pre">TigerTank.py</span></tt>.</p>
 </div></blockquote>
 </li>
 <li><p class="first">I want to give my shape an angle of bank (z-axis rotation) which it
@@ -539,7 +542,7 @@ roll. For a shape with zero pitch you can use something like:</p>
 <span class="n">hull</span><span class="o">.</span><span class="n">rotateToZ</span><span class="p">(</span><span class="n">absheel</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>And see the demos/DogFight.py version which has an extra degree
+<p>And see the <tt class="docutils literal"><span class="pre">DogFight.py</span></tt> version which has an extra degree
 of freedom.</p>
 </div></blockquote>
 </li>
@@ -555,11 +558,11 @@ This issue seems to be fixed but if you run into memory problems
 it might be worth trying this. Plus, obviously, report it to us!)</p>
 <p>The alternative way of doing it is to use the Buffer.re_init() method
 which takes arguments to set new values for pts (i.e. vertices), texcoords
-and normals. These are passes as lists of xyz or uv lists or tuples or
+and normals. These are passed as lists of xyz or uv lists or tuples or
 better, two dimentional numpy arrays. An offset argument can also be
 passed to allow only a section of vertices (normals or texcoords) to
 be modified. re_init() can&#8217;t change the number of vertices, just move
-them around. See the demos IceGrow and ProceduralTerrain.</p>
+them around. See the demos <tt class="docutils literal"><span class="pre">IceGrow.py</span></tt> and <tt class="docutils literal"><span class="pre">ProceduralTerrain.py</span></tt>.</p>
 </div></blockquote>
 </li>
 <li><p class="first">Sometime, when I move the mouse or the program is loading a file from
@@ -570,7 +573,7 @@ lower than the flat out rate it will give the processor some &#8216;slack&#8217;
 to accomplish other jobs.</p>
 <p>To do things like file loading in the background (for instance, preloading
 an image or Shape so that it can instantly appear later) you need to use
-Python&#8217;s threading - demos/Slideshow_2d.py is an example.</p>
+Python&#8217;s threading - <tt class="docutils literal"><span class="pre">Slideshow_2d.py</span></tt> is an example.</p>
 </div></blockquote>
 </li>
 <li><p class="first">I am running pi3d on a non-raspberry pi Linux machine but it&#8217;s running
@@ -608,7 +611,7 @@ edge detection or fancier effects such as oil painting.</p>
 a texture. The Post.py demo shows a simple 3x3 convolution matrix
 shader and there are a host of post process filter shaders that
 are in the pi3d_demos/shaders directory. These wll be loaded in
-turn by FilterDemo.py but the pi will run out of graphics memory
+turn by <tt class="docutils literal"><span class="pre">FilterDemo.py</span></tt> but the pi will run out of graphics memory
 if you leave the full list in. For more complicated effects it&#8217;s
 over to you!</p>
 </div></blockquote>
@@ -716,7 +719,8 @@ or sparks from an explosion.</p>
 than 0.0 then the vertices of the Shape will be rendered as points.
 The size will actually vary with distance but will be the size you
 specified at 1 unit of distance from the camera.</p>
-<p>pi3d.Points can be used to render points using the mat_flat shader</p>
+<p>pi3d.Points can be used to render points using the mat_flat shader
+or special shaders as used in the demo <tt class="docutils literal"><span class="pre">SpriteMulti.py</span></tt></p>
 </div></blockquote>
 </li>
 <li><p class="first">How can I set up an SD card without all of Raspbian&#8217;s clutter that will
@@ -937,6 +941,10 @@ projection <a class="reference external" href="http://en.wikipedia.org/wiki/Equi
 <p>This image is used for a Texture uv mapped to a standard pi3d.Sphere
 but the Texture needs to have the argument <tt class="docutils literal"><span class="pre">flip=True</span></tt> and the Sphere
 needs the argument <tt class="docutils literal"><span class="pre">invert=True</span></tt></p>
+<p>If the same image is used as the reflection with <tt class="docutils literal"><span class="pre">uv_reflect</span></tt> or
+<tt class="docutils literal"><span class="pre">mat_reflect</span></tt> shaders then the correct part of the scenery will be
+rendered - i.e. behind the camera and transposed left-right, see
+demo <tt class="docutils literal"><span class="pre">EnvironmentSphere.py</span></tt>.</p>
 </div></blockquote>
 </li>
 <li><p class="first">How can I speed up loading Models. Even quite low polygon counts
@@ -999,11 +1007,13 @@ $ python -m cProfile ~/pi3d_demos/NumpyBalls.py &gt; result.txt
 <li><p class="first">Is it possible to use pi3d on my laptop or desktop computer
 ideally running windows?</p>
 <blockquote>
-<div><p>If your computer has a suitable graphics card then it is possible
-to set up pi3d in a linux environment see <a class="reference external" href="http://pi3d.github.com/html/index.html">ReadMe</a> . It ought to be
-possible to set it up with a very similar procedure on mac but I havn&#8217;t
-tried (let me know if you do!) On windows the only route at the
-moment is using something like VMWare:</p>
+<div><p>If your computer has a suitable graphics card then you should be
+able to do this.</p>
+<p><strong>windows</strong> requires a version of pi3d v2.0 or later see <a class="reference external" href="http://pi3d.github.com/html/ReadMe.html#windows">ReadMe Windows</a></p>
+<p><strong>linux</strong> is more similar to the Raspberry Pi, also see <a class="reference external" href="http://pi3d.github.com/html/ReadMe.html#setup-on-desktop-and-laptop-machines">ReadMe Linux</a></p>
+<p><strong>mac</strong> ought to be possible following a very similar procedure to
+linux but I havn&#8217;t tried (let me know if you do!)</p>
+<p>On windows it is also possible to use something like VMWare:</p>
 <div class="highlight-python"><div class="highlight"><pre>Setup:
 
 VMWare Client
@@ -1087,7 +1097,7 @@ python-for-android from a linux machine. There are instructions here
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.14 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -356,6 +356,15 @@ Frequently Asked Questions
       camera, which can be the default one that you don't have to bother
       creating. See below.
 
+      From v1.14 the Buffer.re_init() method (see below under ``Is it
+      possible to change the shape...``) allows vertices to be moved
+      around quite easily. These vertices can be rendered as points and
+      the Shader can be made to draw an image or part of an image at each
+      point. This technique allows much larger numbers of sprites to be
+      drawn per frame, especially if the fast array processing power of
+      numpy is used as well. See the demos ``SpriteBalls.py`` and
+      ``SpriteMulti.py``
+
 #.  How do I display 2D images in front of a 3D scene? (or behind, for that
     matter)
 
@@ -446,15 +455,10 @@ Frequently Asked Questions
 #.  How do I keep two components (Shapes) 'joined together' as they pitch, roll
     and rotate (yaw), like the TigerTank does with its body, turret and gun?
 
-      First of all it is easiest if you make the zero points of all the shapes
-      coincide. When you move and rotate the objects you must move and rotate
-      them all by the same amount. If one component is rotated about the y axis
-      by a different amount from the others (i.e. the turret and gun) then
-      the difference is just added to the y rotation for that component.
-      However if the component is rotated about the y axis and the x axis
-      (i.e. the gun) then you have to adjust the x axis and the z axis rotation
-      by an amount that depends on the degree of y axis rotation. See the
-      drawTiger function in demos/TigerTank.py for the kind of formula to use.
+      This can be done automatically by adding Shapes to other Shapes.children
+      lists which can be done using the Shape.add_child() method. All transformation
+      applied to a Shape will then be relative to its parent and will be
+      inherited its children. See the drawTiger function in ``TigerTank.py``.
 
 #.  I want to give my shape an angle of bank (z-axis rotation) which it
     maintains as it turns (y-axis rotation) - like an aeroplane. However the
@@ -477,7 +481,7 @@ Frequently Asked Questions
           hull.rotateToY(-heading)
           hull.rotateToZ(absheel)
 
-      And see the demos/DogFight.py version which has an extra degree
+      And see the ``DogFight.py`` version which has an extra degree
       of freedom.
 
 #.  Is it possible to change the shape of an object once it's been made?
@@ -493,11 +497,11 @@ Frequently Asked Questions
 
       The alternative way of doing it is to use the Buffer.re_init() method
       which takes arguments to set new values for pts (i.e. vertices), texcoords
-      and normals. These are passes as lists of xyz or uv lists or tuples or
+      and normals. These are passed as lists of xyz or uv lists or tuples or
       better, two dimentional numpy arrays. An offset argument can also be
       passed to allow only a section of vertices (normals or texcoords) to
       be modified. re_init() can't change the number of vertices, just move
-      them around. See the demos IceGrow and ProceduralTerrain.
+      them around. See the demos ``IceGrow.py`` and ``ProceduralTerrain.py``.
 
 #.  Sometime, when I move the mouse or the program is loading a file from
     disk, everything slows down or freezes.
@@ -508,7 +512,7 @@ Frequently Asked Questions
 
       To do things like file loading in the background (for instance, preloading
       an image or Shape so that it can instantly appear later) you need to use
-      Python's threading - demos/Slideshow_2d.py is an example.
+      Python's threading - ``Slideshow_2d.py`` is an example.
 
 #.  I am running pi3d on a non-raspberry pi Linux machine but it's running
     at a very slow frame rate.
@@ -542,7 +546,7 @@ Frequently Asked Questions
       a texture. The Post.py demo shows a simple 3x3 convolution matrix
       shader and there are a host of post process filter shaders that
       are in the pi3d_demos/shaders directory. These wll be loaded in
-      turn by FilterDemo.py but the pi will run out of graphics memory
+      turn by ``FilterDemo.py`` but the pi will run out of graphics memory
       if you leave the full list in. For more complicated effects it's
       over to you!
 
@@ -655,6 +659,7 @@ Frequently Asked Questions
       specified at 1 unit of distance from the camera.
 
       pi3d.Points can be used to render points using the mat_flat shader
+      or special shaders as used in the demo ``SpriteMulti.py``
 
 #.  How can I set up an SD card without all of Raspbian's clutter that will
     boot quickly and allow me to run a dedicated pi3d application.
@@ -917,6 +922,11 @@ Frequently Asked Questions
       This image is used for a Texture uv mapped to a standard pi3d.Sphere
       but the Texture needs to have the argument ``flip=True`` and the Sphere
       needs the argument ``invert=True``
+
+      If the same image is used as the reflection with ``uv_reflect`` or
+      ``mat_reflect`` shaders then the correct part of the scenery will be
+      rendered - i.e. behind the camera and transposed left-right, see
+      demo ``EnvironmentSphere.py``.
       
 #.  How can I speed up loading Models. Even quite low polygon counts
     seem to take ages on the Raspberry Pi
@@ -976,12 +986,18 @@ Frequently Asked Questions
         
 #.  Is it possible to use pi3d on my laptop or desktop computer
     ideally running windows?
-    
-      If your computer has a suitable graphics card then it is possible
-      to set up pi3d in a linux environment see ReadMe_ . It ought to be 
-      possible to set it up with a very similar procedure on mac but I havn't
-      tried (let me know if you do!) On windows the only route at the
-      moment is using something like VMWare::
+
+      If your computer has a suitable graphics card then you should be
+      able to do this.
+
+      **windows** requires a version of pi3d v2.0 or later see `ReadMe Windows`_
+
+      **linux** is more similar to the Raspberry Pi, also see `ReadMe Linux`_
+
+      **mac** ought to be possible following a very similar procedure to
+      linux but I havn't tried (let me know if you do!)
+
+      On windows it is also possible to use something like VMWare::
       
         Setup:
 
@@ -1012,4 +1028,6 @@ Frequently Asked Questions
       http://pi3d.github.io/html/AndroidUse.html
 
 .. _ReadMe: http://pi3d.github.com/html/index.html
+.. _`ReadMe Linux`: http://pi3d.github.com/html/ReadMe.html#setup-on-desktop-and-laptop-machines
+.. _`ReadMe Windows`: http://pi3d.github.com/html/ReadMe.html#windows
 

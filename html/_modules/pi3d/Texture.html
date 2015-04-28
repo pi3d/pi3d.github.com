@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Texture &mdash; pi3d 1.14 documentation</title>
+    <title>pi3d.Texture &mdash; pi3d 2.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.14',
+        VERSION:     '2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.14 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.0 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -119,12 +119,12 @@
     <span class="k">try</span><span class="p">:</span>
       <span class="k">if</span> <span class="s">&#39;&#39;</span> <span class="o">+</span> <span class="n">file_string</span> <span class="o">==</span> <span class="n">file_string</span><span class="p">:</span> <span class="c">#HORRIBLE. Only way to cope with python2v3</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_file</span> <span class="o">=</span> <span class="bp">True</span> <span class="c"># read image from file</span>
-        <span class="k">if</span> <span class="n">file_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;/&#39;</span><span class="p">:</span> <span class="c">#absolute address</span>
+        <span class="k">if</span> <span class="n">file_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">file_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;C:&#39;</span><span class="p">):</span> <span class="c">#absolute address</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">file_string</span>
         <span class="k">else</span><span class="p">:</span>
           <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">file_string</span><span class="p">):</span> <span class="c"># this could theoretically get different files with same name</span>
-              <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">file_string</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">file_string</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">file_string</span><span class="p">)):</span> <span class="c"># this could theoretically get different files with same name</span>
               <span class="k">break</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">file_string</span> <span class="c"># file_string is a PIL Image</span>
@@ -148,7 +148,7 @@
     <span class="nb">super</span><span class="p">(</span><span class="n">Texture</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__del__</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
       <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
-      <span class="k">if</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">tidy_needed</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="k">except</span><span class="p">:</span>
@@ -218,9 +218,12 @@
 
   <span class="k">def</span> <span class="nf">_load_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;overrides method of Loadable&quot;&quot;&quot;</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glGenTextures</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glGenTextures</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span> <span class="c"># TODO windows throws exceptions just for this call!</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">&quot;{} [glGenTextures() on windows only!]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
     <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
-    <span class="k">if</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
       <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glBindTexture</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)</span>
     <span class="n">RGBv</span> <span class="o">=</span> <span class="n">GL_RGBA</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="k">else</span> <span class="n">GL_RGB</span>
@@ -286,7 +289,7 @@
 <div class="viewcode-block" id="TextureCache.create"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.TextureCache.create">[docs]</a>  <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_string</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="n">key</span> <span class="o">=</span> <span class="n">file_string</span><span class="p">,</span> <span class="n">blend</span><span class="p">,</span> <span class="n">flip</span><span class="p">,</span> <span class="n">size</span>
     <span class="n">texture</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">texture</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">texture</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
       <span class="n">texture</span> <span class="o">=</span> <span class="n">Texture</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">texture</span>
 
@@ -324,7 +327,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

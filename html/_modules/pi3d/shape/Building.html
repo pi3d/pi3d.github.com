@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.shape.Building &mdash; pi3d 1.14 documentation</title>
+    <title>pi3d.shape.Building &mdash; pi3d 2.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '1.14',
+        VERSION:     '2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.14 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.0 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -286,7 +286,7 @@
 <span class="sd">    Without a pos argument: &quot;does object o overlap me?&quot;</span>
 <span class="sd">    With a pos argument: &quot;would object o overlap me if it was at position &#39;pos&#39;?&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">pos</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">pos</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
       <span class="n">pos</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">position</span>
     <span class="k">return</span> <span class="n">_overlap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="n">o</span><span class="o">.</span><span class="n">bulk</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">x</span><span class="o">+</span><span class="n">o</span><span class="o">.</span><span class="n">bulk</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> \
       <span class="n">_overlap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">y</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="n">o</span><span class="o">.</span><span class="n">bulk</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">y</span><span class="o">+</span><span class="n">o</span><span class="o">.</span><span class="n">bulk</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> \
@@ -517,7 +517,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">ceilingthickness</span> <span class="o">=</span> <span class="mf">1.0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">walls</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">if</span> <span class="n">scheme</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">scheme</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span> <span class="o">=</span> <span class="n">Building</span><span class="o">.</span><span class="n">baseScheme</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span> <span class="o">=</span> <span class="n">scheme</span>
@@ -911,7 +911,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 1.14 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

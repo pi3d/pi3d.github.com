@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction to pi3d &mdash; pi3d 1.14 documentation</title>
+    <title>Introduction to pi3d &mdash; pi3d 2.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.14',
+        VERSION:     '2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 1.14 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.0 documentation" href="index.html" />
     <link rel="next" title="Frequently Asked Questions" href="FAQ.html" />
     <link rel="prev" title="Welcome to pi3d’s documentation!" href="index.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pi3d’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 1.14 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -63,10 +63,11 @@ under the bonnet!</p>
 whilst giving access to the power of the Raspberry Pi GPU. It enables both
 3D and 2D rendering and aims to provide a host of exciting commands to load
 in textured/animated models, create fractal landscapes, shaders and much more.</p>
-<p>The pi3d module runs on platforms other than the Raspberry Pi (X on linux
-and Android using python-for-android) and runs with python 3 as well as 2.
+<p>The pi3d module runs on platforms other than the Raspberry Pi (On Windows
+using pygame, on linux using the X server directly and on Android using
+python-for-android) and runs with python 3 as well as 2.
 The OpenGLES2.0 functionality of the Raspberry Pi or Android is used directly
-or via mesa on &#8216;big&#8217; machines. This makes it generally <em>faster</em>
+or via mesa or ANGLE on &#8216;big&#8217; machines. This makes it generally <em>faster</em>
 and opens up the world of <em>shaders</em> that allow effects such as normal and
 reflection maps, blurring and many others. It has various demos of built-in
 shapes, landscapes, model loading, walk-about camera and much more! See the demos
@@ -74,22 +75,6 @@ included with this code and experiment with them ..</p>
 <p>If you are reading this document as the ReadMe in the repository then you
 can find the full version of the documentation here
 <a class="reference external" href="http://pi3d.github.com/html/index.html">http://pi3d.github.com/html/index.html</a></p>
-</div>
-<div class="section" id="demos-for-pi3d-are-now-stored-at-https-github-com-pi3d-pi3d-demos">
-<h1>Demos for pi3d are now stored at <a class="reference external" href="https://github.com/pi3d/pi3d_demos">https://github.com/pi3d/pi3d_demos</a><a class="headerlink" href="#demos-for-pi3d-are-now-stored-at-https-github-com-pi3d-pi3d-demos" title="Permalink to this headline">¶</a></h1>
-<p>N.B. Shaders are now integrated into programs differently. The syntax used
-to be:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myshader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s">&#39;shaders/uv_flat&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>and is now:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myshader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s">&#39;uv_flat&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>this will use the default shaders &#8216;bundled&#8217; with the package. The old format
-will be interpreted as &#8216;look in a subdirectory of the directory where the demo
-is being run from.&#8217; This is probably what you would do if you rolled your own
-special shaders for your own project.</p>
 </div>
 <div class="section" id="demos-on-github-com-pi3d-pi3d-demos-include">
 <h1>Demos on github.com/pi3d/pi3d_demos include<a class="headerlink" href="#demos-on-github-com-pi3d-pi3d-demos-include" title="Permalink to this headline">¶</a></h1>
@@ -205,6 +190,8 @@ for first person navigation</p>
 this time  bouncing off each other on the desktop</p>
 </li>
 </ol>
+<p>There are actually at least 50 demos showing a variety of ways of using
+pi3d with different levels of complexity.</p>
 </div>
 <div class="section" id="files-and-folders-in-this-repository">
 <h1>Files and folders in this repository<a class="headerlink" href="#files-and-folders-in-this-repository" title="Permalink to this headline">¶</a></h1>
@@ -332,10 +319,10 @@ of all the steps to get a quick loading stand-alone pi3d SD card.</p>
 <h1>Setup on desktop and laptop machines<a class="headerlink" href="#setup-on-desktop-and-laptop-machines" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><p>The machine will need to have a gpu that runs OpenGL2+ and obviously
-it will need to have python installed. At the moment pi3d needs to run
-in an essentially Linux environment this can be in its own boot partition
-or in vmware (eg Player which is free, you will also need to
-<tt class="docutils literal"><span class="pre">enable</span> <span class="pre">3d</span> <span class="pre">acceleration</span></tt>.)</p>
+it will need to have python installed. Setting up in a Linux environment
+is most similar to the procedure for the Raspberry Pi. Linux can be set
+upe in its own boot partition or in vmware (eg Player which is free, you
+will also need to <tt class="docutils literal"><span class="pre">enable</span> <span class="pre">3d</span> <span class="pre">acceleration</span></tt>.)</p>
 <p>You need to install libraries
 that emulate OpenGLES behaviour for the gpu:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get install mesa-utils-extra
@@ -357,6 +344,60 @@ Pi above but you are more likely to need to manually install python-numpy
 <p>It is likely that pi3d will run on OSX but you might have to compile
 your own mesa libraries (though some seem to be available) Pi3d has
 been run successfully in vmware on mac.</p>
+</div></blockquote>
+</div>
+<div class="section" id="windows">
+<h1>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>In order for pi3d to run on windows you need to install python, Pillow
+and numpy (as above) but pi3d also require pygame to provide the graphics
+surface and UI, also ANGLE to provide the EGL and GLESv2 emulator libraries.
+Fortunately these files are used by many common applications such as
+the Chrome and Firefox browsers.</p>
+<p>There are the usual issues of 32v.64bit and python2v3. and while
+testing and developing I used python2.7 and 32 bits as this seemed to
+be the most straightforward installation for pygame. However there are
+resources and instructions for all the components in all flavours is you
+search around on line! These were the steps I took:</p>
+<div class="highlight-python"><div class="highlight"><pre>1. download and run the msi for python2.7.9 from python.org. I had to
+select the last option in the list of components to install
+``..add python.exe to Path`` by selecting the option to install on
+hard drive.
+
+2. open command prompt window then
+3. .. easy_install pygame
+4. .. easy_install numpy
+5. .. easy_install Pillow
+
+NB these easy_install routines are pretty fast but with the Pillow
+module, at least, they leave the compiled files zipped inside an egg
+file. This probably has an impact on start-up time when you first run
+a program using pi3d. Apparently there is an option to force it to unzip
+
+.. easy_install --always-unzip
+</pre></div>
+</div>
+<p>As well as installing the python modules you also need to find the two
+ANGLE dll files on your system and edit the path to these files
+in the pi3d file <tt class="docutils literal"><span class="pre">pi3d/constants/__init__.py</span></tt> around lines 87,88
+There is a utility search program included with pi3d <tt class="docutils literal"><span class="pre">scripts/find_libegl.py</span></tt>
+which will quickly look in the areas where I found them on my system, however
+if none are found you should use the windows search functionality, and
+if there are still none you will have to install Chrome or Firefox.</p>
+<p>Because of the need to edit <tt class="docutils literal"><span class="pre">pi3d/constants/__init__.py</span></tt> (I might make
+this more automatic at some stage) it is probably better to not install
+pi3d using the pip or easy_install methods. Instead either clone it with
+git or download the zip from github and extract somewhere sensible on
+your system. If you do this you will then have to add the path to pi3d
+at the beginning of any files trying to import pi3d:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;C:\Users\whoever\Documents\GitHub\pi3d&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>for convenience, in pi3d_demos this is included in a file <tt class="docutils literal"><span class="pre">demo.py</span></tt>
+which is imported at the start of each file.</p>
+<p>On windows the pi3d events system (as used by Silo and a couple of other
+demos) does not work as it uses fairly low level linux specific code.</p>
 </div></blockquote>
 </div>
 <div class="section" id="android">
@@ -519,11 +560,11 @@ and others who have contributed to pi3d - keep up the good work!</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introduction to pi3d</a></li>
-<li><a class="reference internal" href="#demos-for-pi3d-are-now-stored-at-https-github-com-pi3d-pi3d-demos">Demos for pi3d are now stored at https://github.com/pi3d/pi3d_demos</a></li>
 <li><a class="reference internal" href="#demos-on-github-com-pi3d-pi3d-demos-include">Demos on github.com/pi3d/pi3d_demos include</a></li>
 <li><a class="reference internal" href="#files-and-folders-in-this-repository">Files and folders in this repository</a></li>
 <li><a class="reference internal" href="#setup-on-the-raspberry-pi">Setup on the Raspberry Pi</a></li>
 <li><a class="reference internal" href="#setup-on-desktop-and-laptop-machines">Setup on desktop and laptop machines</a></li>
+<li><a class="reference internal" href="#windows">Windows</a></li>
 <li><a class="reference internal" href="#android">Android</a></li>
 <li><a class="reference internal" href="#editing-scripts-and-running">Editing scripts and running</a></li>
 <li><a class="reference internal" href="#a-very-brief-explanation">A Very Brief Explanation</a></li>
@@ -574,7 +615,7 @@ and others who have contributed to pi3d - keep up the good work!</p>
         <li class="right" >
           <a href="index.html" title="Welcome to pi3d’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 1.14 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
