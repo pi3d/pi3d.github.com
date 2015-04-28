@@ -302,17 +302,20 @@ Windows
     ``..add python.exe to Path`` by selecting the option to install on
     hard drive.
 
+    3. download and run the msi for pygame win32-py2.7 from pygame.org.
     2. open command prompt window then
-    3. .. easy_install pygame
     4. .. easy_install numpy
     5. .. easy_install Pillow
     
-    NB these easy_install routines are pretty fast but with the Pillow
-    module, at least, they leave the compiled files zipped inside an egg
+    NB the easy_install routine takes a while for numpy but is pretty fast
+    for the Pillow module but it leaves the compiled files zipped inside an egg
     file. This probably has an impact on start-up time when you first run
     a program using pi3d. Apparently there is an option to force it to unzip
 
     .. easy_install --always-unzip
+    or easy_install -Z
+
+    but neither were satisfactory when I tried.
 
   As well as installing the python modules you also need to find the two
   ANGLE dll files on your system and edit the path to these files
