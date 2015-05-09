@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &mdash; pi3d 2.0 documentation</title>
+    <title>pi3d Package &mdash; pi3d 2.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.0',
+        VERSION:     '2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.0 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.1 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -1428,16 +1428,18 @@ list then it will be rescaled with a resulting loss of clarity</strong></p>
 <em>file_string</em></p>
 <blockquote>
 <div>path and name of image file relative to top dir. Can now pass an
-already created PIL.Image object instead.</div></blockquote>
+already created PIL.Image object or a numpy array instead. The alpha
+value of Texture willl be set according to the &#8216;mode&#8217; of Image objects
+or the size of the last dimension of numpy arrays (4 -&gt; alpha is True)</div></blockquote>
 <dl class="docutils">
 <dt><em>blend</em></dt>
 <dd>controls if low alpha pixels are discarded (if False) or drawn
 by the shader. If set to true then this texture needs to be
 drawn AFTER other objects that are FURTHER AWAY</dd>
 <dt><em>flip</em></dt>
-<dd>flips the image</dd>
+<dd>flips the image [not used for numpy arrays]</dd>
 <dt><em>size</em></dt>
-<dd>to resize image to</dd>
+<dd>to resize image to [not used for numpy arrays]</dd>
 <dt><em>defer</em></dt>
 <dd>can load from file in other thread and defer opengl work until
 texture needed, default True</dd>
@@ -1456,6 +1458,13 @@ then this can be used to make a non-seamless texture tile</dd>
 <dt id="pi3d.Texture.Texture.tex">
 <tt class="descname">tex</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Texture.tex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture.tex" title="Permalink to this definition">¶</a></dt>
 <dd><p>do the deferred opengl work and return texture</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Texture.Texture.update_ndarray">
+<tt class="descname">update_ndarray</tt><big>(</big><em>new_array=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Texture.update_ndarray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture.update_ndarray" title="Permalink to this definition">¶</a></dt>
+<dd><p>to allow numpy arrays to be patched in to textures without regenerating
+new glTextureBuffers i.e. for movie textures</p>
 </dd></dl>
 
 </dd></dl>
@@ -1634,7 +1643,7 @@ then this can be used to make a non-seamless texture tile</dd>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

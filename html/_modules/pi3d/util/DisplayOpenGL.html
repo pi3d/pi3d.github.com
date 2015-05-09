@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.DisplayOpenGL &mdash; pi3d 2.0 documentation</title>
+    <title>pi3d.util.DisplayOpenGL &mdash; pi3d 2.1 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.0',
+        VERSION:     '2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.0 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.1 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.0 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.1 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -66,7 +66,6 @@
 
 <div class="viewcode-block" id="DisplayOpenGL"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.DisplayOpenGL.DisplayOpenGL">[docs]</a><span class="k">class</span> <span class="nc">DisplayOpenGL</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="c">#self.reset_depth = False # TODO find some better way</span>
     <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">480</span> <span class="c"># put in some non-zero place-holders</span>
     <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
@@ -132,6 +131,7 @@
     <span class="n">opengles</span><span class="o">.</span><span class="n">glDepthMask</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glCullFace</span><span class="p">(</span><span class="n">GL_FRONT</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glHint</span><span class="p">(</span><span class="n">GL_GENERATE_MIPMAP_HINT</span><span class="p">,</span> <span class="n">GL_NICEST</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glBlendFunc</span><span class="p">(</span><span class="n">GL_SRC_ALPHA</span><span class="p">,</span> <span class="n">GL_ONE_MINUS_SRC_ALPHA</span><span class="p">)</span>
 
     <span class="c"># Switches off alpha blending problem with desktop - is there a bug in the</span>
     <span class="c"># driver?</span>
@@ -176,9 +176,13 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">surface</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglCreateWindowSurface</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nw_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
+      <span class="n">flags</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">RESIZABLE</span> <span class="o">|</span> <span class="n">pygame</span><span class="o">.</span><span class="n">OPENGL</span>
+      <span class="n">wsize</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">w</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> <span class="n">h</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">:</span> <span class="c"># i.e. full screen</span>
+        <span class="n">flags</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">FULLSCREEN</span> <span class="o">|</span> <span class="n">pygame</span><span class="o">.</span><span class="n">OPENGL</span>
+        <span class="n">wsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">),</span> 
-                      <span class="n">pygame</span><span class="o">.</span><span class="n">DOUBLEBUF</span> <span class="o">|</span> <span class="n">pygame</span><span class="o">.</span><span class="n">RESIZABLE</span> <span class="o">|</span> <span class="n">pygame</span><span class="o">.</span><span class="n">OPENGL</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="n">wsize</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_wm_info</span><span class="p">()[</span><span class="s">&quot;window&quot;</span><span class="p">]</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">surface</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglCreateWindowSurface</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
       
@@ -283,10 +287,6 @@
 <div class="viewcode-block" id="DisplayOpenGL.swap_buffers"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.DisplayOpenGL.DisplayOpenGL.swap_buffers">[docs]</a>  <span class="k">def</span> <span class="nf">swap_buffers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="c">#opengles.glFlush()</span>
     <span class="c">#opengles.glFinish()</span>
-    <span class="c">#clear_matrices</span>
-    <span class="c">#if self.reset_depth:</span>
-    <span class="c">#  opengles.glEnable(GL_DEPTH_TEST) # disabled by kivy! TODO find somewhere better for this</span>
-    <span class="c">#  self.reset_depth = False</span>
     <span class="n">openegl</span><span class="o">.</span><span class="n">eglSwapBuffers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="p">)</span>
 </pre></div></div></div>
 
@@ -321,7 +321,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.0 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.1 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

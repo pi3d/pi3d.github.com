@@ -36,10 +36,10 @@ autodoc_member_order = 'bysource'
 # order in the first place.
 
 # The short X.Y version.
-version = '2.0'
+version = '2.1'
 
 # The full version, including alpha/beta/rc tags.
-release = '2.0'
+release = '2.1'
 
 # General information about the project.
 project = u'pi3d'

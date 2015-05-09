@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pi3d 2.0 documentation</title>
+    <title>Frequently Asked Questions &mdash; pi3d 2.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.0',
+        VERSION:     '2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.0 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.1 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -991,6 +991,18 @@ that can be used to draw the texture. There are filters that can
 produce effects such as blurring, outlining and normal map generation.</p>
 </div></blockquote>
 </li>
+<li><p class="first">Is it possible to change a texture every frame at a reasonable frame
+rate? i.e. for displaying a video, a feed from a web cam or an
+image manipulation program such as OpenCV, Scipy or numpy?</p>
+<blockquote>
+<div><p>This became much more feasible after v1.4 and more so after v2.1
+The Texture class now accepts a numpy array (size (H,W,N) where N
+is 3 for RGB or 4 for RGBA), remember C arrays are row,col,pixel)</p>
+<p>There is also a method Texture.update_ndarray(new_array) that can
+efficiently switch the image to the new array. See the demo
+<tt class="docutils literal"><span class="pre">VideoWalk.py</span></tt> which maps a movie onto a shape using ffmpeg.</p>
+</div></blockquote>
+</li>
 <li><p class="first">How to profile code to find where the bottlenecks are? For example
 to find if it&#8217;s worth doing something complicated with numpy or &#8216;blitting&#8217;
 small areas of the screen as in the NumpyBalls demo?</p>
@@ -1013,7 +1025,7 @@ able to do this.</p>
 <p><strong>linux</strong> is more similar to the Raspberry Pi, also see <a class="reference external" href="http://pi3d.github.com/html/ReadMe.html#setup-on-desktop-and-laptop-machines">ReadMe Linux</a></p>
 <p><strong>mac</strong> ought to be possible following a very similar procedure to
 linux but I havn&#8217;t tried (let me know if you do!)</p>
-<p>On windows it is also possible to use something like VMWare:</p>
+<p>On windows or mac it is also possible to use something like VMWare:</p>
 <div class="highlight-python"><div class="highlight"><pre>Setup:
 
 VMWare Client
@@ -1097,7 +1109,7 @@ python-for-android from a linux machine. There are instructions here
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

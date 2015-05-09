@@ -972,6 +972,18 @@ Frequently Asked Questions
       It also creates a simple sprite with four vertices and two triangles 
       that can be used to draw the texture. There are filters that can
       produce effects such as blurring, outlining and normal map generation.
+
+#.  Is it possible to change a texture every frame at a reasonable frame
+    rate? i.e. for displaying a video, a feed from a web cam or an
+    image manipulation program such as OpenCV, Scipy or numpy?
+
+      This became much more feasible after v1.4 and more so after v2.1
+      The Texture class now accepts a numpy array (size (H,W,N) where N
+      is 3 for RGB or 4 for RGBA), remember C arrays are row,col,pixel)
+
+      There is also a method Texture.update_ndarray(new_array) that can
+      efficiently switch the image to the new array. See the demo
+      ``VideoWalk.py`` which maps a movie onto a shape using ffmpeg.
       
 #.  How to profile code to find where the bottlenecks are? For example
     to find if it's worth doing something complicated with numpy or 'blitting'
@@ -997,7 +1009,7 @@ Frequently Asked Questions
       **mac** ought to be possible following a very similar procedure to
       linux but I havn't tried (let me know if you do!)
 
-      On windows it is also possible to use something like VMWare::
+      On windows or mac it is also possible to use something like VMWare::
       
         Setup:
 
