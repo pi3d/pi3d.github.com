@@ -381,12 +381,17 @@ but neither were satisfactory when I tried.
 </pre></div>
 </div>
 <p>As well as installing the python modules you also need to find the two
-ANGLE dll files on your system and edit the path to these files
-in the pi3d file <tt class="docutils literal"><span class="pre">pi3d/constants/__init__.py</span></tt> around lines 87,88
-There is a utility search program included with pi3d <tt class="docutils literal"><span class="pre">scripts/find_libegl.py</span></tt>
-which will quickly look in the areas where I found them on my system, however
-if none are found you should use the windows search functionality, and
-if there are still none you will have to install Chrome or Firefox.</p>
+ANGLE dll files (<tt class="docutils literal"><span class="pre">libegl.dll</span></tt> and <tt class="docutils literal"><span class="pre">libglesv2.dll</span></tt>) on your system
+and edit the path to these files in the pi3d file <tt class="docutils literal"><span class="pre">pi3d/constants/__init__.py</span></tt>
+around lines 87,88 There is a utility search program included with pi3d
+<tt class="docutils literal"><span class="pre">scripts/find_libegl.py</span></tt> (<em>NB</em> this won&#8217;t be include if you use pip or
+easy_install to install pi3d. You will need to copy it from github or
+just skip to using windows search) which will quickly look in the areas where
+I found them on my system, however if none are found you should use the
+windows search functionality, and if there are still none you will have
+to install Chrome or Firefox. <em>NB</em> on my windows setup I found about four
+different versions of these dlls and although some worked, others gave
+an error in DisplayOpenGL.py <tt class="docutils literal"><span class="pre">assert</span> <span class="pre">self.surface</span> <span class="pre">!=</span> <span class="pre">EGL_NO_SURFACE</span></tt></p>
 <p>Because of the need to edit <tt class="docutils literal"><span class="pre">pi3d/constants/__init__.py</span></tt> (I might make
 this more automatic at some stage) it is probably better to not install
 pi3d using the pip or easy_install methods. Instead either clone it with

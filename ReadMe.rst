@@ -318,12 +318,17 @@ Windows
     but neither were satisfactory when I tried.
 
   As well as installing the python modules you also need to find the two
-  ANGLE dll files on your system and edit the path to these files
-  in the pi3d file ``pi3d/constants/__init__.py`` around lines 87,88
-  There is a utility search program included with pi3d ``scripts/find_libegl.py``
-  which will quickly look in the areas where I found them on my system, however
-  if none are found you should use the windows search functionality, and
-  if there are still none you will have to install Chrome or Firefox.
+  ANGLE dll files (``libegl.dll`` and ``libglesv2.dll``) on your system
+  and edit the path to these files in the pi3d file ``pi3d/constants/__init__.py``
+  around lines 87,88 There is a utility search program included with pi3d
+  ``scripts/find_libegl.py`` (*NB* this won't be include if you use pip or
+  easy_install to install pi3d. You will need to copy it from github or
+  just skip to using windows search) which will quickly look in the areas where
+  I found them on my system, however if none are found you should use the
+  windows search functionality, and if there are still none you will have
+  to install Chrome or Firefox. *NB* on my windows setup I found about four
+  different versions of these dlls and although some worked, others gave
+  an error in DisplayOpenGL.py ``assert self.surface != EGL_NO_SURFACE`` 
 
   Because of the need to edit ``pi3d/constants/__init__.py`` (I might make
   this more automatic at some stage) it is probably better to not install

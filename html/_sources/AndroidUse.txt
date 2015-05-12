@@ -279,7 +279,7 @@ Using pi3d with Android devices
       To install new versions of your android
       package onto the emulator::
 
-        $ .adb install -r whereveryouput/python-for-android/dist/default/bin/pi3dtest-0.0.1-debug.apk
+        $ ./adb install -r whereveryouput/python-for-android/dist/default/bin/pi3dtest-0.0.1-debug.apk
 
 4.  For info on changing the icon or loading image, building to enable
     other features read the docs on the python-for-android website. For
