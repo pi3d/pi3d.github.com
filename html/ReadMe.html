@@ -35,9 +35,6 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="FAQ.html" title="Frequently Asked Questions"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -369,6 +366,9 @@ hard drive.
 4. .. easy_install numpy
 5. .. easy_install Pillow
 
+An alternative to easy_install which may be quicker is pip see some
+discussion here https://groups.google.com/d/msg/pi3d/26I1m_BvVk8/XGfCiMbbAJAJ
+
 NB the easy_install routine takes a while for numpy but is pretty fast
 for the Pillow module but it leaves the compiled files zipped inside an egg
 file. This probably has an impact on start-up time when you first run
@@ -380,29 +380,33 @@ or easy_install -Z
 but neither were satisfactory when I tried.
 </pre></div>
 </div>
-<p>As well as installing the python modules you also need to find the two
-ANGLE dll files (<tt class="docutils literal"><span class="pre">libegl.dll</span></tt> and <tt class="docutils literal"><span class="pre">libglesv2.dll</span></tt>) on your system
-and edit the path to these files in the pi3d file <tt class="docutils literal"><span class="pre">pi3d/constants/__init__.py</span></tt>
-around lines 87,88 There is a utility search program included with pi3d
-<tt class="docutils literal"><span class="pre">scripts/find_libegl.py</span></tt> (<em>NB</em> this won&#8217;t be include if you use pip or
-easy_install to install pi3d. You will need to copy it from github or
-just skip to using windows search) which will quickly look in the areas where
-I found them on my system, however if none are found you should use the
-windows search functionality, and if there are still none you will have
-to install Chrome or Firefox. <em>NB</em> on my windows setup I found about four
-different versions of these dlls and although some worked, others gave
-an error in DisplayOpenGL.py <tt class="docutils literal"><span class="pre">assert</span> <span class="pre">self.surface</span> <span class="pre">!=</span> <span class="pre">EGL_NO_SURFACE</span></tt></p>
-<p>Because of the need to edit <tt class="docutils literal"><span class="pre">pi3d/constants/__init__.py</span></tt> (I might make
-this more automatic at some stage) it is probably better to not install
-pi3d using the pip or easy_install methods. Instead either clone it with
-git or download the zip from github and extract somewhere sensible on
-your system. If you do this you will then have to add the path to pi3d
-at the beginning of any files trying to import pi3d:</p>
+<p>As well as installing the python modules you also need to find several
+ANGLE dll files on your system and copy them into the starting directory
+of the main python file of your project. In theory you could alter the
+Windows <tt class="docutils literal"><span class="pre">Path</span></tt> to point to the location of these files but I couldn&#8217;t
+get that to work. If you manage to do this then you need to edit the
+path to these files in the pi3d file <tt class="docutils literal"><span class="pre">pi3d/constants/__init__.py</span></tt>
+around lines 87,88. Chrome and Firefox will have copies of the dlls you
+can find if you search starting from <tt class="docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\</span></tt>
+You need to copy the files:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">libglesv2</span><span class="o">.</span><span class="n">dll</span>
+<span class="n">libegl</span><span class="o">.</span><span class="n">dll</span>
+
+<span class="n">d3dcompiler_47</span><span class="o">.</span><span class="n">dll</span> <span class="c">## NB the number at the end will increment with later releases</span>
+<span class="n">mozglue</span><span class="o">.</span><span class="n">dll</span> <span class="c">## only for Firefox</span>
+</pre></div>
+</div>
+<p>You might only need the first two files if your system has recent drivers
+or GPU.</p>
+<p>Can install pi3d using the pip or easy_install methods but you can also
+either clone it with git or download the zip from github and extract
+somewhere sensible on your system. If you do this you will then have to
+add the path to pi3d at the beginning of any files trying to import pi3d:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;C:\Users\whoever\Documents\GitHub\pi3d&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>for convenience, in pi3d_demos this is included in a file <tt class="docutils literal"><span class="pre">demo.py</span></tt>
+<p>For convenience, in pi3d_demos this is included in a file <tt class="docutils literal"><span class="pre">demo.py</span></tt>
 which is imported at the start of each file.</p>
 <p>On windows the pi3d events system (as used by Silo and a couple of other
 demos) does not work as it uses fairly low level linux specific code.</p>
@@ -619,9 +623,6 @@ and others who have contributed to pi3d - keep up the good work!</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
         <li class="right" >
           <a href="FAQ.html" title="Frequently Asked Questions"
              >next</a> |</li>
