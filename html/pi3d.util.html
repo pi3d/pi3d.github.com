@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>util Package &mdash; pi3d 2.1 documentation</title>
+    <title>util Package &mdash; pi3d 2.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.1 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.2 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
   </head>
@@ -35,9 +35,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.1 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.2 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" accesskey="U">pi3d Package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -49,56 +52,858 @@
             
   <div class="section" id="util-package">
 <h1>util Package<a class="headerlink" href="#util-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="ctypes-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">Ctypes</span></tt> Module<a class="headerlink" href="#ctypes-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.Ctypes">
+<span id="ctypes-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Ctypes</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Ctypes" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pi3d.util.Ctypes.c_bytes">
+<tt class="descclassname">pi3d.util.Ctypes.</tt><tt class="descname">c_bytes</tt><big>(</big><em>x</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Ctypes.html#c_bytes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Ctypes.c_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple of c_byte, converted from a list of Python variables.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Ctypes.c_chars">
+<tt class="descclassname">pi3d.util.Ctypes.</tt><tt class="descname">c_chars</tt><big>(</big><em>x</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Ctypes.html#c_chars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Ctypes.c_chars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple of c_char, converted from a list of Python variables.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Ctypes.c_floats">
+<tt class="descclassname">pi3d.util.Ctypes.</tt><tt class="descname">c_floats</tt><big>(</big><em>x</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Ctypes.html#c_floats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Ctypes.c_floats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Ctypes.c_ints">
+<tt class="descclassname">pi3d.util.Ctypes.</tt><tt class="descname">c_ints</tt><big>(</big><em>x</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Ctypes.html#c_ints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Ctypes.c_ints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple of c_int, converted from a list of Python variables.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Ctypes.c_shorts">
+<tt class="descclassname">pi3d.util.Ctypes.</tt><tt class="descname">c_shorts</tt><big>(</big><em>x</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Ctypes.html#c_shorts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Ctypes.c_shorts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple of c_short, converted from a list of Python variables.</p>
+</dd></dl>
+
 </div>
-<div class="section" id="defocus-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">Defocus</span></tt> Module<a class="headerlink" href="#defocus-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.Defocus">
+<span id="defocus-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Defocus</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Defocus" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.Defocus.Defocus">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Defocus.</tt><tt class="descname">Defocus</tt><a class="reference internal" href="_modules/pi3d/util/Defocus.html#Defocus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Defocus.Defocus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="pi3d.util.OffScreenTexture.OffScreenTexture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.OffScreenTexture.OffScreenTexture</span></tt></a></p>
+<p>For creating a depth-of-field blurring effect on selected objects</p>
+<p>calls Texture.__init__ but doesn&#8217;t need to set file name as
+texture generated from the framebuffer</p>
+<dl class="method">
+<dt id="pi3d.util.Defocus.Defocus.start_blur">
+<tt class="descname">start_blur</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Defocus.html#Defocus.start_blur"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Defocus.Defocus.start_blur" title="Permalink to this definition">¶</a></dt>
+<dd><p>after calling this method all object.draw()s will rendered
+to this texture and not appear on the display. If you want blurred
+edges you will have to capture the rendering of an object and its
+background then re-draw them using the blur() method. Large objects
+will obviously take a while to draw and re-draw</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Defocus.Defocus.end_blur">
+<tt class="descname">end_blur</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Defocus.html#Defocus.end_blur"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Defocus.Defocus.end_blur" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop capturing to texture and resume normal rendering to default</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Defocus.Defocus.blur">
+<tt class="descname">blur</tt><big>(</big><em>shape</em>, <em>dist_fr</em>, <em>dist_to</em>, <em>amount</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Defocus.html#Defocus.blur"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Defocus.Defocus.blur" title="Permalink to this definition">¶</a></dt>
+<dd><p>draw the shape using the saved texture
+Arguments:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>shape</em></dt>
+<dd>Shape object that will be drawn</dd>
+<dt><em>dist_fr</em></dt>
+<dd>distance from zero plane that will be in focus, float</dd>
+<dt><em>dist_to</em></dt>
+<dd>distance beyond which everything will be at max blur, float</dd>
+<dt><em>amount</em></dt>
+<dd>degree of max blur, float. Values over 5 will cause banding</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="displayopengl-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">DisplayOpenGL</span></tt> Module<a class="headerlink" href="#displayopengl-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.DisplayOpenGL">
+<span id="displayopengl-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">DisplayOpenGL</span></tt> Module<a class="headerlink" href="#module-pi3d.util.DisplayOpenGL" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.DisplayOpenGL.DisplayOpenGL">
+<em class="property">class </em><tt class="descclassname">pi3d.util.DisplayOpenGL.</tt><tt class="descname">DisplayOpenGL</tt><a class="reference internal" href="_modules/pi3d/util/DisplayOpenGL.html#DisplayOpenGL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.DisplayOpenGL.DisplayOpenGL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="pi3d.util.DisplayOpenGL.DisplayOpenGL.create_display">
+<tt class="descname">create_display</tt><big>(</big><em>x=0</em>, <em>y=0</em>, <em>w=0</em>, <em>h=0</em>, <em>depth=24</em>, <em>samples=4</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/DisplayOpenGL.html#DisplayOpenGL.create_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.DisplayOpenGL.DisplayOpenGL.create_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.DisplayOpenGL.DisplayOpenGL.create_surface">
+<tt class="descname">create_surface</tt><big>(</big><em>x=0</em>, <em>y=0</em>, <em>w=0</em>, <em>h=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/DisplayOpenGL.html#DisplayOpenGL.create_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.DisplayOpenGL.DisplayOpenGL.create_surface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.DisplayOpenGL.DisplayOpenGL.resize">
+<tt class="descname">resize</tt><big>(</big><em>x=0</em>, <em>y=0</em>, <em>w=0</em>, <em>h=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/DisplayOpenGL.html#DisplayOpenGL.resize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.DisplayOpenGL.DisplayOpenGL.resize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.DisplayOpenGL.DisplayOpenGL.destroy">
+<tt class="descname">destroy</tt><big>(</big><em>display=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/DisplayOpenGL.html#DisplayOpenGL.destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.DisplayOpenGL.DisplayOpenGL.destroy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.DisplayOpenGL.DisplayOpenGL.swap_buffers">
+<tt class="descname">swap_buffers</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/DisplayOpenGL.html#DisplayOpenGL.swap_buffers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.DisplayOpenGL.DisplayOpenGL.swap_buffers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="fixedstring-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">FixedString</span></tt> Module<a class="headerlink" href="#fixedstring-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.FixedString">
+<span id="fixedstring-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">FixedString</span></tt> Module<a class="headerlink" href="#module-pi3d.util.FixedString" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.FixedString.FixedString">
+<em class="property">class </em><tt class="descclassname">pi3d.util.FixedString.</tt><tt class="descname">FixedString</tt><big>(</big><em>font</em>, <em>string</em>, <em>camera=None</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>font_size=24</em>, <em>margin=5.0</em>, <em>justify=u'C'</em>, <em>background_color=None</em>, <em>shader=None</em>, <em>f_type=u''</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
+<p>A texture containing a simple string drawn using ImageDraw.</p>
+<p>The advantage over a standard String is that it only requires a simple
+Sprite shape for drawing so the gpu has to only draw two triangles
+rather than two triangles for each letter.</p>
+<p>Arguments:</p>
+<dl class="docutils">
+<dt><em>font</em>:</dt>
+<dd>File path/name to a TrueType font file.</dd>
+<dt><em>string</em>:</dt>
+<dd>String to write.</dd>
+<dt><em>camera</em>:</dt>
+<dd>Camera object passed on to constructor of sprite</dd>
+<dt><em>color</em>:</dt>
+<dd>Color in format #RRGGBB, (255,0,0,255) etc (as accepted by PIL.ImageDraw)
+default (255, 255, 255, 255) i.e. white 100% alpha</dd>
+<dt><em>font_size</em>:</dt>
+<dd>Point size for drawing the letters on the internal Texture. default 24</dd>
+<dt><em>margin</em>:</dt>
+<dd>Offsets from the top left corner for the text and space on right
+and bottom. default 5.0</dd>
+<dt><em>justify</em>:</dt>
+<dd>L(eft), C(entre), R(ight) default C</dd>
+<dt><em>background_color</em>:</dt>
+<dd>filled background in ImageDraw format as above. default None i.e.
+transparent.</dd>
+<dt><em>shader</em>:</dt>
+<dd>can be passed to init otherwise needs to be set in set_shader or
+draw. default None</dd>
+<dt><em>f_type</em>:</dt>
+<dd>filter type. BUMP will generate a normal map, EMBOSS, CONTOUR, BLUR
+and SMOOTH do what they sound like they will do.</dd>
+</dl>
+<dl class="method">
+<dt id="pi3d.util.FixedString.FixedString.set_shader">
+<tt class="descname">set_shader</tt><big>(</big><em>shader</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString.set_shader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString.set_shader" title="Permalink to this definition">¶</a></dt>
+<dd><p>wrapper for Shape.set_shader</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.FixedString.FixedString.draw">
+<tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em>, <em>mlist=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>wrapper for Shape.draw()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.FixedString.FixedString.make_bump_map">
+<tt class="descname">make_bump_map</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString.make_bump_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString.make_bump_map" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="font-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">Font</span></tt> Module<a class="headerlink" href="#font-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.Font">
+<span id="font-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Font</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Font" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.Font.Font">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=48</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em>, <em>background_color=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
+<p>A Font contains a TrueType font ready to be rendered in OpenGL.</p>
+<p>A font is just a mapping from codepoints (single Unicode characters) to glyphs
+(graphical representations of those characters).</p>
+<p>Font packs one whole font into a single Texture using PIL.ImageFont,
+then creates a table mapping codepoints to subrectangles of that Texture.</p>
+<p>Arguments:
+<em>font</em>:</p>
+<blockquote>
+<div>File path/name to a TrueType font file.</div></blockquote>
+<dl class="docutils">
+<dt><em>color</em>:</dt>
+<dd>Color in standard hex format #RRGGBB</dd>
+<dt><em>font_size</em>:</dt>
+<dd>Point size for drawing the letters on the internal Texture</dd>
+<dt><em>codepoints</em>:</dt>
+<dd><p class="first">Iterable list of characters. All these formats will work:</p>
+<blockquote>
+<div>&#8216;ABCDEabcde &#8216;
+[65, 66, 67, 68, 69, 97, 98, 99, 100, 101, 145, 148, 172, 32]
+[c for c in range(65, 173)]</div></blockquote>
+<p>Note that Font will ONLY use the codepoints in this list - if you
+forget to list a codepoint or character here, it won&#8217;t be displayed.
+If you just want to add a few missing codepoints, you&#8217;re probably better
+off using the <em>add_codepoints</em> parameter.</p>
+<p>If the string version is used then the program file might need to
+have the coding defined at the top:  # -<em>- coding: utf-8 -</em>-</p>
+<p class="last">The default is <a href="#id1"><span class="problematic" id="id2">*</span></a>codepoints*=range(256).</p>
+</dd>
+<dt><em>add_codepoints</em>:</dt>
+<dd>If you are only wanting to add a few codepoints that are missing, you
+should use the <em>add_codepoints</em> parameter, which just adds codepoints or
+characters to the default list of codepoints (range(256). All the other
+comments for the <em>codepoints</em> parameter still apply.</dd>
+<dt><em>image_size</em>:</dt>
+<dd>Width and height of the Texture that backs the image.
+If it doesn&#8217;t fit then a larger size will be tried up to MAX_SIZE.
+The isses are: maximum image size supported by the gpu (2048x2048?)
+gpu memory usage and time to load by working up the size required
+in 256 pixel steps.</dd>
+<dt><em>italic_adjustment</em>:</dt>
+<dd>Adjusts the bounding width to take italics into account.  The default
+value is 1.1; you can get a tighter bounding if you set this down
+closer to 1, but italics might get cut off at the right.</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="gui-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">Gui</span></tt> Module<a class="headerlink" href="#gui-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.Gui">
+<span id="gui-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Gui</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Gui" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.Gui.Gui">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Gui</tt><big>(</big><em>font</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Gui"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Gui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>hold information on all widgets and the pointer, creates a 2D Camera
+and uv_flat shader. Needs to have a Font object passed to it keeps track
+of when the last mouse click or key stroke to avoid double counting.
+Arguments</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>font</em></dt>
+<dd>pi3d.Font object</dd>
+</dl>
+</div></blockquote>
+<p>A Gui instance has to be passed to each gui widget (Button, Menu etc)
+as it is created to allow resources to the used and for checking.</p>
+<dl class="method">
+<dt id="pi3d.util.Gui.Gui.draw">
+<tt class="descname">draw</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Gui.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Gui.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>draw all visible widges and pointer at x, y</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Gui.check">
+<tt class="descname">check</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Gui.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Gui.check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Gui.checkkey">
+<tt class="descname">checkkey</tt><big>(</big><em>k</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Gui.checkkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Gui.checkkey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.Widget">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Widget</tt><big>(</big><em>gui</em>, <em>shapes</em>, <em>x</em>, <em>y</em>, <em>callback=None</em>, <em>label=None</em>, <em>label_pos=u'left'</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Widget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>contains functionality of buttons and is inherited by other gui
+components. Arguments:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>gui</em></dt>
+<dd>Gui object parent to this widget</dd>
+<dt><em>shapes</em></dt>
+<dd>drawable object such as Sprite or String, or list of two to toggle</dd>
+<dt><em>x,y</em></dt>
+<dd>location of top left corner of this widget</dd>
+<dt><em>label</em></dt>
+<dd>string to use as label</dd>
+<dt><em>label_pos</em></dt>
+<dd>position of label &#8216;left&#8217;, &#8216;right&#8217;, &#8216;above&#8217;, &#8216;below&#8217;</dd>
+<dt><em>shortcut</em></dt>
+<dd>shortcut key to have same effect as clicking wit mouse???</dd>
+</dl>
+</div></blockquote>
+<dl class="method">
+<dt id="pi3d.util.Gui.Widget.relocate">
+<tt class="descname">relocate</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Widget.relocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Widget.relocate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Widget.draw">
+<tt class="descname">draw</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Widget.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Widget.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Widget.check">
+<tt class="descname">check</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Widget.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Widget.check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Widget.checkkey">
+<tt class="descname">checkkey</tt><big>(</big><em>k</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Widget.checkkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Widget.checkkey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.Button">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Button</tt><big>(</big><em>gui</em>, <em>imgs</em>, <em>x</em>, <em>y</em>, <em>callback=None</em>, <em>label=None</em>, <em>label_pos=u'left'</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Button"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Button" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.Gui.Widget" title="pi3d.util.Gui.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Gui.Widget</span></tt></a></p>
+<p>This inherits pretty much everything it needs from Widget, it just
+takes a list of images rather than Shapes. Otherwise same Arguments.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>imgs</em></dt>
+<dd>list of strings. If these exist as files using the path and file
+name then those will be used. Otherwise the pi3d/util/icons path
+will be prepended</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.Radio">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Radio</tt><big>(</big><em>gui</em>, <em>x</em>, <em>y</em>, <em>callback=None</em>, <em>label=None</em>, <em>label_pos=u'left'</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Radio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Radio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.Gui.Button" title="pi3d.util.Gui.Button"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Gui.Button</span></tt></a></p>
+<p>This is a toggle button with two checkbox images. Same Arguments
+as Widget but missing the list of Shapes completely.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.Scrollbar">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Scrollbar</tt><big>(</big><em>gui</em>, <em>x</em>, <em>y</em>, <em>width</em>, <em>start_val=None</em>, <em>callback=None</em>, <em>label=None</em>, <em>label_pos=u'left'</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Scrollbar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Scrollbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.Gui.Widget" title="pi3d.util.Gui.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Gui.Widget</span></tt></a></p>
+<p>This consists of four Shapes but the first one is duplicated so
+the Widget.draw() method can be used unchanged. The images are hard
+coded so no list of Shapes or images needs to be supplied however
+arguments additional to those for Widget are</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>width</em></dt>
+<dd>width of the scroll (excluding buttons on either end)</dd>
+<dt><em>start_val</em></dt>
+<dd>proportion of the way across i.e. if width = 200 then start_val
+of 150 would be three quarters</dd>
+</dl>
+</div></blockquote>
+<p>NB the callback is called with <a href="#id3"><span class="problematic" id="id4">*</span></a>args equal to the position of the slider
+so the function needs to be defined with this in mind i.e.
+<tt class="docutils literal"><span class="pre">def</span> <span class="pre">cb(*args):</span></tt> args will then be available as a tuple (0.343,)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.MenuItem">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">MenuItem</tt><big>(</big><em>gui</em>, <em>text</em>, <em>callback=None</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#MenuItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.MenuItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.Gui.Widget" title="pi3d.util.Gui.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Gui.Widget</span></tt></a></p>
+<p>These are the clickable Widgets of the menu system. Instead of a
+list of Shapes they have a string argument, there is no label or
+label_pos and the x and y values are obtained from the position and
+orientation of the parent Menu.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>text</em></dt>
+<dd>string used to construct a pi3d.String</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.Menu">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">Menu</tt><big>(</big><em>parent_item=None</em>, <em>menuitems=</em>, <span class="optional">[</span><span class="optional">]</span><em>x=0</em>, <em>y=0</em>, <em>horiz=True</em>, <em>position=u'right'</em>, <em>visible=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Menu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Container for MenuItems, forming either a horizontal or vertical
+bar. Arguments</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>parent_item</em></dt>
+<dd>a MenuItem that will make this Menu visible when clicked</dd>
+<dt><em>menuitems</em></dt>
+<dd>a list of MenuItems to be displayed in this Menu</dd>
+<dt><em>x</em></dt>
+<dd>x location will be overwritten unless parent_item == None</dd>
+<dt><em>y</em></dt>
+<dd>similarly the y location</dd>
+<dt><em>horiz</em></dt>
+<dd>set True (default) for horizontal layout on the menu bar, False
+for vertical listing</dd>
+<dt><em>position</em></dt>
+<dd>relative to the MenuItem that gives rise to this Menu when clicked
+&#8216;right&#8217; or any other text interpreted as below</dd>
+<dt><em>visible</em></dt>
+<dd>when an alternative branch of the menu tree is selected or the
+parent_item is re-clicked this menu is hidden, along with all
+its children recursively. They are set to visible = False and
+not drawn and not checked for mouse clicks.</dd>
+</dl>
+</div></blockquote>
+<dl class="method">
+<dt id="pi3d.util.Gui.Menu.hide">
+<tt class="descname">hide</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Menu.hide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Menu.hide" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.Menu.show">
+<tt class="descname">show</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#Menu.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Menu.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Gui.TextBox">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Gui.</tt><tt class="descname">TextBox</tt><big>(</big><em>gui</em>, <em>txt</em>, <em>x</em>, <em>y</em>, <em>callback=None</em>, <em>label=None</em>, <em>label_pos=u'left'</em>, <em>shortcut=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#TextBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.TextBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.Gui.Widget" title="pi3d.util.Gui.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Gui.Widget</span></tt></a></p>
+<dl class="method">
+<dt id="pi3d.util.Gui.TextBox.recreate">
+<tt class="descname">recreate</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#TextBox.recreate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.TextBox.recreate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.TextBox.checkkey">
+<tt class="descname">checkkey</tt><big>(</big><em>k</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#TextBox.checkkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.TextBox.checkkey" title="Permalink to this definition">¶</a></dt>
+<dd><p>have to use a slightly different version without the _click() call</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Gui.TextBox.draw">
+<tt class="descname">draw</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Gui.html#TextBox.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.TextBox.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="loadable-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">Loadable</span></tt> Module<a class="headerlink" href="#loadable-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.Loadable">
+<span id="loadable-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Loadable</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Loadable" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pi3d.util.Loadable.is_display_thread">
+<tt class="descclassname">pi3d.util.Loadable.</tt><tt class="descname">is_display_thread</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Loadable.html#is_display_thread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Loadable.is_display_thread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.Loadable.Loadable">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Loadable.</tt><tt class="descname">Loadable</tt><a class="reference internal" href="_modules/pi3d/util/Loadable.html#Loadable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Loadable.Loadable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="pi3d.util.Loadable.Loadable.load_disk">
+<tt class="descname">load_disk</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Loadable.html#Loadable.load_disk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Loadable.Loadable.load_disk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Loadable.Loadable.load_opengl">
+<tt class="descname">load_opengl</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/Loadable.html#Loadable.load_opengl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Loadable.Loadable.load_opengl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Loadable.Loadable.unload_opengl">
+<tt class="descname">unload_opengl</tt><big>(</big><em>report_error=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Loadable.html#Loadable.unload_opengl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Loadable.Loadable.unload_opengl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="log-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">Log</span></tt> Module<a class="headerlink" href="#log-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.Log">
+<span id="log-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Log</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Log" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pi3d.util.Log.parent_makedirs">
+<tt class="descclassname">pi3d.util.Log.</tt><tt class="descname">parent_makedirs</tt><big>(</big><em>file</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Log.html#parent_makedirs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Log.parent_makedirs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Log.set_logs">
+<tt class="descclassname">pi3d.util.Log.</tt><tt class="descname">set_logs</tt><big>(</big><em>level=None</em>, <em>file=None</em>, <em>format=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Log.html#set_logs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Log.set_logs" title="Permalink to this definition">¶</a></dt>
+<dd><p>You can redirect, filter or reformat your logging by calling Log.set_logs().
+Log.set_logs() has three optional parameters:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>level:</dt>
+<dd>can be one of &#8216;DEBUG&#8217;, &#8216;INFO&#8217;, &#8216;WARNING&#8217;, &#8216;ERROR&#8217;, or &#8216;CRITICAL&#8217;.
+Everything that&#8217;s the current log level or greater is displayed -
+for example, if your current log level is &#8216;WARNING&#8217;, then you&#8217;ll display
+all warning, error, or critical messages.</dd>
+<dt>file:</dt>
+<dd>is the name of a file to which to redirect messages.</dd>
+<dt>format:</dt>
+<dd><dl class="first last docutils">
+<dt>controls what information is in the output messages.  The default is</dt>
+<dd><cite>&#8216;%(asctime)s %(levelname)s: %(name)s: %(message)s&#8217;</cite></dd>
+<dt>which results in output looking like this:</dt>
+<dd><cite>time LEVEL: filename: Your Message Here.</cite></dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Log.logger">
+<tt class="descclassname">pi3d.util.Log.</tt><tt class="descname">logger</tt><big>(</big><em>name=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Log.html#logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Log.logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>The typical usage of the Log module has a single LOGGER per Python file.</p>
+<p>At the top of the file is typically:</p>
+<blockquote>
+<div>LOGGER = Log.logger(__name__)</div></blockquote>
+<p>and then later on you can do things like:</p>
+<blockquote>
+<div><ul class="simple">
+<li>LOGGER.debug(&#8216;stuff here&#8217;)</li>
+<li>LOGGER.info(&#8216;Some information about %s&#8217;, some_name)</li>
+<li>LOGGER.error(&#8216;Not everything was displayed, sorry!&#8217;)</li>
+<li>LOGGER.error(&#8216;You died with error code %d, message %s&#8217;, error_code, msg)</li>
+<li>LOGGER.critical(&#8216;Your machine is about to explode.  Leave the building.&#8217;)</li>
+</ul>
+</div></blockquote>
+<p>(Note that the values for the format string, like &#8220;some_name&#8221;, &#8220;error_code&#8221; or
+&#8220;msg&#8221; are passed in as arguments - that&#8217;s so you never even construct the
+message if it isn&#8217;t going to be displayed.)</p>
+</dd></dl>
+
 </div>
-<div class="section" id="offscreentexture-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">OffScreenTexture</span></tt> Module<a class="headerlink" href="#offscreentexture-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.OffScreenTexture">
+<span id="offscreentexture-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">OffScreenTexture</span></tt> Module<a class="headerlink" href="#module-pi3d.util.OffScreenTexture" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.OffScreenTexture.OffScreenTexture">
+<em class="property">class </em><tt class="descclassname">pi3d.util.OffScreenTexture.</tt><tt class="descname">OffScreenTexture</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/OffScreenTexture.html#OffScreenTexture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
+<p>For creating special effect after rendering to texture rather than
+onto the display. Used by Defocus, ShadowCaster, Clashtest etc</p>
+<p>calls Texture.__init__ but doesn&#8217;t need to set file name as
+texture generated from the framebuffer</p>
+<dl class="method">
+<dt id="pi3d.util.OffScreenTexture.OffScreenTexture.delete_buffers">
+<tt class="descname">delete_buffers</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/OffScreenTexture.html#OffScreenTexture.delete_buffers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.OffScreenTexture.OffScreenTexture.delete_buffers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="pngfont-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">Pngfont</span></tt> Module<a class="headerlink" href="#pngfont-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.Pngfont">
+<span id="pngfont-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Pngfont</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Pngfont" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.Pngfont.Pngfont">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Pngfont.</tt><tt class="descname">Pngfont</tt><big>(</big><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Pngfont.html#Pngfont"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Pngfont.Pngfont" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
+<p>A method of writing in pi3d using &#8216;hand designed&#8217; fonts, where the top
+line of the texture contains metainformation about each character.</p>
+<p>Mainly superseded by the Font class.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>font</em></dt>
+<dd>The name of a file containing a PNG texture.</dd>
+<dt><em>color</em></dt>
+<dd>A hex string representing a color.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="postprocess-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">PostProcess</span></tt> Module<a class="headerlink" href="#postprocess-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.PostProcess">
+<span id="postprocess-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">PostProcess</span></tt> Module<a class="headerlink" href="#module-pi3d.util.PostProcess" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.PostProcess.PostProcess">
+<em class="property">class </em><tt class="descclassname">pi3d.util.PostProcess.</tt><tt class="descname">PostProcess</tt><big>(</big><em>shader='post_base'</em>, <em>mipmap=False</em>, <em>add_tex=None</em>, <em>scale=1.0</em>, <em>camera=None</em>, <em>divide=1</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="pi3d.util.OffScreenTexture.OffScreenTexture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.OffScreenTexture.OffScreenTexture</span></tt></a></p>
+<p>For creating a an offscreen texture that can be redrawn using shaders
+as required by the developer</p>
+<p>calls Texture.__init__ but doesn&#8217;t need to set file name as
+texture generated from the framebuffer. Keyword Arguments:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>shader</em></dt>
+<dd>to use when drawing sprite, defaults to post_base, a simple
+3x3 convolution that does basic edge detection. Can be copied to
+project directory and modified as required.</dd>
+<dt><em>mipmap</em></dt>
+<dd>can be set to True with slight cost to speed, or use fxaa shader</dd>
+<dt><em>add_tex</em></dt>
+<dd>list of textures. If additional textures can be used by the shader
+then they can be added here.</dd>
+<dt><em>scale</em></dt>
+<dd>will only render this proportion of the full screen which will
+then be mapped to the full uv of the Sprite. The camera object
+passed (below) will need to have the same scale set to avoid
+perspective distortion</dd>
+<dt><em>camera</em></dt>
+<dd>the camera to use for rendering to the offscreen texture</dd>
+<dt><em>divide</em></dt>
+<dd>allow the sprite to be created with intermediate vertices to allow
+interesting vertex shader effects</dd>
+</dl>
+</div></blockquote>
+<dl class="method">
+<dt id="pi3d.util.PostProcess.PostProcess.start_capture">
+<tt class="descname">start_capture</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess.start_capture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess.start_capture" title="Permalink to this definition">¶</a></dt>
+<dd><p>after calling this method all object.draw()s will rendered
+to this texture and not appear on the display. Large objects
+will obviously take a while to draw and re-draw</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.PostProcess.PostProcess.end_capture">
+<tt class="descname">end_capture</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess.end_capture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess.end_capture" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop capturing to texture and resume normal rendering to default</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.PostProcess.PostProcess.draw">
+<tt class="descname">draw</tt><big>(</big><em>unif_vals=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/PostProcess.html#PostProcess.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PostProcess.PostProcess.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>draw the shape using the saved texture
+Keyword Argument:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>unif_vals</em></dt>
+<dd>dictionay object i.e. {a:unif[a], b:unif[b], c:unif[c]} where a,b,c
+are subscripts of the unif array in Shape available for user
+custom space i.e. unif[48]...unif[59] corresponding with the vec3
+uniform variables unif[16][0] to unif[19][2]
+NB the values must be three value tuples or 1D arrays</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="rotatevec-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">RotateVec</span></tt> Module<a class="headerlink" href="#rotatevec-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.RotateVec">
+<span id="rotatevec-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">RotateVec</span></tt> Module<a class="headerlink" href="#module-pi3d.util.RotateVec" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pi3d.util.RotateVec.rotate_vec">
+<tt class="descclassname">pi3d.util.RotateVec.</tt><tt class="descname">rotate_vec</tt><big>(</big><em>rx</em>, <em>ry</em>, <em>rz</em>, <em>xyz</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/RotateVec.html#rotate_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.RotateVec.rotate_vec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
-<div class="section" id="screenshot-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">Screenshot</span></tt> Module<a class="headerlink" href="#screenshot-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.Screenshot">
+<span id="screenshot-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Screenshot</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Screenshot" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pi3d.util.Screenshot.screenshot">
+<tt class="descclassname">pi3d.util.Screenshot.</tt><tt class="descname">screenshot</tt><big>(</big><em>filestring</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Screenshot.html#screenshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Screenshot.screenshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save whatever&#8217;s in the display to a file.</p>
+<p>Will save whatever has been rendered since the last call to Display.clear().</p>
+<p>The file will be saved in the top-level directory if you don&#8217;t add a path
+to it!</p>
+</dd></dl>
+
 </div>
-<div class="section" id="shadowcaster-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">ShadowCaster</span></tt> Module<a class="headerlink" href="#shadowcaster-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.ShadowCaster">
+<span id="shadowcaster-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ShadowCaster</span></tt> Module<a class="headerlink" href="#module-pi3d.util.ShadowCaster" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster">
+<em class="property">class </em><tt class="descclassname">pi3d.util.ShadowCaster.</tt><tt class="descname">ShadowCaster</tt><big>(</big><em>emap</em>, <em>light</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="pi3d.util.OffScreenTexture.OffScreenTexture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.OffScreenTexture.OffScreenTexture</span></tt></a></p>
+<p>For creating a depth-of-field blurring effect on selected objects</p>
+<p>calls Texture.__init__ but doesn&#8217;t need to set file name as
+texture generated from the framebuffer</p>
+<dl class="method">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster.start_cast">
+<tt class="descname">start_cast</tt><big>(</big><em>location=(0.0</em>, <em>0.0</em>, <em>0.0)</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.start_cast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.start_cast" title="Permalink to this definition">¶</a></dt>
+<dd><p>after calling this method all object.draw()s will rendered
+to this texture and not appear on the display. If you want blurred
+edges you will have to capture the rendering of an object and its
+background then re-draw them using the blur() method. Large objects
+will obviously take a while to draw and re-draw</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster.end_cast">
+<tt class="descname">end_cast</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.end_cast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.end_cast" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop capturing to texture and resume normal rendering to default</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster.add_shadow">
+<tt class="descname">add_shadow</tt><big>(</big><em>shape</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.add_shadow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.add_shadow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster.draw_shadow">
+<tt class="descname">draw_shadow</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.draw_shadow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.draw_shadow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="string-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">String</span></tt> Module<a class="headerlink" href="#string-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.String">
+<span id="string-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">String</span></tt> Module<a class="headerlink" href="#module-pi3d.util.String" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.String.String">
+<em class="property">class </em><tt class="descclassname">pi3d.util.String.</tt><tt class="descname">String</tt><big>(</big><em>camera=None</em>, <em>light=None</em>, <em>font=None</em>, <em>string=None</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=1.0</em>, <em>sx=0.003333333333333333</em>, <em>sy=0.003333333333333333</em>, <em>is_3d=True</em>, <em>size=0.24</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>justify=u'C'</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/String.html#String"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.String.String" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></tt></a></p>
+<p>Shape used for writing text on screen. It is a flat, one sided rectangualar plane</p>
+<dl class="docutils">
+<dt>Standard Shape constructor without the facility to change z scale or</dt>
+<dd><p class="first">any of the offset values. Additional keyword arguments:</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt><em>font</em></dt>
+<dd>Pngfont or Font class object.</dd>
+<dt><em>string</em></dt>
+<dd>of ASCI characters in range(32, 128) plus 10 =</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>Line Feed</dt>
+<dd><dl class="first last docutils">
+<dt><em>sx, sy</em></dt>
+<dd>These change the actual vertex positions of the shape rather than being
+used as scaling factors. This is to avoid distortion when the string is
+drawn using an orthographic camera</dd>
+<dt><em>is_3d</em></dt>
+<dd>alters the values of sx and sy to give reasonable sizes with 2D or 3D
+drawing</dd>
+<dt><em>size</em></dt>
+<dd>approximate size of the characters in inches - obviously for 3D drawing
+of strings this will depend on camera fov, display size and how far away
+the string is placed</dd>
+<dt><em>justify</em></dt>
+<dd>default C for central, can be R for right or L for left</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="pi3d.util.String.String.quick_change">
+<tt class="descname">quick_change</tt><big>(</big><em>new_string</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/String.html#String.quick_change"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.String.String.quick_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for quickly changing some characters within a previously
+generated String. i.e. for changing digits in a readout etc.</p>
+<p>NB: 1. if you use a variable width font there will be some distortion
+as characters are stretched or squashed to the original character&#8217;s
+dimensions. 2. there is no account made of new line characters (TODO)
+3. you must make the original string long enough to fit any additional
+characters you add to new_string 4. you must make sure the Font as
+used for the String.__init__ contains all the glyphs you may need for
+subsequent changes.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="tkwin-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">TkWin</span></tt> Module<a class="headerlink" href="#tkwin-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.TkWin">
+<span id="tkwin-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">TkWin</span></tt> Module<a class="headerlink" href="#module-pi3d.util.TkWin" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.TkWin.TkWin">
+<em class="property">class </em><tt class="descclassname">pi3d.util.TkWin.</tt><tt class="descname">TkWin</tt><big>(</big><em>parent</em>, <em>title</em>, <em>width</em>, <em>height</em>, <em>bg='#000000'</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TkWin.html#TkWin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TkWin.TkWin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">Tkinter.Tk</span></tt></p>
+<p><em>TkWin</em> encapsulates a Tk window and keeps track of the mouse and keyboard.</p>
+<p>Arguments:</p>
+<dl class="docutils">
+<dt><em>parent</em></dt>
+<dd>Parent Tk window or Null for none.</dd>
+<dt><em>title</em></dt>
+<dd>Title for window.</dd>
+<dt><em>width, height</em></dt>
+<dd>Dimensions of window.</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="utility-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">Utility</span></tt> Module<a class="headerlink" href="#utility-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pi3d.util.Utility">
+<span id="utility-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Utility</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Utility" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pi3d.util.Utility.normalize_v3">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">normalize_v3</tt><big>(</big><em>arr</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#normalize_v3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.normalize_v3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize a numpy array of 3 component vectors shape=(n,3)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Utility.magnitude">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">magnitude</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#magnitude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.magnitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the magnitude (root mean square) of the vector.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Utility.distance">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">distance</tt><big>(</big><em>v1</em>, <em>v2</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the distance between two points.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Utility.from_polar">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">from_polar</tt><big>(</big><em>direction=0.0</em>, <em>magnitude=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#from_polar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.from_polar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert polar coordinates into Cartesian (x, y) coordinates.</p>
+<p>Arguments:</p>
+<dl class="docutils">
+<dt><em>direction</em></dt>
+<dd>Vector angle in degrees.</dd>
+<dt><em>magnitude</em></dt>
+<dd>Vector length.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Utility.from_polar_rad">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">from_polar_rad</tt><big>(</big><em>direction=0.0</em>, <em>magnitude=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#from_polar_rad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.from_polar_rad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert polar coordinates into Cartesian (x, y) coordinates.</p>
+<p>Arguments:</p>
+<dl class="docutils">
+<dt><em>direction</em></dt>
+<dd>Vector angle in radians.</dd>
+<dt><em>magnitude</em></dt>
+<dd>Vector length.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Utility.vec_sub">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">vec_sub</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#vec_sub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.vec_sub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the difference between two vectors.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Utility.vec_dot">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">vec_dot</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#vec_dot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.vec_dot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dot product of two vectors.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Utility.vec_cross">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">vec_cross</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#vec_cross"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.vec_cross" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the cross product of two vectors.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Utility.vec_normal">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">vec_normal</tt><big>(</big><em>vec</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#vec_normal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.vec_normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector normalized to unit length for a vector of non-zero length,
+otherwise returns the original vector.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.util.Utility.draw_level_of_detail">
+<tt class="descclassname">pi3d.util.Utility.</tt><tt class="descname">draw_level_of_detail</tt><big>(</big><em>here</em>, <em>there</em>, <em>mlist</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Utility.html#draw_level_of_detail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Utility.draw_level_of_detail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Level Of Detail checking and rendering.  The shader and texture information
+must be set for all the buf objects in each model before draw_level_of_detail
+is called.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>here</em></dt>
+<dd>An (x, y, z) tuple or array of view point.</dd>
+<dt><em>there</em></dt>
+<dd>An (x, y, z) tuple or array of model position.</dd>
+<dt><em>mlist</em></dt>
+<dd><p class="first">A list of (distance, model) pairs with increasing distance, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span><span class="mi">20</span><span class="p">,</span> <span class="n">model1</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="n">model2</span><span class="p">],</span> <span class="p">[</span><span class="mi">250</span><span class="p">,</span> <span class="bp">None</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p class="last">draw_level_of_detail() selects the first model that is more distant than
+the distance between the two points <em>here</em> and <em>there</em>, falling back to
+the last model otherwise.  The model None is not rendered and is a good
+way to make sure that nothing is drawn past a certain distance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 
@@ -111,23 +916,23 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">util Package</a><ul>
-<li><a class="reference internal" href="#ctypes-module"><tt class="docutils literal"><span class="pre">Ctypes</span></tt> Module</a></li>
-<li><a class="reference internal" href="#defocus-module"><tt class="docutils literal"><span class="pre">Defocus</span></tt> Module</a></li>
-<li><a class="reference internal" href="#displayopengl-module"><tt class="docutils literal"><span class="pre">DisplayOpenGL</span></tt> Module</a></li>
-<li><a class="reference internal" href="#fixedstring-module"><tt class="docutils literal"><span class="pre">FixedString</span></tt> Module</a></li>
-<li><a class="reference internal" href="#font-module"><tt class="docutils literal"><span class="pre">Font</span></tt> Module</a></li>
-<li><a class="reference internal" href="#gui-module"><tt class="docutils literal"><span class="pre">Gui</span></tt> Module</a></li>
-<li><a class="reference internal" href="#loadable-module"><tt class="docutils literal"><span class="pre">Loadable</span></tt> Module</a></li>
-<li><a class="reference internal" href="#log-module"><tt class="docutils literal"><span class="pre">Log</span></tt> Module</a></li>
-<li><a class="reference internal" href="#offscreentexture-module"><tt class="docutils literal"><span class="pre">OffScreenTexture</span></tt> Module</a></li>
-<li><a class="reference internal" href="#pngfont-module"><tt class="docutils literal"><span class="pre">Pngfont</span></tt> Module</a></li>
-<li><a class="reference internal" href="#postprocess-module"><tt class="docutils literal"><span class="pre">PostProcess</span></tt> Module</a></li>
-<li><a class="reference internal" href="#rotatevec-module"><tt class="docutils literal"><span class="pre">RotateVec</span></tt> Module</a></li>
-<li><a class="reference internal" href="#screenshot-module"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
-<li><a class="reference internal" href="#shadowcaster-module"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
-<li><a class="reference internal" href="#string-module"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
-<li><a class="reference internal" href="#tkwin-module"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
-<li><a class="reference internal" href="#utility-module"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Ctypes"><tt class="docutils literal"><span class="pre">Ctypes</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Defocus"><tt class="docutils literal"><span class="pre">Defocus</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.DisplayOpenGL"><tt class="docutils literal"><span class="pre">DisplayOpenGL</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.FixedString"><tt class="docutils literal"><span class="pre">FixedString</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Font"><tt class="docutils literal"><span class="pre">Font</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Gui"><tt class="docutils literal"><span class="pre">Gui</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Loadable"><tt class="docutils literal"><span class="pre">Loadable</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Log"><tt class="docutils literal"><span class="pre">Log</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.OffScreenTexture"><tt class="docutils literal"><span class="pre">OffScreenTexture</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Pngfont"><tt class="docutils literal"><span class="pre">Pngfont</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.PostProcess"><tt class="docutils literal"><span class="pre">PostProcess</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.RotateVec"><tt class="docutils literal"><span class="pre">RotateVec</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.ShadowCaster"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
 </ul>
 </li>
 </ul>
@@ -164,9 +969,12 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.1 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.2 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" >pi3d Package</a> &raquo;</li> 
       </ul>
     </div>
