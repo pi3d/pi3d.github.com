@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pi3d.util.FixedString &mdash; pi3d 2.2 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="pi3d 2.2 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">pi3d 2.2 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pi3d.util.FixedString</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+  <span class="nb">unichr</span> <span class="o">=</span> <span class="nb">chr</span>
+
+<span class="k">try</span><span class="p">:</span>
+  <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
+<span class="k">except</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">&#39;Unable to import libraries from PIL&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.shape.Sprite</span> <span class="kn">import</span> <span class="n">Sprite</span>
+
+<div class="viewcode-block" id="FixedString"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.FixedString.FixedString">[docs]</a><span class="k">class</span> <span class="nc">FixedString</span><span class="p">(</span><span class="n">Texture</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  A texture containing a simple string drawn using ImageDraw.</span>
+<span class="sd">  </span>
+<span class="sd">  The advantage over a standard String is that it only requires a simple</span>
+<span class="sd">  Sprite shape for drawing so the gpu has to only draw two triangles</span>
+<span class="sd">  rather than two triangles for each letter.&quot;&quot;&quot;</span>
+
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span>
+               <span class="n">font_size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">,</span>
+               <span class="n">background_color</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">f_type</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Arguments:</span>
+<span class="sd">    </span>
+<span class="sd">    *font*:</span>
+<span class="sd">      File path/name to a TrueType font file.</span>
+
+<span class="sd">    *string*:</span>
+<span class="sd">      String to write.</span>
+<span class="sd">      </span>
+<span class="sd">    *camera*:</span>
+<span class="sd">      Camera object passed on to constructor of sprite</span>
+<span class="sd">      </span>
+<span class="sd">    *color*:</span>
+<span class="sd">      Color in format #RRGGBB, (255,0,0,255) etc (as accepted by PIL.ImageDraw)</span>
+<span class="sd">      default (255, 255, 255, 255) i.e. white 100% alpha</span>
+
+<span class="sd">    *font_size*:</span>
+<span class="sd">      Point size for drawing the letters on the internal Texture. default 24</span>
+
+<span class="sd">    *margin*:</span>
+<span class="sd">      Offsets from the top left corner for the text and space on right</span>
+<span class="sd">      and bottom. default 5.0</span>
+<span class="sd">      </span>
+<span class="sd">    *justify*:</span>
+<span class="sd">      L(eft), C(entre), R(ight) default C</span>
+
+<span class="sd">    *background_color*:</span>
+<span class="sd">      filled background in ImageDraw format as above. default None i.e.</span>
+<span class="sd">      transparent. </span>
+<span class="sd">      </span>
+<span class="sd">    *shader*:</span>
+<span class="sd">      can be passed to init otherwise needs to be set in set_shader or</span>
+<span class="sd">      draw. default None</span>
+<span class="sd">      </span>
+<span class="sd">    *f_type*:</span>
+<span class="sd">      filter type. BUMP will generate a normal map, EMBOSS, CONTOUR, BLUR</span>
+<span class="sd">      and SMOOTH do what they sound like they will do.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">FixedString</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">imgfont</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">font_size</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+      <span class="n">abspath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+      <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Couldn&#39;t find font file &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="n">font</span>
+      <span class="k">if</span> <span class="n">font</span> <span class="o">!=</span> <span class="n">abspath</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s"> - absolute path is &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">abspath</span><span class="p">)</span>
+      <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">justify</span> <span class="o">=</span> <span class="n">justify</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">f_type</span> <span class="o">=</span> <span class="n">f_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">ascent</span><span class="p">,</span> <span class="n">descent</span> <span class="o">=</span> <span class="n">imgfont</span><span class="o">.</span><span class="n">getmetrics</span><span class="p">()</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">ascent</span> <span class="o">+</span> <span class="n">descent</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+    <span class="n">nlines</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+    <span class="n">maxwid</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+      <span class="n">line_wid</span> <span class="o">=</span> <span class="n">imgfont</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">l</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">line_wid</span> <span class="o">&gt;</span> <span class="n">maxwid</span><span class="p">:</span>
+        <span class="n">maxwid</span> <span class="o">=</span> <span class="n">line_wid</span>
+    <span class="n">maxwid</span> <span class="o">+=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">margin</span>
+    <span class="n">texture_wid</span> <span class="o">=</span> <span class="n">WIDTHS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">WIDTHS</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="n">maxwid</span><span class="p">:</span>
+        <span class="n">texture_wid</span> <span class="o">=</span> <span class="n">l</span>
+        <span class="k">break</span>
+      <span class="n">texture_wid</span> <span class="o">=</span> <span class="n">l</span>
+    <span class="n">texture_hgt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nlines</span> <span class="o">*</span> <span class="n">height</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">margin</span><span class="p">)</span>
+    
+    <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&quot;RGBA&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">texture_wid</span><span class="p">,</span> <span class="n">texture_hgt</span><span class="p">),</span> <span class="n">background_color</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">texture_wid</span><span class="p">,</span> <span class="n">texture_hgt</span>
+    <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+      <span class="n">line_len</span> <span class="o">=</span> <span class="n">imgfont</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">line</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> 
+      <span class="k">if</span> <span class="n">justify</span> <span class="o">==</span> <span class="s">&quot;C&quot;</span><span class="p">:</span>
+        <span class="n">xoff</span> <span class="o">=</span> <span class="p">(</span><span class="n">maxwid</span> <span class="o">-</span> <span class="n">line_len</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+      <span class="k">elif</span> <span class="n">justify</span> <span class="o">==</span> <span class="s">&quot;L&quot;</span><span class="p">:</span>
+        <span class="n">xoff</span> <span class="o">=</span> <span class="n">margin</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">xoff</span> <span class="o">=</span> <span class="n">maxwid</span> <span class="o">-</span> <span class="n">line_len</span>
+      <span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">xoff</span><span class="p">,</span> <span class="n">margin</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">height</span><span class="p">),</span> <span class="n">line</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">imgfont</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">f_type</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+      <span class="k">pass</span>
+    <span class="k">elif</span> <span class="n">f_type</span> <span class="o">==</span> <span class="s">&#39;BUMP&#39;</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_bump_map</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">ImageFilter</span>
+      <span class="k">if</span> <span class="n">f_type</span> <span class="o">==</span> <span class="s">&#39;EMBOSS&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="o">.</span><span class="n">EMBOSS</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="n">f_type</span> <span class="o">==</span> <span class="s">&#39;CONTOUR&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="o">.</span><span class="n">CONTOUR</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="n">f_type</span> <span class="o">==</span> <span class="s">&#39;BLUR&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="o">.</span><span class="n">BLUR</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="n">f_type</span> <span class="o">==</span> <span class="s">&#39;SMOOTH&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="o">.</span><span class="n">SMOOTH_MORE</span><span class="p">)</span>
+        
+    <span class="c">#self.image = self.im.convert(&#39;RGBA&#39;).tostring(&#39;raw&#39;, &#39;RGBA&#39;)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
+    
+    <span class="n">bmedge</span> <span class="o">=</span> <span class="n">nlines</span> <span class="o">*</span> <span class="n">height</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">margin</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">Sprite</span><span class="p">(</span><span class="n">camera</span><span class="o">=</span><span class="n">camera</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">maxwid</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">bmedge</span><span class="p">)</span>
+    <span class="n">buf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c">#convenience alias</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">shader</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
+      <span class="n">buf</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">maxwid</span> <span class="o">/</span> <span class="n">texture_wid</span><span class="p">)</span> <span class="c">#scale to fit</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">bmedge</span> <span class="o">/</span> <span class="n">texture_hgt</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="FixedString.set_shader"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.FixedString.FixedString.set_shader">[docs]</a>  <span class="k">def</span> <span class="nf">set_shader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; wrapper for Shape.set_shader&#39;&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">set_shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="FixedString.draw"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.FixedString.FixedString.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">txtrs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mlist</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&#39;&#39;&#39;wrapper for Shape.draw()&#39;&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">txtrs</span><span class="p">,</span> <span class="n">ntl</span><span class="p">,</span> <span class="n">shny</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">mlist</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="FixedString.make_bump_map"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.FixedString.FixedString.make_bump_map">[docs]</a>  <span class="k">def</span> <span class="nf">make_bump_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">0.025</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.065</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.025</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.065</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span>  <span class="mf">0.065</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">0.025</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.065</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.025</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]]</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">istep</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">jstep</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">istep</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">jstep</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">cy</span> <span class="o">-</span> <span class="n">c</span><span class="p">)</span> <span class="o">+</span> <span class="mi">127</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="n">c</span><span class="p">)</span> <span class="o">+</span> <span class="mi">127</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">((</span><span class="mi">65025</span> <span class="o">-</span> <span class="p">(</span><span class="mi">127</span> <span class="o">-</span> <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="mi">127</span> <span class="o">-</span> <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
+    <span class="k">return</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</div>
+  <span class="k">def</span> <span class="nf">_load_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    we need to stop the normal file loading by overriding this method</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">pi3d 2.2 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
