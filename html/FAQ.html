@@ -124,18 +124,21 @@ you run:</p>
 $ sudo find / -name libGLESv2*
 </pre></div>
 </div>
-<p>you should just get /opt/vc/lib/libEGL.so and /opt/vc/lib/libGLESv2.so
-if other ones turn up i.e. /usr/lib/arm-linux-gnueabihf/libEGL.so.1
-you could try creating symbolic links for them all like this:</p>
+<p><strong>on the Raspberry Pi</strong> you should just get /opt/vc/lib/libEGL.so
+and /opt/vc/lib/libGLESv2.so if other ones turn up i.e.
+/usr/lib/arm-linux-gnueabihf/libEGL.so.1 you could try creating symbolic
+links for them all like this:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so
 $ sudo ln -fs /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so.1
 $ sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so
 $ sudo ln -fs /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2
 </pre></div>
 </div>
-<p>Using the actual paths as listed by find. Or just delete them as I did
-<strong>NB DON&#8217;T DELETE THE ONES IN /opt/vc/lib</strong> After creating symbolic links
-or deleting the new files you will need to run:</p>
+<p><strong>NB on other systems such as Debian, ubuntu etc the &#8220;good&#8221; files
+will not be in this location, they will be somewhere like
+/usr/lib/x86_64-linux-gnu/mesa-egl/ so you have to alter the commands
+accordingly</strong> Use the actual paths as listed by find. After creating new
+symbolic links you will need to run:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ sudo ldconfig
 </pre></div>
 </div>
