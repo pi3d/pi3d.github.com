@@ -113,6 +113,14 @@ util Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`StereoCam` Module
+-----------------------
+
+.. automodule:: pi3d.util.StereoCam
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`String` Module
 --------------------
 

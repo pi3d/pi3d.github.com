@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>util Package &mdash; pi3d 2.2 documentation</title>
+    <title>util Package &mdash; pi3d 2.5 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.2',
+        VERSION:     '2.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.2 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.5 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.5 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" accesskey="U">pi3d Package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -732,6 +732,64 @@ will obviously take a while to draw and re-draw</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-pi3d.util.StereoCam">
+<span id="stereocam-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">StereoCam</span></tt> Module<a class="headerlink" href="#module-pi3d.util.StereoCam" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.StereoCam.StereoCam">
+<em class="property">class </em><tt class="descclassname">pi3d.util.StereoCam.</tt><tt class="descname">StereoCam</tt><big>(</big><em>shader='uv_flat'</em>, <em>mipmap=False</em>, <em>separation=0.4</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/StereoCam.html#StereoCam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.StereoCam.StereoCam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>For creating an apparatus with two sprites to hold left and right
+eye views.</p>
+<p>This Class is used to hold the 3D Camera which should be used to draw
+the 3D objects. It also holds a 2D Camera for drawing the Sprites</p>
+<p>calls Texture.__init__ but doesn&#8217;t need to set file name as
+texture generated from the framebuffer. Keyword Arguments:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>shader</em></dt>
+<dd>to use when drawing sprite, defaults to post_base, a simple
+3x3 convolution that does basic edge detection. Can be copied to
+project directory and modified as required.</dd>
+<dt><em>mipmap</em></dt>
+<dd>can be set to True with slight cost to speed, or use fxaa shader</dd>
+<dt><em>separation</em></dt>
+<dd>distance between the two camera positions - how wide apart the
+eye views are.</dd>
+</dl>
+</div></blockquote>
+<dl class="method">
+<dt id="pi3d.util.StereoCam.StereoCam.move_camera">
+<tt class="descname">move_camera</tt><big>(</big><em>position</em>, <em>rot</em>, <em>tilt</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/StereoCam.html#StereoCam.move_camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.StereoCam.StereoCam.move_camera" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.StereoCam.StereoCam.start_capture">
+<tt class="descname">start_capture</tt><big>(</big><em>side</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/StereoCam.html#StereoCam.start_capture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.StereoCam.StereoCam.start_capture" title="Permalink to this definition">¶</a></dt>
+<dd><p>after calling this method all object.draw()s will rendered
+to this texture and not appear on the display.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>side</em></dt>
+<dd>Either 0 or 1 to determine stereoscopic view</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.StereoCam.StereoCam.end_capture">
+<tt class="descname">end_capture</tt><big>(</big><em>side</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/StereoCam.html#StereoCam.end_capture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.StereoCam.StereoCam.end_capture" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop capturing to texture and resume normal rendering to default</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.StereoCam.StereoCam.draw">
+<tt class="descname">draw</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/StereoCam.html#StereoCam.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.StereoCam.StereoCam.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>draw the shape using the saved texture</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.util.String">
 <span id="string-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">String</span></tt> Module<a class="headerlink" href="#module-pi3d.util.String" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -930,6 +988,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
 <li><a class="reference internal" href="#module-pi3d.util.RotateVec"><tt class="docutils literal"><span class="pre">RotateVec</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.ShadowCaster"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.StereoCam"><tt class="docutils literal"><span class="pre">StereoCam</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
@@ -974,7 +1033,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.5 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" >pi3d Package</a> &raquo;</li> 
       </ul>
     </div>
