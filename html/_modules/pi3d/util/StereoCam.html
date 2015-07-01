@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.StereoCam &mdash; pi3d 2.5 documentation</title>
+    <title>pi3d.util.StereoCam &mdash; pi3d 2.6 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.5',
+        VERSION:     '2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.5 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.6 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.5 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -62,7 +62,7 @@
 
 <span class="sd">  This Class is used to hold the 3D Camera which should be used to draw</span>
 <span class="sd">  the 3D objects. It also holds a 2D Camera for drawing the Sprites&quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="s">&quot;uv_flat&quot;</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">separation</span><span class="o">=</span><span class="mf">0.4</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="s">&quot;uv_flat&quot;</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">separation</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">interlace</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; calls Texture.__init__ but doesn&#39;t need to set file name as</span>
 <span class="sd">    texture generated from the framebuffer. Keyword Arguments:</span>
 
@@ -77,28 +77,62 @@
 <span class="sd">      *separation*</span>
 <span class="sd">        distance between the two camera positions - how wide apart the</span>
 <span class="sd">        eye views are.</span>
+
+<span class="sd">      *interlace*</span>
+<span class="sd">        if interlace &gt; 0 then the images are not taken with glScissor and</span>
+<span class="sd">        must be drawn with a special interlacing shader.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c"># load shader</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">interlace</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="n">vshader_source</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">precision mediump float;</span>
+<span class="s">attribute vec3 vertex;</span>
+<span class="s">attribute vec2 texcoord;</span>
+<span class="s">uniform mat4 modelviewmatrix[2];</span>
+<span class="s">varying vec2 texcoordout;</span>
+<span class="s">void main(void) {</span>
+<span class="s">  texcoordout = texcoord;</span>
+<span class="s">  gl_Position = modelviewmatrix[1] * vec4(vertex,1.0);</span>
+<span class="s">}</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="p">,</span> <span class="n">fshader_source</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">precision mediump float;</span>
+<span class="s">uniform sampler2D tex0;</span>
+<span class="s">uniform sampler2D tex1;</span>
+<span class="s">varying vec2 texcoordout;</span>
+<span class="s">void main(void) {{</span>
+<span class="s">  vec4 texc0 = texture2D(tex0, texcoordout);</span>
+<span class="s">  vec4 texc1 = texture2D(tex1, texcoordout);</span>
+<span class="s">  vec2 coord = vec2(gl_FragCoord);</span>
+<span class="s">  gl_FragColor = mix(texc0, texc1, step(0.5, fract(coord.x / {:f})));</span>
+<span class="s">}}</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">interlace</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">))</span>
+      <span class="c">#self.shader = Shader(&quot;2d_flat&quot;)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">camera_2d</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">offs</span> <span class="o">=</span> <span class="n">separation</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">interlace</span> <span class="o">=</span> <span class="n">interlace</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OffScreenTexture</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;bin&quot;</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OffScreenTexture</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;stereo&quot;</span><span class="p">))</span>
       <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">iy</span>
       <span class="c">#two sprites full width but moved so that they are centred on the</span>
       <span class="c">#left and right edges. The offset values then move the uv mapping</span>
       <span class="c">#so the image is on the right of the left sprite and left of the</span>
       <span class="c">#right sprite</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sprite</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">x</span><span class="o">=-</span><span class="n">ix</span><span class="o">/</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">ix</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">ix</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">iy</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_offset</span><span class="p">((</span><span class="n">i</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">-</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sprite</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">ix</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">iy</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+      <span class="k">if</span> <span class="n">interlace</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">positionX</span><span class="p">(</span><span class="o">-</span><span class="n">ix</span><span class="o">/</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">ix</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_offset</span><span class="p">((</span><span class="n">i</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">-</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_2d_size</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">ix</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">iy</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="bp">False</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">blend</span> <span class="o">=</span> <span class="bp">True</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mipmap</span> <span class="o">=</span> <span class="n">mipmap</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
 <div class="viewcode-block" id="StereoCam.move_camera"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.StereoCam.StereoCam.move_camera">[docs]</a>  <span class="k">def</span> <span class="nf">move_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">tilt</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
@@ -117,25 +151,30 @@
                             <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">mtrx</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">offs</span><span class="p">))</span>
     <span class="n">tex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">side</span><span class="p">]</span>
     <span class="n">tex</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>
-    <span class="n">xx</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">ix</span> <span class="o">/</span> <span class="mf">4.0</span> <span class="c"># draw the middle only - half width</span>
-    <span class="n">yy</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">ww</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">ix</span> <span class="o">/</span> <span class="mf">2.0</span>
-    <span class="n">hh</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">iy</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_SCISSOR_TEST</span><span class="p">)</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glScissor</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">xx</span><span class="p">)),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">yy</span><span class="p">)),</span>
-                  <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ww</span><span class="p">)),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">hh</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interlace</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">xx</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">ix</span> <span class="o">/</span> <span class="mf">4.0</span> <span class="c"># draw the middle only - half width</span>
+      <span class="n">yy</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">ww</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">ix</span> <span class="o">/</span> <span class="mf">2.0</span>
+      <span class="n">hh</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">iy</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_SCISSOR_TEST</span><span class="p">)</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glScissor</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">xx</span><span class="p">)),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">yy</span><span class="p">)),</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ww</span><span class="p">)),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">hh</span><span class="p">)))</span>
 </div>
 <div class="viewcode-block" id="StereoCam.end_capture"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.StereoCam.StereoCam.end_capture">[docs]</a>  <span class="k">def</span> <span class="nf">end_capture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">side</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; stop capturing to texture and resume normal rendering to default</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">_end</span><span class="p">()</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glDisable</span><span class="p">(</span><span class="n">GL_SCISSOR_TEST</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interlace</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glDisable</span><span class="p">(</span><span class="n">GL_SCISSOR_TEST</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="StereoCam.draw"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.StereoCam.StereoCam.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; draw the shape using the saved texture</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-     <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_2d</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interlace</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_2d</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_2d</span><span class="p">)</span>
 </pre></div></div></div>
 
           </div>
@@ -169,7 +208,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.5 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pi3d 2.5 documentation</title>
+    <title>Frequently Asked Questions &mdash; pi3d 2.6 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.5',
+        VERSION:     '2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.5 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.6 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.5 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,51 +54,62 @@
             
   <div class="section" id="frequently-asked-questions">
 <h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
-<ol class="arabic">
-<li><p class="first">When starting any demo I get an AssertionError in DisplayOpenGL
+<div class="section" id="graphics-memory">
+<h2>Graphics Memory<a class="headerlink" href="#graphics-memory" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="assert-s-0">
+<h3>assert s &gt;= 0<a class="headerlink" href="#assert-s-0" title="Permalink to this headline">¶</a></h3>
+<p>When starting any demo I get an AssertionError in DisplayOpenGL
 <tt class="docutils literal"><span class="pre">assert</span> <span class="pre">s</span> <span class="pre">&gt;=</span> <span class="pre">0</span></tt></p>
 <blockquote>
-<div><p>This is generally caused by the graphics memory allocation on the
-Raspberry Pi being too low (less than 32)</p>
-</div></blockquote>
-</li>
-<li><p class="first">When starting any demo I get an AssertionError in DisplayOpenGL
+<div>This is generally caused by the graphics memory allocation on the
+Raspberry Pi being too low (less than 32)</div></blockquote>
+</div>
+<div class="section" id="egl-no-surface">
+<h3>EGL_NO_SURFACE<a class="headerlink" href="#egl-no-surface" title="Permalink to this headline">¶</a></h3>
+<p>When starting any demo I get an AssertionError in DisplayOpenGL
 <tt class="docutils literal"><span class="pre">assert</span> <span class="pre">self.surface</span> <span class="pre">!=</span> <span class="pre">EGL_NO_SURFACE</span></tt></p>
 <blockquote>
-<div><p>This is generally caused by the graphics memory allocation on the
+<div>This is generally caused by the graphics memory allocation on the
 Raspberry Pi being too low (less than 64) It has also been caused
 by extra shared libraries such as <tt class="docutils literal"><span class="pre">/usr/lib/arm-linux-gnueabihf/libEGL.so.1</span></tt>
 and symbolic links being added by other programs see five questions
-below...</p>
-</div></blockquote>
-</li>
-<li><p class="first">When running ConferenceHall (or other program with a large number of
+below...</div></blockquote>
+</div>
+<div class="section" id="start-then-shut-down">
+<h3>Start then shut down<a class="headerlink" href="#start-then-shut-down" title="Permalink to this headline">¶</a></h3>
+<p>When running ConferenceHall (or other program with a large number of
 textures) it appears to start ok then shuts down (byebye 3 message) just
 before the main display loop should appear.</p>
 <blockquote>
-<div><p>This is generally caused by the graphics memory allocation on the
-Raspberry Pi being too low (less than 128)</p>
-</div></blockquote>
-</li>
-<li><p class="first">When starting TigerTank, ConferenceHall or MarsStation demos I get an
+<div>This is generally caused by the graphics memory allocation on the
+Raspberry Pi being too low (less than 128)</div></blockquote>
+</div>
+</div>
+<div class="section" id="tkinter-tclerror">
+<h2>_tkinter.TclError<a class="headerlink" href="#tkinter-tclerror" title="Permalink to this headline">¶</a></h2>
+<p>When starting TigerTank, ConferenceHall or MarsStation demos I get an
 error <tt class="docutils literal"><span class="pre">_tkinter.TclError:</span> <span class="pre">couldn't</span> <span class="pre">connect</span> <span class="pre">to</span> <span class="pre">display</span> <span class="pre">&quot;:0&quot;</span></tt></p>
 <blockquote>
-<div><p>tkinter is trying to use a display provided by the X-server. Run
-startx from the command line.</p>
-</div></blockquote>
-</li>
-<li><p class="first">I am trying to install using PiStore but it&#8217;s been running for hours
+<div>tkinter is trying to use a display provided by the X-server. Run
+startx from the command line.</div></blockquote>
+</div>
+<div class="section" id="pistore-install">
+<h2>PiStore install<a class="headerlink" href="#pistore-install" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="taking-too-long">
+<h3>taking too long<a class="headerlink" href="#taking-too-long" title="Permalink to this headline">¶</a></h3>
+<p>I am trying to install using PiStore but it&#8217;s been running for hours
 with no sign of completing.</p>
 <blockquote>
-<div><p>The PiStore install adds <cite>pip</cite> and <cite>Pillow</cite> which take quite a bit
+<div>The PiStore install adds <cite>pip</cite> and <cite>Pillow</cite> which take quite a bit
 of the cpu resources. It could be that you have set the graphics memory share
 to the higher level needed to run pi3d. In the long run it will be quicker
 to abort the installation, remove the half installed pi3d, use
 raspi-config to set the graphics memory low, re-install pi3d, then
-set the graphics memory back up again!</p>
-</div></blockquote>
-</li>
-<li><p class="first">I have installed using PiStore and run the demos from the Menu. Now
+set the graphics memory back up again!</div></blockquote>
+</div>
+<div class="section" id="doing-more-with-pistore-installation">
+<h3>Doing more with PiStore installation<a class="headerlink" href="#doing-more-with-pistore-installation" title="Permalink to this headline">¶</a></h3>
+<p>I have installed using PiStore and run the demos from the Menu. Now
 I would like to play around for myself.</p>
 <blockquote>
 <div><p>There is a PiStore button next to <cite>launch</cite> that lets you see the source
@@ -113,8 +124,11 @@ other demos excluded from PiStore because they use very large resource
 files.)</p>
 <p>Before going too far it would be a good idea to <a class="reference external" href="http://pi3d.github.com/html/index.html">ReadMe</a></p>
 </div></blockquote>
-</li>
-<li><p class="first">When I try and run the demos I just get a load of error messages such as
+</div>
+</div>
+<div class="section" id="glx-dri2-not-supported-or-failed-to-authenticate">
+<h2>GLX DRI2 not supported or failed to authenticate<a class="headerlink" href="#glx-dri2-not-supported-or-failed-to-authenticate" title="Permalink to this headline">¶</a></h2>
+<p>When I try and run the demos I just get a load of error messages such as
 <tt class="docutils literal"><span class="pre">libEGL</span> <span class="pre">warning:</span> <span class="pre">GLX/DRI2</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">supported/failed</span> <span class="pre">to</span> <span class="pre">authenticate</span> <span class="pre">etc</span></tt></p>
 <blockquote>
 <div><p>The chances are this is because &#8216;something&#8217; (such as gedit) has installed
@@ -145,15 +159,21 @@ symbolic links you will need to run:</p>
 <p>This issue is being looked into by the maintainers of Raspbian so,
 hopefully, it will be fixed in later releases.</p>
 </div></blockquote>
-</li>
-<li><p class="first">My RPi Crashes or reboots when I try and run a demo.</p>
+</div>
+<div class="section" id="runtime-errors">
+<h2>Runtime errors<a class="headerlink" href="#runtime-errors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="crashing">
+<h3>Crashing<a class="headerlink" href="#crashing" title="Permalink to this headline">¶</a></h3>
+<p>My RPi Crashes or reboots when I try and run a demo.</p>
 <blockquote>
 <div><p>Any program using a loadable texture, which includes nearly all the demos,
 requires the Python Imaging module (PIL). Additionally, some demos require tk.</p>
 <p>See the <a class="reference external" href="http://pi3d.github.com/html/index.html">ReadMe</a> for information on how to install these packages.</p>
 </div></blockquote>
-</li>
-<li><p class="first">I see nothing but a white screen.</p>
+</div>
+<div class="section" id="white-screen">
+<h3>white screen<a class="headerlink" href="#white-screen" title="Permalink to this headline">¶</a></h3>
+<p>I see nothing but a white screen.</p>
 <blockquote>
 <div><p>Possibly something has gone wrong with an opengles function, sometimes
 there might be an error message in the terminal such as failed to create
@@ -164,8 +184,10 @@ opengles function call is made not from the main thread.  If you encounter
 this, please contact the pi3d team so we can protect against this in
 future.</p>
 </div></blockquote>
-</li>
-<li><p class="first">I see nothing but a black screen.</p>
+</div>
+<div class="section" id="black-screen">
+<h3>black screen<a class="headerlink" href="#black-screen" title="Permalink to this headline">¶</a></h3>
+<p>I see nothing but a black screen.</p>
 <blockquote>
 <div><p>Possibly something has gone wrong in a shader, such as using a shader
 requiring texture coords (i.e. mat_relfect) on a Model exported with
@@ -175,8 +197,10 @@ terminal window.  It is great fun experimenting with shaders but they are
 <em>?£#%</em> taciturn beasts to debug! The problem could be caused by sending
 some bad render setting to a shader.</p>
 </div></blockquote>
-</li>
-<li><p class="first">I see nothing but the background.</p>
+</div>
+<div class="section" id="only-background">
+<h3>only background<a class="headerlink" href="#only-background" title="Permalink to this headline">¶</a></h3>
+<p>I see nothing but the background.</p>
 <blockquote>
 <div><p>You will need to set background to non-transparent and a color not equal
 to black or white to determine if this is happening.</p>
@@ -188,8 +212,10 @@ for use) or move and rotate the object and camera. Sprite and ImageSprite
 shapes are one sided so cannot be seen from behind, try using a Plane
 instead</p>
 </div></blockquote>
-</li>
-<li><p class="first">I see only black silhouettes against the background.</p>
+</div>
+<div class="section" id="unlit-silhouettes">
+<h3>unlit silhouettes<a class="headerlink" href="#unlit-silhouettes" title="Permalink to this headline">¶</a></h3>
+<p>I see only black silhouettes against the background.</p>
 <blockquote>
 <div><p>You may be trying to use a shader that requires light but there isn&#8217;t
 any, or it&#8217;s turned down too low. Try switching to a &#8216;flat&#8217; shader
@@ -201,8 +227,10 @@ needs to start at the top of the object and there are functions in
 most 3D modeling applications to recalculate normals, or force them
 to point outwards.</p>
 </div></blockquote>
-</li>
-<li><p class="first">The demo loads but the mouse doesn&#8217;t move the camera as it&#8217;s supposed to.</p>
+</div>
+<div class="section" id="mouse-not-working">
+<h3>Mouse not working<a class="headerlink" href="#mouse-not-working" title="Permalink to this headline">¶</a></h3>
+<p>The demo loads but the mouse doesn&#8217;t move the camera as it&#8217;s supposed to.</p>
 <blockquote>
 <div><p>If this only happens on demos using the <tt class="docutils literal"><span class="pre">event</span></tt> library (such as Silo.py)
 then it could be the hardware configuration is pretending to be something
@@ -225,19 +253,23 @@ running <tt class="docutils literal"><span class="pre">demos/TestEvents.py</span
 but it might be when the USB mouse is plugged in after the computer
 has been booted up.</p>
 </div></blockquote>
-</li>
-<li><p class="first">When I try to run a demo I get an error ending <tt class="docutils literal"><span class="pre">curses.cbreak()</span>
+</div>
+<div class="section" id="cbreak-error">
+<h3>cbreak error<a class="headerlink" href="#cbreak-error" title="Permalink to this headline">¶</a></h3>
+<p>When I try to run a demo I get an error ending <tt class="docutils literal"><span class="pre">curses.cbreak()</span>
 <span class="pre">error:</span> <span class="pre">cbreak()</span> <span class="pre">returned</span> <span class="pre">ERR</span></tt></p>
 <blockquote>
-<div><p>The chances are that you are trying to run python directly from the
+<div>The chances are that you are trying to run python directly from the
 IDLE editor. Although IDLE works fine for most things, it seems to
 have issues with the curses module that is used for keyboard input
 and is incorporated in pi3d. Try running the demo from the command
 line. Geany seems to run ok on the Raspberry pi and has python highlighting
-and context suggestions.</p>
-</div></blockquote>
-</li>
-<li><p class="first">It appears from the demos that there are some arguments that are optional.
+and context suggestions.</div></blockquote>
+</div>
+</div>
+<div class="section" id="optional-arguments">
+<h2>Optional arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
+<p>It appears from the demos that there are some arguments that are optional.
 For example, can a Shape be drawn without specifying a shader and a texture?</p>
 <blockquote>
 <div><p>There are (almost too) many ways to set Shapes up to draw. The draw method
@@ -282,8 +314,10 @@ myshape.set_material(mtrl)
 </div>
 </div></blockquote>
 </div></blockquote>
-</li>
-<li><p class="first">How can I blend objects, why do objects vanish when they go behind a transparent
+</div>
+<div class="section" id="blending">
+<h2>Blending<a class="headerlink" href="#blending" title="Permalink to this headline">¶</a></h2>
+<p>How can I blend objects, why do objects vanish when they go behind a transparent
 object and other questions to do with transparency (or apha property)</p>
 <blockquote>
 <div><p>Transparency of Shapes can be altered by 1. the set_alpha() method 2. the
@@ -322,8 +356,10 @@ pixels with alpha &lt; 0.05 are discarded if blend is False then pixels with
 alpha &lt; 0.6 are discarded. This allows objects to be drawn after nearer objects
 but still be seen through &#8216;holes&#8217; in the image. i.e. the trees in ForestWalk</p>
 </div></blockquote>
-</li>
-<li><p class="first">All the demos use images to create the surface patterns for shapes. Is
+</div>
+<div class="section" id="materials">
+<h2>Materials<a class="headerlink" href="#materials" title="Permalink to this headline">¶</a></h2>
+<p>All the demos use images to create the surface patterns for shapes. Is
 it possible to define a material color.</p>
 <blockquote>
 <div><p>The method myshape.set_material((0.9, 0.4, 0.0)) can be used (the default
@@ -340,8 +376,10 @@ the wine glass. Also, there is now a default instance for Shader so
 if you try to draw a Shape without specifying a Shader it will load
 and use <tt class="docutils literal"><span class="pre">mat_light</span></tt> which gives 3D shading but requires no Textures.</p>
 </div></blockquote>
-</li>
-<li><p class="first">How do I use a joystick, gamepad, xbox controller etc with a pi3d
+</div>
+<div class="section" id="joysticks-etc">
+<h2>joysticks etc<a class="headerlink" href="#joysticks-etc" title="Permalink to this headline">¶</a></h2>
+<p>How do I use a joystick, gamepad, xbox controller etc with a pi3d
 application?</p>
 <blockquote>
 <div><p>Often these will just work with the event module when plugged into the USB,
@@ -353,8 +391,10 @@ sudo xboxdrv -s -i 0
 </pre></div>
 </div>
 </div></blockquote>
-</li>
-<li><p class="first">How do I make my own 3D model to load into pi3d?</p>
+</div>
+<div class="section" id="making-3d-models">
+<h2>Making 3D models<a class="headerlink" href="#making-3d-models" title="Permalink to this headline">¶</a></h2>
+<p>How do I make my own 3D model to load into pi3d?</p>
 <blockquote>
 <div><p>You will need to &#8216;make&#8217; one on a bigger computer using 3D software such
 as <tt class="docutils literal"><span class="pre">blender</span></tt>. This falls outside the scope of this FAQ but your best
@@ -390,8 +430,12 @@ use a more detailed (high polygon) model to create a &#8216;normal map&#8217; im
 that can be used to give surface detail to the model in pi3d. Quite
 technical but lots of instructional videos on youtube!</p>
 </div></blockquote>
-</li>
-<li><p class="first">Can I use pi3d for 2D images?</p>
+</div>
+<div class="section" id="d-images">
+<h2>2D images<a class="headerlink" href="#d-images" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-to-use-2d-images">
+<h3>How to use 2D images<a class="headerlink" href="#how-to-use-2d-images" title="Permalink to this headline">¶</a></h3>
+<p>Can I use pi3d for 2D images?</p>
 <blockquote>
 <div><p>There are various ways of doing this. The easiest way is to use the
 image to texture a simple rectangle. The simplest shape to do this
@@ -421,8 +465,10 @@ drawn per frame, especially if the fast array processing power of
 numpy is used as well. See the demos <tt class="docutils literal"><span class="pre">SpriteBalls.py</span></tt> and
 <tt class="docutils literal"><span class="pre">SpriteMulti.py</span></tt></p>
 </div></blockquote>
-</li>
-<li><p class="first">How do I display 2D images in front of a 3D scene? (or behind, for that
+</div>
+<div class="section" id="nearness-of-2d-relative-to-3d">
+<h3>nearness of 2D relative to 3D<a class="headerlink" href="#nearness-of-2d-relative-to-3d" title="Permalink to this headline">¶</a></h3>
+<p>How do I display 2D images in front of a 3D scene? (or behind, for that
 matter)</p>
 <blockquote>
 <div><p>Either draw them onto a Canvas object using the 2d_flat shader or
@@ -449,8 +495,10 @@ need more than one you need to explicitly create them, and it&#8217;s a good
 idea to assign the one you want to each object as an argument while
 the object is being created.</p>
 </div></blockquote>
-</li>
-<li><p class="first">I&#8217;ve moved my yellow plane behind other objects by setting z=9900 and
+</div>
+<div class="section" id="default-fog-distance">
+<h3>Default fog distance<a class="headerlink" href="#default-fog-distance" title="Permalink to this headline">¶</a></h3>
+<p>I&#8217;ve moved my yellow plane behind other objects by setting z=9900 and
 viewing it with an orthographic camera. But it has become grey and
 slightly transparent!</p>
 <blockquote>
@@ -461,16 +509,19 @@ z=5000. From v1.12 This will be increased but in the mean time you can:</p>
 </pre></div>
 </div>
 </div></blockquote>
-</li>
-<li><p class="first">How do I display an image exactly without anti-aliasing or smoothing
+</div>
+<div class="section" id="pixel-perfect">
+<h3>Pixel perfect<a class="headerlink" href="#pixel-perfect" title="Permalink to this headline">¶</a></h3>
+<p>How do I display an image exactly without anti-aliasing or smoothing
 i.e. pixel perfect?</p>
 <blockquote>
-<div><p>This can be done by using the 2d_flat shader and spcifying when the
+<div>This can be done by using the 2d_flat shader and spcifying when the
 Texture is loaded that mipmap=False. Because this is a global setting
-it will be overwritten by whichever Texture is the last to be loaded.</p>
-</div></blockquote>
-</li>
-<li><p class="first">Where I have one shape in front of another with contrasting colors can
+it will be overwritten by whichever Texture is the last to be loaded.</div></blockquote>
+</div>
+<div class="section" id="anti-aliasing">
+<h3>anti-aliasing<a class="headerlink" href="#anti-aliasing" title="Permalink to this headline">¶</a></h3>
+<p>Where I have one shape in front of another with contrasting colors can
 the diagonal line be anti-aliased to prevent &#8216;steppyness&#8217;?</p>
 <blockquote>
 <div><p>This can be done when the Display is created by setting the samples
@@ -483,8 +534,10 @@ cost associated with this sampling and there is a recorded instance
 of the sampling causing an error when running pi3d on vmware on a
 mac.</p>
 </div></blockquote>
-</li>
-<li><p class="first">Some of my Textures look a bit blurred or pixely.</p>
+</div>
+<div class="section" id="texture-blurring">
+<h3>Texture blurring<a class="headerlink" href="#texture-blurring" title="Permalink to this headline">¶</a></h3>
+<p>Some of my Textures look a bit blurred or pixely.</p>
 <blockquote>
 <div><p>Early GPUs had to have image sizes of powers of 2 pixels. i.e.
 2,4,8..1024,2048 because of the algorithm used for texture sampling,
@@ -496,35 +549,41 @@ resulting loss of clarity</strong></p>
 <p>Allowed widths 4, 8, 16, 32, 48, 64, 72, 96, 128, 144, 192, 256, 288,
 384, 512, 576, 640, 720, 768, 800, 960, 1024, 1080, 1920</p>
 </div></blockquote>
-</li>
-<li><p class="first">When the demos start there is sometimes a message in the terminal
+</div>
+</div>
+<div class="section" id="log-messages">
+<h2>Log messages<a class="headerlink" href="#log-messages" title="Permalink to this headline">¶</a></h2>
+<p>When the demos start there is sometimes a message in the terminal
 looking like:
 <tt class="docutils literal"><span class="pre">2013-08-19</span> <span class="pre">15:36:46,232</span> <span class="pre">INFO:</span> <span class="pre">__main__:</span> <span class="pre">Starting</span> <span class="pre">CollisionBalls</span></tt>
 Where does that come from and what does it mean?</p>
 <blockquote>
-<div><p>The Log module is started by several of the basic classes (Buffer,
+<div>The Log module is started by several of the basic classes (Buffer,
 EventStream, Display, Loadable, Mouse, parse_mtl, Shader, Screenshot)
 This means that all programs using the pi3d modules will create a Log
-as a by-product. It can be used for debugging and recording errors.</p>
-</div></blockquote>
-</li>
-<li><p class="first">How do I use <tt class="docutils literal"><span class="pre">pi3d.Log</span></tt> to gather or display useful information
+as a by-product. It can be used for debugging and recording errors.</div></blockquote>
+<div class="section" id="how-to-use-logging">
+<h3>How to use logging<a class="headerlink" href="#how-to-use-logging" title="Permalink to this headline">¶</a></h3>
+<p>How do I use <tt class="docutils literal"><span class="pre">pi3d.Log</span></tt> to gather or display useful information
 in my application?</p>
 <blockquote>
-<div><p>See the documentation
-<a class="reference external" href="http://pi3d.github.io/html/pi3d.util.html#module-pi3d.util.Log/">here</a>.</p>
-</div></blockquote>
-</li>
-<li><p class="first">How do I keep two components (Shapes) &#8216;joined together&#8217; as they pitch, roll
+<div>See the documentation
+<a class="reference external" href="http://pi3d.github.io/html/pi3d.util.html#module-pi3d.util.Log/">here</a>.</div></blockquote>
+</div>
+</div>
+<div class="section" id="moving-shapes-together">
+<h2>Moving shapes together<a class="headerlink" href="#moving-shapes-together" title="Permalink to this headline">¶</a></h2>
+<p>How do I keep two components (Shapes) &#8216;joined together&#8217; as they pitch, roll
 and rotate (yaw), like the TigerTank does with its body, turret and gun?</p>
 <blockquote>
-<div><p>This can be done automatically by adding Shapes to other Shapes.children
+<div>This can be done automatically by adding Shapes to other Shapes.children
 lists which can be done using the Shape.add_child() method. All transformation
 applied to a Shape will then be relative to its parent and will be
-inherited its children. See the drawTiger function in <tt class="docutils literal"><span class="pre">TigerTank.py</span></tt>.</p>
-</div></blockquote>
-</li>
-<li><p class="first">I want to give my shape an angle of bank (z-axis rotation) which it
+inherited its children. See the drawTiger function in <tt class="docutils literal"><span class="pre">TigerTank.py</span></tt>.</div></blockquote>
+</div>
+<div class="section" id="angle-of-bank">
+<h2>Angle of bank<a class="headerlink" href="#angle-of-bank" title="Permalink to this headline">¶</a></h2>
+<p>I want to give my shape an angle of bank (z-axis rotation) which it
 maintains as it turns (y-axis rotation) - like an aeroplane. However the
 z-rotation is always relative to the absolute frame of reference so the shape
 pitches backwards and forwards as it turns. How do I make the frame of
@@ -548,8 +607,10 @@ roll. For a shape with zero pitch you can use something like:</p>
 <p>And see the <tt class="docutils literal"><span class="pre">DogFight.py</span></tt> version which has an extra degree
 of freedom.</p>
 </div></blockquote>
-</li>
-<li><p class="first">Is it possible to change the shape of an object once it&#8217;s been made?</p>
+</div>
+<div class="section" id="moving-vertices-of-existing-shape">
+<h2>Moving vertices of existing Shape<a class="headerlink" href="#moving-vertices-of-existing-shape" title="Permalink to this headline">¶</a></h2>
+<p>Is it possible to change the shape of an object once it&#8217;s been made?</p>
 <blockquote>
 <div><p>The most efficient way is to use the scale(sx, sy, sz) method. However,
 this obviously limits the shape changing that can take place. If the
@@ -567,8 +628,10 @@ passed to allow only a section of vertices (normals or texcoords) to
 be modified. re_init() can&#8217;t change the number of vertices, just move
 them around. See the demos <tt class="docutils literal"><span class="pre">IceGrow.py</span></tt> and <tt class="docutils literal"><span class="pre">ProceduralTerrain.py</span></tt>.</p>
 </div></blockquote>
-</li>
-<li><p class="first">Sometime, when I move the mouse or the program is loading a file from
+</div>
+<div class="section" id="slow-animation">
+<h2>Slow animation<a class="headerlink" href="#slow-animation" title="Permalink to this headline">¶</a></h2>
+<p>Sometime, when I move the mouse or the program is loading a file from
 disk, everything slows down or freezes.</p>
 <blockquote>
 <div><p>The Display has a frames_per_second argument and if you set this
@@ -578,16 +641,27 @@ to accomplish other jobs.</p>
 an image or Shape so that it can instantly appear later) you need to use
 Python&#8217;s threading - <tt class="docutils literal"><span class="pre">Slideshow_2d.py</span></tt> is an example.</p>
 </div></blockquote>
-</li>
-<li><p class="first">I am running pi3d on a non-raspberry pi Linux machine but it&#8217;s running
+<div class="section" id="slow-on-non-raspberry-pi-machine">
+<h3>Slow on non-raspberry pi machine<a class="headerlink" href="#slow-on-non-raspberry-pi-machine" title="Permalink to this headline">¶</a></h3>
+<p>I am running pi3d on a non-raspberry pi Linux machine but it&#8217;s running
 at a very slow frame rate.</p>
 <blockquote>
-<div><p>Probably the GPU can&#8217;t run the OpenGL2+ code that mesa interprets
+<div>Probably the GPU can&#8217;t run the OpenGL2+ code that mesa interprets
 from the pi3d OpenGLES2 commands. Check the specification for the
-graphics card. <tt class="docutils literal"><span class="pre">lspci</span> <span class="pre">-v</span></tt> and <tt class="docutils literal"><span class="pre">feedback.wildfiregames.com/report/opengl/</span></tt></p>
-</div></blockquote>
-</li>
-<li><p class="first">Some of the demos on a non-raspberry pi Linux machine work fine but
+graphics card. <tt class="docutils literal"><span class="pre">lspci</span> <span class="pre">-v</span></tt> and <tt class="docutils literal"><span class="pre">feedback.wildfiregames.com/report/opengl/</span></tt></div></blockquote>
+</div>
+<div class="section" id="unresponsive-mouse-movement">
+<h3>unresponsive mouse movement<a class="headerlink" href="#unresponsive-mouse-movement" title="Permalink to this headline">¶</a></h3>
+<p>Using python3 and the InputEvents mouse input (Silo and DogFight demos)
+I get very ragged and unresponsive camera movment.</p>
+<blockquote>
+<div>This should be fixed as of v1.5, try upgrading to the latest
+version of pi3d</div></blockquote>
+</div>
+</div>
+<div class="section" id="permission-denied">
+<h2>Permission denied<a class="headerlink" href="#permission-denied" title="Permalink to this headline">¶</a></h2>
+<p>Some of the demos on a non-raspberry pi Linux machine work fine but
 other don&#8217;t run and give an error:</p>
 <div class="highlight-python"><div class="highlight"><pre>IOError: [Errno 13] Permission denied: u&#39;/dev/input/mice&#39;
 </pre></div>
@@ -595,31 +669,25 @@ other don&#8217;t run and give an error:</p>
 <p>what is the
 cause of this</p>
 <blockquote>
-<div><p>The Mouse gets its info from the operating system file described in
+<div>The Mouse gets its info from the operating system file described in
 the error message. This requires it to be run from root, you can
-do this by <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">python</span> <span class="pre">ForestWalk.py</span></tt>.</p>
-</div></blockquote>
-</li>
-<li><p class="first">Using python3 and the InputEvents mouse input (Silo and DogFight demos)
-I get very ragged and unresponsive camera movment.</p>
-<blockquote>
-<div><p>This should be fixed as of v1.5, try upgrading to the latest
-version of pi3d</p>
-</div></blockquote>
-</li>
-<li><p class="first">How do I do post-rendering processing on a scene, such as blurring,
+do this by <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">python</span> <span class="pre">ForestWalk.py</span></tt>.</div></blockquote>
+</div>
+<div class="section" id="post-processing">
+<h2>Post processing<a class="headerlink" href="#post-processing" title="Permalink to this headline">¶</a></h2>
+<p>How do I do post-rendering processing on a scene, such as blurring,
 edge detection or fancier effects such as oil painting.</p>
 <blockquote>
-<div><p>There is a class PostProcess that can be used to render a scene to
+<div>There is a class PostProcess that can be used to render a scene to
 a texture. The Post.py demo shows a simple 3x3 convolution matrix
 shader and there are a host of post process filter shaders that
 are in the pi3d_demos/shaders directory. These wll be loaded in
 turn by <tt class="docutils literal"><span class="pre">FilterDemo.py</span></tt> but the pi will run out of graphics memory
 if you leave the full list in. For more complicated effects it&#8217;s
-over to you!</p>
-</div></blockquote>
-</li>
-<li><p class="first">OK the example for post processing (Post.py) is quite hard to follow
+over to you!</div></blockquote>
+<div class="section" id="postprocess-class">
+<h3>PostProcess class<a class="headerlink" href="#postprocess-class" title="Permalink to this headline">¶</a></h3>
+<p>OK the example for post processing (Post.py) is quite hard to follow
 how exactly does the PostProcess class work.</p>
 <blockquote>
 <div><p>PostProcess inherits from Texture (via OffScreenTexture) so you can
@@ -648,8 +716,10 @@ texture, draw this onto a foreground sprite fading from alpha 0 to
 texture onto a spherical surface that gradually changes shape in
 the background. etc etc.</p>
 </div></blockquote>
-</li>
-<li><p class="first">And why does python set Shape.unif[48] but the shader use
+</div>
+<div class="section" id="python-v-shader-unif-arrays">
+<h3>python v. shader unif arrays<a class="headerlink" href="#python-v-shader-unif-arrays" title="Permalink to this headline">¶</a></h3>
+<p>And why does python set Shape.unif[48] but the shader use
 vec3 unif[16][0].</p>
 <blockquote>
 <div><p>On the shader side it&#8217;s really efficient to define variables as
@@ -669,8 +739,11 @@ make the unif array a ctypes.c_float array and that seemed to
 have to be one-dimensional. So after a long story unif[16][0]
 in the shader is (same name but different) unif[16*3 + 0] in python</p>
 </div></blockquote>
-</li>
-<li><p class="first">How do the blend shaders work as used in the PictureFrame
+</div>
+</div>
+<div class="section" id="blend-shaders">
+<h2>Blend shaders<a class="headerlink" href="#blend-shaders" title="Permalink to this headline">¶</a></h2>
+<p>How do the blend shaders work as used in the PictureFrame
 demo</p>
 <blockquote>
 <div><p>These shaders are based on the 2d_flat shader (as mentioned above)
@@ -714,8 +787,10 @@ of mixing
 <tt class="docutils literal"><span class="pre">star</span></tt>: calculates the pixel position in polar coordinates (angle and
 radius) then does some trig to determine the blend proportion</p>
 </div></blockquote>
-</li>
-<li><p class="first">How can you render points like a star field
+</div>
+<div class="section" id="points">
+<h2>Points<a class="headerlink" href="#points" title="Permalink to this headline">¶</a></h2>
+<p>How can I render points like a star field
 or sparks from an explosion.</p>
 <blockquote>
 <div><p>If you use the method set_point_size() on a Shape to a value other
@@ -725,8 +800,28 @@ specified at 1 unit of distance from the camera.</p>
 <p>pi3d.Points can be used to render points using the mat_flat shader
 or special shaders as used in the demo <tt class="docutils literal"><span class="pre">SpriteMulti.py</span></tt></p>
 </div></blockquote>
-</li>
-<li><p class="first">How can I set up an SD card without all of Raspbian&#8217;s clutter that will
+</div>
+<div class="section" id="lines">
+<h2>Lines<a class="headerlink" href="#lines" title="Permalink to this headline">¶</a></h2>
+<p>How can I render lines such as graphs or axes or the &#8216;wireframe&#8217; version
+of a Shape.</p>
+<blockquote>
+<div><p>If you use Shape.set_line_width() then the the Buffer objects in the Shape
+will have their draw_method set to GL_LINE_STRIP which will join all
+the vertices as point on a line. There is an optional argument <tt class="docutils literal"><span class="pre">closed</span></tt>
+that defaults to False which can be used to join the last vertex back
+to the first (by setting draw_method to GL_LINE_LOOP). To create your
+own lines you would need to make a list of (x,y,z) vertices and an
+element array to join them together and pass them to the Buffer constructor.
+The pi3d.Lines class does this for you.</p>
+<p>It is possible to create multiple Buffers within a Shape and set some
+as faces (draw_method set to GL_TRIANGLES) and some as points or lines.
+You can set different Shaders for different Buffers from v2.6</p>
+</div></blockquote>
+</div>
+<div class="section" id="minimal-sd-card">
+<h2>Minimal SD card<a class="headerlink" href="#minimal-sd-card" title="Permalink to this headline">¶</a></h2>
+<p>How can I set up an SD card without all of Raspbian&#8217;s clutter that will
 boot quickly and allow me to run a dedicated pi3d application.</p>
 <blockquote>
 <div><p>I decided that Arch would be tidiest for this as it will comfortably
@@ -798,9 +893,10 @@ WantedBy=multi-user.target
 were unsatisfactory side effects to do with timing which meant I
 could not use it in this way.</p>
 </div></blockquote>
-</li>
-<li><p class="first">Does pi3d work
-with pypy</p>
+</div>
+<div class="section" id="pypy">
+<h2>pypy<a class="headerlink" href="#pypy" title="Permalink to this headline">¶</a></h2>
+<p>Does pi3d work with pypy</p>
 <blockquote>
 <div><p>pi3d relies on some of the functionality and speed of numpy and this
 only really became useable as of pypy-2.2 and I have managed to get
@@ -851,8 +947,12 @@ look to add some extra processing at an expensive location. If
 you want to try pypy you will have to swap the two lines (search
 for pypy to find them)</p>
 </div></blockquote>
-</li>
-<li><p class="first">How can I make my own EnvironmentCube images using pictures of my
+</div>
+<div class="section" id="diy-environments">
+<h2>DIY environments<a class="headerlink" href="#diy-environments" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cube">
+<h3>Cube<a class="headerlink" href="#cube" title="Permalink to this headline">¶</a></h3>
+<p>How can I make my own EnvironmentCube images using pictures of my
 garden or school playground?</p>
 <blockquote>
 <div><p>Option 1. Using an EnvironmentCube (as the question says) but see
@@ -931,8 +1031,10 @@ there will be a sharp line where the edge of the bottom sphere fell. You can
 smooth this out using clone, repair, blur and blend tools in gimp; be
 careful not to blur the boundaries between the six images.</p>
 </div></blockquote>
-</li>
-<li><p class="first">How do I make an Environment Sphere (such as can use the Photo Sphere
+</div>
+<div class="section" id="sphere">
+<h3>Sphere<a class="headerlink" href="#sphere" title="Permalink to this headline">¶</a></h3>
+<p>How do I make an Environment Sphere (such as can use the Photo Sphere
 images created by later versions of Android)</p>
 <blockquote>
 <div><p>First you need an image very much like the one outlined in the previous
@@ -949,8 +1051,11 @@ needs the argument <tt class="docutils literal"><span class="pre">invert=True</s
 rendered - i.e. behind the camera and transposed left-right, see
 demo <tt class="docutils literal"><span class="pre">EnvironmentSphere.py</span></tt>.</p>
 </div></blockquote>
-</li>
-<li><p class="first">How can I speed up loading Models. Even quite low polygon counts
+</div>
+</div>
+<div class="section" id="pickling">
+<h2>pickling<a class="headerlink" href="#pickling" title="Permalink to this headline">¶</a></h2>
+<p>How can I speed up loading Models. Even quite low polygon counts
 seem to take ages on the Raspberry Pi</p>
 <blockquote>
 <div><p>Thanks to Avishay <a class="reference external" href="https://github.com/avishorp">https://github.com/avishorp</a> it is possible to use
@@ -970,8 +1075,12 @@ need to be set with <tt class="docutils literal"><span class="pre">set_shader()<
 wavefront obj file but (because of the less efficient image compression)
 the disk space used will be much higher.</p>
 </div></blockquote>
-</li>
-<li><p class="first">How to have lots of rapidly changing text on the screen (such as location
+</div>
+<div class="section" id="strings">
+<h2>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="quick-change">
+<h3>quick change<a class="headerlink" href="#quick-change" title="Permalink to this headline">¶</a></h3>
+<p>How to have lots of rapidly changing text on the screen (such as location
 game-status readouts etc) whithout having to create new String objects
 all the time (with associated processor load)</p>
 <blockquote>
@@ -981,20 +1090,24 @@ fit in any additional characters you may send to quick_change()
 subsequently. At the moment it doesn&#8217;t cope with multi-line Strings.</p>
 <p>There is an example in pi3d_demos/ForestQuickNumbers.py</p>
 </div></blockquote>
-</li>
-<li><p class="first">How to have a large amount of text without creating hundreds of extra
+</div>
+<div class="section" id="fixedstring">
+<h3>FixedString<a class="headerlink" href="#fixedstring" title="Permalink to this headline">¶</a></h3>
+<p>How to have a large amount of text without creating hundreds of extra
 polygons for the gpu to render?</p>
 <blockquote>
-<div><p>The String object has a little rectangle for each letter, each of
+<div>The String object has a little rectangle for each letter, each of
 which needs four vertices and two triangles. If the text does not
 need to be changed then it is better to use the FixedString class.
 The object inherits from Texture with the provided text drawn onto it.
 It also creates a simple sprite with four vertices and two triangles
 that can be used to draw the texture. There are filters that can
-produce effects such as blurring, outlining and normal map generation.</p>
-</div></blockquote>
-</li>
-<li><p class="first">Is it possible to change a texture every frame at a reasonable frame
+produce effects such as blurring, outlining and normal map generation.</div></blockquote>
+</div>
+</div>
+<div class="section" id="texture-animation">
+<h2>Texture animation<a class="headerlink" href="#texture-animation" title="Permalink to this headline">¶</a></h2>
+<p>Is it possible to change a texture every frame at a reasonable frame
 rate? i.e. for displaying a video, a feed from a web cam or an
 image manipulation program such as OpenCV, Scipy or numpy?</p>
 <blockquote>
@@ -1005,8 +1118,10 @@ is 3 for RGB or 4 for RGBA), remember C arrays are row,col,pixel)</p>
 efficiently switch the image to the new array. See the demo
 <tt class="docutils literal"><span class="pre">VideoWalk.py</span></tt> which maps a movie onto a shape using ffmpeg.</p>
 </div></blockquote>
-</li>
-<li><p class="first">How to profile code to find where the bottlenecks are? For example
+</div>
+<div class="section" id="profiling">
+<h2>Profiling<a class="headerlink" href="#profiling" title="Permalink to this headline">¶</a></h2>
+<p>How to profile code to find where the bottlenecks are? For example
 to find if it&#8217;s worth doing something complicated with numpy or &#8216;blitting&#8217;
 small areas of the screen as in the NumpyBalls demo?</p>
 <blockquote>
@@ -1018,8 +1133,10 @@ $ python -m cProfile ~/pi3d_demos/NumpyBalls.py &gt; result.txt
 </pre></div>
 </div>
 </div></blockquote>
-</li>
-<li><p class="first">Is it possible to use pi3d on my laptop or desktop computer
+</div>
+<div class="section" id="desktop-or-laptop">
+<h2>Desktop or laptop<a class="headerlink" href="#desktop-or-laptop" title="Permalink to this headline">¶</a></h2>
+<p>Is it possible to use pi3d on my laptop or desktop computer
 ideally running windows?</p>
 <blockquote>
 <div><p>If your computer has a suitable graphics card then you should be
@@ -1051,16 +1168,16 @@ After testing this setup  I&#39;ve installed the setup to a partition... runs li
 </div>
 <p>comments by &#64;hesspet in groups.google.com</p>
 </div></blockquote>
-</li>
-<li><p class="first">Is is possible to run pi3d on my Android phone or tablet which uses
+</div>
+<div class="section" id="android">
+<h2>Android<a class="headerlink" href="#android" title="Permalink to this headline">¶</a></h2>
+<p>Is is possible to run pi3d on my Android phone or tablet which uses
 a chip and operating system very similar to the Raspberry Pi?</p>
 <blockquote>
-<div><p>Is is possible; but you have to compile an apk package using
+<div>Is is possible; but you have to compile an apk package using
 python-for-android from a linux machine. There are instructions here
-<a class="reference external" href="http://pi3d.github.io/html/AndroidUse.html">http://pi3d.github.io/html/AndroidUse.html</a></p>
-</div></blockquote>
-</li>
-</ol>
+<a class="reference external" href="http://pi3d.github.io/html/AndroidUse.html">http://pi3d.github.io/html/AndroidUse.html</a></div></blockquote>
+</div>
 </div>
 
 
@@ -1069,6 +1186,88 @@ python-for-android from a linux machine. There are instructions here
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Frequently Asked Questions</a><ul>
+<li><a class="reference internal" href="#graphics-memory">Graphics Memory</a><ul>
+<li><a class="reference internal" href="#assert-s-0">assert s &gt;= 0</a></li>
+<li><a class="reference internal" href="#egl-no-surface">EGL_NO_SURFACE</a></li>
+<li><a class="reference internal" href="#start-then-shut-down">Start then shut down</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tkinter-tclerror">_tkinter.TclError</a></li>
+<li><a class="reference internal" href="#pistore-install">PiStore install</a><ul>
+<li><a class="reference internal" href="#taking-too-long">taking too long</a></li>
+<li><a class="reference internal" href="#doing-more-with-pistore-installation">Doing more with PiStore installation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#glx-dri2-not-supported-or-failed-to-authenticate">GLX DRI2 not supported or failed to authenticate</a></li>
+<li><a class="reference internal" href="#runtime-errors">Runtime errors</a><ul>
+<li><a class="reference internal" href="#crashing">Crashing</a></li>
+<li><a class="reference internal" href="#white-screen">white screen</a></li>
+<li><a class="reference internal" href="#black-screen">black screen</a></li>
+<li><a class="reference internal" href="#only-background">only background</a></li>
+<li><a class="reference internal" href="#unlit-silhouettes">unlit silhouettes</a></li>
+<li><a class="reference internal" href="#mouse-not-working">Mouse not working</a></li>
+<li><a class="reference internal" href="#cbreak-error">cbreak error</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#optional-arguments">Optional arguments</a></li>
+<li><a class="reference internal" href="#blending">Blending</a></li>
+<li><a class="reference internal" href="#materials">Materials</a></li>
+<li><a class="reference internal" href="#joysticks-etc">joysticks etc</a></li>
+<li><a class="reference internal" href="#making-3d-models">Making 3D models</a></li>
+<li><a class="reference internal" href="#d-images">2D images</a><ul>
+<li><a class="reference internal" href="#how-to-use-2d-images">How to use 2D images</a></li>
+<li><a class="reference internal" href="#nearness-of-2d-relative-to-3d">nearness of 2D relative to 3D</a></li>
+<li><a class="reference internal" href="#default-fog-distance">Default fog distance</a></li>
+<li><a class="reference internal" href="#pixel-perfect">Pixel perfect</a></li>
+<li><a class="reference internal" href="#anti-aliasing">anti-aliasing</a></li>
+<li><a class="reference internal" href="#texture-blurring">Texture blurring</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#log-messages">Log messages</a><ul>
+<li><a class="reference internal" href="#how-to-use-logging">How to use logging</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#moving-shapes-together">Moving shapes together</a></li>
+<li><a class="reference internal" href="#angle-of-bank">Angle of bank</a></li>
+<li><a class="reference internal" href="#moving-vertices-of-existing-shape">Moving vertices of existing Shape</a></li>
+<li><a class="reference internal" href="#slow-animation">Slow animation</a><ul>
+<li><a class="reference internal" href="#slow-on-non-raspberry-pi-machine">Slow on non-raspberry pi machine</a></li>
+<li><a class="reference internal" href="#unresponsive-mouse-movement">unresponsive mouse movement</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#permission-denied">Permission denied</a></li>
+<li><a class="reference internal" href="#post-processing">Post processing</a><ul>
+<li><a class="reference internal" href="#postprocess-class">PostProcess class</a></li>
+<li><a class="reference internal" href="#python-v-shader-unif-arrays">python v. shader unif arrays</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#blend-shaders">Blend shaders</a></li>
+<li><a class="reference internal" href="#points">Points</a></li>
+<li><a class="reference internal" href="#lines">Lines</a></li>
+<li><a class="reference internal" href="#minimal-sd-card">Minimal SD card</a></li>
+<li><a class="reference internal" href="#pypy">pypy</a></li>
+<li><a class="reference internal" href="#diy-environments">DIY environments</a><ul>
+<li><a class="reference internal" href="#cube">Cube</a></li>
+<li><a class="reference internal" href="#sphere">Sphere</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pickling">pickling</a></li>
+<li><a class="reference internal" href="#strings">Strings</a><ul>
+<li><a class="reference internal" href="#quick-change">quick change</a></li>
+<li><a class="reference internal" href="#fixedstring">FixedString</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#texture-animation">Texture animation</a></li>
+<li><a class="reference internal" href="#profiling">Profiling</a></li>
+<li><a class="reference internal" href="#desktop-or-laptop">Desktop or laptop</a></li>
+<li><a class="reference internal" href="#android">Android</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="ReadMe.html"
                         title="previous chapter">Introduction to pi3d</a></p>
@@ -1112,7 +1311,7 @@ python-for-android from a linux machine. There are instructions here
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.5 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

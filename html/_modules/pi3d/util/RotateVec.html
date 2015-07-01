@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.RotateVec &mdash; pi3d 2.5 documentation</title>
+    <title>pi3d.util.RotateVec &mdash; pi3d 2.6 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.5',
+        VERSION:     '2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.5 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.6 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.5 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -48,9 +48,16 @@
             
   <h1>Source code for pi3d.util.RotateVec</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">pi3d.util.Utility</span> <span class="kn">import</span> <span class="n">from_polar</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="sd">&quot;&quot;&quot;Calculate position or direction 3D vector after rotation about axis&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="rotate_vec"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.RotateVec.rotate_vec">[docs]</a><span class="k">def</span> <span class="nf">rotate_vec</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">xyz</span><span class="p">):</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xyz</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">xyz</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">_rotate_vec_numpy</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">xyz</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">_rotate_vec_normal</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">xyz</span><span class="p">)</span>
+</div>
+<span class="k">def</span> <span class="nf">_rotate_vec_normal</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">xyz</span><span class="p">):</span>
   <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">xyz</span>
   <span class="k">if</span> <span class="n">ry</span><span class="p">:</span>
     <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">from_polar</span><span class="p">(</span><span class="n">ry</span><span class="p">)</span>
@@ -67,22 +74,25 @@
     <span class="n">xx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">ca</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">sa</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">sa</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">ca</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">xx</span>
-  <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span></div>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd"># no longer used anywhere</span>
+  <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span>
 
-<span class="sd">def rotate_vec_x(r, xyz):</span>
-<span class="sd">  ca, sa = from_polar(r)</span>
-<span class="sd">  return xyz[0], xyz[1] * ca - xyz[2] * sa, xyz[1] * sa + xyz[2] * ca</span>
-
-<span class="sd">def rotate_vec_y(r, xyz):</span>
-<span class="sd">  ca, sa = from_polar(r)</span>
-<span class="sd">  return xyz[2] * sa + xyz[0] * ca, xyz[1], xyz[2] * ca - xyz[0] * sa</span>
-
-<span class="sd">def rotate_vec_z(r, xyz):</span>
-<span class="sd">  ca, sa = from_polar(r)</span>
-<span class="sd">  return xyz[0] * ca - xyz[1] * sa, xyz[0] * sa + xyz[1] * ca, xyz[2]</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span> <span class="nf">_rotate_vec_numpy</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">xyz</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">ry</span><span class="p">:</span>
+    <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">from_polar</span><span class="p">(</span><span class="n">ry</span><span class="p">)</span>
+    <span class="n">zz</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span>
+    <span class="n">xyz</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span> <span class="o">+</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span>
+    <span class="n">xyz</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">zz</span>
+  <span class="k">if</span> <span class="n">rx</span><span class="p">:</span>
+    <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">from_polar</span><span class="p">(</span><span class="n">rx</span><span class="p">)</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span>
+    <span class="n">xyz</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span> <span class="o">+</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span>
+    <span class="n">xyz</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">yy</span>
+  <span class="k">if</span> <span class="n">rz</span><span class="p">:</span>
+    <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">from_polar</span><span class="p">(</span><span class="n">rz</span><span class="p">)</span>
+    <span class="n">xx</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span>
+    <span class="n">xyz</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">sa</span> <span class="o">+</span> <span class="n">xyz</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ca</span>
+    <span class="n">xyz</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xx</span>
+  <span class="k">return</span> <span class="n">xyz</span>
 </pre></div>
 
           </div>
@@ -116,7 +126,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.5 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

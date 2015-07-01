@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Buffer &mdash; pi3d 2.5 documentation</title>
+    <title>pi3d.Buffer &mdash; pi3d 2.6 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.5',
+        VERSION:     '2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.5 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.6 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.5 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -55,6 +55,7 @@
 <span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_float</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_short</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="kn">import</span> <span class="n">Shader</span>
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Log</span>
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Utility</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Loadable</span> <span class="kn">import</span> <span class="n">Loadable</span>
@@ -115,6 +116,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c">#self.shape = shape</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="c">#self.indices = np.array(faces, dtype=&quot;short&quot;) # needed in calc_normals</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;short&quot;</span><span class="p">)</span>
@@ -159,30 +161,8 @@
     <span class="n">normals</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">fn</span>
     <span class="n">normals</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">fn</span>
     <span class="k">return</span> <span class="n">Utility</span><span class="o">.</span><span class="n">normalize_v3</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span>
+
 </div>
-  <span class="sd">&quot;&quot;&quot;def _pack_array_buffer(self):</span>
-<span class="sd">    # Pack points,normals and texcoords into tuples and convert to ctype floats.</span>
-<span class="sd">    n_verts = len(self.vertices)</span>
-<span class="sd">    if len(self.tex_coords) != n_verts:</span>
-<span class="sd">      if len(self.normals) != n_verts:</span>
-<span class="sd">        self.N_BYTES = 12 # only use pts</span>
-<span class="sd">        self.array_buffer = self.vertices</span>
-<span class="sd">      else:</span>
-<span class="sd">        self.N_BYTES = 24 # use pts and normals</span>
-<span class="sd">        self.array_buffer = np.concatenate((self.vertices, self.normals),</span>
-<span class="sd">                            axis=1)</span>
-<span class="sd">    else:</span>
-<span class="sd">      self.N_BYTES = 32 # use all three NB doesn&#39;t check that normals are there</span>
-<span class="sd">      self.array_buffer = np.concatenate((self.vertices, self.normals, self.tex_coords),</span>
-<span class="sd">                          axis=1)</span>
-
-<span class="sd">  def _pack_element_array_buffer(self):</span>
-<span class="sd">    self.ntris = len(self.indices)</span>
-<span class="sd">    self.element_array_buffer = self.indices</span>
-<span class="sd">    from pi3d.Display import Display</span>
-<span class="sd">    self.disp = Display.INSTANCE # rely on there always being one!&quot;&quot;&quot;</span>
-
-
   <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="c">#super(Buffer, self).__del__() #TODO supposed to always call super.__del__</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span><span class="p">:</span>
@@ -304,7 +284,8 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">offset</span>
 
 </div>
-<div class="viewcode-block" id="Buffer.draw"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">textures</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fullset</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Buffer.draw"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">unif</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                     <span class="n">textures</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fullset</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Draw this Buffer, called by the parent Shape.draw()</span>
 
 <span class="sd">    Keyword arguments:</span>
@@ -323,7 +304,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span>
 
-    <span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">shader</span>
+    <span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="ow">or</span> <span class="n">shape</span><span class="o">.</span><span class="n">shader</span> <span class="ow">or</span> <span class="n">Shader</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+    <span class="n">shader</span><span class="o">.</span><span class="n">use</span><span class="p">()</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glUniformMatrix4fv</span><span class="p">(</span><span class="n">shader</span><span class="o">.</span><span class="n">unif_modelviewmatrix</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+                                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">M</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glUniform3fv</span><span class="p">(</span><span class="n">shader</span><span class="o">.</span><span class="n">unif_unif</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">unif</span><span class="p">))</span>
     <span class="n">textures</span> <span class="o">=</span> <span class="n">textures</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures</span>
     <span class="k">if</span> <span class="n">ntl</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ntl</span>
@@ -432,7 +418,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.5 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

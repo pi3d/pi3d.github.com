@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Shape &mdash; pi3d 2.5 documentation</title>
+    <title>pi3d.Shape &mdash; pi3d 2.6 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.5',
+        VERSION:     '2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.5 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.6 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.5 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -57,6 +57,7 @@
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
 <span class="kn">from</span> <span class="nn">pi3d.Light</span> <span class="kn">import</span> <span class="n">Light</span>
+<span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Utility</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_floats</span>
 
@@ -206,12 +207,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span> <span class="c"># really just to set the flag so _unload_opengl runs</span>
 
-    <span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="kn">import</span> <span class="n">Camera</span>
-    <span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="kn">import</span> <span class="n">Shader</span>
-
     <span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="ow">or</span> <span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
-    <span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="ow">or</span> <span class="n">Shader</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
-    <span class="n">shader</span><span class="o">.</span><span class="n">use</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
       <span class="sd">&#39;&#39;&#39;</span>
@@ -256,15 +252,10 @@
     <span class="k">if</span> <span class="n">camera</span><span class="o">.</span><span class="n">was_moved</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">18</span><span class="p">:</span><span class="mi">21</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
 
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glUniformMatrix4fv</span><span class="p">(</span><span class="n">shader</span><span class="o">.</span><span class="n">unif_modelviewmatrix</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
-                                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glUniform3fv</span><span class="p">(</span><span class="n">shader</span><span class="o">.</span><span class="n">unif_unif</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="c"># Shape.draw has to be passed either parameter == None or values to pass</span>
       <span class="c"># on.</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">,</span> <span class="n">txtrs</span><span class="p">,</span> <span class="n">ntl</span><span class="p">,</span> <span class="n">shny</span><span class="p">)</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">,</span> <span class="n">shader</span><span class="p">,</span> <span class="n">txtrs</span><span class="p">,</span> <span class="n">ntl</span><span class="p">,</span> <span class="n">shny</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Shape.set_shader"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_shader">[docs]</a>  <span class="k">def</span> <span class="nf">set_shader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper method to set just the Shader for all the Buffer objects of</span>
@@ -473,7 +464,7 @@
     <span class="sd">&quot;&quot;&quot;This will set the draw_method in all Buffers of this Shape&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">point_size</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_POINTS</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_POINTS</span> <span class="k">if</span> <span class="n">point_size</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="n">GL_TRIANGLES</span>
 </div>
 <div class="viewcode-block" id="Shape.set_line_width"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_line_width">[docs]</a>  <span class="k">def</span> <span class="nf">set_line_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This will set the draw_method in all Buffers of this Shape</span>
@@ -498,9 +489,9 @@
       <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">line_width</span>
       <span class="n">opengles</span><span class="o">.</span><span class="n">glLineWidth</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="n">line_width</span><span class="p">))</span>
       <span class="k">if</span> <span class="n">closed</span><span class="p">:</span>
-        <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_LINE_LOOP</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_LINE_LOOP</span> <span class="k">if</span> <span class="n">line_width</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="n">GL_TRIANGLES</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_LINE_STRIP</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_LINE_STRIP</span> <span class="k">if</span> <span class="n">line_width</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="n">GL_TRIANGLES</span>
 </div>
 <div class="viewcode-block" id="Shape.re_init"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.re_init">[docs]</a>  <span class="k">def</span> <span class="nf">re_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pts</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">texcoords</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">normals</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; wrapper for Buffer.re_init()</span>
@@ -877,7 +868,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.5 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
