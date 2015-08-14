@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using pi3d with Android devices &mdash; pi3d 2.6 documentation</title>
+    <title>Using pi3d with Android devices &mdash; pi3d 2.7 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.6',
+        VERSION:     '2.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.6 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.7 documentation" href="index.html" />
     <link rel="next" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="3D Graphics Explanation" href="GPUexplain.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -187,7 +187,8 @@ try ./configure --host=$HOSTARCH --build=$BUILDARCH --prefix=&quot;$BUILD_PATH/p
 echo ./configure --host=$HOSTARCH --build=$BUILDARCH --prefix=&quot;$BUILD_PATH/python-install&quot; --enable-shared ...
 </pre></div>
 </div>
-<p>3.4 Now you should be able to generate the distribution framework of
+<p>3.4 (Total &#8220;recipe&#8221; for the steps I use on my setup at the bottom of
+this page.) Now you should be able to generate the distribution framework of
 support files that will allow pi3d packages to be exported to android.
 This takes quite a while to run as it downloads and compiles a whole
 hierarchy of dependencies. On my bottom-of-the-range but 2014 laptop
@@ -335,6 +336,30 @@ Font (However Pngfont *does* work and pi3d_demos/fonts/Arial.png has been tidied
 </div>
 </li>
 </ol>
+<p>Recipe - you will almost certainly need to modify details of this for running
+on your system (obviously the /home/paddy/ parts of the paths):</p>
+<div class="highlight-python"><div class="highlight"><pre># notes for compiling and distributing
+export ANDROIDNDK=/home/paddy/.buildozer/android/platform/android-ndk-r9c
+export ANDROIDSDK=/home/paddy/.buildozer/android/platform/android-sdk-21
+export ANDROIDNDKVER=r9c
+export ANDROIDAPI=14
+export PATH=$ANDROIDNDK:$ANDROIDSDK/platform-tools:$ANDROIDSDK/tools:$PATH
+# build distribution # if pi3d has change NB must be in github develop branch
+cd ~/python-for-android/.packages/pi3d/
+rm *
+cd ~/python-for-android/
+./distribute.sh -f -m &quot;pi3d&quot; &gt; distcompile.log.txt 2&gt;&amp;1
+# build for export (end of line &#39;debug&#39; or &#39;release&#39;)
+cd ~/python-for-android/dist/default/
+./build.py --dir ~/kivy/transcendental-fruit --package org.demo.meteorizefree --name &quot;meteorizefree&quot; --meta-data surface.depth=16 --blacklist ~/kivy/transcendental-fruit/exclude_files.txt --presplash ~/kivy/transcendental-fruit/loading.jpg --icon ~/kivy/transcendental-fruit/icon.png --version 1.0.4 release
+# jarsigner - previously set passwd
+cd ~/Android/Sdk/tools
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore pi3dfwalk_key.keystore /home/paddy/python-for-android/dist/default/bin/meteorizefree-1.0.4-release-unsigned.apk pi3dfwalkkey
+jarsigner -verify -verbose -certs /home/paddy/python-for-android/dist/default/bin/meteorizefree-1.0.4-release-unsigned.apk
+# zipalign
+/home/paddy/.buildozer/android/platform/android-sdk-21/build-tools/19.1.0/zipalign -v 4 /home/paddy/python-for-android/dist/default/bin/meteorizefree-1.0.4-release-unsigned.apk /home/paddy/python-for-android/dist/default/bin/meteorizefree-1.0.4.apk
+</pre></div>
+</div>
 </div>
 
 
@@ -386,7 +411,7 @@ Font (However Pngfont *does* work and pi3d_demos/fonts/Arial.png has been tidied
         <li class="right" >
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Mouse &mdash; pi3d 2.6 documentation</title>
+    <title>pi3d.Mouse &mdash; pi3d 2.7 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.6',
+        VERSION:     '2.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.6 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.7 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.7 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -53,10 +53,11 @@
 <span class="kn">import</span> <span class="nn">six</span>
 <span class="kn">import</span> <span class="nn">ctypes</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="n">PLATFORM</span><span class="p">,</span> <span class="n">PLATFORM_ANDROID</span><span class="p">,</span> <span class="n">PLATFORM_PI</span><span class="p">,</span> <span class="n">PLATFORM_WINDOWS</span>
-<span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
+<span class="kn">import</span> <span class="nn">pi3d</span>
+
+<span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">USE_PYGAME</span><span class="p">:</span>
   <span class="kn">import</span> <span class="nn">pygame</span>
-<span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
+<span class="k">elif</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
   <span class="kn">from</span> <span class="nn">pyxlib</span> <span class="kn">import</span> <span class="n">xlib</span>
   <span class="kn">from</span> <span class="nn">pyxlib.x</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -105,7 +106,7 @@
 
     <span class="bp">self</span><span class="o">.</span><span class="n">use_x</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="k">if</span> <span class="n">use_x</span><span class="p">:</span> <span class="c"># version as argument to __init__</span>
-      <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_ANDROID</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span> <span class="ow">and</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_PI</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">d</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">window</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_ulong</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -203,7 +204,7 @@
   <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
 
-<span class="k">class</span> <span class="nc">_winMouse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_pygameMouse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;holds Mouse object, see also (the preferred) events methods&quot;&quot;&quot;</span>
   <span class="n">BUTTON_1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span>
   <span class="n">BUTTON_2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
@@ -235,9 +236,10 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">centre</span> <span class="o">=</span> <span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">restrict</span> <span class="o">=</span> <span class="n">restrict</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrict</span><span class="p">:</span>
+      <span class="kn">import</span> <span class="nn">pygame</span>
       <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">)</span>
       <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_winMouse</span><span class="o">.</span><span class="n">BUTTON_UP</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">BUTTON_UP</span>
 
   <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">pass</span>
@@ -249,6 +251,7 @@
     <span class="k">pass</span>
 
   <span class="k">def</span> <span class="nf">_check_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">pygame</span>
     <span class="n">pos_list</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEMOTION</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
       <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">pos_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span> <span class="c"># discard all but the last position</span>
@@ -265,11 +268,11 @@
         <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">)</span>
     <span class="n">but_list</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">but_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_winMouse</span><span class="o">.</span><span class="n">BUTTON_MAP</span><span class="p">[</span><span class="n">but_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">button</span><span class="p">]</span> <span class="c"># discard all but last button</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">BUTTON_MAP</span><span class="p">[</span><span class="n">but_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">button</span><span class="p">]</span> <span class="c"># discard all but last button</span>
     <span class="k">else</span><span class="p">:</span>  
       <span class="n">but_list</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEBUTTONUP</span><span class="p">)</span>
       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">but_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_winMouse</span><span class="o">.</span><span class="n">BUTTON_UP</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">BUTTON_UP</span>
 
   <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_event</span><span class="p">()</span>
@@ -287,10 +290,10 @@
     <span class="k">pass</span>
 
 <div class="viewcode-block" id="Mouse"><a class="viewcode-back" href="../../pi3d.html#pi3d.Mouse.Mouse">[docs]</a><span class="k">def</span> <span class="nf">Mouse</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-  <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">_winMouse</span><span class="o">.</span><span class="n">INSTANCE</span><span class="p">:</span>
-      <span class="n">_winMouse</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="o">=</span> <span class="n">_winMouse</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">_winMouse</span><span class="o">.</span><span class="n">INSTANCE</span>
+  <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">USE_PYGAME</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">INSTANCE</span><span class="p">:</span>
+      <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="o">=</span> <span class="n">_pygameMouse</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">INSTANCE</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_nixMouse</span><span class="o">.</span><span class="n">INSTANCE</span><span class="p">:</span>
       <span class="n">_nixMouse</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="o">=</span> <span class="n">_nixMouse</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
@@ -328,7 +331,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.7 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

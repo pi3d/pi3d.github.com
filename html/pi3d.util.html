@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>util Package &mdash; pi3d 2.6 documentation</title>
+    <title>util Package &mdash; pi3d 2.7 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.6',
+        VERSION:     '2.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.6 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.7 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.6 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" accesskey="U">pi3d Package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -169,7 +169,7 @@ Arguments:</p>
 <span id="fixedstring-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">FixedString</span></tt> Module<a class="headerlink" href="#module-pi3d.util.FixedString" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.FixedString.FixedString">
-<em class="property">class </em><tt class="descclassname">pi3d.util.FixedString.</tt><tt class="descname">FixedString</tt><big>(</big><em>font</em>, <em>string</em>, <em>camera=None</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>font_size=24</em>, <em>margin=5.0</em>, <em>justify=u'C'</em>, <em>background_color=None</em>, <em>shader=None</em>, <em>f_type=u''</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.FixedString.</tt><tt class="descname">FixedString</tt><big>(</big><em>font</em>, <em>string</em>, <em>camera=None</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>font_size=24</em>, <em>margin=5.0</em>, <em>justify=u'C'</em>, <em>background_color=None</em>, <em>shader=None</em>, <em>f_type=u''</em>, <em>mipmap=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
 <p>A texture containing a simple string drawn using ImageDraw.</p>
 <p>The advantage over a standard String is that it only requires a simple
@@ -227,7 +227,7 @@ and SMOOTH do what they sound like they will do.</dd>
 <span id="font-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Font</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Font" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.Font.Font">
-<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=48</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em>, <em>background_color=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=48</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em>, <em>background_color=None</em>, <em>mipmap=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
 <p>A Font contains a TrueType font ready to be rendered in OpenGL.</p>
 <p>A font is just a mapping from codepoints (single Unicode characters) to glyphs
@@ -698,35 +698,39 @@ to it!</p>
 <span id="shadowcaster-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ShadowCaster</span></tt> Module<a class="headerlink" href="#module-pi3d.util.ShadowCaster" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.ShadowCaster.ShadowCaster">
-<em class="property">class </em><tt class="descclassname">pi3d.util.ShadowCaster.</tt><tt class="descname">ShadowCaster</tt><big>(</big><em>emap</em>, <em>light</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.ShadowCaster.</tt><tt class="descname">ShadowCaster</tt><big>(</big><em>position</em>, <em>light</em>, <em>scale=10.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="pi3d.util.OffScreenTexture.OffScreenTexture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.OffScreenTexture.OffScreenTexture</span></tt></a></p>
 <p>For creating a depth-of-field blurring effect on selected objects</p>
 <p>calls Texture.__init__ but doesn&#8217;t need to set file name as
 texture generated from the framebuffer</p>
 <dl class="method">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster.move_light">
+<tt class="descname">move_light</tt><big>(</big><em>position</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.move_light"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.move_light" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pi3d.util.ShadowCaster.ShadowCaster.start_cast">
-<tt class="descname">start_cast</tt><big>(</big><em>location=(0.0</em>, <em>0.0</em>, <em>0.0)</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.start_cast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.start_cast" title="Permalink to this definition">¶</a></dt>
-<dd><p>after calling this method all object.draw()s will rendered
-to this texture and not appear on the display. If you want blurred
-edges you will have to capture the rendering of an object and its
-background then re-draw them using the blur() method. Large objects
-will obviously take a while to draw and re-draw</p>
-</dd></dl>
+<tt class="descname">start_cast</tt><big>(</big><em>position=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.start_cast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.start_cast" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster.cast_shadow">
+<tt class="descname">cast_shadow</tt><big>(</big><em>shape</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.cast_shadow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.cast_shadow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="pi3d.util.ShadowCaster.ShadowCaster.end_cast">
 <tt class="descname">end_cast</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.end_cast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.end_cast" title="Permalink to this definition">¶</a></dt>
-<dd><p>stop capturing to texture and resume normal rendering to default</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pi3d.util.ShadowCaster.ShadowCaster.add_shadow">
-<tt class="descname">add_shadow</tt><big>(</big><em>shape</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.add_shadow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.add_shadow" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pi3d.util.ShadowCaster.ShadowCaster.draw_shadow">
 <tt class="descname">draw_shadow</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.draw_shadow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.draw_shadow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.ShadowCaster.ShadowCaster.draw_tree">
+<tt class="descname">draw_tree</tt><big>(</big><em>tree</em>, <em>shader</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/ShadowCaster.html#ShadowCaster.draw_tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.ShadowCaster.ShadowCaster.draw_tree" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1036,7 +1040,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.6 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" >pi3d Package</a> &raquo;</li> 
       </ul>
     </div>

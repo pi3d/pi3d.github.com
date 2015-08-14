@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.Font &mdash; pi3d 2.6 documentation</title>
+    <title>pi3d.util.Font &mdash; pi3d 2.7 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.6',
+        VERSION:     '2.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.6 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.7 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.7 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -79,7 +79,7 @@
 
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">codepoints</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">add_codepoints</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
-               <span class="n">italic_adjustment</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">background_color</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+               <span class="n">italic_adjustment</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">background_color</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 <span class="sd">    *font*:</span>
 <span class="sd">      File path/name to a TrueType font file.</span>
@@ -125,7 +125,7 @@
 <span class="sd">      value is 1.1; you can get a tighter bounding if you set this down</span>
 <span class="sd">      closer to 1, but italics might get cut off at the right.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Font</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Font</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="n">mipmap</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
     <span class="k">try</span><span class="p">:</span>
       <span class="n">imgfont</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">font_size</span><span class="p">)</span>
@@ -244,7 +244,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.7 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

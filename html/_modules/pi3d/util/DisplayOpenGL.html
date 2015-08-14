@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.DisplayOpenGL &mdash; pi3d 2.6 documentation</title>
+    <title>pi3d.util.DisplayOpenGL &mdash; pi3d 2.7 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.6',
+        VERSION:     '2.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.6 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.7 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.7 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -54,11 +54,12 @@
 <span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_float</span>
 <span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
 
+<span class="kn">import</span> <span class="nn">pi3d</span>
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_ints</span>
 
-<span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">USE_PYGAME</span><span class="p">:</span>
   <span class="kn">import</span> <span class="nn">pygame</span>
 <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
   <span class="kn">from</span> <span class="nn">pyxlib</span> <span class="kn">import</span> <span class="n">xlib</span>
@@ -78,7 +79,8 @@
       <span class="n">s</span> <span class="o">=</span> <span class="n">bcm</span><span class="o">.</span><span class="n">graphics_get_display_size</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">w</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
       <span class="k">assert</span> <span class="n">s</span> <span class="o">&gt;=</span> <span class="mi">0</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">value</span>
-    <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">USE_PYGAME</span><span class="p">:</span>
+      <span class="kn">import</span> <span class="nn">pygame</span>
       <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> 
                       <span class="n">pygame</span><span class="o">.</span><span class="n">DOUBLEBUF</span> <span class="o">|</span> <span class="n">pygame</span><span class="o">.</span><span class="n">RESIZABLE</span> <span class="o">|</span> <span class="n">pygame</span><span class="o">.</span><span class="n">OPENGL</span><span class="p">)</span>
@@ -175,7 +177,8 @@
 
       <span class="bp">self</span><span class="o">.</span><span class="n">surface</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglCreateWindowSurface</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nw_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-    <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">USE_PYGAME</span><span class="p">:</span>
+      <span class="kn">import</span> <span class="nn">pygame</span>
       <span class="n">flags</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">RESIZABLE</span> <span class="o">|</span> <span class="n">pygame</span><span class="o">.</span><span class="n">OPENGL</span>
       <span class="n">wsize</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
       <span class="k">if</span> <span class="n">w</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> <span class="n">h</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">:</span> <span class="c"># i.e. full screen</span>
@@ -279,7 +282,8 @@
         <span class="n">bcm</span><span class="o">.</span><span class="n">vc_dispmanx_display_close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dispman_display</span><span class="p">)</span>
 
       <span class="bp">self</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="bp">False</span>
-      <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">USE_PYGAME</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">pygame</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
       <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
         <span class="n">xlib</span><span class="o">.</span><span class="n">XCloseDisplay</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
@@ -321,7 +325,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.7 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

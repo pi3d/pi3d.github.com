@@ -651,9 +651,13 @@ other don't run and give an error::
 what is the
 cause of this
 
-  The Mouse gets its info from the operating system file described in
-  the error message. This requires it to be run from root, you can
-  do this by ``sudo python ForestWalk.py``.
+  The default Mouse gets its info from the operating system file described
+  in the error message. This requires it to be run from root, you can do
+  this by ``sudo python ForestWalk.py``.
+
+  Alternatively, from v2.7, there is an argument to Display.create()
+  ``use_pygame=True`` which will use mouse and keyboard input from a pygame
+  display - the system that is used on Windows. 
 
 Post processing
 ---------------

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pi3d 2.6 documentation</title>
+    <title>Frequently Asked Questions &mdash; pi3d 2.7 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.6',
+        VERSION:     '2.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.6 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.7 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -669,9 +669,13 @@ other don&#8217;t run and give an error:</p>
 <p>what is the
 cause of this</p>
 <blockquote>
-<div>The Mouse gets its info from the operating system file described in
-the error message. This requires it to be run from root, you can
-do this by <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">python</span> <span class="pre">ForestWalk.py</span></tt>.</div></blockquote>
+<div><p>The default Mouse gets its info from the operating system file described
+in the error message. This requires it to be run from root, you can do
+this by <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">python</span> <span class="pre">ForestWalk.py</span></tt>.</p>
+<p>Alternatively, from v2.7, there is an argument to Display.create()
+<tt class="docutils literal"><span class="pre">use_pygame=True</span></tt> which will use mouse and keyboard input from a pygame
+display - the system that is used on Windows.</p>
+</div></blockquote>
 </div>
 <div class="section" id="post-processing">
 <h2>Post processing<a class="headerlink" href="#post-processing" title="Permalink to this headline">¶</a></h2>
@@ -1311,7 +1315,7 @@ python-for-android from a linux machine. There are instructions here
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

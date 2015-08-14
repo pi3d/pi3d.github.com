@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.loader.loaderObj &mdash; pi3d 2.6 documentation</title>
+    <title>pi3d.loader.loaderObj &mdash; pi3d 2.7 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.6',
+        VERSION:     '2.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.6 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.7 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.7 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -112,10 +112,10 @@
   <span class="n">model</span><span class="o">.</span><span class="n">vNormal</span> <span class="o">=</span> <span class="bp">False</span>
   <span class="n">model</span><span class="o">.</span><span class="n">vGroup</span> <span class="o">=</span> <span class="p">{}</span> <span class="c"># holds the information for each vertex group</span>
 
-  <span class="c"># read in the file and parse into some arrays</span>
+  <span class="c"># read in the file and parse into some arrays, name=&#39;teapot&#39;, z=4</span>
 
+  <span class="c">#import os</span>
   <span class="k">if</span> <span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;/&#39;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">os</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">fileName</span><span class="p">):</span> <span class="c"># this could theoretically get different files with same name</span>
         <span class="n">fileName</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">fileName</span>
@@ -349,7 +349,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.6 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.7 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

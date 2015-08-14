@@ -141,7 +141,8 @@ Using pi3d with Android devices
         try ./configure --host=$HOSTARCH --build=$BUILDARCH --prefix="$BUILD_PATH/python-install" --enable-shared ...
         echo ./configure --host=$HOSTARCH --build=$BUILDARCH --prefix="$BUILD_PATH/python-install" --enable-shared ...
 
-    3.4 Now you should be able to generate the distribution framework of
+    3.4 (Total "recipe" for the steps I use on my setup at the bottom of
+    this page.) Now you should be able to generate the distribution framework of
     support files that will allow pi3d packages to be exported to android.
     This takes quite a while to run as it downloads and compiles a whole
     hierarchy of dependencies. On my bottom-of-the-range but 2014 laptop
@@ -293,6 +294,31 @@ Using pi3d with Android devices
       Keyboard
       Event
       Font (However Pngfont *does* work and pi3d_demos/fonts/Arial.png has been tidied)
+
+Recipe - you will almost certainly need to modify details of this for running
+on your system (obviously the /home/paddy/ parts of the paths)::
+
+    # notes for compiling and distributing
+    export ANDROIDNDK=/home/paddy/.buildozer/android/platform/android-ndk-r9c
+    export ANDROIDSDK=/home/paddy/.buildozer/android/platform/android-sdk-21
+    export ANDROIDNDKVER=r9c
+    export ANDROIDAPI=14
+    export PATH=$ANDROIDNDK:$ANDROIDSDK/platform-tools:$ANDROIDSDK/tools:$PATH
+    # build distribution # if pi3d has change NB must be in github develop branch
+    cd ~/python-for-android/.packages/pi3d/
+    rm *
+    cd ~/python-for-android/
+    ./distribute.sh -f -m "pi3d" > distcompile.log.txt 2>&1
+    # build for export (end of line 'debug' or 'release')
+    cd ~/python-for-android/dist/default/
+    ./build.py --dir ~/kivy/transcendental-fruit --package org.demo.meteorizefree --name "meteorizefree" --meta-data surface.depth=16 --blacklist ~/kivy/transcendental-fruit/exclude_files.txt --presplash ~/kivy/transcendental-fruit/loading.jpg --icon ~/kivy/transcendental-fruit/icon.png --version 1.0.4 release
+    # jarsigner - previously set passwd
+    cd ~/Android/Sdk/tools
+    jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore pi3dfwalk_key.keystore /home/paddy/python-for-android/dist/default/bin/meteorizefree-1.0.4-release-unsigned.apk pi3dfwalkkey
+    jarsigner -verify -verbose -certs /home/paddy/python-for-android/dist/default/bin/meteorizefree-1.0.4-release-unsigned.apk
+    # zipalign
+    /home/paddy/.buildozer/android/platform/android-sdk-21/build-tools/19.1.0/zipalign -v 4 /home/paddy/python-for-android/dist/default/bin/meteorizefree-1.0.4-release-unsigned.apk /home/paddy/python-for-android/dist/default/bin/meteorizefree-1.0.4.apk
+
 
 .. _ReadMe: http://pi3d.github.com/html/index.html
 

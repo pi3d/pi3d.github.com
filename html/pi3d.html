@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &mdash; pi3d 2.6 documentation</title>
+    <title>pi3d Package &mdash; pi3d 2.7 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.6',
+        VERSION:     '2.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.6 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.7 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -375,7 +375,7 @@ a kind of compass!</dd>
 <span id="display-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Display</span></tt> Module<a class="headerlink" href="#module-pi3d.Display" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Display.Display">
-<em class="property">class </em><tt class="descclassname">pi3d.Display.</tt><tt class="descname">Display</tt><big>(</big><em>tkwin=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#Display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Display.</tt><tt class="descname">Display</tt><big>(</big><em>tkwin=None</em>, <em>use_pygame=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#Display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>This is the central control object of the pi3d system and an instance
 must be created before some of the other class methods are called.</p>
@@ -384,6 +384,8 @@ Display.</p>
 <dl class="docutils">
 <dt><em>tkwin</em></dt>
 <dd>An optional Tk window.</dd>
+<dt><em>use_pygame</em></dt>
+<dd>Flag to opt for pygame</dd>
 </dl>
 <dl class="attribute">
 <dt id="pi3d.Display.Display.INSTANCE">
@@ -500,7 +502,7 @@ an alpha of 1 means full opaque.</dd>
 
 <dl class="function">
 <dt id="pi3d.Display.create">
-<tt class="descclassname">pi3d.Display.</tt><tt class="descname">create</tt><big>(</big><em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>fov=45.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=u''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em>, <em>samples=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pi3d.Display.</tt><tt class="descname">create</tt><big>(</big><em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>fov=45.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=u''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em>, <em>samples=0</em>, <em>use_pygame=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a pi3d Display.</p>
 <dl class="docutils">
 <dt><em>x</em></dt>
@@ -535,6 +537,10 @@ the tkwindow parent, if any.</dd>
 <dd>Maximum frames per second to render (None means &#8220;free running&#8221;).</dd>
 <dt><em>samples</em></dt>
 <dd>EGL_SAMPLES default 0, set to 4 for improved anti-aliasing</dd>
+<dt><em>use_pygame</em></dt>
+<dd>To use pygame for display surface, mouse and keyboard - as per windows
+This almost certainly would conflict if attempting to use in combination
+with tk=True. Default False</dd>
 </dl>
 </dd></dl>
 
@@ -638,28 +644,28 @@ terminal window or session.</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="pi3d.Keyboard.WindowsKeyboard">
-<em class="property">class </em><tt class="descclassname">pi3d.Keyboard.</tt><tt class="descname">WindowsKeyboard</tt><a class="reference internal" href="_modules/pi3d/Keyboard.html#WindowsKeyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.WindowsKeyboard" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.Keyboard.PygameKeyboard">
+<em class="property">class </em><tt class="descclassname">pi3d.Keyboard.</tt><tt class="descname">PygameKeyboard</tt><a class="reference internal" href="_modules/pi3d/Keyboard.html#PygameKeyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.PygameKeyboard" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>In this case KEYBOARD maps pygame codes to the X11 codes used above</p>
 <dl class="attribute">
-<dt id="pi3d.Keyboard.WindowsKeyboard.KEYBOARD">
-<tt class="descname">KEYBOARD</tt><em class="property"> = {271: [13, u'KP_Enter'], 273: [134, u'Up'], 274: [135, u'Down'], 275: [137, u'Right'], 276: [136, u'Left'], 277: [128, u'Insert'], 278: [129, u'Home'], 279: [132, u'End'], 280: [130, u'Page_Up'], 281: [133, u'Page_Down'], 282: [145, u'F1'], 283: [146, u'F2'], 284: [147, u'F3'], 285: [148, u'F4'], 286: [149, u'F5'], 287: [150, u'F6'], 288: [151, u'F7'], 289: [152, u'F8'], 290: [153, u'F9'], 291: [154, u'F10'], 292: [155, u'F11'], 293: [156, u'F12'], 305: [0, u'Control_R'], 306: [0, u'Control_L'], 307: [0, u'Alt_R'], 308: [0, u'Alt_L'], 60: [92, u'\\'], 127: [131, u'DEL']}</em><a class="headerlink" href="#pi3d.Keyboard.WindowsKeyboard.KEYBOARD" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.Keyboard.PygameKeyboard.KEYBOARD">
+<tt class="descname">KEYBOARD</tt><em class="property"> = {271: [13, u'KP_Enter'], 273: [134, u'Up'], 274: [135, u'Down'], 275: [137, u'Right'], 276: [136, u'Left'], 277: [128, u'Insert'], 278: [129, u'Home'], 279: [132, u'End'], 280: [130, u'Page_Up'], 281: [133, u'Page_Down'], 282: [145, u'F1'], 283: [146, u'F2'], 284: [147, u'F3'], 285: [148, u'F4'], 286: [149, u'F5'], 287: [150, u'F6'], 288: [151, u'F7'], 289: [152, u'F8'], 290: [153, u'F9'], 291: [154, u'F10'], 292: [155, u'F11'], 293: [156, u'F12'], 305: [0, u'Control_R'], 306: [0, u'Control_L'], 307: [0, u'Alt_R'], 308: [0, u'Alt_L'], 60: [92, u'\\'], 127: [131, u'DEL']}</em><a class="headerlink" href="#pi3d.Keyboard.PygameKeyboard.KEYBOARD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pi3d.Keyboard.WindowsKeyboard.read">
-<tt class="descname">read</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#WindowsKeyboard.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.WindowsKeyboard.read" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.Keyboard.PygameKeyboard.read">
+<tt class="descname">read</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#PygameKeyboard.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.PygameKeyboard.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pi3d.Keyboard.WindowsKeyboard.read_code">
-<tt class="descname">read_code</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#WindowsKeyboard.read_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.WindowsKeyboard.read_code" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.Keyboard.PygameKeyboard.read_code">
+<tt class="descname">read_code</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#PygameKeyboard.read_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.PygameKeyboard.read_code" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pi3d.Keyboard.WindowsKeyboard.close">
-<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#WindowsKeyboard.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.WindowsKeyboard.close" title="Permalink to this definition">¶</a></dt>
+<dt id="pi3d.Keyboard.PygameKeyboard.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Keyboard.html#PygameKeyboard.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.PygameKeyboard.close" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -975,7 +981,7 @@ inheriting from this filling buf with at least one element.</p>
 
 <dl class="method">
 <dt id="pi3d.Shape.Shape.draw">
-<tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em>, <em>mlist=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.draw" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">draw</tt><big>(</big><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em>, <em>mlist=</em>, <span class="optional">[</span><span class="optional">]</span><em>light_camera=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>If called without parameters, there has to have been a previous call to
 set_draw_details() for each Buffer in buf[].
 NB there is no facility for setting umult and vmult with draw: they must be
@@ -1208,7 +1214,7 @@ i.e. 2d_flat, defocus etc</dd>
 
 <dl class="method">
 <dt id="pi3d.Shape.Shape.set_line_width">
-<tt class="descname">set_line_width</tt><big>(</big><em>line_width=1.0</em>, <em>closed=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_line_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_line_width" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_line_width</tt><big>(</big><em>line_width=1.0</em>, <em>strip=True</em>, <em>closed=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_line_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_line_width" title="Permalink to this definition">¶</a></dt>
 <dd><p>This will set the draw_method in all Buffers of this Shape</p>
 <blockquote>
 <div><dl class="docutils">
@@ -1670,7 +1676,7 @@ new glTextureBuffers i.e. for movie textures</p>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
