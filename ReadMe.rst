@@ -136,10 +136,10 @@ Total zipped download from github c. 574 kB extracts to 1.2 MB
 Setup on the Raspberry Pi
 =========================
 
-#.  **Quick Start Guide, NB take the time to read the paragraphs below too**
+#.  **Qick Start Guide, NB take the time to read the paragraphs below too**
 
     Here's a list of commands that have definitely worked on a couple of
-    fresh Raspbian installs. Please take time to check out the paragraphs below
+    fresh rasbpian installs. Please take time to check out the paragraphs below
     even if you use this quick start recipe... *certainly* if you want to
     use python3 or have any non-standard aspirations or set-up. The long
     list of dependencies (3rd apt-get line) may take a while to run as well
@@ -157,7 +157,7 @@ Setup on the Raspberry Pi
       $ cd ~/pi3d_demos
       $ python Earth.py
       
-#.  **Download, Extract and Install**
+#.  **Download, Extract and install**
 
     There are various possibilities depending on the machine, what's already
     installed and whether you want to work with some of the latest additions.

@@ -83,7 +83,7 @@
     <span class="sd">&quot;&quot;&quot; have to override this</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-  <span class="k">def</span> <span class="nf">_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; after calling this method all object.draw()s will rendered</span>
 <span class="sd">    to this texture and not appear on the display. Large objects</span>
 <span class="sd">    will obviously take a while to draw and re-draw</span>
@@ -97,7 +97,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glFramebufferRenderbuffer</span><span class="p">(</span><span class="n">GL_FRAMEBUFFER</span><span class="p">,</span> <span class="n">GL_DEPTH_ATTACHMENT</span><span class="p">,</span>
                 <span class="n">GL_RENDERBUFFER</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">depthbuffer</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glClear</span><span class="p">(</span><span class="n">GL_DEPTH_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_COLOR_BUFFER_BIT</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">clear</span><span class="p">:</span> <span class="c"># TODO allow just depth or just color clearing?</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glClear</span><span class="p">(</span><span class="n">GL_DEPTH_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_COLOR_BUFFER_BIT</span><span class="p">)</span>
 
     <span class="c">#assert opengles.glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE</span>
 
