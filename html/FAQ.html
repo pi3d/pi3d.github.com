@@ -620,10 +620,10 @@ clear the previous opengles buffers using the unload_opengl() method
 before destroying the old shape to stop a graphics memory leak.
 This issue seems to be fixed but if you run into memory problems
 it might be worth trying this. Plus, obviously, report it to us!)</p>
-<p>The alternative way of doing it is to use the Buffer.re_init() method
-which takes arguments to set new values for pts (i.e. vertices), texcoords
-and normals. These are passed as lists of xyz or uv lists or tuples or
-better, two dimentional numpy arrays. An offset argument can also be
+<p>The alternative (faster, better) way of doing it is to use the Buffer.re_init()
+method which takes arguments to set new values for pts (i.e. vertices),
+texcoords and normals. These are passed as lists of xyz or uv lists or tuples
+or better, two dimentional numpy arrays. An offset argument can also be
 passed to allow only a section of vertices (normals or texcoords) to
 be modified. re_init() can&#8217;t change the number of vertices, just move
 them around. See the demos <tt class="docutils literal"><span class="pre">IceGrow.py</span></tt> and <tt class="docutils literal"><span class="pre">ProceduralTerrain.py</span></tt>.</p>
@@ -674,8 +674,17 @@ in the error message. This requires it to be run from root, you can do
 this by <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">python</span> <span class="pre">ForestWalk.py</span></tt>.</p>
 <p>Alternatively, from v2.7, there is an argument to Display.create()
 <tt class="docutils literal"><span class="pre">use_pygame=True</span></tt> which will use mouse and keyboard input from a pygame
-display - the system that is used on Windows.</p>
+display - the system that is used on Windows. See also below...</p>
 </div></blockquote>
+</div>
+<div class="section" id="full-screen">
+<h2>Full Screen<a class="headerlink" href="#full-screen" title="Permalink to this headline">¶</a></h2>
+<p>I would like to have a fullscreen frameless/borderless window for pi3d when
+running under x/mesa.  It should looks just like it does for the RPi.</p>
+<blockquote>
+<div>If the <tt class="docutils literal"><span class="pre">use_pygame=True</span></tt> argument is used for Display.create() and no
+w, h, x, y values are given then the pygame supplied drawing surface will
+be full screen without borders.</div></blockquote>
 </div>
 <div class="section" id="post-processing">
 <h2>Post processing<a class="headerlink" href="#post-processing" title="Permalink to this headline">¶</a></h2>
@@ -1243,6 +1252,7 @@ python-for-android from a linux machine. There are instructions here
 </ul>
 </li>
 <li><a class="reference internal" href="#permission-denied">Permission denied</a></li>
+<li><a class="reference internal" href="#full-screen">Full Screen</a></li>
 <li><a class="reference internal" href="#post-processing">Post processing</a><ul>
 <li><a class="reference internal" href="#postprocess-class">PostProcess class</a></li>
 <li><a class="reference internal" href="#python-v-shader-unif-arrays">python v. shader unif arrays</a></li>

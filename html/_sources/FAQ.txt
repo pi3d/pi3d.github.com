@@ -599,10 +599,10 @@ Is it possible to change the shape of an object once it's been made?
   This issue seems to be fixed but if you run into memory problems
   it might be worth trying this. Plus, obviously, report it to us!)
 
-  The alternative way of doing it is to use the Buffer.re_init() method
-  which takes arguments to set new values for pts (i.e. vertices), texcoords
-  and normals. These are passed as lists of xyz or uv lists or tuples or
-  better, two dimentional numpy arrays. An offset argument can also be
+  The alternative (faster, better) way of doing it is to use the Buffer.re_init()
+  method which takes arguments to set new values for pts (i.e. vertices),
+  texcoords and normals. These are passed as lists of xyz or uv lists or tuples
+  or better, two dimentional numpy arrays. An offset argument can also be
   passed to allow only a section of vertices (normals or texcoords) to
   be modified. re_init() can't change the number of vertices, just move
   them around. See the demos ``IceGrow.py`` and ``ProceduralTerrain.py``.
@@ -657,7 +657,17 @@ cause of this
 
   Alternatively, from v2.7, there is an argument to Display.create()
   ``use_pygame=True`` which will use mouse and keyboard input from a pygame
-  display - the system that is used on Windows. 
+  display - the system that is used on Windows. See also below...
+
+Full Screen
+-----------
+
+I would like to have a fullscreen frameless/borderless window for pi3d when
+running under x/mesa.  It should looks just like it does for the RPi.
+
+  If the ``use_pygame=True`` argument is used for Display.create() and no
+  w, h, x, y values are given then the pygame supplied drawing surface will
+  be full screen without borders.
 
 Post processing
 ---------------

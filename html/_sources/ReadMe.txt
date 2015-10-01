@@ -138,9 +138,22 @@ Setup on the Raspberry Pi
 
 #.  **Qick Start Guide, NB take the time to read the paragraphs below too**
 
+    As of 2015/09/24 there is a raspbian jessie SD image which already has
+    the relevant dependencies installed. You then just need to::
+
+      $ cd ~
+      $ sudo apt-get update
+      $ sudo apt-get upgrade
+      $ sudo pip-3.2 install pi3d
+
+    (or ``sudo pip install`` if you want to use python 2 for some reason).
+    Although you can ``git clone`` pi3d_demos this will include quite a bit
+    of extra history so it is quicker to download the zip from github.com/pi3d/pi3d_demos
+    and extract it on your system.
+
     Here's a list of commands that have definitely worked on a couple of
-    fresh rasbpian installs. Please take time to check out the paragraphs below
-    even if you use this quick start recipe... *certainly* if you want to
+    fresh rasbpian wheezy installs. Please take time to check out the paragraphs below
+    even if you use either of these quick start recipe... *certainly* if you want to
     use python3 or have any non-standard aspirations or set-up. The long
     list of dependencies (3rd apt-get line) may take a while to run as well
     as the install Pillow. Both will create hundreds of lines of messages::
@@ -207,8 +220,8 @@ Setup on the Raspberry Pi
     pi3d (though see the minimal example below, which doesn't!). The
     original Imaging library is no longer really maintained and
     doesn't run on python_3. The better equivalent replacement is Pillow.
-    In the near future Pillow will be the default imaging library but at the 
-    time of writing you need to::
+    As of raspbian jessie Pillow is the default imaging library but prior
+    to that you needed to::
 
       $ sudo apt-get install python-dev python-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
       $ sudo apt-get install python-pip
