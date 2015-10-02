@@ -147,13 +147,13 @@ Setup on the Raspberry Pi
       $ sudo pip-3.2 install pi3d
 
     (or ``sudo pip install`` if you want to use python 2 for some reason).
-    Although you can ``git clone`` pi3d_demos this will include quite a bit
-    of extra history so it is quicker to download the zip from github.com/pi3d/pi3d_demos
-    and extract it on your system.
+    Although you can ``git clone`` pi3d_demos  as in the recipe below this
+    will include quite a bit of extra history so it is quicker to download
+    the zip from github.com/pi3d/pi3d_demos and extract it on your system.
 
     Here's a list of commands that have definitely worked on a couple of
     fresh rasbpian wheezy installs. Please take time to check out the paragraphs below
-    even if you use either of these quick start recipe... *certainly* if you want to
+    even if you use either of these quick start recipes... *certainly* if you want to
     use python3 or have any non-standard aspirations or set-up. The long
     list of dependencies (3rd apt-get line) may take a while to run as well
     as the install Pillow. Both will create hundreds of lines of messages::
@@ -184,9 +184,10 @@ Setup on the Raspberry Pi
         
     (or pip3 or whatever see below*) If you don't have pip installed
     you probably should install it as described below under ``Python Imaging``
-    as it's the easiest way to install Pillow at the moment.  You can do the
-    equivalent of ``pip install`` by downloading from https://pypi.python.org/pypi/pi3d
-    and extracting the package, then in a terminal::
+    as it's the easiest way to install Pillow prior to debian jessie based
+    installations.  You can do the equivalent of ``pip install`` manually
+    by downloading from https://pypi.python.org/pypi/pi3d and extracting
+    the package, then in a terminal::
 
       $ sudo python setup.py install
         or for python3
@@ -198,20 +199,21 @@ Setup on the Raspberry Pi
     by your applications.
 
     If you might want to use features being added in the develop branch (i.e. between
-    issues) you will need to download or clone the latest code from https://github.com/tipam/pi3d/
-    where there is a ``Download ZIP`` link, or you can install git (bundled
-    in raspbian) then clone using ``git clone https://github.com/tipam/pi3d.git``
-    this git method will give you the option to update the code by running, from
-    the pi3d directory ``git pull origin master``
+    issues) you will need to download or git clone the latest code from
+    https://github.com/tipam/pi3d/ where there is a ``Download ZIP`` link,
+    or you can install git (bundled in raspbian) then clone using ``git
+    clone https://github.com/tipam/pi3d.git`` this git method will give
+    you the option to update the code by running, from the pi3d directory
+    ``git pull origin master``
 
 #.  **Memory Split setup**
 
     Although most demos work on 64MB of memory, you are strongly advised to have
     a 128MB of graphics memory split, especially for full-screen 3D graphics.
-    In the latest Raspbian build you need to either run ``sudo raspi-config``
-    or edit the config.txt file (in the boot directory) and set the variable
-    ``gpu_mem=128`` for 128MB of graphics memory.
-
+    In the latest Raspbian build you need to either choose the GUI setup,
+    run ``sudo raspi-config`` or edit the config.txt file (in the boot
+    directory) and set the variable ``gpu_mem=128`` for 128MB of graphics
+    memory.
 
 #.  **Install Python Imaging**
 
@@ -220,35 +222,36 @@ Setup on the Raspberry Pi
     pi3d (though see the minimal example below, which doesn't!). The
     original Imaging library is no longer really maintained and
     doesn't run on python_3. The better equivalent replacement is Pillow.
-    As of raspbian jessie Pillow is the default imaging library but prior
+    As of raspbian jessie Pillow is the default imaging library and can be
+    installed from the debian package::
+
+      $ sudo apt-get install python3-pil
+
+    (or ``python-pil`` but prior
     to that you needed to::
 
-      $ sudo apt-get install python-dev python-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
-      $ sudo apt-get install python-pip
-      $ sudo pip install Pillow
+      $ sudo apt-get install python3-dev python3-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
+      $ sudo apt-get install python3-pip
+      $ sudo pip-3.2 install Pillow
       ...
 
     If you miss any of the dependent libraries and need to add them later
     you will have to ``pip uninstall`` then re ``pip install``
 
-    For python3 support the first above will provide the required graphics
-    libraries used by Pillow but you will need to swap to ``python3-dev``
-    and ``python3-setuptools`` also pip is different::
+    For python2 support the first above will provide the required graphics
+    libraries used by Pillow but you will need to swap to ``python-dev``
+    and ``python-setuptools`` also pip is different::
 
-      $ sudo apt-get install python3-pip
-      $ sudo pip-3.2 install Pillow
+      $ sudo apt-get install python-pip
+      $ sudo pip install Pillow
 
     (*on ubuntu ``pip3`` could be other names, google for help or search::
     
       $ sudo find / -name pip*
 
-    !) If you do not intend to run python3 you can install the old PIL:
-    in the terminal type::
-
-      $ sudo apt-get install python-imaging
-
-    If you later switch to Pillow you will need to sudo remove python-imaging
-    first
+    !) If had previously installed the old PIL:
+    using ``$ sudo apt-get install python-imaging`` When you later switch
+    to Pillow you will need to ``sudo remove python-imaging`` first.
 
     To run on Arch linux you will need to install::
 
@@ -267,7 +270,7 @@ Setup on desktop and laptop machines
   The machine will need to have a gpu that runs OpenGL2+ and obviously
   it will need to have python installed. Setting up in a Linux environment
   is most similar to the procedure for the Raspberry Pi. Linux can be set
-  upe in its own boot partition or in vmware (eg Player which is free, you
+  up in its own boot partition or in vmware (eg Player which is free, you
   will also need to ``enable 3d acceleration``.)
 
   You need to install libraries
@@ -288,8 +291,8 @@ Setup on desktop and laptop machines
   relative to the window so limits movement for steering as used in the demos.
 
   The installation of PIL or Pillow should be the same as for the Raspberry
-  Pi above but you are more likely to need to manually install python-numpy
-  (or python3-numpy)
+  Pi above but you are more likely to need to manually install python3-numpy
+  (or python-numpy)
 
   It is likely that pi3d will run on OSX but you might have to compile
   your own mesa libraries (though some seem to be available) Pi3d has
