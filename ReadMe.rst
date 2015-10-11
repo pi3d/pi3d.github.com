@@ -222,12 +222,13 @@ Setup on the Raspberry Pi
     pi3d (though see the minimal example below, which doesn't!). The
     original Imaging library is no longer really maintained and
     doesn't run on python_3. The better equivalent replacement is Pillow.
+    
     As of raspbian jessie Pillow is the default imaging library and can be
     installed from the debian package::
 
       $ sudo apt-get install python3-pil
 
-    (or ``python-pil`` but prior
+    (or ``python-pil`` if using python2, but prior
     to that you needed to::
 
       $ sudo apt-get install python3-dev python3-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
