@@ -151,7 +151,7 @@ Setup on the Raspberry Pi
     Although you can ``git clone`` pi3d_demos  as in the recipe below this
     will include quite a bit of extra history so it is quicker to download
     the zip from github.com/pi3d/pi3d_demos and extract it on your system,
-    either using browser and desktop or
+    either using browser and desktop or wget and unzip.
 
     Here's a list of commands that have definitely worked on a couple of
     fresh rasbpian wheezy installs. Please take time to check out the paragraphs below
