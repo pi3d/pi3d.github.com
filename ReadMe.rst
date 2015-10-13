@@ -147,28 +147,38 @@ Setup on the Raspberry Pi
       $ sudo pip-3.2 install pi3d
 
     (or ``sudo pip install`` if you want to use python 2 for some reason).
+    
     Although you can ``git clone`` pi3d_demos  as in the recipe below this
     will include quite a bit of extra history so it is quicker to download
-    the zip from github.com/pi3d/pi3d_demos and extract it on your system.
+    the zip from github.com/pi3d/pi3d_demos and extract it on your system,
+    either using browser and desktop or
 
     Here's a list of commands that have definitely worked on a couple of
     fresh rasbpian wheezy installs. Please take time to check out the paragraphs below
-    even if you use either of these quick start recipes... *certainly* if you want to
-    use python3 or have any non-standard aspirations or set-up. The long
+    even if you use either of these quick start recipes... *certainly* if
+    have any non-standard aspirations or set-up. The long
     list of dependencies (3rd apt-get line) may take a while to run as well
     as the install Pillow. Both will create hundreds of lines of messages::
 
       $ cd ~
       $ sudo apt-get update
       $ sudo apt-get upgrade
-      $ sudo apt-get install python-dev python-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
-      $ sudo apt-get install python-pip
-      $ sudo pip install pi3d
-      $ sudo pip install Pillow
+      $ sudo apt-get install python3-dev python3-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
+      $ sudo apt-get install python3-pip
+      $ sudo pip-3.2 install pi3d
+      $ sudo pip-3.2 install Pillow
       $ sudo raspi-config # set gpu_mem=128
-      $ git clone git://github.com/pi3d/pi3d_demos
+      
+      ####### download demos in their latest form, quicker #######
+      $ wget https://github.com/pi3d/pi3d_demos/archive/master.zip
+      $ unzip master.zip
+      $ rm master.zip
+      $ mv pi3d_demos-master pi3d_demos
+      ####### or download the full revision history, slower ######
+      $ git clone https://github.com/pi3d/pi3d_demos.git
+      
       $ cd ~/pi3d_demos
-      $ python Earth.py
+      $ python3 Earth.py
       
 #.  **Download, Extract and install**
 
@@ -195,7 +205,7 @@ Setup on the Raspberry Pi
 
     This will put the package into the
     relevant location on your device (for instance
-    /usr/local/lib/python2.7/dist-packages/) allowing it to be imported
+    /usr/local/lib/python3.4/dist-packages/) allowing it to be imported
     by your applications.
 
     If you might want to use features being added in the develop branch (i.e. between
@@ -246,13 +256,14 @@ Setup on the Raspberry Pi
       $ sudo apt-get install python-pip
       $ sudo pip install Pillow
 
-    (*on ubuntu ``pip3`` could be other names, google for help or search::
+    (*on ubuntu and jessie ``pip3`` should work, could be other names,
+    google for help or search::
     
       $ sudo find / -name pip*
 
     !) If had previously installed the old PIL:
     using ``$ sudo apt-get install python-imaging`` When you later switch
-    to Pillow you will need to ``sudo remove python-imaging`` first.
+    to Pillow you will need to ``sudo apt-get remove python-imaging`` first.
 
     To run on Arch linux you will need to install::
 
