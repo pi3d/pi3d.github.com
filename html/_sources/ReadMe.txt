@@ -145,6 +145,7 @@ Setup on the Raspberry Pi
       $ sudo apt-get update
       $ sudo apt-get upgrade
       $ sudo pip-3.2 install pi3d
+      $ sudo raspi-config # set gpu_mem=128
 
     (or ``sudo pip install`` if you want to use python 2 for some reason).
     
@@ -233,13 +234,15 @@ Setup on the Raspberry Pi
     original Imaging library is no longer really maintained and
     doesn't run on python_3. The better equivalent replacement is Pillow.
     
-    As of raspbian jessie Pillow is the default imaging library and can be
-    installed from the debian package::
+    As of raspbian jessie Pillow is the default imaging library. It's already
+    installed on the ``fully featured`` SD image, but if it's left off the
+    jessie lite image (rumoured to be in the pipeline) it can be installed
+    using the debian package manager::
 
       $ sudo apt-get install python3-pil
 
     (or ``python-pil`` if using python2, but prior
-    to that you needed to::
+    to jessie you needed to::
 
       $ sudo apt-get install python3-dev python3-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
       $ sudo apt-get install python3-pip
@@ -259,7 +262,7 @@ Setup on the Raspberry Pi
     (*on ubuntu and jessie ``pip3`` should work, could be other names,
     google for help or search::
     
-      $ sudo find / -name pip*
+      $ sudo find /usr/bin/ -name pip*
 
     !) If had previously installed the old PIL:
     using ``$ sudo apt-get install python-imaging`` When you later switch
