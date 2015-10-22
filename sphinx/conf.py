@@ -36,14 +36,14 @@ autodoc_member_order = 'bysource'
 # order in the first place.
 
 # The short X.Y version.
-version = '2.7'
+version = '2.8'
 
 # The full version, including alpha/beta/rc tags.
-release = '2.7'
+release = '2.8'
 
 # General information about the project.
-project = u'pi3d'
-copyright = u'2015, The pi3d team'
+project = 'pi3d'
+copyright = '2015, The pi3d team'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -213,8 +213,8 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'pi3d.tex', u'pi3d Documentation',
-   u'The pi3d team', 'manual'),
+  ('index', 'pi3d.tex', 'pi3d Documentation',
+   'The pi3d team', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -243,8 +243,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'pi3d', u'pi3d Documentation',
-     [u'The pi3d team'], 1)
+    ('index', 'pi3d', 'pi3d Documentation',
+     ['The pi3d team'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -257,8 +257,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'pi3d', u'pi3d documentation',
-   u'The pi3d team', 'pi3d',
+  ('index', 'pi3d', 'pi3d documentation',
+   'The pi3d team', 'pi3d',
    'A Python library for doing Open GL ES 2.0 graphics on the Raspberry Pi.',
    'Graphics'),
 ]
@@ -276,10 +276,10 @@ texinfo_documents = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'pi3d'
-epub_author = u'The pi3d team'
-epub_publisher = u'The pi3d team'
-epub_copyright = u'2013, The pi3d team'
+epub_title = 'pi3d'
+epub_author = 'The pi3d team'
+epub_publisher = 'The pi3d team'
+epub_copyright = '2013, The pi3d team'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

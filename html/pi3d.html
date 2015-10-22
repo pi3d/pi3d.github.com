@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &mdash; pi3d 2.7 documentation</title>
+    <title>pi3d Package &mdash; pi3d 2.8 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.7',
+        VERSION:     '2.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.7 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.8 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.8 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -680,7 +680,7 @@ terminal window or session.</p>
 <span id="light-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Light</span></tt> Module<a class="headerlink" href="#module-pi3d.Light" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Light.Light">
-<em class="property">class </em><tt class="descclassname">pi3d.Light.</tt><tt class="descname">Light</tt><big>(</big><em>lightpos=(10</em>, <em>-10</em>, <em>20)</em>, <em>lightcol=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>lightamb=(0.1</em>, <em>0.1</em>, <em>0.2)</em>, <em>is_point=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Light.html#Light"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Light.</tt><tt class="descname">Light</tt><big>(</big><em>lightpos=(10</em>, <em>-10</em>, <em>-5)</em>, <em>lightcol=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>lightamb=(0.1</em>, <em>0.1</em>, <em>0.2)</em>, <em>is_point=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Light.html#Light"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></tt></p>
 <p>Holds information about lighting to be used in shaders</p>
 <p>set light values. These are set in Shape.unif as part of the Shape
@@ -1585,6 +1585,7 @@ new glTextureBuffers i.e. for movie textures</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pi3d.util.html">util Package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Ctypes"><tt class="docutils literal"><span class="pre">Ctypes</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Clashtest"><tt class="docutils literal"><span class="pre">Clashtest</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Defocus"><tt class="docutils literal"><span class="pre">Defocus</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.DisplayOpenGL"><tt class="docutils literal"><span class="pre">DisplayOpenGL</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.FixedString"><tt class="docutils literal"><span class="pre">FixedString</span></tt> Module</a></li>
@@ -1594,12 +1595,14 @@ new glTextureBuffers i.e. for movie textures</p>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Log"><tt class="docutils literal"><span class="pre">Log</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.OffScreenTexture"><tt class="docutils literal"><span class="pre">OffScreenTexture</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Pngfont"><tt class="docutils literal"><span class="pre">Pngfont</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.PointText"><tt class="docutils literal"><span class="pre">PointText</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.PostProcess"><tt class="docutils literal"><span class="pre">PostProcess</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.RotateVec"><tt class="docutils literal"><span class="pre">RotateVec</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.ShadowCaster"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.StereoCam"><tt class="docutils literal"><span class="pre">StereoCam</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TextBlock"><tt class="docutils literal"><span class="pre">TextBlock</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
 </ul>
@@ -1676,7 +1679,7 @@ new glTextureBuffers i.e. for movie textures</p>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.8 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

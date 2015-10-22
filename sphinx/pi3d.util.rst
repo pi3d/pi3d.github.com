@@ -9,6 +9,14 @@ util Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`Clashtest` Module
+-----------------------
+
+.. automodule:: pi3d.util.Clashtest
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`Defocus` Module
 ---------------------
 
@@ -81,6 +89,14 @@ util Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`PointText` Module
+-----------------------
+
+.. automodule:: pi3d.util.PointText
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`PostProcess` Module
 -------------------------
 
@@ -125,6 +141,14 @@ util Package
 --------------------
 
 .. automodule:: pi3d.util.String
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`TextBlock` Module
+-----------------------
+
+.. automodule:: pi3d.util.TextBlock
     :members:
     :undoc-members:
     :show-inheritance:

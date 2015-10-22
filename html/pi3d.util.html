@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>util Package &mdash; pi3d 2.7 documentation</title>
+    <title>util Package &mdash; pi3d 2.8 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.7',
+        VERSION:     '2.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.7 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.8 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.8 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" accesskey="U">pi3d Package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -81,6 +81,46 @@
 <dt id="pi3d.util.Ctypes.c_shorts">
 <tt class="descclassname">pi3d.util.Ctypes.</tt><tt class="descname">c_shorts</tt><big>(</big><em>x</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Ctypes.html#c_shorts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Ctypes.c_shorts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of c_short, converted from a list of Python variables.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pi3d.util.Clashtest">
+<span id="clashtest-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Clashtest</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Clashtest" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.Clashtest.Clashtest">
+<em class="property">class </em><tt class="descclassname">pi3d.util.Clashtest.</tt><tt class="descname">Clashtest</tt><a class="reference internal" href="_modules/pi3d/util/Clashtest.html#Clashtest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Clashtest.Clashtest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="pi3d.util.OffScreenTexture.OffScreenTexture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.OffScreenTexture.OffScreenTexture</span></tt></a></p>
+<p>calls Texture.__init__ but doesn&#8217;t need to set file name as
+texture generated from the framebuffer</p>
+<dl class="method">
+<dt id="pi3d.util.Clashtest.Clashtest.draw">
+<tt class="descname">draw</tt><big>(</big><em>shape</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Clashtest.html#Clashtest.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Clashtest.Clashtest.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>draw the shape using the clashtest Shader</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>shape</em></dt>
+<dd>Shape object that will be drawn</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Clashtest.Clashtest.check">
+<tt class="descname">check</tt><big>(</big><em>grain=50</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Clashtest.html#Clashtest.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Clashtest.Clashtest.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks the pixels of the texture to see if there is any change from the
+first pixel sampled; in which case returns True else returns False.</p>
+<dl class="docutils">
+<dt>Keyword argument:</dt>
+<dd><dl class="first last docutils">
+<dt><em>grain</em></dt>
+<dd>Number of locations to check over the whole image</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -200,8 +240,8 @@ transparent.</dd>
 <dd>can be passed to init otherwise needs to be set in set_shader or
 draw. default None</dd>
 <dt><em>f_type</em>:</dt>
-<dd>filter type. BUMP will generate a normal map, EMBOSS, CONTOUR, BLUR
-and SMOOTH do what they sound like they will do.</dd>
+<dd>filter type. BUMP will generate a normal map (indented), EMBOSS,
+CONTOUR, BLUR and SMOOTH do what they sound like they will do.</dd>
 </dl>
 <dl class="method">
 <dt id="pi3d.util.FixedString.FixedString.set_shader">
@@ -218,7 +258,9 @@ and SMOOTH do what they sound like they will do.</dd>
 <dl class="method">
 <dt id="pi3d.util.FixedString.FixedString.make_bump_map">
 <tt class="descname">make_bump_map</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString.make_bump_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString.make_bump_map" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>essentially just blurs the image then allocates R or G values
+according to the rate of change of grayscale in x and y directions</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -227,7 +269,7 @@ and SMOOTH do what they sound like they will do.</dd>
 <span id="font-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Font</span></tt> Module<a class="headerlink" href="#module-pi3d.util.Font" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.Font.Font">
-<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=48</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em>, <em>background_color=None</em>, <em>mipmap=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.Font.</tt><tt class="descname">Font</tt><big>(</big><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=42</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em>, <em>background_color=None</em>, <em>mipmap=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></tt></a></p>
 <p>A Font contains a TrueType font ready to be rendered in OpenGL.</p>
 <p>A font is just a mapping from codepoints (single Unicode characters) to glyphs
@@ -264,14 +306,13 @@ characters to the default list of codepoints (range(256). All the other
 comments for the <em>codepoints</em> parameter still apply.</dd>
 <dt><em>image_size</em>:</dt>
 <dd>Width and height of the Texture that backs the image.
-If it doesn&#8217;t fit then a larger size will be tried up to MAX_SIZE.
-The isses are: maximum image size supported by the gpu (2048x2048?)
-gpu memory usage and time to load by working up the size required
-in 256 pixel steps.</dd>
+Since the introduction of PointText using Point drawing image_size is
+no longer used - all Font Textures are 1024.</dd>
 <dt><em>italic_adjustment</em>:</dt>
 <dd>Adjusts the bounding width to take italics into account.  The default
 value is 1.1; you can get a tighter bounding if you set this down
-closer to 1, but italics might get cut off at the right.</dd>
+closer to 1, but italics might get cut off at the right. Since PointText
+this isn&#8217;t used.</dd>
 </dl>
 </dd></dl>
 
@@ -607,6 +648,58 @@ line of the texture contains metainformation about each character.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-pi3d.util.PointText">
+<span id="pointtext-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">PointText</span></tt> Module<a class="headerlink" href="#module-pi3d.util.PointText" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.PointText.PointText">
+<em class="property">class </em><tt class="descclassname">pi3d.util.PointText.</tt><tt class="descname">PointText</tt><big>(</big><em>font</em>, <em>camera</em>, <em>max_chars=100</em>, <em>point_size=48</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/PointText.html#PointText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PointText.PointText" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Arguments:
+<em>font</em>:</p>
+<blockquote>
+<div>A PointFont object.</div></blockquote>
+<dl class="docutils">
+<dt><em>camera</em>:</dt>
+<dd>camera to use for drawing the text.  Normally a fixed 2d camera.</dd>
+<dt><em>max_chars</em>:</dt>
+<dd>maximum number of chars, which determines the number of points in the buffer</dd>
+<dt><em>point_size</em>:</dt>
+<dd>size of &#8220;default&#8221; characters created using the Points class and the
+font. This is further scaled by the TextBlock.size
+This refinement is needed to allow pointsize to be different in Points from
+Font to avoid clipping or overlap of corners when rotation some truetype fonts</dd>
+</dl>
+<dl class="method">
+<dt id="pi3d.util.PointText.PointText.regen">
+<tt class="descname">regen</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/PointText.html#PointText.regen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PointText.PointText.regen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Regenerate all text blocks that are linked to data objects and have
+changed value</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.PointText.PointText.add_text_block">
+<tt class="descname">add_text_block</tt><big>(</big><em>text_block</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/PointText.html#PointText.add_text_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PointText.PointText.add_text_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a text block to the collection, setting the object link to this
+service and setting the buffer offset allocated to the text block.
+This is required for the text block to update the buffer allocated to
+it. Also tracks the next unallocated character in the buffer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.PointText.PointText.draw">
+<tt class="descname">draw</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/PointText.html#PointText.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PointText.PointText.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw all the text characters.  If the re_init flag is set then
+update the points shape buffer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.PointText.PointText.set_do_reinit">
+<tt class="descname">set_do_reinit</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/PointText.html#PointText.set_do_reinit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PointText.PointText.set_do_reinit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.util.PostProcess">
 <span id="postprocess-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">PostProcess</span></tt> Module<a class="headerlink" href="#module-pi3d.util.PostProcess" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -851,6 +944,107 @@ subsequent changes.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-pi3d.util.TextBlock">
+<span id="textblock-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">TextBlock</span></tt> Module<a class="headerlink" href="#module-pi3d.util.TextBlock" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pi3d.util.TextBlock.getattra">
+<tt class="descclassname">pi3d.util.TextBlock.</tt><tt class="descname">getattra</tt><big>(</big><em>obj</em>, <em>attr</em>, <em>default</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#getattra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.getattra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.TextBlock.TextBlockColour">
+<em class="property">class </em><tt class="descclassname">pi3d.util.TextBlock.</tt><tt class="descname">TextBlockColour</tt><big>(</big><em>colour=(1.0</em>, <em>1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>textBlock=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlockColour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlockColour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="pi3d.util.TextBlock.TextBlockColour.recolour">
+<tt class="descname">recolour</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlockColour.recolour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlockColour.recolour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.TextBlock.TextBlockColour.set_colour">
+<tt class="descname">set_colour</tt><big>(</big><em>colour=None</em>, <em>alpha=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlockColour.set_colour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlockColour.set_colour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.TextBlock.TextBlockColourGradient">
+<em class="property">class </em><tt class="descclassname">pi3d.util.TextBlock.</tt><tt class="descname">TextBlockColourGradient</tt><big>(</big><em>colour1</em>, <em>colour2</em>, <em>textBlock=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlockColourGradient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlockColourGradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.util.TextBlock.TextBlockColour" title="pi3d.util.TextBlock.TextBlockColour"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.TextBlock.TextBlockColour</span></tt></a></p>
+<dl class="method">
+<dt id="pi3d.util.TextBlock.TextBlockColourGradient.set_colour">
+<tt class="descname">set_colour</tt><big>(</big><em>colour1=None</em>, <em>colour2=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlockColourGradient.set_colour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlockColourGradient.set_colour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Colour each character with a gradient from colour1 to colour2
+Interpolate hsv instead of rgb since it is a more natural change.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.util.TextBlock.TextBlock">
+<em class="property">class </em><tt class="descclassname">pi3d.util.TextBlock.</tt><tt class="descname">TextBlock</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em>, <em>rot</em>, <em>char_count</em>, <em>data_obj=None</em>, <em>attr=None</em>, <em>text_format=u'{:s}'</em>, <em>size=0.99</em>, <em>spacing=u'C'</em>, <em>space=1.1</em>, <em>colour=(1.0</em>, <em>1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>char_rot=0.0</em>, <em>justify=0.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Arguments:
+<em>x, y, z</em>:</p>
+<blockquote>
+<div>As usual</div></blockquote>
+<dl class="docutils">
+<dt><em>rot</em>:</dt>
+<dd>rotation in degrees</dd>
+<dt><em>char_count</em>:</dt>
+<dd>number of characters for this block (capacity it can expand into)</dd>
+<dt><em>data_obj</em>:</dt>
+<dd>Data object to use in text format</dd>
+<dt><em>attr</em>:</dt>
+<dd>Attribute in data object to use in text format</dd>
+<dt><em>text_format</em>:</dt>
+<dd>Thetext format to use including any data formattings</dd>
+<dt><em>size</em>:</dt>
+<dd>Size of the text 0 to 0.9999</dd>
+<dt><em>spacing</em>:</dt>
+<dd>Type of character spacing. C=Constant, M=Multiplier, F=Fixed space between chars</dd>
+<dt><em>space</em>:</dt>
+<dd>Value to set the spacing to</dd>
+<dt><em>colour</em>:</dt>
+<dd>drawn colour including alpha as format (0.99, 0.99, 0.99, 0.99)</dd>
+<dt><em>char_rot</em>:</dt>
+<dd>character rotation in degrees</dd>
+<dt><em>justify</em>:</dt>
+<dd>Justification position. 0.0=Left, 0.5=Center, 1.0=Right</dd>
+</dl>
+<dl class="method">
+<dt id="pi3d.util.TextBlock.TextBlock.set_text_manager">
+<tt class="descname">set_text_manager</tt><big>(</big><em>manager</em>, <em>buffer_index</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlock.set_text_manager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlock.set_text_manager" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.TextBlock.TextBlock.get_value">
+<tt class="descname">get_value</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlock.get_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlock.get_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.TextBlock.TextBlock.get_string">
+<tt class="descname">get_string</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlock.get_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlock.get_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.TextBlock.TextBlock.set_position">
+<tt class="descname">set_position</tt><big>(</big><em>x=None</em>, <em>y=None</em>, <em>z=None</em>, <em>rot=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlock.set_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlock.set_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.TextBlock.TextBlock.recolour">
+<tt class="descname">recolour</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlock.recolour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlock.recolour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.TextBlock.TextBlock.set_text">
+<tt class="descname">set_text</tt><big>(</big><em>text_format=None</em>, <em>size=None</em>, <em>spacing=None</em>, <em>space=None</em>, <em>char_rot=None</em>, <em>set_pos=True</em>, <em>set_colour=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlock.set_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlock.set_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.util.TkWin">
 <span id="tkwin-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">TkWin</span></tt> Module<a class="headerlink" href="#module-pi3d.util.TkWin" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -982,6 +1176,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
   <ul>
 <li><a class="reference internal" href="#">util Package</a><ul>
 <li><a class="reference internal" href="#module-pi3d.util.Ctypes"><tt class="docutils literal"><span class="pre">Ctypes</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Clashtest"><tt class="docutils literal"><span class="pre">Clashtest</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Defocus"><tt class="docutils literal"><span class="pre">Defocus</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.DisplayOpenGL"><tt class="docutils literal"><span class="pre">DisplayOpenGL</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.FixedString"><tt class="docutils literal"><span class="pre">FixedString</span></tt> Module</a></li>
@@ -991,12 +1186,14 @@ way to make sure that nothing is drawn past a certain distance.</p>
 <li><a class="reference internal" href="#module-pi3d.util.Log"><tt class="docutils literal"><span class="pre">Log</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.OffScreenTexture"><tt class="docutils literal"><span class="pre">OffScreenTexture</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Pngfont"><tt class="docutils literal"><span class="pre">Pngfont</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.PointText"><tt class="docutils literal"><span class="pre">PointText</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.PostProcess"><tt class="docutils literal"><span class="pre">PostProcess</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.RotateVec"><tt class="docutils literal"><span class="pre">RotateVec</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Screenshot"><tt class="docutils literal"><span class="pre">Screenshot</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.ShadowCaster"><tt class="docutils literal"><span class="pre">ShadowCaster</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.StereoCam"><tt class="docutils literal"><span class="pre">StereoCam</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.TextBlock"><tt class="docutils literal"><span class="pre">TextBlock</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
 </ul>
@@ -1040,7 +1237,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.7 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.8 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" >pi3d Package</a> &raquo;</li> 
       </ul>
     </div>

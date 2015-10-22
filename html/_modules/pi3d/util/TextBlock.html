@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pi3d.util.TextBlock &mdash; pi3d 2.8 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="pi3d 2.8 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">pi3d 2.8 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pi3d.util.TextBlock</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="sd">&quot;&quot;&quot; Text block used to update contents of buffers used to draw gl_point font characters.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">colorsys</span>
+
+<div class="viewcode-block" id="getattra"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.getattra">[docs]</a><span class="k">def</span> <span class="nf">getattra</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+    <span class="k">if</span><span class="p">(</span><span class="s">&quot;[&quot;</span> <span class="ow">in</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="n">splits</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;[&quot;</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">splits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;]&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+        <span class="n">thearray</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">splits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">thearray</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">thearray</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">default</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="TextBlockColour"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlockColour">[docs]</a><span class="k">class</span> <span class="nc">TextBlockColour</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">textBlock</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">colour</span> <span class="o">=</span> <span class="p">[</span><span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">colour</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">colour</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">colour</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">textBlock</span> <span class="o">=</span> <span class="n">textBlock</span>
+
+<div class="viewcode-block" id="TextBlockColour.recolour"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlockColour.recolour">[docs]</a>  <span class="k">def</span> <span class="nf">recolour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_colour</span><span class="p">()</span>
+    </div>
+<div class="viewcode-block" id="TextBlockColour.set_colour"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlockColour.set_colour">[docs]</a>  <span class="k">def</span> <span class="nf">set_colour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">colour</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">colour</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span>
+
+    <span class="n">textBlock</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textBlock</span>
+    <span class="n">manager</span> <span class="o">=</span> <span class="n">textBlock</span><span class="o">.</span><span class="n">_text_manager</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">textBlock</span><span class="o">.</span><span class="n">_buffer_index</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="n">st</span> <span class="o">+</span> <span class="n">textBlock</span><span class="o">.</span><span class="n">_string_length</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">st</span> <span class="o">+</span> <span class="n">textBlock</span><span class="o">.</span><span class="n">char_count</span>
+    <span class="c">#Reset alpha to zero for all characters.  Prevents displaying old chars from longer strings</span>
+    <span class="n">manager</span><span class="o">.</span><span class="n">normals</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        
+    <span class="c">#Fill an array with the colour to copy to the manager normals</span>
+    <span class="c">#rotation is included for efficiency</span>
+    <span class="n">normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+    <span class="n">normal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">textBlock</span><span class="o">.</span><span class="n">rot</span> <span class="o">+</span> <span class="n">textBlock</span><span class="o">.</span><span class="n">char_rot</span>
+    <span class="n">normal</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colour</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.999</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">999</span><span class="p">))</span>
+    <span class="n">normal</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colour</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.999</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colour</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">999</span><span class="p">))</span>
+    
+    <span class="c">#Only set colour alpha for string length. Zero for non displayed characters</span>
+    <span class="n">manager</span><span class="o">.</span><span class="n">normals</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">mid</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">normal</span>
+
+</div></div>
+<div class="viewcode-block" id="TextBlockColourGradient"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlockColourGradient">[docs]</a><span class="k">class</span> <span class="nc">TextBlockColourGradient</span><span class="p">(</span><span class="n">TextBlockColour</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colour1</span><span class="p">,</span> <span class="n">colour2</span><span class="p">,</span> <span class="n">textBlock</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">colour1</span> <span class="o">=</span> <span class="n">colour1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">colour2</span> <span class="o">=</span> <span class="n">colour2</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">textBlock</span> <span class="o">=</span> <span class="n">textBlock</span>
+  
+<div class="viewcode-block" id="TextBlockColourGradient.set_colour"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlockColourGradient.set_colour">[docs]</a>  <span class="k">def</span> <span class="nf">set_colour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colour1</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">colour2</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Colour each character with a gradient from colour1 to colour2</span>
+<span class="sd">    Interpolate hsv instead of rgb since it is a more natural change.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">colour1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">colour1</span> <span class="o">=</span> <span class="n">colour1</span>
+    <span class="k">if</span> <span class="n">colour2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">colour2</span> <span class="o">=</span> <span class="n">colour2</span>
+      
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">textBlock</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="k">return</span>
+      
+    <span class="n">colour1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colour1</span>
+    <span class="n">colour2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colour2</span>
+
+    <span class="n">textBlock</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textBlock</span>    
+    <span class="n">manager</span> <span class="o">=</span> <span class="n">textBlock</span><span class="o">.</span><span class="n">_text_manager</span>
+      
+    <span class="n">hsv1</span> <span class="o">=</span> <span class="n">colorsys</span><span class="o">.</span><span class="n">rgb_to_hsv</span><span class="p">(</span><span class="n">colour1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">colour1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">colour1</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">hsv2</span> <span class="o">=</span> <span class="n">colorsys</span><span class="o">.</span><span class="n">rgb_to_hsv</span><span class="p">(</span><span class="n">colour2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">colour2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">colour2</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+      
+    <span class="n">normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+    <span class="n">normal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">textBlock</span><span class="o">.</span><span class="n">rot</span> <span class="o">+</span> <span class="n">textBlock</span><span class="o">.</span><span class="n">char_rot</span>
+        
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">textBlock</span><span class="o">.</span><span class="n">_string_length</span><span class="p">):</span>
+      <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">textBlock</span><span class="o">.</span><span class="n">_string_length</span><span class="p">],</span> <span class="p">[</span><span class="n">hsv1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hsv2</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">textBlock</span><span class="o">.</span><span class="n">_string_length</span><span class="p">],</span> <span class="p">[</span><span class="n">hsv1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">hsv2</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">textBlock</span><span class="o">.</span><span class="n">_string_length</span><span class="p">],</span> <span class="p">[</span><span class="n">hsv1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">hsv2</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">textBlock</span><span class="o">.</span><span class="n">_string_length</span><span class="p">],</span> <span class="p">[</span><span class="n">colour1</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">colour2</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+      <span class="n">rgb</span> <span class="o">=</span> <span class="n">colorsys</span><span class="o">.</span><span class="n">hsv_to_rgb</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+      <span class="n">normal</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">rgb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.999</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">rgb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">999</span><span class="p">))</span>
+      <span class="n">normal</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="mf">0.999</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">rgb</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">999</span><span class="p">))</span>
+      
+      <span class="c">#Only set colour alpha for string length. Zero for non displayed characters</span>
+      <span class="n">manager</span><span class="o">.</span><span class="n">normals</span><span class="p">[</span><span class="n">textBlock</span><span class="o">.</span><span class="n">_buffer_index</span> <span class="o">+</span> <span class="n">index</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">normal</span>
+
+</div></div>
+<div class="viewcode-block" id="TextBlock"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlock">[docs]</a><span class="k">class</span> <span class="nc">TextBlock</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">char_count</span><span class="p">,</span> <span class="n">data_obj</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">text_format</span><span class="o">=</span><span class="s">&quot;{:s}&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+            <span class="n">colour</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)</span> <span class="p">,</span> <span class="n">char_rot</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Arguments:</span>
+<span class="sd">    *x, y, z*:</span>
+<span class="sd">      As usual</span>
+<span class="sd">    *rot*:</span>
+<span class="sd">      rotation in degrees</span>
+<span class="sd">    *char_count*:</span>
+<span class="sd">      number of characters for this block (capacity it can expand into)</span>
+<span class="sd">    *data_obj*:</span>
+<span class="sd">      Data object to use in text format</span>
+<span class="sd">    *attr*:</span>
+<span class="sd">      Attribute in data object to use in text format</span>
+<span class="sd">    *text_format*:</span>
+<span class="sd">      Thetext format to use including any data formattings</span>
+<span class="sd">    *size*:</span>
+<span class="sd">      Size of the text 0 to 0.9999</span>
+<span class="sd">    *spacing*:</span>
+<span class="sd">       Type of character spacing. C=Constant, M=Multiplier, F=Fixed space between chars</span>
+<span class="sd">    *space*:</span>
+<span class="sd">      Value to set the spacing to</span>
+<span class="sd">    *colour*:</span>
+<span class="sd">      drawn colour including alpha as format (0.99, 0.99, 0.99, 0.99)</span>
+<span class="sd">    *char_rot*:</span>
+<span class="sd">      character rotation in degrees</span>
+<span class="sd">    *justify*:</span>
+<span class="sd">      Justification position. 0.0=Left, 0.5=Center, 1.0=Right</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">z</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">rot</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">rot</span><span class="p">)</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">char_count</span> <span class="o">=</span> <span class="n">char_count</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data_obj</span> <span class="o">=</span> <span class="n">data_obj</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">attr</span> <span class="o">=</span> <span class="n">attr</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">text_format</span> <span class="o">=</span> <span class="n">text_format</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="n">spacing</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="n">space</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">point_size</span> <span class="o">=</span> <span class="mi">48</span>
+    
+    <span class="c">#If the colour is a tuple initialize it a plain colour</span>
+    <span class="c">#Otherwise use a TextBlockColour object and its textBlock reference to this TextBlock</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colour</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">colouring</span> <span class="o">=</span> <span class="n">TextBlockColour</span><span class="p">(</span><span class="n">colour</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">colouring</span> <span class="o">=</span> <span class="n">colour</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">colouring</span><span class="o">.</span><span class="n">textBlock</span> <span class="o">=</span> <span class="bp">self</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">char_rot</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">char_rot</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">justify</span> <span class="o">=</span> <span class="n">justify</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">last_value</span> <span class="o">=</span> <span class="bp">self</span> <span class="c"># hack so that static None object get initialization</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rotation_changed</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_text_manager</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_string_length</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">char_offsets</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">char_count</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_string_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">()))</span>
+
+<div class="viewcode-block" id="TextBlock.set_text_manager"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlock.set_text_manager">[docs]</a>  <span class="k">def</span> <span class="nf">set_text_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">manager</span><span class="p">,</span> <span class="n">buffer_index</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_text_manager</span> <span class="o">=</span> <span class="n">manager</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_index</span> <span class="o">=</span> <span class="n">buffer_index</span>
+</div>
+<div class="viewcode-block" id="TextBlock.get_value"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlock.get_value">[docs]</a>  <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">getattra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="TextBlock.get_string"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlock.get_string">[docs]</a>  <span class="k">def</span> <span class="nf">get_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>    
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">strval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_string_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">strval</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">strval</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_format</span>
+</div>
+<div class="viewcode-block" id="TextBlock.set_position"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlock.set_position">[docs]</a>  <span class="k">def</span> <span class="nf">set_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">z</span>
+    <span class="k">if</span> <span class="n">rot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">rot</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">rot</span><span class="p">)</span> 
+
+    <span class="n">size_pos</span><span class="p">,</span> <span class="n">__</span>  <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">modf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+    <span class="n">size_pos</span> <span class="o">+=</span> <span class="n">math</span><span class="o">.</span><span class="n">trunc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="mf">10.0</span><span class="p">)</span>   <span class="c"># depth has resolution of 0.1m and range of 25.5m</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">size_pos</span><span class="p">]</span>
+
+    <span class="n">locations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">char_count</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+    <span class="n">locations</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">char_offsets</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rot</span><span class="p">))</span>
+    <span class="n">locations</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">char_offsets</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rot</span><span class="p">))</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">locations</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_index</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="n">st</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_string_length</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">st</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">char_count</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_text_manager</span><span class="o">.</span><span class="n">locations</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">locations</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_text_manager</span><span class="o">.</span><span class="n">normals</span><span class="p">[</span><span class="n">st</span><span class="p">:</span><span class="n">mid</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rot</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">char_rot</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_text_manager</span><span class="o">.</span><span class="n">set_do_reinit</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TextBlock.recolour"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlock.recolour">[docs]</a>  <span class="k">def</span> <span class="nf">recolour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">colouring</span><span class="o">.</span><span class="n">recolour</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TextBlock.set_text"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.TextBlock.TextBlock.set_text">[docs]</a>  <span class="k">def</span> <span class="nf">set_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+              <span class="n">char_rot</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">set_pos</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">set_colour</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">text_format</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">text_format</span> <span class="o">=</span> <span class="n">text_format</span>
+    <span class="k">if</span> <span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+    <span class="k">if</span> <span class="n">spacing</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="n">spacing</span>
+    <span class="k">if</span> <span class="n">space</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="n">space</span>
+    <span class="k">if</span> <span class="n">char_rot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">char_rot</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">char_rot</span><span class="p">)</span>
+    <span class="c">#If there is no data object then use the simple static string value</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
+      <span class="n">strval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_string</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">last_value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">strval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_format</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_string_length</span> <span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">strval</span><span class="p">)</span>
+
+    <span class="n">pos</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c">#Now the string is updated set the correct glyphs and calculate the</span>
+    <span class="c">#character offset positions. This is not the same as the final char positions.</span>
+    <span class="n">const_width</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">vari_width</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacing</span> <span class="o">==</span> <span class="s">&quot;C&quot;</span><span class="p">:</span>
+      <span class="n">const_width</span> <span class="o">=</span> <span class="mf">64.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">space</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacing</span> <span class="o">==</span> <span class="s">&quot;M&quot;</span><span class="p">:</span>
+      <span class="n">vari_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">space</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacing</span> <span class="o">==</span> <span class="s">&quot;F&quot;</span><span class="p">:</span>
+      <span class="n">vari_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+      <span class="n">const_width</span> <span class="o">=</span>  <span class="p">(</span><span class="mf">64.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">space</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>    
+
+    <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">strval</span><span class="p">:</span>
+      <span class="n">glyph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text_manager</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">glyph_table</span><span class="p">[</span><span class="n">char</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_text_manager</span><span class="o">.</span><span class="n">uv</span><span class="p">[</span><span class="n">index</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">glyph</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+      <span class="sd">&quot;&quot;&quot;scale is needed if pointsize is different in Points from Font which is</span>
+<span class="sd">      needed to avoid clipping or overlap of corners when rotation some truetype fonts&quot;&quot;&quot;</span>
+      <span class="n">g_scale</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_text_manager</span><span class="o">.</span><span class="n">point_size</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text_manager</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">height</span>
+      <span class="n">char_offset</span> <span class="o">=</span> <span class="n">pos</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacing</span> <span class="o">==</span> <span class="s">&quot;F&quot;</span><span class="p">:</span>
+        <span class="c">#center character to the right </span>
+        <span class="n">char_offset</span> <span class="o">+=</span> <span class="nb">float</span><span class="p">(</span><span class="n">glyph</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">g_scale</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">*</span> <span class="mf">0.5</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">char_offsets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">char_offset</span>
+      <span class="n">spacing</span> <span class="o">=</span> <span class="p">(</span><span class="n">glyph</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">g_scale</span> <span class="o">*</span> <span class="n">vari_width</span><span class="p">)</span> <span class="o">+</span> <span class="n">const_width</span>
+      <span class="n">pos</span> <span class="o">+=</span> <span class="n">spacing</span>
+      <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="c">#Justification</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">char_offsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">char_offsets</span><span class="p">,</span> <span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="n">spacing</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">justify</span><span class="p">)</span>     
+    <span class="k">if</span> <span class="n">set_pos</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">set_position</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">set_colour</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">recolour</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_text_manager</span><span class="o">.</span><span class="n">set_do_reinit</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">pi3d 2.8 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
