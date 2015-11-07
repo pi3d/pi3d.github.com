@@ -272,7 +272,7 @@
       <span class="n">b</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
 </div>
 <div class="viewcode-block" id="Shape.set_normal_shine"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_normal_shine">[docs]</a>  <span class="k">def</span> <span class="nf">set_normal_shine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">normtex</span><span class="p">,</span> <span class="n">ntiles</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">shinetex</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                       <span class="n">shiny</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">is_uv</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+                       <span class="n">shiny</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">is_uv</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bump_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Used to set some of the draw details for all Buffers in Shape.</span>
 <span class="sd">    This is useful where a Model object has been loaded from an obj file and</span>
 <span class="sd">    the textures assigned automatically.</span>
@@ -293,7 +293,9 @@
 <span class="sd">        textures[2] i.e. if using a &#39;uv&#39; type Shader. However, for &#39;mat&#39; type</span>
 <span class="sd">        Shaders they are moved down one, as the basic shade is defined by</span>
 <span class="sd">        material rgb rather than from a Texture.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">      *bump_factor*</span>
+<span class="sd">        multiplier for the normal map surface distortion effect</span>
+<span class="sd">   &quot;&quot;&quot;</span>
     <span class="n">ofst</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">is_uv</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">textures</span> <span class="ow">or</span> <span class="p">[]</span>
@@ -303,6 +305,7 @@
         <span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
       <span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="mi">1</span> <span class="o">+</span> <span class="n">ofst</span><span class="p">]</span> <span class="o">=</span> <span class="n">normtex</span>
       <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ntiles</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">bump_factor</span>
       <span class="k">if</span> <span class="n">shinetex</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
         <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="n">ofst</span><span class="p">):</span>
           <span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
@@ -310,7 +313,7 @@
         <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">shiny</span>
 </div>
 <div class="viewcode-block" id="Shape.set_draw_details"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_draw_details">[docs]</a>  <span class="k">def</span> <span class="nf">set_draw_details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">,</span> <span class="n">textures</span><span class="p">,</span> <span class="n">ntiles</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">shiny</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-                      <span class="n">umult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">vmult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+                      <span class="n">umult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">vmult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">bump_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper to call set_draw_details() for each Buffer object.</span>
 
 <span class="sd">    Arguments:</span>
@@ -321,7 +324,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">textures</span><span class="p">,</span> <span class="n">ntiles</span><span class="p">,</span> <span class="n">shiny</span><span class="p">,</span> <span class="n">umult</span><span class="p">,</span> <span class="n">vmult</span><span class="p">)</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">textures</span><span class="p">,</span> <span class="n">ntiles</span><span class="p">,</span> <span class="n">shiny</span><span class="p">,</span> <span class="n">umult</span><span class="p">,</span> <span class="n">vmult</span><span class="p">,</span> <span class="n">bump_factor</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Shape.set_material"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_material">[docs]</a>  <span class="k">def</span> <span class="nf">set_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">material</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper for setting material shade in each Buffer object.</span>

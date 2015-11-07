@@ -100,7 +100,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
                                <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span>
                                <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
-                               <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+                               <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
     <span class="sd">&quot;&quot;&quot; pass to shader array of vec3 uniform variables:</span>
 
 <span class="sd">    ===== ============================ ==== ==</span>
@@ -111,8 +111,8 @@
 <span class="sd">        0  ntile, shiny, blend           0   2</span>
 <span class="sd">        1  material                      3   5</span>
 <span class="sd">        2  umult, vmult, point_size      6   8</span>
-<span class="sd">        3  u_off, v_off, line_width      9  10</span>
-<span class="sd">    ===== ============================ ==== ==</span>
+<span class="sd">        3  u_off, v_off, line_width/bump 9  10 #NB line width and bump factor</span>
+<span class="sd">    ===== ============================ ==== ==  clash but shouldn&#39;t be an issue</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c">#self.shape = shape</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[]</span>
@@ -243,7 +243,7 @@
 
 
 <div class="viewcode-block" id="Buffer.set_draw_details"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.set_draw_details">[docs]</a>  <span class="k">def</span> <span class="nf">set_draw_details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">,</span> <span class="n">textures</span><span class="p">,</span> <span class="n">ntiles</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">shiny</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-                       <span class="n">umult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">vmult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+                       <span class="n">umult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">vmult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">bump_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Can be used to set information needed for drawing as a one off</span>
 <span class="sd">    rather than sending as arguments to draw().</span>
 
@@ -263,6 +263,8 @@
 <span class="sd">        multiplier for tiling the texture in the u direction</span>
 <span class="sd">      *vmult*</span>
 <span class="sd">        multiplier for tiling the texture in the v direction</span>
+<span class="sd">      *bump_factor*</span>
+<span class="sd">        multiplier for the normal map surface distortion effect</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="n">textures</span> <span class="c"># array of Textures</span>
@@ -270,6 +272,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">shiny</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">umult</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">vmult</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">bump_factor</span>
 
 </div>
 <div class="viewcode-block" id="Buffer.set_material"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer.set_material">[docs]</a>  <span class="k">def</span> <span class="nf">set_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mtrl</span><span class="p">):</span>

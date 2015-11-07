@@ -144,6 +144,70 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">tilt</span><span class="p">,</span> <span class="n">rot</span>
 </div>
+<div class="viewcode-block" id="Camera.get_direction"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.get_direction">[docs]</a>  <span class="k">def</span> <span class="nf">get_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; returns the direction that the Camera is pointing as a numpy unit</span>
+<span class="sd">    vector [x,y,z] this can be used directly for positioning the view</span>
+<span class="sd">    position without resorting to trig functions. Also see relocate()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="Camera.relocate"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.relocate">[docs]</a>  <span class="k">def</span> <span class="nf">relocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tilt</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
+                <span class="n">distance</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span> <span class="n">normal</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">slope_factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">crab</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A convenience function for frequently used Camera animation steps.</span>
+<span class="sd">    The camera is reset and the rotation and tilt are applied. If a normal</span>
+<span class="sd">    is not supplied the camera is positioned using the distance and point</span>
+<span class="sd">    vectors. If there is a normal then the camera is moved to the point</span>
+<span class="sd">    and the new position relative to this is returned. This behaviour</span>
+<span class="sd">    allows the y coordinate to be subsequently adjusted (in the calling</span>
+<span class="sd">    program) using ElevationMap.calcHeight()</span>
+
+<span class="sd">    The normal vector is also used in conjunction with the slope_factor</span>
+<span class="sd">    to determine an adjustment to the distance moved each frame.</span>
+
+<span class="sd">      *rot*</span>
+<span class="sd">        absolute y rotation of the Camera</span>
+
+<span class="sd">      *tilt*</span>
+<span class="sd">        x rotation</span>
+
+<span class="sd">      *point*</span>
+<span class="sd">        3D vector to move relative to (or to if normal is None)</span>
+
+<span class="sd">      *distance*</span>
+<span class="sd">        3D vector from point to Camera</span>
+
+<span class="sd">      *normal*</span>
+<span class="sd">        3D vector normal to surface at point</span>
+
+<span class="sd">      *slope_factor*</span>
+<span class="sd">        effect of normal vector on movement</span>
+
+<span class="sd">      *crab*</span>
+<span class="sd">        if True then distance is horizontally at right angles to direction</span>
+<span class="sd">        that the Camera is pointing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">tilt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">rotateX</span><span class="p">(</span><span class="n">tilt</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">rotateY</span><span class="p">(</span><span class="n">rot</span><span class="p">)</span>
+
+    <span class="n">direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">crab</span><span class="p">:</span>
+      <span class="n">direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="c"># horizontal sideways</span>
+    <span class="k">if</span> <span class="n">normal</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="c"># move the camera to new location now</span>
+      <span class="n">new_point</span> <span class="o">=</span> <span class="n">direction</span> <span class="o">*</span> <span class="n">distance</span> <span class="o">+</span> <span class="n">point</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">new_point</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">new_point</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c"># move the camera to old position but return new position (for height adjustment)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+      <span class="c"># resultant in x,z plane</span>
+      <span class="n">netf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">direction</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]],</span> <span class="p">(</span><span class="n">normal</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span> <span class="o">*</span> <span class="n">slope_factor</span><span class="p">))</span>
+      <span class="k">if</span> <span class="n">netf</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">direction</span> <span class="o">*</span> <span class="n">distance</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">netf</span><span class="p">)</span> <span class="o">+</span> <span class="n">point</span>
+    <span class="k">return</span> <span class="n">point</span> <span class="c"># otherwise don&#39;t move!</span>
+</div>
 <div class="viewcode-block" id="Camera.position"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.position">[docs]</a>  <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;position camera</span>
 

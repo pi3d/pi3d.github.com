@@ -98,47 +98,12 @@ meeting at this vertex, otherwise just use first (for speed).</dd>
 <dt id="pi3d.Buffer.Buffer.unib">
 <tt class="descname">unib</tt><em class="property"> = None</em><a class="headerlink" href="#pi3d.Buffer.Buffer.unib" title="Permalink to this definition">¶</a></dt>
 <dd><p>pass to shader array of vec3 uniform variables:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="13%" />
-<col width="72%" />
-<col width="10%" />
-<col width="5%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">vec3</th>
-<th class="head">description</th>
-<th class="head" colspan="2">python</th>
-</tr>
-<tr class="row-even"><th class="head">index</th>
-<th class="head">&nbsp;</th>
-<th class="head">from</th>
-<th class="head">to</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-odd"><td>0</td>
-<td>ntile, shiny, blend</td>
-<td>0</td>
-<td>2</td>
-</tr>
-<tr class="row-even"><td>1</td>
-<td>material</td>
-<td>3</td>
-<td>5</td>
-</tr>
-<tr class="row-odd"><td>2</td>
-<td>umult, vmult, point_size</td>
-<td>6</td>
-<td>8</td>
-</tr>
-<tr class="row-even"><td>3</td>
-<td>u_off, v_off, line_width</td>
-<td>9</td>
-<td>10</td>
-</tr>
-</tbody>
-</table>
+<blockquote>
+<div>0  ntile, shiny, blend           0   2
+1  material                      3   5
+2  umult, vmult, point_size      6   8
+3  u_off, v_off, line_width/bump 9  10 #NB line width and bump factor</div></blockquote>
+<p>===== ============================ ==== ==  clash but shouldn&#8217;t be an issue</p>
 </dd></dl>
 
 <dl class="method">
@@ -175,7 +140,7 @@ This method will run faster if the new data is passed as numpy 2D arrays.</p>
 
 <dl class="method">
 <dt id="pi3d.Buffer.Buffer.set_draw_details">
-<tt class="descname">set_draw_details</tt><big>(</big><em>shader</em>, <em>textures</em>, <em>ntiles=0.0</em>, <em>shiny=0.0</em>, <em>umult=1.0</em>, <em>vmult=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.set_draw_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.set_draw_details" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_draw_details</tt><big>(</big><em>shader</em>, <em>textures</em>, <em>ntiles=0.0</em>, <em>shiny=0.0</em>, <em>umult=1.0</em>, <em>vmult=1.0</em>, <em>bump_factor=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer.set_draw_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer.set_draw_details" title="Permalink to this definition">¶</a></dt>
 <dd><p>Can be used to set information needed for drawing as a one off
 rather than sending as arguments to draw().</p>
 <dl class="docutils">
@@ -198,6 +163,8 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 <dd>multiplier for tiling the texture in the u direction</dd>
 <dt><em>vmult</em></dt>
 <dd>multiplier for tiling the texture in the v direction</dd>
+<dt><em>bump_factor</em></dt>
+<dd>multiplier for the normal map surface distortion effect</dd>
 </dl>
 </dd>
 </dl>
@@ -292,6 +259,47 @@ a kind of compass!</dd>
 </dl>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Camera.Camera.get_direction">
+<tt class="descname">get_direction</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.get_direction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.get_direction" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the direction that the Camera is pointing as a numpy unit
+vector [x,y,z] this can be used directly for positioning the view
+position without resorting to trig functions. Also see relocate()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Camera.Camera.relocate">
+<tt class="descname">relocate</tt><big>(</big><em>rot=None</em>, <em>tilt=None</em>, <em>point=array([ 0.</em>, <em>0.</em>, <em>0.])</em>, <em>distance=array([ 0.</em>, <em>0.</em>, <em>0.])</em>, <em>normal=None</em>, <em>slope_factor=0.5</em>, <em>crab=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.relocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.relocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convenience function for frequently used Camera animation steps.
+The camera is reset and the rotation and tilt are applied. If a normal
+is not supplied the camera is positioned using the distance and point
+vectors. If there is a normal then the camera is moved to the point
+and the new position relative to this is returned. This behaviour
+allows the y coordinate to be subsequently adjusted (in the calling
+program) using ElevationMap.calcHeight()</p>
+<p>The normal vector is also used in conjunction with the slope_factor
+to determine an adjustment to the distance moved each frame.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>rot</em></dt>
+<dd>absolute y rotation of the Camera</dd>
+<dt><em>tilt</em></dt>
+<dd>x rotation</dd>
+<dt><em>point</em></dt>
+<dd>3D vector to move relative to (or to if normal is None)</dd>
+<dt><em>distance</em></dt>
+<dd>3D vector from point to Camera</dd>
+<dt><em>normal</em></dt>
+<dd>3D vector normal to surface at point</dd>
+<dt><em>slope_factor</em></dt>
+<dd>effect of normal vector on movement</dd>
+<dt><em>crab</em></dt>
+<dd>if True then distance is horizontally at right angles to direction
+that the Camera is pointing</dd>
+</dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -650,7 +658,7 @@ terminal window or session.</p>
 <p>In this case KEYBOARD maps pygame codes to the X11 codes used above</p>
 <dl class="attribute">
 <dt id="pi3d.Keyboard.PygameKeyboard.KEYBOARD">
-<tt class="descname">KEYBOARD</tt><em class="property"> = {271: [13, u'KP_Enter'], 273: [134, u'Up'], 274: [135, u'Down'], 275: [137, u'Right'], 276: [136, u'Left'], 277: [128, u'Insert'], 278: [129, u'Home'], 279: [132, u'End'], 280: [130, u'Page_Up'], 281: [133, u'Page_Down'], 282: [145, u'F1'], 283: [146, u'F2'], 284: [147, u'F3'], 285: [148, u'F4'], 286: [149, u'F5'], 287: [150, u'F6'], 288: [151, u'F7'], 289: [152, u'F8'], 290: [153, u'F9'], 291: [154, u'F10'], 292: [155, u'F11'], 293: [156, u'F12'], 305: [0, u'Control_R'], 306: [0, u'Control_L'], 307: [0, u'Alt_R'], 308: [0, u'Alt_L'], 60: [92, u'\\'], 127: [131, u'DEL']}</em><a class="headerlink" href="#pi3d.Keyboard.PygameKeyboard.KEYBOARD" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">KEYBOARD</tt><em class="property"> = {8: [0, u'BackSpace'], 13: [0, u'Return'], 271: [13, u'KP_Enter'], 273: [134, u'Up'], 274: [135, u'Down'], 275: [137, u'Right'], 276: [136, u'Left'], 277: [128, u'Insert'], 278: [129, u'Home'], 279: [132, u'End'], 280: [130, u'Page_Up'], 281: [133, u'Page_Down'], 282: [145, u'F1'], 283: [146, u'F2'], 284: [147, u'F3'], 285: [148, u'F4'], 286: [149, u'F5'], 287: [150, u'F6'], 288: [151, u'F7'], 289: [152, u'F8'], 290: [153, u'F9'], 291: [154, u'F10'], 292: [155, u'F11'], 293: [156, u'F12'], 301: [0, u'Caps'], 303: [0, u'Shift_R'], 304: [0, u'Shift_L'], 305: [0, u'Control_R'], 306: [0, u'Control_L'], 307: [0, u'Alt_R'], 308: [0, u'Alt_L'], 60: [92, u'\\'], 127: [131, u'DEL']}</em><a class="headerlink" href="#pi3d.Keyboard.PygameKeyboard.KEYBOARD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1005,7 +1013,7 @@ defined in the obj &amp; mtl files, so you can&#8217;t use set_draw_details.</p>
 
 <dl class="method">
 <dt id="pi3d.Shape.Shape.set_normal_shine">
-<tt class="descname">set_normal_shine</tt><big>(</big><em>normtex</em>, <em>ntiles=1.0</em>, <em>shinetex=None</em>, <em>shiny=0.0</em>, <em>is_uv=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_normal_shine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_normal_shine" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_normal_shine</tt><big>(</big><em>normtex</em>, <em>ntiles=1.0</em>, <em>shinetex=None</em>, <em>shiny=0.0</em>, <em>is_uv=True</em>, <em>bump_factor=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_normal_shine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_normal_shine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used to set some of the draw details for all Buffers in Shape.
 This is useful where a Model object has been loaded from an obj file and
 the textures assigned automatically.</p>
@@ -1029,6 +1037,8 @@ the textures assigned automatically.</p>
 textures[2] i.e. if using a &#8216;uv&#8217; type Shader. However, for &#8216;mat&#8217; type
 Shaders they are moved down one, as the basic shade is defined by
 material rgb rather than from a Texture.</dd>
+<dt><em>bump_factor</em></dt>
+<dd>multiplier for the normal map surface distortion effect</dd>
 </dl>
 </dd>
 </dl>
@@ -1036,7 +1046,7 @@ material rgb rather than from a Texture.</dd>
 
 <dl class="method">
 <dt id="pi3d.Shape.Shape.set_draw_details">
-<tt class="descname">set_draw_details</tt><big>(</big><em>shader</em>, <em>textures</em>, <em>ntiles=0.0</em>, <em>shiny=0.0</em>, <em>umult=1.0</em>, <em>vmult=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_draw_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_draw_details" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_draw_details</tt><big>(</big><em>shader</em>, <em>textures</em>, <em>ntiles=0.0</em>, <em>shiny=0.0</em>, <em>umult=1.0</em>, <em>vmult=1.0</em>, <em>bump_factor=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_draw_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_draw_details" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper to call set_draw_details() for each Buffer object.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
@@ -1603,7 +1613,7 @@ new glTextureBuffers i.e. for movie textures</p>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.StereoCam"><tt class="docutils literal"><span class="pre">StereoCam</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.String"><tt class="docutils literal"><span class="pre">String</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TextBlock"><tt class="docutils literal"><span class="pre">TextBlock</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TkWin"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#tkwin-module"><tt class="docutils literal"><span class="pre">TkWin</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Utility"><tt class="docutils literal"><span class="pre">Utility</span></tt> Module</a></li>
 </ul>
 </li>

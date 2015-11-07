@@ -71,7 +71,7 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">480</span> <span class="c"># put in some non-zero place-holders</span>
     <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
       <span class="n">b</span> <span class="o">=</span> <span class="n">bcm</span><span class="o">.</span><span class="n">bcm_host_init</span><span class="p">()</span>
-      <span class="k">assert</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+      <span class="c">#assert b &gt;= 0 ## this assertion can fail with the pi camera running too</span>
 
       <span class="c"># Get the width and height of the screen</span>
       <span class="n">w</span> <span class="o">=</span> <span class="n">c_int</span><span class="p">()</span>

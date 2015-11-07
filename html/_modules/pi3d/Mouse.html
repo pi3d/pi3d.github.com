@@ -153,7 +153,9 @@
 
   <span class="k">def</span> <span class="nf">velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
-      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span>
+      <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="c"># need resetting after a read as no event will do this</span>
+      <span class="k">return</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span>
 
   <span class="k">def</span> <span class="nf">button_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;return the button status - use events system for capturing button</span>
@@ -282,7 +284,9 @@
 
   <span class="k">def</span> <span class="nf">velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_event</span><span class="p">()</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span>
+    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="c"># need resetting after a read as no event will do this</span>
+    <span class="k">return</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span>
     
   <span class="k">def</span> <span class="nf">button_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_event</span><span class="p">()</span>
