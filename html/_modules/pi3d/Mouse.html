@@ -172,10 +172,10 @@
   <span class="k">def</span> <span class="nf">_check_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffr</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
       <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffr</span><span class="p">]</span>
-      <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">]:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="c">#else:</span>
+      <span class="c">#  self._buttons = 0</span>
       <span class="n">buttons</span> <span class="o">=</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">buffr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
       <span class="k">if</span> <span class="p">(</span><span class="n">buttons</span> <span class="o">&amp;</span> <span class="n">_nixMouse</span><span class="o">.</span><span class="n">HEADER</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -272,10 +272,12 @@
         <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">)</span>
     <span class="n">but_list</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">but_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">&quot;down &quot;</span><span class="p">,</span> <span class="n">but_list</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">BUTTON_MAP</span><span class="p">[</span><span class="n">but_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">button</span><span class="p">]</span> <span class="c"># discard all but last button</span>
     <span class="k">else</span><span class="p">:</span>  
       <span class="n">but_list</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEBUTTONUP</span><span class="p">)</span>
       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">but_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;up &quot;</span><span class="p">,</span> <span class="n">but_list</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">BUTTON_UP</span>
 
   <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -291,7 +293,7 @@
   <span class="k">def</span> <span class="nf">button_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_event</span><span class="p">()</span>
     <span class="n">b_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">BUTTON_UP</span>
+    <span class="c">#self._buttons = _pygameMouse.BUTTON_UP</span>
     <span class="k">return</span> <span class="n">b_val</span>
 
   <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
