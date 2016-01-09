@@ -115,7 +115,10 @@ first pixel sampled; in which case returns True else returns False.</p>
 <dt>Keyword argument:</dt>
 <dd><dl class="first last docutils">
 <dt><em>grain</em></dt>
-<dd>Number of locations to check over the whole image</dd>
+<dd>Number of locations to check over the whole image
+NB this is no longer used - there are fixed 100 checks across the
+full width at the mid y position. This self.setp value is set in
+__init__()</dd>
 </dl>
 </dd>
 </dl>

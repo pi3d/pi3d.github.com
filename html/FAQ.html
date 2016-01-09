@@ -252,6 +252,7 @@ running <tt class="docutils literal"><span class="pre">demos/TestEvents.py</span
 <tt class="docutils literal"><span class="pre">get_mouse_movements()</span></tt> a few times. It&#8217;s not clear what causes this
 but it might be when the USB mouse is plugged in after the computer
 has been booted up.</p>
+<p>See also in the section <tt class="docutils literal"><span class="pre">Permission</span> <span class="pre">denied</span></tt> below</p>
 </div></blockquote>
 </div>
 <div class="section" id="cbreak-error">
@@ -390,6 +391,7 @@ Also you would need to install the driver and start it running first:</p>
 sudo xboxdrv -s -i 0
 </pre></div>
 </div>
+<p>See also in the section <tt class="docutils literal"><span class="pre">Permission</span> <span class="pre">denied</span></tt> below</p>
 </div></blockquote>
 </div>
 <div class="section" id="making-3d-models">
@@ -675,6 +677,21 @@ this by <tt class="docutils literal"><span class="pre">sudo</span> <span class="
 <p>Alternatively, from v2.7, there is an argument to Display.create()
 <tt class="docutils literal"><span class="pre">use_pygame=True</span></tt> which will use mouse and keyboard input from a pygame
 display - the system that is used on Windows. See also below...</p>
+<p><strong>NB</strong> A better fix for the access to  /dev/input/ on laptops etc it to
+add your user to the <tt class="docutils literal"><span class="pre">input</span></tt> group. On this ubuntu 14.04 computer I
+did:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ getent group # to see if there was an existing group &#39;input&#39; which there wasn&#39;t
+$ sudo groupadd -f input
+$ sudo gpasswd -a USERNAMEHERE input
+$ sudo nano /etc/udev/rules.d/pi3d.rules
+# new file to which just had this line
+SUBSYSTEM==&quot;input&quot;, MODE=&quot;666&quot;
+# restart computer
+</pre></div>
+</div>
+<p>This should also get the input events system working as used in Silo and
+allow joysticks and xbox controllers to be used. Thanks to Piotr Bednarski
+for sorting this out.</p>
 </div></blockquote>
 </div>
 <div class="section" id="full-screen">
@@ -729,6 +746,24 @@ texture, draw this onto a foreground sprite fading from alpha 0 to
 texture onto a spherical surface that gradually changes shape in
 the background. etc etc.</p>
 </div></blockquote>
+</div>
+<div class="section" id="is-it-possible-to-access-the-postprocess-image-as-a-numpy-array">
+<h3>Is it possible to access the PostProcess image as a numpy array<a class="headerlink" href="#is-it-possible-to-access-the-postprocess-image-as-a-numpy-array" title="Permalink to this headline">¶</a></h3>
+<p>In order to get the pixels &#8216;out of&#8217; the GPU memory into CPU space, the only way
+I have found is to do something like:</p>
+<div class="highlight-python"><div class="highlight"><pre>import numpy as np
+import ctypes
+...
+ntex = np.zeros((post.iy, post.ix, 4), dtype=np.uint8) # make an empty array of the correct size
+...
+  # inside the drawing loop. If you are offscreen rendering then you need to do this
+  #  BEFORE you switch back to the normal view with end_capture
+  pi3d.opengles.glReadPixels(0, 0, post.ix, post.iy, pi3d.GL_RGBA, pi3d.GL_UNSIGNED_BYTE,
+                                ntex.ctypes.data_as(ctypes.POINTER(ctypes.c_short)))
+</pre></div>
+</div>
+<p>But glReadPixels is relatively slow compared with rendering to and
+then drawing with a renderbuffer object so don&#8217;t expect a fantastic framerate.</p>
 </div>
 <div class="section" id="python-v-shader-unif-arrays">
 <h3>python v. shader unif arrays<a class="headerlink" href="#python-v-shader-unif-arrays" title="Permalink to this headline">¶</a></h3>
@@ -1255,6 +1290,7 @@ python-for-android from a linux machine. There are instructions here
 <li><a class="reference internal" href="#full-screen">Full Screen</a></li>
 <li><a class="reference internal" href="#post-processing">Post processing</a><ul>
 <li><a class="reference internal" href="#postprocess-class">PostProcess class</a></li>
+<li><a class="reference internal" href="#is-it-possible-to-access-the-postprocess-image-as-a-numpy-array">Is it possible to access the PostProcess image as a numpy array</a></li>
 <li><a class="reference internal" href="#python-v-shader-unif-arrays">python v. shader unif arrays</a></li>
 </ul>
 </li>

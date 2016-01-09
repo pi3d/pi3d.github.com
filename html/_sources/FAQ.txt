@@ -216,6 +216,8 @@ The demo loads but the mouse doesn't move the camera as it's supposed to.
   ``get_mouse_movements()`` a few times. It's not clear what causes this
   but it might be when the USB mouse is plugged in after the computer
   has been booted up.
+  
+  See also in the section ``Permission denied`` below
 
 cbreak error
 ~~~~~~~~~~~~
@@ -359,6 +361,8 @@ application?
 
     sudo apt-get install xboxdrv
     sudo xboxdrv -s -i 0
+
+  See also in the section ``Permission denied`` below
 
 Making 3D models
 ----------------
@@ -658,6 +662,22 @@ cause of this
   Alternatively, from v2.7, there is an argument to Display.create()
   ``use_pygame=True`` which will use mouse and keyboard input from a pygame
   display - the system that is used on Windows. See also below...
+  
+  **NB** A better fix for the access to  /dev/input/ on laptops etc it to
+  add your user to the ``input`` group. On this ubuntu 14.04 computer I
+  did::
+  
+    $ getent group # to see if there was an existing group 'input' which there wasn't
+    $ sudo groupadd -f input
+    $ sudo gpasswd -a USERNAMEHERE input
+    $ sudo nano /etc/udev/rules.d/pi3d.rules
+    # new file to which just had this line
+    SUBSYSTEM=="input", MODE="666"
+    # restart computer
+    
+  This should also get the input events system working as used in Silo and
+  allow joysticks and xbox controllers to be used. Thanks to Piotr Bednarski
+  for sorting this out.
 
 Full Screen
 -----------
@@ -716,6 +736,25 @@ how exactly does the PostProcess class work.
   1 back to 0 over 1s cycle. Use a different shader to draw the original
   texture onto a spherical surface that gradually changes shape in
   the background. etc etc. 
+
+Is it possible to access the PostProcess image as a numpy array
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In order to get the pixels 'out of' the GPU memory into CPU space, the only way
+I have found is to do something like::
+
+    import numpy as np
+    import ctypes
+    ...
+    ntex = np.zeros((post.iy, post.ix, 4), dtype=np.uint8) # make an empty array of the correct size
+    ...
+      # inside the drawing loop. If you are offscreen rendering then you need to do this
+      #  BEFORE you switch back to the normal view with end_capture
+      pi3d.opengles.glReadPixels(0, 0, post.ix, post.iy, pi3d.GL_RGBA, pi3d.GL_UNSIGNED_BYTE, 
+                                    ntex.ctypes.data_as(ctypes.POINTER(ctypes.c_short)))
+
+But glReadPixels is relatively slow compared with rendering to and
+then drawing with a renderbuffer object so don't expect a fantastic framerate.
 
 python v. shader unif arrays
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

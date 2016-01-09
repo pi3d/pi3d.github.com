@@ -48,6 +48,7 @@
             
   <h1>Source code for pi3d.util.Clashtest</h1><div class="highlight"><pre>
 <span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
 
@@ -67,9 +68,8 @@
     <span class="c"># load clashtest shader</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="s">&quot;clashtest&quot;</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">*</span> <span class="mi">3</span><span class="p">))()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">img_sz</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">s_flg</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">y0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
 
@@ -94,17 +94,21 @@
 <span class="sd">    Keyword argument:</span>
 <span class="sd">      *grain*</span>
 <span class="sd">        Number of locations to check over the whole image</span>
+<span class="sd">        NB this is no longer used - there are fixed 100 checks across the</span>
+<span class="sd">        full width at the mid y position. This self.setp value is set in</span>
+<span class="sd">        __init__()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glDisable</span><span class="p">(</span><span class="n">GL_SCISSOR_TEST</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">s_flg</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="c"># alias to make code a bit less bulky!</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glReadPixels</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
-                               <span class="n">GL_RGB</span><span class="p">,</span> <span class="n">GL_UNSIGNED_BYTE</span><span class="p">,</span>
-                               <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">))</span>
-    <span class="n">r0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_sz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">):</span>
-      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">)]</span> <span class="o">!=</span> <span class="n">r0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">True</span>
+                          <span class="n">GL_RGBA</span><span class="p">,</span> <span class="n">GL_UNSIGNED_BYTE</span><span class="p">,</span>
+                          <span class="n">img</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_short</span><span class="p">)))</span>
 
+    <span class="k">if</span>  <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">img</span><span class="p">[::</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="ow">or</span> 
+         <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">img</span><span class="p">[::</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span> <span class="ow">or</span> 
+         <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">img</span><span class="p">[::</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])):</span>
+      <span class="k">return</span> <span class="bp">True</span>
     <span class="k">return</span> <span class="bp">False</span></div></div>
 </pre></div>
 

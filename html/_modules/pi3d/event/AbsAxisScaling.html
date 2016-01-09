@@ -84,7 +84,9 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    scales the given value into the range -1..+1</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum</span><span class="p">))</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maximum</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum</span><span class="p">)</span><span class="o">*</span><span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maximum</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimum</span><span class="p">:</span>
+      <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum</span><span class="p">))</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maximum</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimum</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span>
 </pre></div></div></div>
 
           </div>

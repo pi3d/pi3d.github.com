@@ -140,6 +140,8 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
   <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; returns x, y tuple</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_x</span><span class="p">:</span>
       <span class="n">xlib</span><span class="o">.</span><span class="n">XQueryPointer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span>
                         <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">),</span>
@@ -152,6 +154,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span>
 
   <span class="k">def</span> <span class="nf">velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; returns dx, dy tuple of distance moved since last reading</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
       <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="c"># need resetting after a read as no event will do this</span>
@@ -160,11 +164,11 @@
   <span class="k">def</span> <span class="nf">button_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;return the button status - use events system for capturing button</span>
 <span class="sd">    events more scientifically.</span>
-<span class="sd">    in _check_event self.buffr returns the following binary:</span>
-<span class="sd">    L-button 00001001 00000000 00000000</span>
-<span class="sd">    R-button 00001010 00000000 00000000</span>
-<span class="sd">    M-button 00001100 00000000 00000000</span>
-<span class="sd">    buttonUp 00001000 00000000 00000000</span>
+<span class="sd">    in _check_event self.buffr returns the following values:</span>
+<span class="sd">    Mouse.LEFT_BUTTON 9</span>
+<span class="sd">    Mouse.RIGHT_BUTTON 10</span>
+<span class="sd">    Mouse.MIDDLE_BUTTON 12</span>
+<span class="sd">    Mouse.BUTTONUP 8</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span>
@@ -281,16 +285,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">BUTTON_UP</span>
 
   <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; returns x, y tuple</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_event</span><span class="p">()</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span>
 
   <span class="k">def</span> <span class="nf">velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; returns dx, dy tuple of distance moved since last reading</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_event</span><span class="p">()</span>
     <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="c"># need resetting after a read as no event will do this</span>
     <span class="k">return</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span>
     
   <span class="k">def</span> <span class="nf">button_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;return the button status - use events system for capturing button</span>
+<span class="sd">    events more scientifically.</span>
+<span class="sd">    in _check_event self.buffr returns the following values:</span>
+<span class="sd">    Mouse.LEFT_BUTTON 9</span>
+<span class="sd">    Mouse.RIGHT_BUTTON 10</span>
+<span class="sd">    Mouse.MIDDLE_BUTTON 12</span>
+<span class="sd">    Mouse.BUTTONUP 8</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_event</span><span class="p">()</span>
     <span class="n">b_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span>
     <span class="c">#self._buttons = _pygameMouse.BUTTON_UP</span>
