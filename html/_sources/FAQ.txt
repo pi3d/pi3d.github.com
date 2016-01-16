@@ -34,6 +34,20 @@ before the main display loop should appear.
 
   This is generally caused by the graphics memory allocation on the
   Raspberry Pi being too low (less than 128)
+  
+Is there a way of using memory more efficiently when using large
+images?
+
+  There are two features added to the Texture class from v2.9 The first
+  allows 'normal' CPU memory to be released after the GPU texture sampler
+  has been created: use the argument ``pi3d.Texture(free_after_load=True)``
+  
+  The second feature allows more highly compressed texture formats to be
+  used for the GPU storage. The default is GL_RGB or GL_RGBA for jpg or
+  png style textures respectively which take three or four bytes. pi3d.GL_RGBA4, 
+  pi3d.GL_RGB5_A1, pi3d.GL_RGB565 are alternatives that use only two bytes
+  and give quite acceptable colours for most things. Use for instance
+  ``pi3d.Texture(i_format=pi3d.GL_RGB565)``
 
 _tkinter.TclError
 -----------------
@@ -171,6 +185,10 @@ I see nothing but the background.
   for use) or move and rotate the object and camera. Sprite and ImageSprite
   shapes are one sided so cannot be seen from behind, try using a Plane
   instead
+
+  Prior to v2.9 of pi3d there was a bug that stopped shapes with very large
+  numbers of vertices rendering at all (c. 25000). Upgrade to a version post 2.9 to
+  see if this fixes the problem.
 
 unlit silhouettes
 ~~~~~~~~~~~~~~~~~
@@ -327,6 +345,13 @@ object and other questions to do with transparency (or apha property)
   pixels with alpha < 0.05 are discarded if blend is False then pixels with
   alpha < 0.6 are discarded. This allows objects to be drawn after nearer objects
   but still be seen through 'holes' in the image. i.e. the trees in ForestWalk
+
+I want to use pi3d on the Raspberry Pi at the same time as other applications
+that use the dispmanx display surfaces (omxplayer, wayland, kivy etc) how
+can I set the layer to be in front or behind.
+
+  There is an argument to ``Display.create(...layer=0)`` that you can
+  alter to change the order of layers.
 
 Materials
 ---------

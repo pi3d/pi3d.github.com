@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &mdash; pi3d 2.8 documentation</title>
+    <title>pi3d Package &mdash; pi3d 2.9 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.8',
+        VERSION:     '2.9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.8 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.9 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.9 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -510,7 +510,7 @@ an alpha of 1 means full opaque.</dd>
 
 <dl class="function">
 <dt id="pi3d.Display.create">
-<tt class="descclassname">pi3d.Display.</tt><tt class="descname">create</tt><big>(</big><em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>fov=45.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=u''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em>, <em>samples=0</em>, <em>use_pygame=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pi3d.Display.</tt><tt class="descname">create</tt><big>(</big><em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>fov=45.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=u''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em>, <em>samples=0</em>, <em>use_pygame=False</em>, <em>layer=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a pi3d Display.</p>
 <dl class="docutils">
 <dt><em>x</em></dt>
@@ -549,6 +549,8 @@ the tkwindow parent, if any.</dd>
 <dd>To use pygame for display surface, mouse and keyboard - as per windows
 This almost certainly would conflict if attempting to use in combination
 with tk=True. Default False</dd>
+<dt><em>layer</em></dt>
+<dd>Dispmanx layer for Raspberry PI. Default 0</dd>
 </dl>
 </dd></dl>
 
@@ -1455,7 +1457,7 @@ anti aliased which is done by Display.create(samples=4)</p>
 
 <dl class="class">
 <dt id="pi3d.Texture.Texture">
-<em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">Texture</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em>, <em>m_repeat=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">Texture</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em>, <em>m_repeat=False</em>, <em>free_after_load=False</em>, <em>i_format=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Loadable.Loadable</span></tt></a></p>
 <p>loads an image file from disk and converts it into an array that
 can be used by shaders. It inherits from Loadable in order that the
@@ -1495,6 +1497,10 @@ TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
 <dt><em>m_repeat</em></dt>
 <dd>if the texture is repeated (see umult and vmult in Shape.set_draw_details)
 then this can be used to make a non-seamless texture tile</dd>
+<dt><em>free_after_load</em></dt>
+<dd>release image memory after loading it in opengl</dd>
+<dt><em>i_format</em></dt>
+<dd>opengl internal format for the texture - see glTexImage2D</dd>
 </dl>
 <dl class="method">
 <dt id="pi3d.Texture.Texture.tex">
@@ -1689,7 +1695,7 @@ new glTextureBuffers i.e. for movie textures</p>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.9 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

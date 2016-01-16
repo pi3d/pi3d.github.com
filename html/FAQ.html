@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pi3d 2.8 documentation</title>
+    <title>Frequently Asked Questions &mdash; pi3d 2.9 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.8',
+        VERSION:     '2.9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.8 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.9 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.9 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -83,6 +83,19 @@ before the main display loop should appear.</p>
 <blockquote>
 <div>This is generally caused by the graphics memory allocation on the
 Raspberry Pi being too low (less than 128)</div></blockquote>
+<p>Is there a way of using memory more efficiently when using large
+images?</p>
+<blockquote>
+<div><p>There are two features added to the Texture class from v2.9 The first
+allows &#8216;normal&#8217; CPU memory to be released after the GPU texture sampler
+has been created: use the argument <tt class="docutils literal"><span class="pre">pi3d.Texture(free_after_load=True)</span></tt></p>
+<p>The second feature allows more highly compressed texture formats to be
+used for the GPU storage. The default is GL_RGB or GL_RGBA for jpg or
+png style textures respectively which take three or four bytes. pi3d.GL_RGBA4,
+pi3d.GL_RGB5_A1, pi3d.GL_RGB565 are alternatives that use only two bytes
+and give quite acceptable colours for most things. Use for instance
+<tt class="docutils literal"><span class="pre">pi3d.Texture(i_format=pi3d.GL_RGB565)</span></tt></p>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="tkinter-tclerror">
@@ -211,6 +224,9 @@ camera. Often this is because you are actually <strong>inside</strong> the objec
 for use) or move and rotate the object and camera. Sprite and ImageSprite
 shapes are one sided so cannot be seen from behind, try using a Plane
 instead</p>
+<p>Prior to v2.9 of pi3d there was a bug that stopped shapes with very large
+numbers of vertices rendering at all (c. 25000). Upgrade to a version post 2.9 to
+see if this fixes the problem.</p>
 </div></blockquote>
 </div>
 <div class="section" id="unlit-silhouettes">
@@ -357,6 +373,12 @@ pixels with alpha &lt; 0.05 are discarded if blend is False then pixels with
 alpha &lt; 0.6 are discarded. This allows objects to be drawn after nearer objects
 but still be seen through &#8216;holes&#8217; in the image. i.e. the trees in ForestWalk</p>
 </div></blockquote>
+<p>I want to use pi3d on the Raspberry Pi at the same time as other applications
+that use the dispmanx display surfaces (omxplayer, wayland, kivy etc) how
+can I set the layer to be in front or behind.</p>
+<blockquote>
+<div>There is an argument to <tt class="docutils literal"><span class="pre">Display.create(...layer=0)</span></tt> that you can
+alter to change the order of layers.</div></blockquote>
 </div>
 <div class="section" id="materials">
 <h2>Materials<a class="headerlink" href="#materials" title="Permalink to this headline">¶</a></h2>
@@ -1361,7 +1383,7 @@ python-for-android from a linux machine. There are instructions here
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.9 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
