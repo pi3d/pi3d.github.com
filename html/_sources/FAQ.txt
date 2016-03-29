@@ -895,94 +895,88 @@ Minimal SD card
 How can I set up an SD card without all of Raspbian's clutter that will
 boot quickly and allow me to run a dedicated pi3d application.
 
-  I decided that Arch would be tidiest for this as it will comfortably
-  fit onto 2GB SD and boots in a few seconds. These were the steps:
+  This is what I did to get a version of the PictureFrame demo running
+  on a Raspberry Pi that I wanted to just do this job without the need for
+  Wolfram, Scratch or even the X11 desktop system.
 
-  1.  download and unzip the image from
-  http://www.raspberrypi.org/downloads
+  1. The Raspberry Pi Foundation hosts a 'stripped down' version of Raspbian
+  Jessie LITE avaliable at https://www.raspberrypi.org/downloads/raspbian/
+  which can be downloaded and burned to SD following the instructions there.
 
-  2. follow the instructions from http://elinux.org/RPi_Easy_SD_Card_Setup
-  to get the image onto the SD card
+  2. Start the Raspberry Pi logging in as user pi, password raspberry 
+  then::
+  
+    $ sudo raspi-config
+    - boot options: console login as pi automatically
+    - internationalisation options: select relevant city
+    - expand file system
+    - (optional) change user password
+    - advanced: increase graphics memory to 128
+    - advanced: enable SSL
+    
+  3. Install just the software to run the
+  application::
+  
+    $ sudo apt-get update
+    $ sudo apt-get upgrade
+    $ sudo apt-get install python3
+    $ sudo apt-get install python3-numpy
+    $ sudo apt-get install python3-pillow
+    $ sudo apt-get install python3-pip
+    $ pip install pi3d
+    
+  4. Download the modified project
+  from github::
+  
+    $ wget https://github.com/paddywwoof/pi3d_pictureframe/archive/master.zip
+    $ unzip master.zip
+    $ rm master.zip
+    $ mv pi3d_pictureframe-master pi3d_pictureframe
+    $ cd pi3d_pictureframe
 
-  3. put card in Pi and boot it up.
-  log in as ``root``, password ``root`` I didn't change these or set
-  up a normal user account with sudo etc. as the card will just be
-  used for running one application not connected to the net. You may
-  want to do otherwise in which case look at this
-  http://elinux.org/ArchLinux_Install_Guide
+    
+  5. Checkout the excellent documentation by Tathros_ on which I have based
+  these instructions. The main differences are getting it to work
+  in console mode, without the need for a desktop environment::
+  
+    ### screen application needed to show output run from crontab ######
+    $ sudo apt-get install screen
 
-  4.
-  ``# pacman-key --init``
+    ### turn off screensaver ###########################################
+    $ sudo nano /etc/kbd/config
+    ... BLANK_TIME=0
+    ...
+    ... POWERDOWN_TIME=0
+    CtrlX,Y,Rtn
 
-  4a.
-  <Alt><F2> ``# ls -R / && ls -R / && ls -R /``
+    ### set up wifi (you will need dongle if RPi < 3) ##################
+    $ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+    ... ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+    ... update_config=1
+    ... 
+    ... network={
+    ...         ssid="YOUR_SSID"
+    ...         psk="YOUR_PASSWORD"
+    ... }
+    CtrlX,Y,Rtn
 
-  4b. <Alt><F1> to get back to normal terminal, this is all to do with
-  generating entropy to get a random key (apparently).
-
-  5.
-  ``# pacman -Syu`` [update packages]
-
-  6.
-  ``# pacman -S python2``
-
-  7.
-  ``# pacman -S python2-numpy``
-
-  8.
-  ``# pacman -S python2-pillow``
-
-  9.
-  ``# pacman -S python2-pip``
-
-  10.
-  ``# pacman -S git``
-
-  11. ``# pip2 install pi3d --pre`` [the --pre flag tells it to install
-  even if pre-release version i.e. 1.7a]
-
-  12.
-  ``# cd /home/``
-
-  13. ``# git clone https://github.com/paddywwoof/sailsim.git`` [this would
-  be your actual repository, alternatively you could just copy the files
-  onto the SD card from a local machine]
-
-  if you need to access the RPi.GPIO
-  system from your application then you also need to
-
-  14.
-  ``# pacman -S gcc``
-
-  15.
-  ``# pip2 install RPi.GPIO``
-
-  if you want to make it a bit easier to start up the application
-  then you could make a little script file like this::
-
-    #!/bin/bash
-    cd /home/sailsim/
-    python2 sailsim.py
-
-  called ``sailsim`` and you then put that file in the /usr/bin/ directory
-  and make it executable ``# chmod +x sailsim`` then after logging in
-  you will just be able to type ``# sailsim`` and start the app.
-
-  I did managage to get the app to start 'automatically' *before* logging
-  in by adding the file below as /etc/systemd/system/start_sailsim.service ::
-
-    [Unit]
-    Description=Run sailsim on boot
-    After=network.target
-    [Service]
-    Type=oneshot
-    ExecStart=/usr/bin/sailsim
-    [Install]
-    WantedBy=multi-user.target
-
-  Then run ``# systemctl enable start_sailsim.service`` However there
-  were unsatisfactory side effects to do with timing which meant I
-  could not use it in this way.
+    ### auto start and stop - only do after checking everything works ##
+    $ crontab -e
+    ... # turn off screen at 21:00
+    ... 00 21 * * * touch /home/pi/pi3d_pictureframe/stop; /opt/vc/bin/tvservice -o
+    ... # turn on screen 07:00
+    ... 00 07 * * * /opt/vc/bin/tvservice -p; /bin/chvt 2; /bin/chvt 1; screen -dmS PICFRAME /usr/bin/python3 /home/pi/pi3d_pictureframe/PictureFrame.py
+    ... # kill any extra python processes that might have crept in
+    ... 00 04 * * * killall python3
+    ... # switch on at start up
+    ... @reboot screen -dmS PICFRAME /usr/bin/python3 /home/pi/pi3d_pictureframe/PictureFrame.py
+    CtrlX,Y,Rtn
+    
+  In these instructions the ``... `` at the start of lines represents the
+  fact this is text inside a file and shouldn't be actually typed in! Also you
+  need to change the WiFi credentials to match your router. In the
+  picture_getter.py script you will need to put in the email server, user
+  and password for picking up images.
 
 pypy
 ----
@@ -1212,6 +1206,15 @@ all the time (with associated processor load)
   subsequently. At the moment it doesn't cope with multi-line Strings.
 
   There is an example in pi3d_demos/ForestQuickNumbers.py
+  
+Why do I get an error when I try call the quick_change()
+method in my program.
+
+  If you get ``AttributeError: 'Buffer' object has no attribute 'vbuf'``
+  then this could be because you are calling quick_change() before the
+  first draw() of the String object. Unfortunately you can't do this
+  (as at pi3d v2.10) and you will have to alter your code to ensure the
+  draw happens before the change.
 
 FixedString
 ~~~~~~~~~~~
@@ -1308,4 +1311,4 @@ a chip and operating system very similar to the Raspberry Pi?
 .. _ReadMe: http://pi3d.github.com/html/index.html
 .. _`ReadMe Linux`: http://pi3d.github.com/html/ReadMe.html#setup-on-desktop-and-laptop-machines
 .. _`ReadMe Windows`: http://pi3d.github.com/html/ReadMe.html#windows
-
+.. _Tathros: https://www.dropbox.com/sh/ydo0xkz48yi0mk2/AADyzbHhCMshFG85c5VJPX5ka/2%20-%20How%20to%20add%20great%20slide%20transitions%20-%20Tathros%20Photography.pdf?dl=0

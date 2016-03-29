@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Texture &mdash; pi3d 2.9 documentation</title>
+    <title>pi3d.Texture &mdash; pi3d 2.10 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.9',
+        VERSION:     '2.10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.9 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.10 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.9 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.10 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -69,6 +69,11 @@
 <span class="n">FILE</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">PIL_IMAGE</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">NUMPY</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">FORMAT_MODES</span> <span class="o">=</span> <span class="p">{</span><span class="n">GL_ALPHA</span><span class="p">:</span> <span class="s">&#39;L&#39;</span><span class="p">,</span>
+                <span class="n">GL_LUMINANCE</span><span class="p">:</span> <span class="s">&#39;L&#39;</span><span class="p">,</span>
+                <span class="n">GL_LUMINANCE_ALPHA</span><span class="p">:</span> <span class="s">&#39;LA&#39;</span><span class="p">,</span>
+                <span class="n">GL_RGB</span><span class="p">:</span> <span class="s">&#39;RGB&#39;</span><span class="p">,</span>
+                <span class="n">GL_RGBA</span><span class="p">:</span> <span class="s">&#39;RGBA&#39;</span><span class="p">}</span>
 
 <div class="viewcode-block" id="round_up_to_power_of_2"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.round_up_to_power_of_2">[docs]</a><span class="k">def</span> <span class="nf">round_up_to_power_of_2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span>
@@ -91,7 +96,7 @@
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_string</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                <span class="n">defer</span><span class="o">=</span><span class="n">DEFER_TEXTURE_LOADING</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">m_repeat</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-               <span class="n">free_after_load</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">i_format</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+               <span class="n">free_after_load</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">i_format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *file_string*</span>
@@ -111,9 +116,10 @@
 <span class="sd">        can load from file in other thread and defer opengl work until</span>
 <span class="sd">        texture needed, default True</span>
 <span class="sd">      *mipmap*</span>
-<span class="sd">        use linear interpolation for mipmaps, if set False then nearest</span>
-<span class="sd">        pixel values will be used. This is needed for exact pixel represent-</span>
-<span class="sd">        ation of images. **NB BECAUSE THIS BEHAVIOUR IS SET GLOBALLY AT</span>
+<span class="sd">        create and use mipmaps for this texture</span>
+<span class="sd">        (if true - linear interpolation will be used by default, else nearest interpolation).</span>
+<span class="sd">        see filter to control this behavior</span>
+<span class="sd">        **NB BECAUSE THIS BEHAVIOUR IS SET GLOBALLY AT</span>
 <span class="sd">        THE TIME THAT THE TEXTURE IS LOADED IT WILL BE SET BY THE LAST</span>
 <span class="sd">        TEXTURE TO BE LOADED PRIOR TO DRAWING**</span>
 <span class="sd">        TODO possibly reset in Buffer.draw() each time a texture is loaded?</span>
@@ -124,6 +130,10 @@
 <span class="sd">        release image memory after loading it in opengl</span>
 <span class="sd">      *i_format*</span>
 <span class="sd">        opengl internal format for the texture - see glTexImage2D</span>
+<span class="sd">      *filter*</span>
+<span class="sd">        interpolation to use for for textures: GL_NEAREST or GL_LINEAR.</span>
+<span class="sd">        if mipmap is true: NEAREST_MIPMAP_NEAREST or LINEAR_MIPMAP_NEAREST (default) will be used as minfilter </span>
+<span class="sd">        if mipmap is false: NEAREST (default) or LINEAR will be used as filter </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Texture</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
@@ -150,6 +160,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">byte_size</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">free_after_load</span> <span class="o">=</span> <span class="n">free_after_load</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">i_format</span> <span class="o">=</span> <span class="n">i_format</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="nb">filter</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="k">if</span> <span class="n">defer</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">load_disk</span><span class="p">()</span>
@@ -171,6 +182,40 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span>
 </div>
+  <span class="k">def</span> <span class="nf">_get_format_from_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">req_format</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;get GL format depending on channels in array. doesn&#39;t verify if #channels</span>
+<span class="sd">    is consistent with the GL format&quot;&quot;&quot;</span>
+    <span class="n">channels</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">else</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">req_format</span> <span class="o">==</span> <span class="n">GL_ALPHA</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">GL_ALPHA</span>
+
+    <span class="n">modes</span> <span class="o">=</span> <span class="p">[</span><span class="n">GL_LUMINANCE</span><span class="p">,</span> <span class="n">GL_LUMINANCE_ALPHA</span><span class="p">,</span> <span class="n">GL_RGB</span><span class="p">,</span> <span class="n">GL_RGBA</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">modes</span><span class="p">[</span><span class="n">channels</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">_img_to_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;convert image to numpy.array.</span>
+<span class="sd">    if i_format is specified and the image isn&#39;t in an adequate format, convert image.</span>
+<span class="sd">    if no i_format is specified, choose the most adequate OpenGL format depending</span>
+<span class="sd">    on image mode.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_format</span><span class="p">:</span>
+      <span class="c"># if format is specified, convert the image accordingly</span>
+      <span class="n">expected_mode</span> <span class="o">=</span> <span class="n">FORMAT_MODES</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">i_format</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="n">expected_mode</span><span class="p">:</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">expected_mode</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;RGBA&#39;</span><span class="p">,</span> <span class="s">&#39;RGB&#39;</span><span class="p">,</span> <span class="s">&#39;LA&#39;</span><span class="p">,</span> <span class="s">&#39;L&#39;</span><span class="p">]:</span>
+        <span class="c"># other image types are converted to rgba</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;LA&#39;</span><span class="p">:</span>
+      <span class="c"># convert LA image to array directly doesn&#39;t work</span>
+      <span class="c"># convert to rgba and strip rg channel - seems to be the fastest way</span>
+      <span class="n">rgba</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+      <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rgba</span><span class="p">)[:,:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">arr</span>
+
   <span class="k">def</span> <span class="nf">_load_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;overrides method of Loadable</span>
 <span class="sd">    Pngfont, Font, Defocus and ShadowCaster inherit from Texture but</span>
@@ -190,7 +235,6 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="n">s</span> <span class="o">=</span> <span class="s">&#39;numpy.ndarray &#39;</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="o">.</span><span class="n">shape</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="bp">True</span>
@@ -199,7 +243,6 @@
     <span class="c"># only do this if loading from disk or PIL image</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
     <span class="n">s</span> <span class="o">+=</span> <span class="s">&#39;(</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;RGBA&#39;</span> <span class="ow">or</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;LA&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span><span class="p">:</span>
       <span class="n">resize_type</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">BICUBIC</span>
@@ -226,11 +269,8 @@
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">:</span>
       <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_TOP_BOTTOM</span><span class="p">)</span>
 
-    <span class="n">RGBs</span> <span class="o">=</span> <span class="s">&#39;RGBA&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="k">else</span> <span class="s">&#39;RGB&#39;</span>
-    <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="n">RGBs</span><span class="p">:</span>
-      <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">RGBs</span><span class="p">)</span>
     <span class="c">#self.image = im.tostring(&#39;raw&#39;, RGBs) # TODO change to tobytes WHEN Pillow is default PIL in debian (jessie becomes current)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img_to_array</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">==</span> <span class="n">FILE</span> <span class="ow">and</span> <span class="s">&#39;fonts/&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">im</span>
@@ -248,33 +288,41 @@
       <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">update_ndarray</span><span class="p">()</span>
 
+  <span class="k">def</span> <span class="nf">_get_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span>
+    <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="c"># default for mipmap is linear</span>
+      <span class="n">f</span> <span class="o">=</span> <span class="n">GL_LINEAR</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span> <span class="k">else</span> <span class="n">GL_NEAREST</span>
+
+    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">GL_TEXTURE_MIN_FILTER</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span><span class="p">:</span>
+      <span class="c"># use mipmaps for min filter if requested requested</span>
+      <span class="n">f</span> <span class="o">=</span> <span class="n">GL_LINEAR_MIPMAP_NEAREST</span> <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="n">GL_LINEAR</span> <span class="k">else</span> <span class="n">GL_NEAREST_MIPMAP_NEAREST</span>
+
+    <span class="k">return</span> <span class="n">f</span>
+
 <div class="viewcode-block" id="Texture.update_ndarray"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.Texture.update_ndarray">[docs]</a>  <span class="k">def</span> <span class="nf">update_ndarray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_array</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;to allow numpy arrays to be patched in to textures without regenerating</span>
 <span class="sd">    new glTextureBuffers i.e. for movie textures&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">new_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">new_array</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glBindTexture</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)</span>
-    <span class="n">RGBv</span> <span class="o">=</span> <span class="n">GL_RGBA</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="k">else</span> <span class="n">GL_RGB</span>
-    <span class="n">iformat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_format</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_format</span> <span class="k">else</span> <span class="n">RGBv</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glTexImage2D</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iformat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">RGBv</span><span class="p">,</span>
-                          <span class="n">GL_UNSIGNED_BYTE</span><span class="p">,</span>
-                          <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_short</span><span class="p">)))</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">)</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span><span class="p">:</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glGenerateMipmap</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">)</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glTexParameteri</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">GL_TEXTURE_MIN_FILTER</span><span class="p">,</span>
-                               <span class="n">GL_LINEAR_MIPMAP_NEAREST</span><span class="p">)</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glTexParameteri</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">GL_TEXTURE_MAG_FILTER</span><span class="p">,</span>
-                               <span class="n">GL_LINEAR</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glTexParameteri</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">GL_TEXTURE_MIN_FILTER</span><span class="p">,</span>
-                               <span class="n">GL_NEAREST</span><span class="p">)</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glTexParameteri</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">GL_TEXTURE_MAG_FILTER</span><span class="p">,</span>
-                               <span class="n">GL_NEAREST</span><span class="p">)</span>
+    <span class="c"># set filters according to mipmap and filter request</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="n">GL_TEXTURE_MIN_FILTER</span><span class="p">,</span> <span class="n">GL_TEXTURE_MAG_FILTER</span><span class="p">]:</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glTexParameteri</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_filter</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+
     <span class="n">opengles</span><span class="o">.</span><span class="n">glTexParameteri</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">GL_TEXTURE_WRAP_S</span><span class="p">,</span>
                              <span class="bp">self</span><span class="o">.</span><span class="n">m_repeat</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glTexParameteri</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">GL_TEXTURE_WRAP_T</span><span class="p">,</span>
                              <span class="bp">self</span><span class="o">.</span><span class="n">m_repeat</span><span class="p">)</span>
+
+    <span class="n">iformat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_format_from_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_format</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glTexImage2D</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iformat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iformat</span><span class="p">,</span>
+                          <span class="n">GL_UNSIGNED_BYTE</span><span class="p">,</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_ubyte</span><span class="p">)))</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span><span class="p">:</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glGenerateMipmap</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_after_load</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="bp">False</span>
@@ -299,7 +347,6 @@
       <span class="s">&#39;file_string&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">,</span>
       <span class="s">&#39;ix&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span>
       <span class="s">&#39;iy&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span>
-      <span class="s">&#39;alpha&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span>
       <span class="s">&#39;image&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
       <span class="s">&#39;_tex&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">,</span>
       <span class="s">&#39;_loaded&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">,</span>
@@ -307,7 +354,8 @@
       <span class="s">&#39;disk_loaded&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">disk_loaded</span><span class="p">,</span>
       <span class="s">&#39;m_repeat&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_repeat</span><span class="p">,</span>
       <span class="s">&#39;i_format&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_format</span><span class="p">,</span>
-      <span class="s">&#39;free_after_load&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_after_load</span>
+      <span class="s">&#39;free_after_load&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_after_load</span><span class="p">,</span>
+      <span class="s">&#39;filter&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span>
       <span class="p">}</span>
 </div>
 <div class="viewcode-block" id="TextureCache"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.TextureCache">[docs]</a><span class="k">class</span> <span class="nc">TextureCache</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -358,7 +406,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.9 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.10 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

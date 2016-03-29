@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pi3d 2.9 documentation</title>
+    <title>Frequently Asked Questions &mdash; pi3d 2.10 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.9',
+        VERSION:     '2.10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.9 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.10 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.9 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.10 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -387,7 +387,7 @@ it possible to define a material color.</p>
 <blockquote>
 <div><p>The method myshape.set_material((0.9, 0.4, 0.0)) can be used (the default
 is (0.5, 0.5, 0.5)) but to render using this you need to use an appropriate
-<a href="#id1"><span class="problematic" id="id2">mat_</span></a> shader:</p>
+<a href="#id3"><span class="problematic" id="id4">mat_</span></a> shader:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[])</span> <span class="c"># shader = Shader(&#39;mat_flat&#39;) uses no lighting</span>
 <span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[])</span> <span class="c"># mat_light uses a light</span>
 <span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">bumptex</span><span class="p">],</span> <span class="mf">4.0</span><span class="p">)</span> <span class="c"># mat_bump uses light and normal map</span>
@@ -894,74 +894,85 @@ You can set different Shaders for different Buffers from v2.6</p>
 <p>How can I set up an SD card without all of Raspbian&#8217;s clutter that will
 boot quickly and allow me to run a dedicated pi3d application.</p>
 <blockquote>
-<div><p>I decided that Arch would be tidiest for this as it will comfortably
-fit onto 2GB SD and boots in a few seconds. These were the steps:</p>
-<p>1.  download and unzip the image from
-<a class="reference external" href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a></p>
-<p>2. follow the instructions from <a class="reference external" href="http://elinux.org/RPi_Easy_SD_Card_Setup">http://elinux.org/RPi_Easy_SD_Card_Setup</a>
-to get the image onto the SD card</p>
-<p>3. put card in Pi and boot it up.
-log in as <tt class="docutils literal"><span class="pre">root</span></tt>, password <tt class="docutils literal"><span class="pre">root</span></tt> I didn&#8217;t change these or set
-up a normal user account with sudo etc. as the card will just be
-used for running one application not connected to the net. You may
-want to do otherwise in which case look at this
-<a class="reference external" href="http://elinux.org/ArchLinux_Install_Guide">http://elinux.org/ArchLinux_Install_Guide</a></p>
-<p>4.
-<tt class="docutils literal"><span class="pre">#</span> <span class="pre">pacman-key</span> <span class="pre">--init</span></tt></p>
-<p>4a.
-&lt;Alt&gt;&lt;F2&gt; <tt class="docutils literal"><span class="pre">#</span> <span class="pre">ls</span> <span class="pre">-R</span> <span class="pre">/</span> <span class="pre">&amp;&amp;</span> <span class="pre">ls</span> <span class="pre">-R</span> <span class="pre">/</span> <span class="pre">&amp;&amp;</span> <span class="pre">ls</span> <span class="pre">-R</span> <span class="pre">/</span></tt></p>
-<p>4b. &lt;Alt&gt;&lt;F1&gt; to get back to normal terminal, this is all to do with
-generating entropy to get a random key (apparently).</p>
-<p>5.
-<tt class="docutils literal"><span class="pre">#</span> <span class="pre">pacman</span> <span class="pre">-Syu</span></tt> [update packages]</p>
-<p>6.
-<tt class="docutils literal"><span class="pre">#</span> <span class="pre">pacman</span> <span class="pre">-S</span> <span class="pre">python2</span></tt></p>
-<p>7.
-<tt class="docutils literal"><span class="pre">#</span> <span class="pre">pacman</span> <span class="pre">-S</span> <span class="pre">python2-numpy</span></tt></p>
-<p>8.
-<tt class="docutils literal"><span class="pre">#</span> <span class="pre">pacman</span> <span class="pre">-S</span> <span class="pre">python2-pillow</span></tt></p>
-<p>9.
-<tt class="docutils literal"><span class="pre">#</span> <span class="pre">pacman</span> <span class="pre">-S</span> <span class="pre">python2-pip</span></tt></p>
-<p>10.
-<tt class="docutils literal"><span class="pre">#</span> <span class="pre">pacman</span> <span class="pre">-S</span> <span class="pre">git</span></tt></p>
-<p>11. <tt class="docutils literal"><span class="pre">#</span> <span class="pre">pip2</span> <span class="pre">install</span> <span class="pre">pi3d</span> <span class="pre">--pre</span></tt> [the &#8211;pre flag tells it to install
-even if pre-release version i.e. 1.7a]</p>
-<p>12.
-<tt class="docutils literal"><span class="pre">#</span> <span class="pre">cd</span> <span class="pre">/home/</span></tt></p>
-<p>13. <tt class="docutils literal"><span class="pre">#</span> <span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/paddywwoof/sailsim.git</span></tt> [this would
-be your actual repository, alternatively you could just copy the files
-onto the SD card from a local machine]</p>
-<p>if you need to access the RPi.GPIO
-system from your application then you also need to</p>
-<p>14.
-<tt class="docutils literal"><span class="pre">#</span> <span class="pre">pacman</span> <span class="pre">-S</span> <span class="pre">gcc</span></tt></p>
-<p>15.
-<tt class="docutils literal"><span class="pre">#</span> <span class="pre">pip2</span> <span class="pre">install</span> <span class="pre">RPi.GPIO</span></tt></p>
-<p>if you want to make it a bit easier to start up the application
-then you could make a little script file like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>#!/bin/bash
-cd /home/sailsim/
-python2 sailsim.py
+<div><p>This is what I did to get a version of the PictureFrame demo running
+on a Raspberry Pi that I wanted to just do this job without the need for
+Wolfram, Scratch or even the X11 desktop system.</p>
+<p>1. The Raspberry Pi Foundation hosts a &#8216;stripped down&#8217; version of Raspbian
+Jessie LITE avaliable at <a class="reference external" href="https://www.raspberrypi.org/downloads/raspbian/">https://www.raspberrypi.org/downloads/raspbian/</a>
+which can be downloaded and burned to SD following the instructions there.</p>
+<p>2. Start the Raspberry Pi logging in as user pi, password raspberry
+then:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo raspi-config
+- boot options: console login as pi automatically
+- internationalisation options: select relevant city
+- expand file system
+- (optional) change user password
+- advanced: increase graphics memory to 128
+- advanced: enable SSL
 </pre></div>
 </div>
-<p>called <tt class="docutils literal"><span class="pre">sailsim</span></tt> and you then put that file in the /usr/bin/ directory
-and make it executable <tt class="docutils literal"><span class="pre">#</span> <span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">sailsim</span></tt> then after logging in
-you will just be able to type <tt class="docutils literal"><span class="pre">#</span> <span class="pre">sailsim</span></tt> and start the app.</p>
-<p>I did managage to get the app to start &#8216;automatically&#8217; <em>before</em> logging
-in by adding the file below as /etc/systemd/system/start_sailsim.service</p>
-<div class="highlight-python"><div class="highlight"><pre>[Unit]
-Description=Run sailsim on boot
-After=network.target
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/sailsim
-[Install]
-WantedBy=multi-user.target
+<p>3. Install just the software to run the
+application:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get install python3
+$ sudo apt-get install python3-numpy
+$ sudo apt-get install python3-pillow
+$ sudo apt-get install python3-pip
+$ pip install pi3d
 </pre></div>
 </div>
-<p>Then run <tt class="docutils literal"><span class="pre">#</span> <span class="pre">systemctl</span> <span class="pre">enable</span> <span class="pre">start_sailsim.service</span></tt> However there
-were unsatisfactory side effects to do with timing which meant I
-could not use it in this way.</p>
+<p>4. Download the modified project
+from github:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ wget https://github.com/paddywwoof/pi3d_pictureframe/archive/master.zip
+$ unzip master.zip
+$ rm master.zip
+$ mv pi3d_pictureframe-master pi3d_pictureframe
+$ cd pi3d_pictureframe
+</pre></div>
+</div>
+<p>5. Checkout the excellent documentation by <a class="reference external" href="https://www.dropbox.com/sh/ydo0xkz48yi0mk2/AADyzbHhCMshFG85c5VJPX5ka/2%20-%20How%20to%20add%20great%20slide%20transitions%20-%20Tathros%20Photography.pdf?dl=0">Tathros</a> on which I have based
+these instructions. The main differences are getting it to work
+in console mode, without the need for a desktop environment:</p>
+<div class="highlight-python"><div class="highlight"><pre>### screen application needed to show output run from crontab ######
+$ sudo apt-get install screen
+
+### turn off screensaver ###########################################
+$ sudo nano /etc/kbd/config
+... BLANK_TIME=0
+...
+... POWERDOWN_TIME=0
+CtrlX,Y,Rtn
+
+### set up wifi (you will need dongle if RPi &lt; 3) ##################
+$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+... ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+... update_config=1
+...
+... network={
+...         ssid=&quot;YOUR_SSID&quot;
+...         psk=&quot;YOUR_PASSWORD&quot;
+... }
+CtrlX,Y,Rtn
+
+### auto start and stop - only do after checking everything works ##
+$ crontab -e
+... # turn off screen at 21:00
+... 00 21 * * * touch /home/pi/pi3d_pictureframe/stop; /opt/vc/bin/tvservice -o
+... # turn on screen 07:00
+... 00 07 * * * /opt/vc/bin/tvservice -p; /bin/chvt 2; /bin/chvt 1; screen -dmS PICFRAME /usr/bin/python3 /home/pi/pi3d_pictureframe/PictureFrame.py
+... # kill any extra python processes that might have crept in
+... 00 04 * * * killall python3
+... # switch on at start up
+... @reboot screen -dmS PICFRAME /usr/bin/python3 /home/pi/pi3d_pictureframe/PictureFrame.py
+CtrlX,Y,Rtn
+</pre></div>
+</div>
+<p>In these instructions the <a href="#id1"><span class="problematic" id="id2">``</span></a>... `` at the start of lines represents the
+fact this is text inside a file and shouldn&#8217;t be actually typed in! Also you
+need to change the WiFi credentials to match your router. In the
+picture_getter.py script you will need to put in the email server, user
+and password for picking up images.</p>
 </div></blockquote>
 </div>
 <div class="section" id="pypy">
@@ -1160,6 +1171,14 @@ fit in any additional characters you may send to quick_change()
 subsequently. At the moment it doesn&#8217;t cope with multi-line Strings.</p>
 <p>There is an example in pi3d_demos/ForestQuickNumbers.py</p>
 </div></blockquote>
+<p>Why do I get an error when I try call the quick_change()
+method in my program.</p>
+<blockquote>
+<div>If you get <tt class="docutils literal"><span class="pre">AttributeError:</span> <span class="pre">'Buffer'</span> <span class="pre">object</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">attribute</span> <span class="pre">'vbuf'</span></tt>
+then this could be because you are calling quick_change() before the
+first draw() of the String object. Unfortunately you can&#8217;t do this
+(as at pi3d v2.10) and you will have to alter your code to ensure the
+draw happens before the change.</div></blockquote>
 </div>
 <div class="section" id="fixedstring">
 <h3>FixedString<a class="headerlink" href="#fixedstring" title="Permalink to this headline">¶</a></h3>
@@ -1383,7 +1402,7 @@ python-for-android from a linux machine. There are instructions here
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.9 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.10 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

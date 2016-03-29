@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.DisplayOpenGL &mdash; pi3d 2.9 documentation</title>
+    <title>pi3d.util.DisplayOpenGL &mdash; pi3d 2.10 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.9',
+        VERSION:     '2.10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.9 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.10 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.9 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.10 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -105,7 +105,8 @@
                              <span class="n">EGL_DEPTH_SIZE</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span>
                              <span class="n">EGL_ALPHA_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
                              <span class="n">EGL_BUFFER_SIZE</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span>
-                             <span class="n">EGL_SAMPLES</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> 
+                             <span class="n">EGL_SAMPLES</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span>
+                             <span class="n">EGL_STENCIL_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
                              <span class="n">EGL_SURFACE_TYPE</span><span class="p">,</span> <span class="n">EGL_WINDOW_BIT</span><span class="p">,</span>
                              <span class="n">EGL_NONE</span><span class="p">))</span>
     <span class="n">numconfig</span> <span class="o">=</span> <span class="n">c_int</span><span class="p">()</span>
@@ -133,7 +134,8 @@
     <span class="n">opengles</span><span class="o">.</span><span class="n">glDepthMask</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glCullFace</span><span class="p">(</span><span class="n">GL_FRONT</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glHint</span><span class="p">(</span><span class="n">GL_GENERATE_MIPMAP_HINT</span><span class="p">,</span> <span class="n">GL_NICEST</span><span class="p">)</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glBlendFunc</span><span class="p">(</span><span class="n">GL_SRC_ALPHA</span><span class="p">,</span> <span class="n">GL_ONE_MINUS_SRC_ALPHA</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glBlendFuncSeparate</span><span class="p">(</span><span class="n">GL_SRC_ALPHA</span><span class="p">,</span> <span class="n">GL_ONE_MINUS_SRC_ALPHA</span><span class="p">,</span> 
+                                            <span class="mi">1</span><span class="p">,</span> <span class="n">GL_ONE_MINUS_SRC_ALPHA</span><span class="p">)</span>
 
     <span class="c"># Switches off alpha blending problem with desktop - is there a bug in the</span>
     <span class="c"># driver?</span>
@@ -325,7 +327,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.9 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.10 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

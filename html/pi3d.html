@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &mdash; pi3d 2.9 documentation</title>
+    <title>pi3d Package &mdash; pi3d 2.10 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.9',
+        VERSION:     '2.10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.9 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.10 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.9 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.10 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -948,7 +948,7 @@ time consuming.</p>
 <td>41</td>
 </tr>
 <tr class="row-odd"><td>14</td>
-<td>defocus dist, amount (only 2 used)</td>
+<td>defocus dist_from, dist_to, amount</td>
 <td>42</td>
 <td>43 # also 2D x, y</td>
 </tr>
@@ -1457,7 +1457,7 @@ anti aliased which is done by Display.create(samples=4)</p>
 
 <dl class="class">
 <dt id="pi3d.Texture.Texture">
-<em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">Texture</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em>, <em>m_repeat=False</em>, <em>free_after_load=False</em>, <em>i_format=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Texture.</tt><tt class="descname">Texture</tt><big>(</big><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em>, <em>m_repeat=False</em>, <em>free_after_load=False</em>, <em>i_format=None</em>, <em>filter=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.Loadable.Loadable</span></tt></a></p>
 <p>loads an image file from disk and converts it into an array that
 can be used by shaders. It inherits from Loadable in order that the
@@ -1488,9 +1488,10 @@ drawn AFTER other objects that are FURTHER AWAY</dd>
 <dd>can load from file in other thread and defer opengl work until
 texture needed, default True</dd>
 <dt><em>mipmap</em></dt>
-<dd>use linear interpolation for mipmaps, if set False then nearest
-pixel values will be used. This is needed for exact pixel represent-
-ation of images. <strong>NB BECAUSE THIS BEHAVIOUR IS SET GLOBALLY AT
+<dd>create and use mipmaps for this texture
+(if true - linear interpolation will be used by default, else nearest interpolation).
+see filter to control this behavior
+<strong>NB BECAUSE THIS BEHAVIOUR IS SET GLOBALLY AT
 THE TIME THAT THE TEXTURE IS LOADED IT WILL BE SET BY THE LAST
 TEXTURE TO BE LOADED PRIOR TO DRAWING</strong>
 TODO possibly reset in Buffer.draw() each time a texture is loaded?</dd>
@@ -1501,6 +1502,10 @@ then this can be used to make a non-seamless texture tile</dd>
 <dd>release image memory after loading it in opengl</dd>
 <dt><em>i_format</em></dt>
 <dd>opengl internal format for the texture - see glTexImage2D</dd>
+<dt><em>filter</em></dt>
+<dd>interpolation to use for for textures: GL_NEAREST or GL_LINEAR.
+if mipmap is true: NEAREST_MIPMAP_NEAREST or LINEAR_MIPMAP_NEAREST (default) will be used as minfilter 
+if mipmap is false: NEAREST (default) or LINEAR will be used as filter</dd>
 </dl>
 <dl class="method">
 <dt id="pi3d.Texture.Texture.tex">
@@ -1695,7 +1700,7 @@ new glTextureBuffers i.e. for movie textures</p>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.9 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.10 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

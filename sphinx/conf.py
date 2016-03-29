@@ -35,11 +35,17 @@ autodoc_member_order = 'bysource'
 # bysource seemed better than alphabetic assuming we put the files in the right
 # order in the first place.
 
+with open('/home/patrick/pi3d/pi3d/constants/__init__.py', 'r') as f:
+  for l in f:
+    if l.find('__version__') == 0:
+      version = (l.split('=')[1]).strip().strip("\'\"")
+      break
+
 # The short X.Y version.
-version = '2.9'
+version = version
 
 # The full version, including alpha/beta/rc tags.
-release = '2.9'
+release = version
 
 # General information about the project.
 project = 'pi3d'
