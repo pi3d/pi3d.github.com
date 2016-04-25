@@ -49,7 +49,7 @@ release = version
 
 # General information about the project.
 project = 'pi3d'
-copyright = '2015, The pi3d team'
+copyright = '2012-2016, The pi3d team'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

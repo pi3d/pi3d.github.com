@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Display &mdash; pi3d 2.10 documentation</title>
+    <title>pi3d.Display &mdash; pi3d 2.11 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.10',
+        VERSION:     '2.11',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.10 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.11 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.10 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.11 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -60,6 +60,7 @@
 <span class="kn">import</span> <span class="nn">pi3d</span>
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Log</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.DisplayOpenGL</span> <span class="kn">import</span> <span class="n">DisplayOpenGL</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
   <span class="kn">import</span> <span class="nn">pygame</span>
@@ -381,7 +382,6 @@
     <span class="n">to_del</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">:</span>
       <span class="n">tex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-      <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;tex0=</span><span class="si">%s</span><span class="s"> tex1=</span><span class="si">%s</span><span class="s">&#39;</span><span class="p">,</span><span class="n">tex</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tex</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
       <span class="k">if</span> <span class="n">tex</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteTextures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">byref</span><span class="p">(</span><span class="n">tex</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="n">to_del</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
@@ -450,7 +450,8 @@
 <div class="viewcode-block" id="create"><a class="viewcode-back" href="../../pi3d.html#pi3d.Display.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">near</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">far</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
            <span class="n">fov</span><span class="o">=</span><span class="n">DEFAULT_FOV</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">DEFAULT_DEPTH</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
            <span class="n">tk</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">window_title</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">window_parent</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mouse</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-           <span class="n">frames_per_second</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="n">DEFAULT_SAMPLES</span><span class="p">,</span> <span class="n">use_pygame</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+           <span class="n">frames_per_second</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="n">DEFAULT_SAMPLES</span><span class="p">,</span> <span class="n">use_pygame</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+           <span class="n">display_config</span><span class="o">=</span><span class="n">DISPLAY_CONFIG_DEFAULT</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Creates a pi3d Display.</span>
 
@@ -490,8 +491,8 @@
 <span class="sd">    To use pygame for display surface, mouse and keyboard - as per windows</span>
 <span class="sd">    This almost certainly would conflict if attempting to use in combination</span>
 <span class="sd">    with tk=True. Default False</span>
-<span class="sd">  *layer*</span>
-<span class="sd">    Dispmanx layer for Raspberry PI. Default 0</span>
+<span class="sd">  *display_config*</span>
+<span class="sd">    Configuration of display - See pi3d.constants for DISPLAY_CONFIG options</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">if</span> <span class="n">tk</span><span class="p">:</span> <span class="c">#NB this happens before Display created so use_pygame will not work on linux</span>
     <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
@@ -587,7 +588,7 @@
   <span class="n">display</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span>
   <span class="n">display</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span>
 
-  <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">create_display</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="n">samples</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer</span><span class="p">)</span>
+  <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">create_display</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="n">samples</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer</span><span class="p">,</span> <span class="n">display_config</span><span class="o">=</span><span class="n">display_config</span><span class="p">)</span>
   <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
     <span class="n">display</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">max_width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">width</span> <span class="c">#not available until after create_display</span>
     <span class="n">display</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">max_height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">height</span>
@@ -640,12 +641,12 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.10 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.11 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, The pi3d team.
+        &copy; Copyright 2012-2016, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
