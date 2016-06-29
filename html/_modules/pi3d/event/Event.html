@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.event.Event &mdash; pi3d 2.11 documentation</title>
+    <title>pi3d.event.Event &mdash; pi3d 2.12 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.11',
+        VERSION:     '2.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.11 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.12 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.11 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -47,7 +47,7 @@
           <div class="body">
             
   <h1>Source code for pi3d.event.Event</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">import</span> <span class="nn">six_mod</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="kn">import</span> <span class="n">EventHandler</span>
 <span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="kn">import</span> <span class="n">Keys</span>
@@ -62,7 +62,7 @@
   <span class="n">CODE_KEY</span><span class="p">[</span><span class="n">KEY_CODE</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span> <span class="o">=</span> <span class="n">v</span>
 
 <div class="viewcode-block" id="key_to_code"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.key_to_code">[docs]</a><span class="k">def</span> <span class="nf">key_to_code</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-  <span class="k">return</span> <span class="n">KEY_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span>
+  <span class="k">return</span> <span class="n">KEY_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">six_mod</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span>
 </div>
 <div class="viewcode-block" id="code_to_key"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.code_to_key">[docs]</a><span class="k">def</span> <span class="nf">code_to_key</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">CODE_KEY</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
@@ -325,7 +325,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.11 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

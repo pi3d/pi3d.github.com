@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>shape Package &mdash; pi3d 2.11 documentation</title>
+    <title>shape Package &mdash; pi3d 2.12 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.11',
+        VERSION:     '2.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.11 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.12 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="next" title="sprite Package" href="pi3d.sprite.html" />
     <link rel="prev" title="loader Package" href="pi3d.loader.html" /> 
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.11 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.12 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" accesskey="U">pi3d Package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -561,7 +561,7 @@ straight up, slightly faster if false.</dd>
 
 <dl class="method">
 <dt id="pi3d.shape.ElevationMap.ElevationMap.calcHeight">
-<tt class="descname">calcHeight</tt><big>(</big><em>px</em>, <em>pz</em>, <em>inc_normal=False</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#ElevationMap.calcHeight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.ElevationMap.calcHeight" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">calcHeight</tt><big>(</big><em>px</em>, <em>pz</em>, <em>inc_normal=False</em>, <em>regular_map=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#ElevationMap.calcHeight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.ElevationMap.calcHeight" title="Permalink to this definition">¶</a></dt>
 <dd><p>accurately return the height of the map at the point specified</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
@@ -570,6 +570,11 @@ straight up, slightly faster if false.</dd>
 <dd>Location of the point in world coordinates to calculate height.</dd>
 <dt><em>inc_normal</em></dt>
 <dd>optionall return a tuple with height and normal vector (h, (nx,ny,nz))</dd>
+<dt><em>regular_map</em></dt>
+<dd>setting this to False allows the method to be used with maps constructed
+with irregular vertex locations - i.e. increased vertex density
+around areas of detail. TODO implement functionality to generate
+this type of map.</dd>
 </dl>
 </dd>
 </dl>
@@ -577,9 +582,10 @@ straight up, slightly faster if false.</dd>
 
 <dl class="method">
 <dt id="pi3d.shape.ElevationMap.ElevationMap.clashTest">
-<tt class="descname">clashTest</tt><big>(</big><em>px</em>, <em>py</em>, <em>pz</em>, <em>rad</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#ElevationMap.clashTest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.ElevationMap.clashTest" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clashTest</tt><big>(</big><em>px</em>, <em>py</em>, <em>pz</em>, <em>rad</em>, <em>span=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#ElevationMap.clashTest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.ElevationMap.clashTest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Works out if an object at a given location and radius will overlap
-with the map surface. Returns four values:</p>
+with the map surface. NB it is possible for tunnel through the mesh.
+Returns four values:</p>
 <ul class="simple">
 <li>boolean whether there is a clash</li>
 <li>x, y, z components of the normal vector</li>
@@ -592,6 +598,9 @@ with the map surface. Returns four values:</p>
 <dd>Location of object to test in world coordinates.</dd>
 <dt><em>rad</em></dt>
 <dd>Radius of object to test.</dd>
+<dt><em>span</em></dt>
+<dd>size of the square around the point to select faces from - defaults
+to 2 x rad</dd>
 </dl>
 </dd>
 </dl>
@@ -1219,7 +1228,7 @@ peak at 0.5, 0.86603 Keyword argument:</p>
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.11 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.12 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" >pi3d Package</a> &raquo;</li> 
       </ul>
     </div>

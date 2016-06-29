@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Texture &mdash; pi3d 2.11 documentation</title>
+    <title>pi3d.Texture &mdash; pi3d 2.12 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.11',
+        VERSION:     '2.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.11 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.12 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.11 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -54,7 +54,7 @@
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
+<span class="kn">from</span> <span class="nn">six_mod.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
 
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 
@@ -81,6 +81,24 @@
     <span class="n">p</span> <span class="o">+=</span> <span class="n">p</span>
   <span class="k">return</span> <span class="n">p</span>
 </div>
+<span class="k">def</span> <span class="nf">_normal_map</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39; takes a numpy array and returns a normal map (as np array using</span>
+<span class="sd">  lightness as height map. Argument factor can scale the effect</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">gray</span> <span class="o">=</span> <span class="p">(</span><span class="n">image</span><span class="p">[:,:,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="p">[</span><span class="mf">0.2989</span><span class="p">,</span> <span class="mf">0.5870</span><span class="p">,</span> <span class="mf">0.1140</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c"># grayscale</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">gray</span> <span class="o">=</span> <span class="n">image</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">grdnt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">gray</span><span class="p">)</span> <span class="c"># a tuple of two arrays x and y gradients</span>
+  <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">128.0</span> <span class="o">-</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">factor</span> <span class="c"># range -256 to +256 converted to</span>
+  <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">128.0</span> <span class="o">+</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">factor</span> <span class="c"># 0-255. x swapped r to l</span>
+  <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">65025</span> <span class="o">-</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c"># ensure +ve for sqrt</span>
+  <span class="n">n_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c"># RGB same size</span>
+  <span class="n">n_map</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c"># R</span>
+  <span class="n">n_map</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c"># G</span>
+  <span class="n">n_map</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c"># B</span>
+  <span class="k">return</span> <span class="n">n_map</span>
+
 <div class="viewcode-block" id="Texture"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.Texture">[docs]</a><span class="k">class</span> <span class="nc">Texture</span><span class="p">(</span><span class="n">Loadable</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;loads an image file from disk and converts it into an array that</span>
 <span class="sd">  can be used by shaders. It inherits from Loadable in order that the</span>
@@ -96,7 +114,8 @@
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_string</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                <span class="n">defer</span><span class="o">=</span><span class="n">DEFER_TEXTURE_LOADING</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">m_repeat</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-               <span class="n">free_after_load</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">i_format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+               <span class="n">free_after_load</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">i_format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+               <span class="n">normal_map</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *file_string*</span>
@@ -133,7 +152,11 @@
 <span class="sd">      *filter*</span>
 <span class="sd">        interpolation to use for for textures: GL_NEAREST or GL_LINEAR.</span>
 <span class="sd">        if mipmap is true: NEAREST_MIPMAP_NEAREST or LINEAR_MIPMAP_NEAREST (default) will be used as minfilter </span>
-<span class="sd">        if mipmap is false: NEAREST (default) or LINEAR will be used as filter </span>
+<span class="sd">        if mipmap is false: NEAREST (default) or LINEAR will be used as filter</span>
+<span class="sd">      *normal_map*</span>
+<span class="sd">        if a value &gt; 0.0 then the image file will be converted into a normal</span>
+<span class="sd">        map where Luminance value is proportional to height. The value of</span>
+<span class="sd">        nomral_map is used the scale the effect (see _normal_map())</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Texture</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
@@ -161,6 +184,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">free_after_load</span> <span class="o">=</span> <span class="n">free_after_load</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">i_format</span> <span class="o">=</span> <span class="n">i_format</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="nb">filter</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">normal_map</span> <span class="o">=</span> <span class="n">normal_map</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="k">if</span> <span class="n">defer</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">load_disk</span><span class="p">()</span>
@@ -213,6 +237,9 @@
       <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rgba</span><span class="p">)[:,:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_map</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+      <span class="n">arr</span> <span class="o">=</span> <span class="n">_normal_map</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_map</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">arr</span>
 
@@ -406,7 +433,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.11 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

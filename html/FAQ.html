@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pi3d 2.11 documentation</title>
+    <title>Frequently Asked Questions &mdash; pi3d 2.12 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.11',
+        VERSION:     '2.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.11 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.12 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.11 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.12 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -378,7 +378,9 @@ that use the dispmanx display surfaces (omxplayer, wayland, kivy etc) how
 can I set the layer to be in front or behind.</p>
 <blockquote>
 <div>There is an argument to <tt class="docutils literal"><span class="pre">Display.create(...layer=0)</span></tt> that you can
-alter to change the order of layers.</div></blockquote>
+alter to change the order of layers. To draw <tt class="docutils literal"><span class="pre">behind</span></tt> the X11 desktop
+on the Raspberry Pi Raspbian setup you need to set the layer to -128 see
+the demo PyQtCube.py</div></blockquote>
 </div>
 <div class="section" id="materials">
 <h2>Materials<a class="headerlink" href="#materials" title="Permalink to this headline">¶</a></h2>
@@ -1402,7 +1404,7 @@ python-for-android from a linux machine. There are instructions here
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.11 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.12 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

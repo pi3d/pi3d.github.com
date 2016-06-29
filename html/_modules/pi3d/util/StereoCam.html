@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.StereoCam &mdash; pi3d 2.11 documentation</title>
+    <title>pi3d.util.StereoCam &mdash; pi3d 2.12 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.11',
+        VERSION:     '2.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.11 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.12 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.11 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -55,6 +55,7 @@
 <span class="kn">from</span> <span class="nn">pi3d.shape.Sprite</span> <span class="kn">import</span> <span class="n">Sprite</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.OffScreenTexture</span> <span class="kn">import</span> <span class="n">OffScreenTexture</span>
 <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
+<span class="kn">from</span> <span class="nn">pi3d</span> <span class="kn">import</span> <span class="n">opengles</span>
 
 <div class="viewcode-block" id="StereoCam"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.StereoCam.StereoCam">[docs]</a><span class="k">class</span> <span class="nc">StereoCam</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;For creating an apparatus with two sprites to hold left and right</span>
@@ -132,6 +133,7 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">blend</span> <span class="o">=</span> <span class="bp">True</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mipmap</span> <span class="o">=</span> <span class="n">mipmap</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glColorMask</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <div class="viewcode-block" id="StereoCam.move_camera"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.StereoCam.StereoCam.move_camera">[docs]</a>  <span class="k">def</span> <span class="nf">move_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">tilt</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
@@ -207,7 +209,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.11 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

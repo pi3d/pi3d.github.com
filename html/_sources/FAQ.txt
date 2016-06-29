@@ -351,7 +351,9 @@ that use the dispmanx display surfaces (omxplayer, wayland, kivy etc) how
 can I set the layer to be in front or behind.
 
   There is an argument to ``Display.create(...layer=0)`` that you can
-  alter to change the order of layers.
+  alter to change the order of layers. To draw ``behind`` the X11 desktop
+  on the Raspberry Pi Raspbian setup you need to set the layer to -128 see
+  the demo PyQtCube.py
 
 Materials
 ---------

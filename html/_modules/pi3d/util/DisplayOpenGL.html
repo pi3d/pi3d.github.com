@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.DisplayOpenGL &mdash; pi3d 2.11 documentation</title>
+    <title>pi3d.util.DisplayOpenGL &mdash; pi3d 2.12 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.11',
+        VERSION:     '2.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.11 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.12 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.11 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -52,7 +52,7 @@
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_float</span>
-<span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
+<span class="kn">from</span> <span class="nn">six_mod.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
 
 <span class="kn">import</span> <span class="nn">pi3d</span>
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
@@ -99,29 +99,31 @@
     
     <span class="bp">self</span><span class="o">.</span><span class="n">display_config</span> <span class="o">=</span> <span class="n">display_config</span>
 
-    <span class="n">r</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglInitialize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="c">#assert r == EGL_FALSE</span>
+    <span class="k">for</span> <span class="n">smpl</span> <span class="ow">in</span> <span class="p">[</span><span class="n">samples</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span> <span class="c"># try with samples first but ANGLE dll can&#39;t cope so drop to 0 for windows</span>
+      <span class="n">r</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglInitialize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-    <span class="n">attribute_list</span> <span class="o">=</span> <span class="n">c_ints</span><span class="p">((</span><span class="n">EGL_RED_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
-                             <span class="n">EGL_GREEN_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
-                             <span class="n">EGL_BLUE_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
-                             <span class="n">EGL_DEPTH_SIZE</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span>
-                             <span class="n">EGL_ALPHA_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
-                             <span class="n">EGL_BUFFER_SIZE</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span>
-                             <span class="n">EGL_SAMPLES</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span>
-                             <span class="n">EGL_STENCIL_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
-                             <span class="n">EGL_SURFACE_TYPE</span><span class="p">,</span> <span class="n">EGL_WINDOW_BIT</span><span class="p">,</span>
-                             <span class="n">EGL_NONE</span><span class="p">))</span>
-    <span class="n">numconfig</span> <span class="o">=</span> <span class="n">c_int</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">()</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglChooseConfig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span>
-                                <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">attribute_list</span><span class="p">),</span>
-                                <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span>
-                                <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">numconfig</span><span class="p">))</span>
+      <span class="n">attribute_list</span> <span class="o">=</span> <span class="n">c_ints</span><span class="p">((</span><span class="n">EGL_RED_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
+                               <span class="n">EGL_GREEN_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
+                               <span class="n">EGL_BLUE_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
+                               <span class="n">EGL_DEPTH_SIZE</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span>
+                               <span class="n">EGL_ALPHA_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
+                               <span class="n">EGL_BUFFER_SIZE</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span>
+                               <span class="n">EGL_SAMPLES</span><span class="p">,</span> <span class="n">smpl</span><span class="p">,</span>
+                               <span class="n">EGL_STENCIL_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
+                               <span class="n">EGL_SURFACE_TYPE</span><span class="p">,</span> <span class="n">EGL_WINDOW_BIT</span><span class="p">,</span>
+                               <span class="n">EGL_NONE</span><span class="p">))</span>
+      <span class="n">numconfig</span> <span class="o">=</span> <span class="n">c_int</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">()</span>
+      <span class="n">r</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglChooseConfig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span>
+                                  <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">attribute_list</span><span class="p">),</span>
+                                  <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span>
+                                  <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">numconfig</span><span class="p">))</span>
 
-    <span class="n">context_attribs</span> <span class="o">=</span> <span class="n">c_ints</span><span class="p">((</span><span class="n">EGL_CONTEXT_CLIENT_VERSION</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">EGL_NONE</span><span class="p">))</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglCreateContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
-                                            <span class="n">EGL_NO_CONTEXT</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">context_attribs</span><span class="p">)</span> <span class="p">)</span>
+      <span class="n">context_attribs</span> <span class="o">=</span> <span class="n">c_ints</span><span class="p">((</span><span class="n">EGL_CONTEXT_CLIENT_VERSION</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">EGL_NONE</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglCreateContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
+                                              <span class="n">EGL_NO_CONTEXT</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">context_attribs</span><span class="p">)</span> <span class="p">)</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">!=</span> <span class="n">EGL_NO_CONTEXT</span><span class="p">:</span>
+        <span class="k">break</span>
     <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">!=</span> <span class="n">EGL_NO_CONTEXT</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">create_surface</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
@@ -340,7 +342,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.11 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
