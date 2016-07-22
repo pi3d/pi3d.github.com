@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.StereoCam &mdash; pi3d 2.12 documentation</title>
+    <title>pi3d.util.StereoCam &mdash; pi3d 2.13 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.12',
+        VERSION:     '2.13',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.12 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -47,7 +47,12 @@
           <div class="body">
             
   <h1>Source code for pi3d.util.StereoCam</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
 <span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="kn">import</span> <span class="n">Shader</span>
@@ -111,6 +116,8 @@
 <span class="s">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">interlace</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">))</span>
       <span class="c">#self.shader = Shader(&quot;2d_flat&quot;)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">forMtrx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float32&#39;</span><span class="p">)</span> <span class="c"># initially not rotated</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">camera_2d</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">offs</span> <span class="o">=</span> <span class="n">separation</span> <span class="o">/</span> <span class="mf">2.0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">interlace</span> <span class="o">=</span> <span class="n">interlace</span>
@@ -135,11 +142,25 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glColorMask</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<div class="viewcode-block" id="StereoCam.move_camera"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.StereoCam.StereoCam.move_camera">[docs]</a>  <span class="k">def</span> <span class="nf">move_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">tilt</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<div class="viewcode-block" id="StereoCam.move_camera"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.StereoCam.StereoCam.move_camera">[docs]</a>  <span class="k">def</span> <span class="nf">move_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">tilt</span><span class="p">,</span> <span class="n">roll</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Arguments:</span>
+<span class="sd">    </span>
+<span class="sd">      *position*</span>
+<span class="sd">        array [x,y,z]</span>
+
+<span class="sd">      *rot, tilt, roll*</span>
+<span class="sd">        rotations about y, x, z axis (yes it&#39;s not entirely logical for position</span>
+<span class="sd">        to be an array and orientation three values but it&#39;s too late to change!)</span>
+
+<span class="sd">      *absolute*</span>
+<span class="sd">        if set to False then the rotations are treated as relative to the</span>
+<span class="sd">        rotated frame of reference i.e. as if signals from VR headset 3</span>
+<span class="sd">        axis gyro.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">roll</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">absolute</span> <span class="o">=</span> <span class="n">absolute</span>
+    </div>
 <div class="viewcode-block" id="StereoCam.start_capture"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.StereoCam.StereoCam.start_capture">[docs]</a>  <span class="k">def</span> <span class="nf">start_capture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">side</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; after calling this method all object.draw()s will rendered</span>
 <span class="sd">    to this texture and not appear on the display.</span>
@@ -147,9 +168,11 @@
 <span class="sd">      *side*</span>
 <span class="sd">        Either 0 or 1 to determine stereoscopic view</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
     <span class="n">offs</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">offs</span> <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">offs</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">position</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">mtrx</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">offs</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
-                            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">mtrx</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">offs</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">offset</span><span class="p">([</span><span class="n">offs</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+    <span class="c">#self.camera_3d.mtrx = np.dot(self.forMtrx, self.camera_3d.mtrx)</span>
+    <span class="c">#self.camera_3d.position(self.position)</span>
     <span class="n">tex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="n">side</span><span class="p">]</span>
     <span class="n">tex</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interlace</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -176,6 +199,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_2d</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_list</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_2d</span><span class="p">)</span>
+      </div>
+<div class="viewcode-block" id="StereoCam.get_direction"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.StereoCam.StereoCam.get_direction">[docs]</a>  <span class="k">def</span> <span class="nf">get_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span><span class="o">.</span><span class="n">get_direction</span><span class="p">()</span>
 </pre></div></div></div>
 
           </div>
@@ -209,7 +235,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

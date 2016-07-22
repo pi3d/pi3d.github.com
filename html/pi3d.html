@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &mdash; pi3d 2.12 documentation</title>
+    <title>pi3d Package &mdash; pi3d 2.13 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.12',
+        VERSION:     '2.13',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.12 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.13 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.12 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.13 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -216,7 +216,7 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 <span id="camera-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Camera</span></tt> Module<a class="headerlink" href="#module-pi3d.Camera" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Camera.Camera">
-<em class="property">class </em><tt class="descclassname">pi3d.Camera.</tt><tt class="descname">Camera</tt><big>(</big><em>at=(0</em>, <em>0</em>, <em>0)</em>, <em>eye=(0</em>, <em>0</em>, <em>-0.1)</em>, <em>lens=None</em>, <em>is_3d=True</em>, <em>scale=1.0</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.Camera.</tt><tt class="descname">Camera</tt><big>(</big><em>at=(0</em>, <em>0</em>, <em>0)</em>, <em>eye=(0</em>, <em>0</em>, <em>-0.1)</em>, <em>lens=None</em>, <em>is_3d=True</em>, <em>scale=1.0</em>, <em>absolute=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></tt></p>
 <p>required object for creating and drawing Shape objects. Default instance
 created if none specified in script prior to creating a Shape</p>
@@ -237,6 +237,10 @@ projection matrix</dd>
 <dt><em>scale</em></dt>
 <dd>number of pixels per unit of size for orthographic camera or divisor
 for fov if perspective</dd>
+<dt><em>absolute</em></dt>
+<dd>when True (default) then all rotations are relative to the absolute
+frame of reference. When False then rotations are relative to the
+rotated position</dd>
 </dl>
 </dd>
 </dl>
@@ -374,6 +378,54 @@ that the Camera is pointing</dd>
 </dl>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Camera.Camera.offset">
+<tt class="descname">offset</tt><big>(</big><em>pt</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>position camera</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>pt</em></dt>
+<dd>tuple (x, y, z) floats</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Camera.Camera.make_mtrx">
+<tt class="descname">make_mtrx</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.make_mtrx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.make_mtrx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Camera.Camera.euler_angles">
+<tt class="descname">euler_angles</tt><big>(</big><em>matrix=None</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.euler_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.euler_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Or more correctly Tait-Bryan angles. Argument</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>matrix</em></dt>
+<dd>can supply a rotation matrix to use (as generated by the following
+method.) Defaults to using the Camera.r_mtrx</dd>
+</dl>
+</div></blockquote>
+<p>in pi3d arrangement (C type and Z into screen):</p>
+<div class="highlight-python"><div class="highlight"><pre>cz.cx-sz.sx.sy  cy.sz+cz.sx.sy  -cx.sy
+-cx.sz          cz.cx            sx
+cz.sy+cy.sz.sx  sz.sy-cz.cy.sx   cx.cy``
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Camera.Camera.matrix_from_two_vecors">
+<tt class="descname">matrix_from_two_vecors</tt><big>(</big><em>start_vector</em>, <em>vector</em><big>)</big><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.matrix_from_two_vecors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.matrix_from_two_vecors" title="Permalink to this definition">¶</a></dt>
+<dd><p>uses two 3D vectors (arrays) to generate a rotation vector representing
+the movement from one direction to another. NB because there are many
+ways of doing this the z rotation may not match so this this method might
+be best combined with the euler_angles system above. See the 
+pi3d_demos/ForestStereo.py example - key press &#8216;k&#8217;</p>
 </dd></dl>
 
 </dd></dl>
@@ -1704,7 +1756,7 @@ new glTextureBuffers i.e. for movie textures</p>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.12 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pi3d 2.13 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

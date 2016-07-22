@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Shape &mdash; pi3d 2.12 documentation</title>
+    <title>pi3d.Shape &mdash; pi3d 2.13 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.12',
+        VERSION:     '2.13',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.12 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.13 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -209,6 +209,11 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span> <span class="c"># really just to set the flag so _unload_opengl runs</span>
 
     <span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="ow">or</span> <span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">camera</span><span class="o">.</span><span class="n">mtrx_made</span><span class="p">:</span>
+      <span class="n">camera</span><span class="o">.</span><span class="n">make_mtrx</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">light_camera</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">light_camera</span><span class="o">.</span><span class="n">mtrx_made</span><span class="p">:</span>
+      <span class="n">light_camera</span><span class="o">.</span><span class="n">make_mtrx</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
       <span class="c"># Calculate rotation and translation matrix for this model using numpy.</span>
@@ -869,7 +874,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>util Package &mdash; pi3d 2.12 documentation</title>
+    <title>util Package &mdash; pi3d 2.13 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.12',
+        VERSION:     '2.13',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.12 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.13 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.12 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.13 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" accesskey="U">pi3d Package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -839,7 +839,7 @@ texture generated from the framebuffer</p>
 <span id="stereocam-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">StereoCam</span></tt> Module<a class="headerlink" href="#module-pi3d.util.StereoCam" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.StereoCam.StereoCam">
-<em class="property">class </em><tt class="descclassname">pi3d.util.StereoCam.</tt><tt class="descname">StereoCam</tt><big>(</big><em>shader='uv_flat'</em>, <em>mipmap=False</em>, <em>separation=0.4</em>, <em>interlace=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/StereoCam.html#StereoCam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.StereoCam.StereoCam" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pi3d.util.StereoCam.</tt><tt class="descname">StereoCam</tt><big>(</big><em>shader=u'uv_flat'</em>, <em>mipmap=False</em>, <em>separation=0.4</em>, <em>interlace=0</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/StereoCam.html#StereoCam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.StereoCam.StereoCam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>For creating an apparatus with two sprites to hold left and right
 eye views.</p>
@@ -865,8 +865,20 @@ must be drawn with a special interlacing shader.</dd>
 </div></blockquote>
 <dl class="method">
 <dt id="pi3d.util.StereoCam.StereoCam.move_camera">
-<tt class="descname">move_camera</tt><big>(</big><em>position</em>, <em>rot</em>, <em>tilt</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/StereoCam.html#StereoCam.move_camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.StereoCam.StereoCam.move_camera" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descname">move_camera</tt><big>(</big><em>position</em>, <em>rot</em>, <em>tilt</em>, <em>roll=0.0</em>, <em>absolute=True</em><big>)</big><a class="reference internal" href="_modules/pi3d/util/StereoCam.html#StereoCam.move_camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.StereoCam.StereoCam.move_camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Arguments:</p>
+<dl class="docutils">
+<dt><em>position</em></dt>
+<dd>array [x,y,z]</dd>
+<dt><em>rot, tilt, roll</em></dt>
+<dd>rotations about y, x, z axis (yes it&#8217;s not entirely logical for position
+to be an array and orientation three values but it&#8217;s too late to change!)</dd>
+<dt><em>absolute</em></dt>
+<dd>if set to False then the rotations are treated as relative to the
+rotated frame of reference i.e. as if signals from VR headset 3
+axis gyro.</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="pi3d.util.StereoCam.StereoCam.start_capture">
@@ -892,6 +904,11 @@ to this texture and not appear on the display.</p>
 <tt class="descname">draw</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/StereoCam.html#StereoCam.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.StereoCam.StereoCam.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>draw the shape using the saved texture</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.StereoCam.StereoCam.get_direction">
+<tt class="descname">get_direction</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pi3d/util/StereoCam.html#StereoCam.get_direction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.StereoCam.StereoCam.get_direction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -1243,7 +1260,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.12 documentation</a> &raquo;</li>
+        <li><a href="index.html">pi3d 2.13 documentation</a> &raquo;</li>
           <li><a href="pi3d.html" >pi3d Package</a> &raquo;</li> 
       </ul>
     </div>

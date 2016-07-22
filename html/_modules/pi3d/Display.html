@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Display &mdash; pi3d 2.12 documentation</title>
+    <title>pi3d.Display &mdash; pi3d 2.13 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.12',
+        VERSION:     '2.13',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.12 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.13 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -370,9 +370,13 @@
 
     <span class="k">if</span> <span class="n">MARK_CAMERA_CLEAN_ON_EACH_LOOP</span><span class="p">:</span>
       <span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="kn">import</span> <span class="n">Camera</span>
-      <span class="n">camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
-      <span class="k">if</span> <span class="n">camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">camera</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="c">#camera = Camera.instance()</span>
+      <span class="c">#if camera is not None:</span>
+      <span class="c">#  camera.was_moved = False</span>
+      <span class="n">cameras</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="n">all_instances</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">cameras</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">camera</span> <span class="ow">in</span> <span class="n">cameras</span><span class="p">:</span>
+          <span class="n">camera</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">False</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tidy_needed</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_tidy</span><span class="p">()</span>
@@ -640,7 +644,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

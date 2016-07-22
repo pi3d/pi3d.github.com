@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Camera &mdash; pi3d 2.12 documentation</title>
+    <title>pi3d.Camera &mdash; pi3d 2.13 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.12',
+        VERSION:     '2.13',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="pi3d 2.12 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.13 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -52,7 +52,7 @@
 <span class="kn">import</span> <span class="nn">ctypes</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">tan</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">radians</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">atan2</span><span class="p">,</span> <span class="n">sqrt</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Utility</span> <span class="kn">import</span> <span class="n">vec_normal</span><span class="p">,</span> <span class="n">vec_cross</span><span class="p">,</span> <span class="n">vec_sub</span><span class="p">,</span> <span class="n">vec_dot</span>
@@ -63,7 +63,7 @@
 <span class="sd">  created if none specified in script prior to creating a Shape</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">eye</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">lens</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-              <span class="n">is_3d</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+              <span class="n">is_3d</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set up view matrix to look from eye to at including perspective</span>
 
 <span class="sd">    Arguments:</span>
@@ -80,6 +80,10 @@
 <span class="sd">      *scale*</span>
 <span class="sd">        number of pixels per unit of size for orthographic camera or divisor</span>
 <span class="sd">        for fov if perspective</span>
+<span class="sd">      *absolute*</span>
+<span class="sd">        when True (default) then all rotations are relative to the absolute</span>
+<span class="sd">        frame of reference. When False then rotations are relative to the</span>
+<span class="sd">        rotated position</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Camera</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
@@ -103,6 +107,16 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rotated</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mtrx_made</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">absolute</span> <span class="o">=</span> <span class="n">absolute</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">r_mtrx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float32&#39;</span><span class="p">)</span> <span class="c"># rotation matrix for rotations relative to rotated frame of reference</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float32&#39;</span><span class="p">)</span> <span class="c"># hold rotation matrices for each axis</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ry</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float32&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float32&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float32&#39;</span><span class="p">)</span> <span class="c"># translation applied prior to rotation i.e. for stereo effect</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float32&#39;</span><span class="p">)</span> <span class="c"># translation applied after rotation i.e. actual position</span>
+
 
   <span class="nd">@staticmethod</span>
   <span class="k">def</span> <span class="nf">_default_instance</span><span class="p">():</span>
@@ -139,9 +153,9 @@
     <span class="k">if</span> <span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">target</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
       <span class="k">return</span>
     <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">target</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="n">rot</span> <span class="o">=</span> <span class="o">-</span><span class="n">degrees</span><span class="p">(</span><span class="n">atan2</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dz</span><span class="p">))</span>
+    <span class="n">rot</span> <span class="o">=</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dz</span><span class="p">))</span>
     <span class="n">horiz</span> <span class="o">=</span> <span class="p">(</span><span class="n">dx</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">+</span> <span class="n">dz</span> <span class="o">*</span> <span class="n">dz</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
-    <span class="n">tilt</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">(</span><span class="n">atan2</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">horiz</span><span class="p">))</span>
+    <span class="n">tilt</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">horiz</span><span class="p">))</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">tilt</span><span class="p">,</span> <span class="n">rot</span>
 </div>
@@ -150,7 +164,9 @@
 <span class="sd">    vector [x,y,z] this can be used directly for positioning the view</span>
 <span class="sd">    position without resorting to trig functions. Also see relocate()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotated</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_make_r_mtrx</span><span class="p">()</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">r_mtrx</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
 </div>
 <div class="viewcode-block" id="Camera.relocate"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.relocate">[docs]</a>  <span class="k">def</span> <span class="nf">relocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tilt</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
                 <span class="n">distance</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span> <span class="n">normal</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -194,7 +210,9 @@
     <span class="k">if</span> <span class="n">rot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">rotateY</span><span class="p">(</span><span class="n">rot</span><span class="p">)</span>
 
-    <span class="n">direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotated</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_make_r_mtrx</span><span class="p">()</span>
+    <span class="n">direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">r_mtrx</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="c"># NB this is different from the direction vector in self.mtrx</span>
     <span class="k">if</span> <span class="n">crab</span><span class="p">:</span>
       <span class="n">direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="c"># horizontal sideways</span>
     <span class="k">if</span> <span class="n">normal</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="c"># move the camera to new location now</span>
@@ -217,11 +235,22 @@
 <span class="sd">        tuple (x, y, z) floats</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">eye</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;float32&quot;</span><span class="p">)</span>
-    <span class="n">m</span><span class="p">[</span><span class="mi">3</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t2</span><span class="p">[</span><span class="mi">3</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">eye</span>
+    <span class="c">#self.mtrx = np.dot(m, self.mtrx)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mtrx_made</span> <span class="o">=</span> <span class="bp">False</span>
 </div>
+  <span class="k">def</span> <span class="nf">_rotate_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">k3</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; similar job needed for each axis but with different signs</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mtrx_made</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rotated</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="p">[[</span><span class="n">k0</span> <span class="o">*</span> <span class="n">c</span><span class="p">,</span> <span class="n">k1</span> <span class="o">*</span> <span class="n">s</span><span class="p">],</span> 
+            <span class="p">[</span><span class="n">k2</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">k3</span> <span class="o">*</span> <span class="n">c</span><span class="p">]]</span>
+
 <div class="viewcode-block" id="Camera.rotateZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.rotateZ">[docs]</a>  <span class="k">def</span> <span class="nf">rotateZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Rotate camera z axis</span>
 
@@ -229,16 +258,8 @@
 <span class="sd">      *angle*</span>
 <span class="sd">        in degrees</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">angle</span><span class="p">:</span>
-      <span class="n">c</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
-      <span class="n">s</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">([[</span><span class="n">c</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                         <span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                         <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                         <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
-                      <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rz</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_axis</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span>
 </div>
 <div class="viewcode-block" id="Camera.rotateY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.rotateY">[docs]</a>  <span class="k">def</span> <span class="nf">rotateY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Rotate camera y axis</span>
@@ -247,16 +268,8 @@
 <span class="sd">      *angle*</span>
 <span class="sd">        in degrees</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">angle</span><span class="p">:</span>
-      <span class="n">c</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
-      <span class="n">s</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">([[</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                       <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
-                      <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ry</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_axis</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span>
 </div>
 <div class="viewcode-block" id="Camera.rotateX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.rotateX">[docs]</a>  <span class="k">def</span> <span class="nf">rotateX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Rotate camera x axis</span>
@@ -265,15 +278,8 @@
 <span class="sd">      *angle*</span>
 <span class="sd">        in degrees</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">angle</span><span class="p">:</span>
-      <span class="n">c</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
-      <span class="n">s</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rx</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_axis</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span>
 </div>
 <div class="viewcode-block" id="Camera.rotate"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.rotate">[docs]</a>  <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Rotate camera</span>
@@ -289,6 +295,84 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">rotateZ</span><span class="p">(</span><span class="n">rz</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rotateX</span><span class="p">(</span><span class="n">rx</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rotateY</span><span class="p">(</span><span class="n">ry</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Camera.offset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.offset">[docs]</a>  <span class="k">def</span> <span class="nf">offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;position camera</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">      *pt*</span>
+<span class="sd">        tuple (x, y, z) floats</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t1</span><span class="p">[</span><span class="mi">3</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">was_moved</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mtrx_made</span> <span class="o">=</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="Camera.make_mtrx"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.make_mtrx">[docs]</a>  <span class="k">def</span> <span class="nf">make_mtrx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotated</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_make_r_mtrx</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t2</span><span class="p">,</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r_mtrx</span><span class="p">,</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mtrx_made</span> <span class="o">=</span> <span class="bp">True</span>
+</div>
+  <span class="k">def</span> <span class="nf">_make_r_mtrx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">absolute</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">r_mtrx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float32&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">r_mtrx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r_mtrx</span><span class="p">,</span> 
+                      <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ry</span><span class="p">,</span>
+                          <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rz</span><span class="p">)))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rotated</span> <span class="o">=</span> <span class="bp">True</span>
+    
+<div class="viewcode-block" id="Camera.euler_angles"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.euler_angles">[docs]</a>  <span class="k">def</span> <span class="nf">euler_angles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matrix</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Or more correctly Tait-Bryan angles. Argument</span>
+<span class="sd">    </span>
+<span class="sd">      *matrix*</span>
+<span class="sd">        can supply a rotation matrix to use (as generated by the following</span>
+<span class="sd">        method.) Defaults to using the Camera.r_mtrx</span>
+<span class="sd">        </span>
+<span class="sd">    in pi3d arrangement (C type and Z into screen)::</span>
+<span class="sd">    </span>
+<span class="sd">        cz.cx-sz.sx.sy  cy.sz+cz.sx.sy  -cx.sy</span>
+<span class="sd">        -cx.sz          cz.cx            sx</span>
+<span class="sd">        cz.sy+cy.sz.sx  sz.sy-cz.cy.sx   cx.cy``</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span> <span class="k">if</span> <span class="n">matrix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">r_mtrx</span> <span class="c"># alias for clarity</span>
+    <span class="n">rx</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rx</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cx</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+      <span class="n">ry</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">ry</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rz</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">rx</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">ry</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">rz</span><span class="p">)</span>
+  </div>
+<div class="viewcode-block" id="Camera.matrix_from_two_vecors"><a class="viewcode-back" href="../../pi3d.html#pi3d.Camera.Camera.matrix_from_two_vecors">[docs]</a>  <span class="k">def</span> <span class="nf">matrix_from_two_vecors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_vector</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; uses two 3D vectors (arrays) to generate a rotation vector representing</span>
+<span class="sd">    the movement from one direction to another. NB because there are many</span>
+<span class="sd">    ways of doing this the z rotation may not match so this this method might</span>
+<span class="sd">    be best combined with the euler_angles system above. See the </span>
+<span class="sd">    pi3d_demos/ForestStereo.py example - key press &#39;k&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">start_vector</span> <span class="o">/=</span> <span class="p">((</span><span class="n">start_vector</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">**</span> <span class="mf">0.5</span> <span class="c"># convert to unit length</span>
+    <span class="n">vector</span> <span class="o">/=</span> <span class="p">((</span><span class="n">vector</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">**</span> <span class="mf">0.5</span>
+    <span class="n">axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">start_vector</span><span class="p">)</span>
+    <span class="n">axis</span> <span class="o">/=</span> <span class="p">((</span><span class="n">axis</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">**</span> <span class="mf">0.5</span>
+    <span class="c"># sine of angle, for some reason has to be assigned to cos value i.e.</span>
+    <span class="c"># the angle is complementary to the expected one. Not really sure why this is!</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">start_vector</span><span class="p">,</span> <span class="n">vector</span><span class="p">)</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c"># angle in radians</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">axis</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="c"># aliases for clarity in matrix below</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="c"># see comment above about using a = 90-a</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">c</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                     <span class="p">[</span><span class="n">t</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">c</span><span class="p">,</span>   <span class="n">t</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">z</span><span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">z</span> <span class="o">-</span> <span class="n">y</span><span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="c"># 1</span>
+                     <span class="p">[</span><span class="n">t</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span> <span class="n">z</span><span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">c</span><span class="p">,</span>   <span class="n">t</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="c"># 2</span>
+                     <span class="p">[</span><span class="n">t</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">z</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="n">z</span> <span class="o">+</span> <span class="n">c</span><span class="p">,</span>   <span class="mf">0.0</span><span class="p">],</span> <span class="c"># 3</span>
+                     <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span>         <span class="mf">0.0</span><span class="p">,</span>         <span class="mf">0.0</span><span class="p">,</span>         <span class="mf">1.0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float&#39;</span><span class="p">)</span>
+ 
+    
+<span class="c">#################################</span>
+<span class="c">####### utility functions #######</span>
 </div></div>
 <span class="k">def</span> <span class="nf">_LookAtMatrix</span><span class="p">(</span><span class="n">at</span><span class="p">,</span> <span class="n">eye</span><span class="p">,</span> <span class="n">up</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">reflect</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Define a matrix looking at.</span>
@@ -335,7 +419,7 @@
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="c"># Matrices are considered to be M[row][col]</span>
   <span class="c"># Use DirectX convention, so need to do rowvec*Matrix to transform</span>
-  <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">fov</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span>
+  <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">fov</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span>
   <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;float32&quot;</span><span class="p">)</span>
   <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="o">/</span><span class="n">aspectRatio</span>
   <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span>  <span class="c">#negative value reflects scene on the Y axis</span>
@@ -394,7 +478,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.12 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
