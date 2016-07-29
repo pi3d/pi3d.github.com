@@ -100,7 +100,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">display_config</span> <span class="o">=</span> <span class="n">display_config</span>
 
     <span class="k">for</span> <span class="n">smpl</span> <span class="ow">in</span> <span class="p">[</span><span class="n">samples</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span> <span class="c"># try with samples first but ANGLE dll can&#39;t cope so drop to 0 for windows</span>
-      <span class="n">r</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglInitialize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="n">r</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglInitialize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
       <span class="n">attribute_list</span> <span class="o">=</span> <span class="n">c_ints</span><span class="p">((</span><span class="n">EGL_RED_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
                                <span class="n">EGL_GREEN_SIZE</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
