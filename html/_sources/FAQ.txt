@@ -538,7 +538,7 @@ the diagonal line be anti-aliased to prevent 'steppyness'?
   Generally the edges don't look too bad, there is a small processing
   cost associated with this sampling and there is a recorded instance
   of the sampling causing an error when running pi3d on vmware on a
-  mac.
+  mac or when running on Windows.
 
 Texture blurring
 ~~~~~~~~~~~~~~~~
@@ -615,6 +615,9 @@ reference rotate with the shape?
 
   And see the ``DogFight.py`` version which has an extra degree
   of freedom.
+  
+  Generally problems like this can be done most easily by using the parent
+  child structure as described above in ``Moving shapes together``
 
 Moving vertices of existing Shape
 ---------------------------------
@@ -1231,6 +1234,15 @@ polygons for the gpu to render?
   It also creates a simple sprite with four vertices and two triangles 
   that can be used to draw the texture. There are filters that can
   produce effects such as blurring, outlining and normal map generation.
+
+PointText
+~~~~~~~~~
+
+I want lots of text changing in real-time, scrolling, rotating, fading
+or changing colour.
+
+  For complicated things like this then the PointText class should be used
+  (with TextBlock components) see the demo StringMulti.py
 
 Texture animation
 -----------------

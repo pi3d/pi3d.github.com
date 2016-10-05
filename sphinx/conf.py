@@ -12,9 +12,9 @@
 # serve to show the default.
 
 # -- pi3d specific configuration -------------------------------------------------
+import sys
 
 def _fix_path():
-  import sys
   from os.path import dirname, exists, join
 
   # Find the root of pi3d.
@@ -35,7 +35,7 @@ autodoc_member_order = 'bysource'
 # bysource seemed better than alphabetic assuming we put the files in the right
 # order in the first place.
 
-with open('/home/patrick/pi3d/pi3d/constants/__init__.py', 'r') as f:
+with open('{}/pi3d/constants/__init__.py'.format(sys.path[0]), 'r') as f:
   for l in f:
     if l.find('__version__') == 0:
       version = (l.split('=')[1]).strip().strip("\'\"")

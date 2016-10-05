@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.String &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.util.String &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,31 +38,31 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.util.String</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-  <span class="nb">unichr</span> <span class="o">=</span> <span class="nb">chr</span>
+  <span class="n">unichr</span> <span class="o">=</span> <span class="nb">chr</span>
   <span class="n">text_type</span> <span class="o">=</span> <span class="nb">str</span>
 <span class="k">else</span><span class="p">:</span>
-  <span class="n">text_type</span> <span class="o">=</span> <span class="nb">unicode</span>
+  <span class="n">text_type</span> <span class="o">=</span> <span class="n">unicode</span>
 
-<span class="kn">from</span> <span class="nn">pi3d</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d</span> <span class="k">import</span> <span class="o">*</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
-<span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
-<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Utility</span>
+<span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="k">import</span> <span class="n">Buffer</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="k">import</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="k">import</span> <span class="n">Utility</span>
 
 <span class="n">DOTS_PER_INCH</span> <span class="o">=</span> <span class="mf">72.0</span>
 <span class="n">DEFAULT_FONT_SIZE</span> <span class="o">=</span> <span class="mf">0.24</span>
@@ -71,11 +73,11 @@
 
 <div class="viewcode-block" id="String"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.String.String">[docs]</a><span class="k">class</span> <span class="nc">String</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Shape used for writing text on screen. It is a flat, one sided rectangualar plane&quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">light</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">light</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
                <span class="n">sx</span><span class="o">=</span><span class="n">DEFAULT_FONT_SCALE</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="n">DEFAULT_FONT_SCALE</span><span class="p">,</span>
-               <span class="n">is_3d</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">DEFAULT_FONT_SIZE</span><span class="p">,</span>
-               <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s">&quot;C&quot;</span><span class="p">):</span>
+               <span class="n">is_3d</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">DEFAULT_FONT_SIZE</span><span class="p">,</span>
+               <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Standard Shape constructor without the facility to change z scale or</span>
 <span class="sd">    any of the offset values. Additional keyword arguments:</span>
 
@@ -99,11 +101,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">is_3d</span><span class="p">:</span>
       <span class="n">sy</span> <span class="o">=</span> <span class="n">sx</span> <span class="o">=</span> <span class="n">size</span> <span class="o">*</span> <span class="mf">4.0</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span>
                                  <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;Creating string ...&quot;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating string ...&quot;</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">verts</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">texcoords</span> <span class="o">=</span> <span class="p">[]</span>
@@ -115,13 +117,13 @@
     <span class="n">yoff</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">text_type</span><span class="p">):</span>
-      <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
-    <span class="n">nlines</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="n">nlines</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 
-    <span class="k">def</span> <span class="nf">make_verts</span><span class="p">():</span> <span class="c">#local function to justify each line</span>
-      <span class="k">if</span> <span class="n">justify</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;C&quot;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">make_verts</span><span class="p">():</span> <span class="c1">#local function to justify each line</span>
+      <span class="k">if</span> <span class="n">justify</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
         <span class="n">cx</span> <span class="o">=</span> <span class="n">xoff</span> <span class="o">/</span> <span class="mf">2.0</span>
-      <span class="k">elif</span> <span class="n">justify</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;L&quot;</span><span class="p">:</span>
+      <span class="k">elif</span> <span class="n">justify</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
         <span class="n">cx</span> <span class="o">=</span> <span class="mf">0.0</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="n">cx</span> <span class="o">=</span> <span class="n">xoff</span>
@@ -130,15 +132,15 @@
                            <span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">nlines</span> <span class="o">*</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">GAP</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="n">yoff</span><span class="p">)</span> <span class="o">*</span> <span class="n">sy</span><span class="p">,</span>
                            <span class="n">j</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
 
-    <span class="n">default</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">glyph_table</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">unichr</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="n">default</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">glyph_table</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">unichr</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
-      <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">:</span>
         <span class="n">make_verts</span><span class="p">()</span>
         <span class="n">yoff</span> <span class="o">+=</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">GAP</span>
         <span class="n">xoff</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">temp_verts</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">lines</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">continue</span> <span class="c">#don&#39;t attempt to draw this character!</span>
+        <span class="k">continue</span> <span class="c1">#don&#39;t attempt to draw this character!</span>
 
       <span class="n">glyph</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">glyph_table</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
       <span class="k">if</span> <span class="ow">not</span> <span class="n">glyph</span><span class="p">:</span>
@@ -151,7 +153,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">texcoords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">norms</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_NORMALS</span><span class="p">)</span>
 
-      <span class="c"># Take Into account unprinted \n characters</span>
+      <span class="c1"># Take Into account unprinted \n characters</span>
       <span class="n">stv</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">lines</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">inds</span><span class="o">.</span><span class="n">extend</span><span class="p">([[</span><span class="n">stv</span><span class="p">,</span> <span class="n">stv</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">stv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">stv</span><span class="p">,</span> <span class="n">stv</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stv</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]])</span>
 
@@ -162,7 +164,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[</span><span class="n">font</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
     
-    <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span> <span class="c">#for later use in quick_change() method</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span> <span class="c1">#for later use in quick_change() method</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">maxlen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
   
@@ -180,18 +182,18 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">ctypes</span>
     <span class="k">if</span> <span class="n">new_string</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">:</span>
-      <span class="n">new_string</span> <span class="o">=</span> <span class="n">new_string</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_string</span><span class="p">))</span>
-      <span class="n">trunc_string</span> <span class="o">=</span> <span class="n">new_string</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">maxlen</span><span class="p">]</span> <span class="c">#chop to length</span>
+      <span class="n">new_string</span> <span class="o">=</span> <span class="n">new_string</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_string</span><span class="p">))</span>
+      <span class="n">trunc_string</span> <span class="o">=</span> <span class="n">new_string</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">maxlen</span><span class="p">]</span> <span class="c1">#chop to length</span>
       <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trunc_string</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
           <span class="n">stride</span> <span class="o">=</span> <span class="mi">8</span>
           <span class="n">offset</span> <span class="o">=</span> <span class="mi">6</span>
           <span class="n">texc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">glyph_table</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
-          <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">tc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">texc</span><span class="p">):</span> <span class="c">#patch values directly into array_buffer</span>
+          <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">tc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">texc</span><span class="p">):</span> <span class="c1">#patch values directly into array_buffer</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
               <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">j</span><span class="p">),(</span><span class="n">offset</span> <span class="o">+</span> <span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">tc</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-          <span class="n">uvmod</span> <span class="o">=</span> <span class="bp">True</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_select</span><span class="p">()</span> <span class="c">#then just call glBufferData</span>
+          <span class="n">uvmod</span> <span class="o">=</span> <span class="kc">True</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_select</span><span class="p">()</span> <span class="c1">#then just call glBufferData</span>
       <span class="n">opengles</span><span class="o">.</span><span class="n">glBufferSubData</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="o">.</span><span class="n">nbytes</span><span class="p">,</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">)))</span>
@@ -201,26 +203,23 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -229,13 +228,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

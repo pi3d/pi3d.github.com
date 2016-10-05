@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Shape &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.Shape &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,32 +38,32 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.Shape</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
 <span class="kn">import</span> <span class="nn">ctypes</span>
 
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">savez</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="n">zeros</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">radians</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">savez</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="n">zeros</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">radians</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
-<span class="kn">from</span> <span class="nn">pi3d.Light</span> <span class="kn">import</span> <span class="n">Light</span>
-<span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="kn">import</span> <span class="n">Camera</span>
-<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Utility</span>
-<span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_floats</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="k">import</span> <span class="n">Buffer</span>
+<span class="kn">from</span> <span class="nn">pi3d.Light</span> <span class="k">import</span> <span class="n">Light</span>
+<span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="k">import</span> <span class="n">Camera</span>
+<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="k">import</span> <span class="n">Utility</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="k">import</span> <span class="n">c_floats</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.util.Loadable</span> <span class="kn">import</span> <span class="n">Loadable</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.Loadable</span> <span class="k">import</span> <span class="n">Loadable</span>
 
 <div class="viewcode-block" id="Shape"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape">[docs]</a><span class="k">class</span> <span class="nc">Shape</span><span class="p">(</span><span class="n">Loadable</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;inherited by all shape objects, including simple 2D sprite types&quot;&quot;&quot;</span>
@@ -84,8 +86,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Shape</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-    <span class="n">light</span> <span class="o">=</span> <span class="n">light</span> <span class="k">if</span> <span class="n">light</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">Light</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
-    <span class="c"># uniform variables all in one array (for Shape and one for Buffer)</span>
+    <span class="n">light</span> <span class="o">=</span> <span class="n">light</span> <span class="k">if</span> <span class="n">light</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Light</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+    <span class="c1"># uniform variables all in one array (for Shape and one for Buffer)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span> <span class="o">=</span>  <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)(</span>
       <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>
       <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">,</span>
@@ -126,7 +128,7 @@
 <span class="sd">      19  custom data space                           57  59</span>
 <span class="sd">    ===== ========================================== ==== ==</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
@@ -156,7 +158,7 @@
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">roxflg</span> <span class="o">=</span> <span class="bp">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">roxflg</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="kc">False</span>
     <span class="sd">&quot;&quot;&quot;rotate about x axis&quot;&quot;&quot;</span>
 
     <span class="n">s</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">4</span><span class="p">])),</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
@@ -164,7 +166,7 @@
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">royflg</span> <span class="o">=</span> <span class="bp">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">royflg</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="kc">False</span>
     <span class="sd">&quot;&quot;&quot;rotate about y axis&quot;&quot;&quot;</span>
 
     <span class="n">s</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">5</span><span class="p">])),</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
@@ -172,7 +174,7 @@
                       <span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rozflg</span> <span class="o">=</span> <span class="bp">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rozflg</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="kc">False</span>
     <span class="sd">&quot;&quot;&quot;rotate about z axis&quot;&quot;&quot;</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">scl</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
@@ -180,9 +182,9 @@
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">1.0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">1.0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">sclflg</span> <span class="o">=</span> <span class="bp">True</span> 
+      <span class="bp">self</span><span class="o">.</span><span class="n">sclflg</span> <span class="o">=</span> <span class="kc">True</span> 
     <span class="k">else</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">sclflg</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">sclflg</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="sd">&quot;&quot;&quot;scale&quot;&quot;&quot;</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">tr2</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
@@ -190,23 +192,23 @@
                       <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                       <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">]])</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">tr2flg</span> <span class="o">=</span> <span class="bp">True</span> 
+      <span class="bp">self</span><span class="o">.</span><span class="n">tr2flg</span> <span class="o">=</span> <span class="kc">True</span> 
     <span class="k">else</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">tr2flg</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">tr2flg</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="sd">&quot;&quot;&quot;translate to offset&quot;&quot;&quot;</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="c">#self.M = zeros(32, dtype=&quot;float32&quot;).reshape(2,4,4)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;float32&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="c"># 3rd matrix added for casting shadows v2.7</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="c1">#self.M = zeros(32, dtype=&quot;float32&quot;).reshape(2,4,4)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># 3rd matrix added for casting shadows v2.7</span>
 
 
-<div class="viewcode-block" id="Shape.draw"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">txtrs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mlist</span><span class="o">=</span><span class="p">[],</span> <span class="n">light_camera</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Shape.draw"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">txtrs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mlist</span><span class="o">=</span><span class="p">[],</span> <span class="n">light_camera</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;If called without parameters, there has to have been a previous call to</span>
 <span class="sd">    set_draw_details() for each Buffer in buf[].</span>
 <span class="sd">    NB there is no facility for setting umult and vmult with draw: they must be</span>
 <span class="sd">    set using set_draw_details or Buffer.set_draw_details.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span> <span class="c"># really just to set the flag so _unload_opengl runs</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span> <span class="c1"># really just to set the flag so _unload_opengl runs</span>
 
     <span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="ow">or</span> <span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
     
@@ -216,7 +218,7 @@
       <span class="n">light_camera</span><span class="o">.</span><span class="n">make_mtrx</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="c"># Calculate rotation and translation matrix for this model using numpy.</span>
+      <span class="c1"># Calculate rotation and translation matrix for this model using numpy.</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span>
       <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rozflg</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">)</span>
@@ -229,37 +231,37 @@
       <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr2flg</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">)</span>
 
-      <span class="c"># child drawing addition #############</span>
+      <span class="c1"># child drawing addition #############</span>
       <span class="n">newmlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mlist</span><span class="p">]</span>
       <span class="n">newmlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">)</span>
       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-          <span class="n">c</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">txtrs</span><span class="p">,</span> <span class="n">ntl</span><span class="p">,</span> <span class="n">shny</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">newmlist</span><span class="p">,</span> <span class="n">light_camera</span><span class="p">)</span> <span class="c"># TODO issues where child doesn&#39;t use same shader </span>
+          <span class="n">c</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">txtrs</span><span class="p">,</span> <span class="n">ntl</span><span class="p">,</span> <span class="n">shny</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">newmlist</span><span class="p">,</span> <span class="n">light_camera</span><span class="p">)</span> <span class="c1"># TODO issues where child doesn&#39;t use same shader </span>
       <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mlist</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
-      <span class="c">######################################</span>
+      <span class="c1">######################################</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">[:,:]</span>
-      <span class="c">#self.M[0:16] = c_floats(self.MRaw.reshape(-1).tolist()) #pypy version</span>
+      <span class="c1">#self.M[0:16] = c_floats(self.MRaw.reshape(-1).tolist()) #pypy version</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)[:,:]</span>
-      <span class="c">#self.M[16:32] = c_floats(dot(self.MRaw, camera.mtrx).reshape(-1).tolist()) #pypy</span>
-      <span class="k">if</span> <span class="n">light_camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="c1">#self.M[16:32] = c_floats(dot(self.MRaw, camera.mtrx).reshape(-1).tolist()) #pypy</span>
+      <span class="k">if</span> <span class="n">light_camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">light_camera</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)[:,:]</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">elif</span> <span class="n">camera</span><span class="o">.</span><span class="n">was_moved</span><span class="p">:</span>
-      <span class="c"># Only do this if it&#39;s not done because model moved.</span>
+      <span class="c1"># Only do this if it&#39;s not done because model moved.</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)[:,:]</span>
-      <span class="k">if</span> <span class="n">light_camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">light_camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="p">,</span> <span class="n">light_camera</span><span class="o">.</span><span class="n">mtrx</span><span class="p">)[:,:]</span>
 
     <span class="k">if</span> <span class="n">camera</span><span class="o">.</span><span class="n">was_moved</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">18</span><span class="p">:</span><span class="mi">21</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">eye</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
 
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
-      <span class="c"># Shape.draw has to be passed either parameter == None or values to pass</span>
-      <span class="c"># on.</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">,</span> <span class="n">shader</span><span class="p">,</span> <span class="n">txtrs</span><span class="p">,</span> <span class="n">ntl</span><span class="p">,</span> <span class="n">shny</span><span class="p">)</span>
-</div>
+      <span class="c1"># Shape.draw has to be passed either parameter == None or values to pass</span>
+      <span class="c1"># on.</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">,</span> <span class="n">shader</span><span class="p">,</span> <span class="n">txtrs</span><span class="p">,</span> <span class="n">ntl</span><span class="p">,</span> <span class="n">shny</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Shape.set_shader"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_shader">[docs]</a>  <span class="k">def</span> <span class="nf">set_shader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper method to set just the Shader for all the Buffer objects of</span>
 <span class="sd">    this Shape. Used, for instance, in a Model where the Textures have been</span>
@@ -274,10 +276,10 @@
 
     <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
-</div>
-<div class="viewcode-block" id="Shape.set_normal_shine"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_normal_shine">[docs]</a>  <span class="k">def</span> <span class="nf">set_normal_shine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">normtex</span><span class="p">,</span> <span class="n">ntiles</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">shinetex</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                       <span class="n">shiny</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">is_uv</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bump_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span></div>
+
+<div class="viewcode-block" id="Shape.set_normal_shine"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_normal_shine">[docs]</a>  <span class="k">def</span> <span class="nf">set_normal_shine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">normtex</span><span class="p">,</span> <span class="n">ntiles</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">shinetex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                       <span class="n">shiny</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">is_uv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bump_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Used to set some of the draw details for all Buffers in Shape.</span>
 <span class="sd">    This is useful where a Model object has been loaded from an obj file and</span>
 <span class="sd">    the textures assigned automatically.</span>
@@ -307,16 +309,16 @@
       <span class="k">if</span> <span class="n">is_uv</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="p">:</span>
         <span class="n">b</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="p">[</span><span class="n">normtex</span><span class="p">]</span>
       <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">ofst</span><span class="p">):</span>
-        <span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
       <span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="mi">1</span> <span class="o">+</span> <span class="n">ofst</span><span class="p">]</span> <span class="o">=</span> <span class="n">normtex</span>
       <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ntiles</span>
       <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">bump_factor</span>
-      <span class="k">if</span> <span class="n">shinetex</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">shinetex</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="n">ofst</span><span class="p">):</span>
-          <span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+          <span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
         <span class="n">b</span><span class="o">.</span><span class="n">textures</span><span class="p">[</span><span class="mi">2</span> <span class="o">+</span> <span class="n">ofst</span><span class="p">]</span> <span class="o">=</span> <span class="n">shinetex</span>
-        <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">shiny</span>
-</div>
+        <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">shiny</span></div>
+
 <div class="viewcode-block" id="Shape.set_draw_details"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_draw_details">[docs]</a>  <span class="k">def</span> <span class="nf">set_draw_details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">,</span> <span class="n">textures</span><span class="p">,</span> <span class="n">ntiles</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">shiny</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
                       <span class="n">umult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">vmult</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">bump_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper to call set_draw_details() for each Buffer object.</span>
@@ -329,8 +331,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">textures</span><span class="p">,</span> <span class="n">ntiles</span><span class="p">,</span> <span class="n">shiny</span><span class="p">,</span> <span class="n">umult</span><span class="p">,</span> <span class="n">vmult</span><span class="p">,</span> <span class="n">bump_factor</span><span class="p">)</span>
-</div>
+      <span class="n">b</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">textures</span><span class="p">,</span> <span class="n">ntiles</span><span class="p">,</span> <span class="n">shiny</span><span class="p">,</span> <span class="n">umult</span><span class="p">,</span> <span class="n">vmult</span><span class="p">,</span> <span class="n">bump_factor</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Shape.set_material"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_material">[docs]</a>  <span class="k">def</span> <span class="nf">set_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">material</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper for setting material shade in each Buffer object.</span>
 
@@ -339,8 +341,8 @@
 <span class="sd">        tuple (rgb)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">material</span><span class="p">)</span>
-</div>
+      <span class="n">b</span><span class="o">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">material</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Shape.set_textures"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_textures">[docs]</a>  <span class="k">def</span> <span class="nf">set_textures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">textures</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper for setting textures in each Buffer object.</span>
 
@@ -349,8 +351,8 @@
 <span class="sd">        list of Texture objects</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">set_textures</span><span class="p">(</span><span class="n">textures</span><span class="p">)</span>
-</div>
+      <span class="n">b</span><span class="o">.</span><span class="n">set_textures</span><span class="p">(</span><span class="n">textures</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Shape.set_offset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_offset">[docs]</a>  <span class="k">def</span> <span class="nf">set_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper for setting uv texture offset in each Buffer object.</span>
 
@@ -360,14 +362,14 @@
 <span class="sd">        sampler by</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">set_offset</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
-</div>
+      <span class="n">b</span><span class="o">.</span><span class="n">set_offset</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Shape.offset"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.offset">[docs]</a>  <span class="k">def</span> <span class="nf">offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Get offset as (u, v) tuple of (first) buf uv. Doesnt check that buf array</span>
 <span class="sd">    exists and has at least one value and only returns offset for that value&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span></div>
 
-</div>
+
 <div class="viewcode-block" id="Shape.set_fog"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_fog">[docs]</a>  <span class="k">def</span> <span class="nf">set_fog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fogshade</span><span class="p">,</span> <span class="n">fogdist</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set fog for this Shape only, it uses the shader smoothblend function from</span>
 <span class="sd">    1/3 fogdist to fogdist.</span>
@@ -380,8 +382,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span> <span class="o">=</span> <span class="n">fogshade</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">=</span> <span class="n">fogdist</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="n">fogshade</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="n">fogshade</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span></div>
+
 <div class="viewcode-block" id="Shape.set_alpha"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_alpha">[docs]</a>  <span class="k">def</span> <span class="nf">set_alpha</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set alpha for this Shape only</span>
 
@@ -389,12 +391,12 @@
 <span class="sd">      *alpha*</span>
 <span class="sd">        alpha value between 0.0 and 1.0 (default)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span></div>
+
 <div class="viewcode-block" id="Shape.alpha"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.alpha">[docs]</a>  <span class="k">def</span> <span class="nf">alpha</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Get value of alpha&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span>
-</div>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span></div>
+
 <div class="viewcode-block" id="Shape.set_light"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_light">[docs]</a>  <span class="k">def</span> <span class="nf">set_light</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set the values of the lights.</span>
 
@@ -404,17 +406,17 @@
 <span class="sd">      *num*</span>
 <span class="sd">        number of the light to set</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c">#TODO (pg) need MAXLIGHTS global variable, room for two now but shader</span>
-    <span class="c"># only uses 1.</span>
+    <span class="c1">#TODO (pg) need MAXLIGHTS global variable, room for two now but shader</span>
+    <span class="c1"># only uses 1.</span>
     <span class="k">if</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
       <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">stn</span> <span class="o">=</span> <span class="mi">24</span> <span class="o">+</span> <span class="n">num</span> <span class="o">*</span> <span class="mi">9</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="n">stn</span><span class="p">:(</span><span class="n">stn</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)]</span> <span class="o">=</span> <span class="n">light</span><span class="o">.</span><span class="n">lightpos</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[(</span><span class="n">stn</span> <span class="o">+</span> <span class="mi">3</span><span class="p">):(</span><span class="n">stn</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)]</span> <span class="o">=</span> <span class="n">light</span><span class="o">.</span><span class="n">lightcol</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[(</span><span class="n">stn</span> <span class="o">+</span> <span class="mi">6</span><span class="p">):(</span><span class="n">stn</span> <span class="o">+</span> <span class="mi">9</span><span class="p">)]</span> <span class="o">=</span> <span class="n">light</span><span class="o">.</span><span class="n">lightamb</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">21</span> <span class="o">+</span> <span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">light</span><span class="o">.</span><span class="n">is_point</span>
-</div>
-<div class="viewcode-block" id="Shape.set_2d_size"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_2d_size">[docs]</a>  <span class="k">def</span> <span class="nf">set_2d_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">21</span> <span class="o">+</span> <span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">light</span><span class="o">.</span><span class="n">is_point</span></div>
+
+<div class="viewcode-block" id="Shape.set_2d_size"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_2d_size">[docs]</a>  <span class="k">def</span> <span class="nf">set_2d_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;saves size to be drawn and location in pixels for use by 2d shader</span>
 
 <span class="sd">    Keyword arguments:</span>
@@ -429,14 +431,14 @@
 <span class="sd">        Top of image from top of display, pixels</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
-    <span class="k">if</span> <span class="n">w</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="k">import</span> <span class="n">Display</span>
+    <span class="k">if</span> <span class="n">w</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">w</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span>
-    <span class="k">if</span> <span class="n">h</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">h</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">h</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">42</span><span class="p">:</span><span class="mi">44</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">45</span><span class="p">:</span><span class="mi">48</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span><span class="p">]</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">45</span><span class="p">:</span><span class="mi">48</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span><span class="p">]</span></div>
+
 <div class="viewcode-block" id="Shape.set_2d_location"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_2d_location">[docs]</a>  <span class="k">def</span> <span class="nf">set_2d_location</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;saves location in pixels for use by 2d shader</span>
 
@@ -448,8 +450,8 @@
 <span class="sd">        Top of image from top of display, pixels</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">42</span><span class="p">:</span><span class="mi">44</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">42</span><span class="p">:</span><span class="mi">44</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span></div>
+
 <div class="viewcode-block" id="Shape.set_custom_data"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_custom_data">[docs]</a>  <span class="k">def</span> <span class="nf">set_custom_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_from</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;save general purpose custom data for use by any shader **NB it is up</span>
 <span class="sd">    to the user to provide data in the form of a suitable array of values</span>
@@ -464,15 +466,15 @@
 <span class="sd">      *data*</span>
 <span class="sd">        2D array of values to put in [[a,b,c],[d,e,f]]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="n">index_from</span><span class="p">:(</span><span class="n">index_from</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]</span> <span class="o">=</span> <span class="n">data</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="n">index_from</span><span class="p">:(</span><span class="n">index_from</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]</span> <span class="o">=</span> <span class="n">data</span></div>
+
 <div class="viewcode-block" id="Shape.set_point_size"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_point_size">[docs]</a>  <span class="k">def</span> <span class="nf">set_point_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This will set the draw_method in all Buffers of this Shape&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">point_size</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_POINTS</span> <span class="k">if</span> <span class="n">point_size</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="n">GL_TRIANGLES</span>
-</div>
-<div class="viewcode-block" id="Shape.set_line_width"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_line_width">[docs]</a>  <span class="k">def</span> <span class="nf">set_line_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_POINTS</span> <span class="k">if</span> <span class="n">point_size</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="n">GL_TRIANGLES</span></div>
+
+<div class="viewcode-block" id="Shape.set_line_width"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_line_width">[docs]</a>  <span class="k">def</span> <span class="nf">set_line_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This will set the draw_method in all Buffers of this Shape</span>
 
 <span class="sd">      *line-width*</span>
@@ -498,29 +500,29 @@
         <span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_LINE_LOOP</span> <span class="k">if</span> <span class="n">closed</span> <span class="k">else</span> <span class="n">GL_LINE_STRIP</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_LINES</span>
-      <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">draw_method</span> <span class="k">if</span> <span class="n">line_width</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="n">GL_TRIANGLES</span>
-</div>
-<div class="viewcode-block" id="Shape.re_init"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.re_init">[docs]</a>  <span class="k">def</span> <span class="nf">re_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pts</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">texcoords</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">normals</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">draw_method</span> <span class="k">if</span> <span class="n">line_width</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="n">GL_TRIANGLES</span></div>
+
+<div class="viewcode-block" id="Shape.re_init"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.re_init">[docs]</a>  <span class="k">def</span> <span class="nf">re_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">texcoords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">normals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; wrapper for Buffer.re_init()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">re_init</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">texcoords</span><span class="p">,</span> <span class="n">normals</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
-    </div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">re_init</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">texcoords</span><span class="p">,</span> <span class="n">normals</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span></div>
+    
 <div class="viewcode-block" id="Shape.add_child"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.add_child">[docs]</a>  <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;puts a Shape into the children list&quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Shape.x"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.x">[docs]</a>  <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;get value of x&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</div>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
 <div class="viewcode-block" id="Shape.y"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.y">[docs]</a>  <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;get value of y&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</div>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
 <div class="viewcode-block" id="Shape.z"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.z">[docs]</a>  <span class="k">def</span> <span class="nf">z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;get value of z&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-</div>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span></div>
+
 <div class="viewcode-block" id="Shape.get_bounds"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.get_bounds">[docs]</a>  <span class="k">def</span> <span class="nf">get_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Find the limits of vertices in three dimensions. Returns a tuple</span>
 <span class="sd">    (left, bottom, front, right, top, back)</span>
@@ -528,7 +530,7 @@
     <span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">front</span>  <span class="o">=</span> <span class="mf">10000.0</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">,</span> <span class="mf">10000.0</span>
     <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">back</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10000.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">10000.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">10000.0</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
-      <span class="n">v</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">array_buffer</span> <span class="c"># alias to simplify code. vertices are array_buffer[:,0:3]</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">array_buffer</span> <span class="c1"># alias to simplify code. vertices are array_buffer[:,0:3]</span>
       <span class="n">left</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
       <span class="n">bottom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">bottom</span><span class="p">,</span> <span class="n">v</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
       <span class="n">front</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">front</span><span class="p">,</span> <span class="n">v</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
@@ -536,8 +538,8 @@
       <span class="n">top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">v</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
       <span class="n">back</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">back</span><span class="p">,</span> <span class="n">v</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
 
-    <span class="k">return</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">back</span><span class="p">)</span>
-</div>
+    <span class="k">return</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">front</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">back</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Shape.scale"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.scale">[docs]</a>  <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -554,9 +556,9 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">sx</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">sy</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">sz</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">sclflg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sclflg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.position"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.position">[docs]</a>  <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -573,8 +575,8 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.positionX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.positionX">[docs]</a>  <span class="k">def</span> <span class="nf">positionX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -583,8 +585,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.positionY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.positionY">[docs]</a>  <span class="k">def</span> <span class="nf">positionY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -593,8 +595,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.positionZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.positionZ">[docs]</a>  <span class="k">def</span> <span class="nf">positionZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -603,8 +605,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.translate"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.translate">[docs]</a>  <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -618,11 +620,11 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dx</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dy</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dz</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dx</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dy</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dz</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dz</span></div>
+
 <div class="viewcode-block" id="Shape.translateX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.translateX">[docs]</a>  <span class="k">def</span> <span class="nf">translateX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -631,8 +633,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.translateY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.translateY">[docs]</a>  <span class="k">def</span> <span class="nf">translateY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -641,8 +643,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.translateZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.translateZ">[docs]</a>  <span class="k">def</span> <span class="nf">translateZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -651,8 +653,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tr1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.rotateToX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateToX">[docs]</a>  <span class="k">def</span> <span class="nf">rotateToX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -664,9 +666,9 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">roxflg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">roxflg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.rotateToY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateToY">[docs]</a>  <span class="k">def</span> <span class="nf">rotateToY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -678,9 +680,9 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">royflg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">royflg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.rotateToZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateToZ">[docs]</a>  <span class="k">def</span> <span class="nf">rotateToZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -692,9 +694,9 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rozflg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rozflg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.rotateIncX"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncX">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -706,9 +708,9 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rox</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">roxflg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">roxflg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.rotateIncY"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncY">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -720,9 +722,9 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">roy</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">royflg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">royflg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="Shape.rotateIncZ"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotateIncZ">[docs]</a>  <span class="k">def</span> <span class="nf">rotateIncZ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 
@@ -734,9 +736,9 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">roz</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rozflg</span> <span class="o">=</span> <span class="bp">True</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rozflg</span> <span class="o">=</span> <span class="kc">True</span></div>
+
   <span class="k">def</span> <span class="nf">_lathe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">sides</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">rise</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">loops</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns a Buffer object by rotating the points defined in path.</span>
 
@@ -765,7 +767,7 @@
     <span class="n">pr</span> <span class="o">=</span> <span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sides</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.0</span>
     <span class="n">rdiv</span> <span class="o">=</span> <span class="n">rise</span> <span class="o">/</span> <span class="n">rl</span>
 
-    <span class="c"># Find length of the path</span>
+    <span class="c1"># Find length of the path</span>
     <span class="n">path_len</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
       <span class="n">path_len</span> <span class="o">+=</span> <span class="p">((</span><span class="n">path</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">path</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
@@ -789,7 +791,7 @@
         <span class="n">tcy</span> <span class="o">+=</span> <span class="p">((</span><span class="n">path</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">path</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
                 <span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">path</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">path_len</span>
 
-      <span class="c"># Normalized 2D vector between path points</span>
+      <span class="c1"># Normalized 2D vector between path points</span>
       <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">ipx</span><span class="p">,</span> <span class="n">ipy</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span>
       <span class="k">else</span><span class="p">:</span>
@@ -818,54 +820,53 @@
   
   <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">{</span>
-      <span class="s">&#39;unif&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">),</span>
-      <span class="c">#&#39;childModel&#39;: self.childModel,</span>
-      <span class="s">&#39;children&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">,</span>
-      <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-      <span class="s">&#39;buf&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">,</span>
-      <span class="s">&#39;textures&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">,</span>
-      <span class="s">&#39;shader&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shader</span>
+      <span class="s1">&#39;unif&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">),</span>
+      <span class="c1">#&#39;childModel&#39;: self.childModel,</span>
+      <span class="s1">&#39;children&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">,</span>
+      <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+      <span class="s1">&#39;buf&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">,</span>
+      <span class="s1">&#39;textures&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">,</span>
+      <span class="s1">&#39;shader&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shader</span>
 
       <span class="p">}</span>
   
   <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
-    <span class="n">unif_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s">&#39;unif&#39;</span><span class="p">])</span>
+    <span class="n">unif_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;unif&#39;</span><span class="p">])</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)(</span><span class="o">*</span><span class="n">unif_tuple</span><span class="p">)</span>
-    <span class="c">#self.childModel = state[&#39;childModel&#39;]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;children&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;buf&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;textures&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;shader&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span> <span class="o">=</span> <span class="bp">False</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">disk_loaded</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">__init_matrices</span><span class="p">()</span>
-</pre></div></div>
+    <span class="c1">#self.childModel = state[&#39;childModel&#39;]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;children&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;buf&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;textures&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;shader&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">opengl_loaded</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">disk_loaded</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__init_matrices</span><span class="p">()</span></div>
+
+
+</pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -874,13 +875,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

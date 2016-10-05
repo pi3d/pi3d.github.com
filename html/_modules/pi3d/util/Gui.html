@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.Gui &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.util.Gui &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,28 +38,28 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.util.Gui</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span>
 
 <span class="kn">import</span> <span class="nn">pi3d</span>
 
-<span class="n">DTK</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c">#minimum time between key strokes</span>
-<span class="n">DTM</span> <span class="o">=</span> <span class="mf">0.15</span> <span class="c">#minimum time between mouse clicks</span>
+<span class="n">DTK</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1">#minimum time between key strokes</span>
+<span class="n">DTM</span> <span class="o">=</span> <span class="mf">0.15</span> <span class="c1">#minimum time between mouse clicks</span>
 
 <div class="viewcode-block" id="Gui"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Gui">[docs]</a><span class="k">class</span> <span class="nc">Gui</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">show_pointer</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;hold information on all widgets and the pointer, creates a 2D Camera</span>
 <span class="sd">    and uv_flat shader. Needs to have a Font object passed to it keeps track</span>
 <span class="sd">    of when the last mouse click or key stroke to avoid double counting.</span>
@@ -69,22 +71,24 @@
 <span class="sd">    A Gui instance has to be passed to each gui widget (Button, Menu etc)</span>
 <span class="sd">    as it is created to allow resources to the used and for checking.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s">&quot;uv_flat&quot;</span><span class="p">)</span>
-    <span class="n">dummycam</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span> <span class="c"># in case this is prior to one being created </span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Camera</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s2">&quot;uv_flat&quot;</span><span class="p">)</span>
+    <span class="n">dummycam</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span> <span class="c1"># in case this is prior to one being created </span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Camera</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">widgets</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">blend</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">focus</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">blend</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">focus</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">show_pointer</span> <span class="o">=</span> <span class="n">show_pointer</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-      <span class="n">icon_path</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/pi3d/util/icons/&#39;</span>
+      <span class="n">icon_path</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/pi3d/util/icons/&#39;</span>
       <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">icon_path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">icon_path</span> <span class="o">=</span> <span class="n">icon_path</span>
         <span class="k">break</span>
-    <span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">icon_path</span> <span class="o">+</span> <span class="s">&quot;pointer.png&quot;</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">pointer</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Sprite</span><span class="p">(</span><span class="n">camera</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">tex</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">tex</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">pointer</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">tex</span><span class="p">])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">p_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_dy</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">ix</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">tex</span><span class="o">.</span><span class="n">iy</span><span class="o">/</span><span class="mf">2.0</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_pointer</span><span class="p">:</span>
+      <span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">icon_path</span> <span class="o">+</span> <span class="s2">&quot;pointer.png&quot;</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pointer</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Sprite</span><span class="p">(</span><span class="n">camera</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">tex</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">tex</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pointer</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">tex</span><span class="p">])</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">p_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_dy</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">ix</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">tex</span><span class="o">.</span><span class="n">iy</span><span class="o">/</span><span class="mf">2.0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">next_tm</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="n">DTM</span>
 
 <div class="viewcode-block" id="Gui.draw"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Gui.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -93,9 +97,10 @@
     <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">widgets</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
         <span class="n">w</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">pointer</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_dx</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_dy</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">pointer</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-</div>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_pointer</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pointer</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_dx</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_dy</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pointer</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="Gui.check"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Gui.check">[docs]</a>  <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">tm</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">tm</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_tm</span><span class="p">:</span>
@@ -104,8 +109,8 @@
     <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">widgets</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">visible</span> <span class="ow">and</span> <span class="n">w</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">focus</span> <span class="o">=</span> <span class="n">w</span>
-        <span class="k">break</span>
-</div>
+        <span class="k">break</span></div>
+
 <div class="viewcode-block" id="Gui.checkkey"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Gui.checkkey">[docs]</a>  <span class="k">def</span> <span class="nf">checkkey</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">tm</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">tm</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_tm</span><span class="p">:</span>
@@ -117,11 +122,11 @@
       <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">widgets</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">visible</span> <span class="ow">and</span> <span class="n">w</span><span class="o">.</span><span class="n">checkkey</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">focus</span> <span class="o">=</span> <span class="n">w</span>
-          <span class="k">break</span>
-</div></div>
+          <span class="k">break</span></div></div>
+
 <div class="viewcode-block" id="Widget"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Widget">[docs]</a><span class="k">class</span> <span class="nc">Widget</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">shapes</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-               <span class="n">label_pos</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">shapes</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">label_pos</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;contains functionality of buttons and is inherited by other gui</span>
 <span class="sd">    components. Arguments:</span>
 
@@ -142,21 +147,21 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">shapes</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span> <span class="o">=</span> <span class="n">shapes</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="c">#this widget can toggle between two</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="c1">#this widget can toggle between two</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="n">callback</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span> <span class="o">=</span> <span class="n">shortcut</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">label_pos</span> <span class="o">=</span> <span class="n">label_pos</span>
-    <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">is_3d</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                              <span class="n">camera</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s">&#39;L&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">is_3d</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                              <span class="n">camera</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="o">.</span><span class="n">set_shader</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">shader</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">relocate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span> <span class="ow">in</span> <span class="n">gui</span><span class="o">.</span><span class="n">widgets</span><span class="p">):</span> <span class="c">#because TextBox re-runs Widget.__init__</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span> <span class="ow">in</span> <span class="n">gui</span><span class="o">.</span><span class="n">widgets</span><span class="p">):</span> <span class="c1">#because TextBox re-runs Widget.__init__</span>
       <span class="n">gui</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="Widget.relocate"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Widget.relocate">[docs]</a>  <span class="k">def</span> <span class="nf">relocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -166,21 +171,21 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">:</span>
       <span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="o">.</span><span class="n">get_bounds</span><span class="p">()</span>
-      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_pos</span> <span class="o">==</span> <span class="s">&#39;above&#39;</span><span class="p">:</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_pos</span> <span class="o">==</span> <span class="s1">&#39;above&#39;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="o">.</span><span class="n">position</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
                               <span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
-      <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_pos</span> <span class="o">==</span> <span class="s">&#39;below&#39;</span><span class="p">:</span>
+      <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_pos</span> <span class="o">==</span> <span class="s1">&#39;below&#39;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="o">.</span><span class="n">position</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
                               <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
-      <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_pos</span> <span class="o">==</span> <span class="s">&#39;right&#39;</span><span class="p">:</span>
+      <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_pos</span> <span class="o">==</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">5.0</span><span class="p">,</span>
                   <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="mf">5.0</span><span class="p">,</span>
-                  <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>      
-</div>
+                  <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>      </div>
+
 <div class="viewcode-block" id="Widget.draw"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Widget.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
@@ -189,29 +194,29 @@
     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="mi">2</span><span class="p">:]:</span>
       <span class="n">s</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-</div>
+      <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="Widget.check"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Widget.check">[docs]</a>  <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_click</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-      <span class="k">return</span> <span class="bp">True</span>
-    <span class="k">return</span> <span class="bp">False</span>
-</div>
+      <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
 <div class="viewcode-block" id="Widget.checkkey"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Widget.checkkey">[docs]</a>  <span class="k">def</span> <span class="nf">checkkey</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_click</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-      <span class="k">return</span> <span class="bp">True</span>
-    <span class="k">return</span> <span class="bp">False</span>
-</div>
+      <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
   <span class="k">def</span> <span class="nf">_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-</div>
+      <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Button"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Button">[docs]</a><span class="k">class</span> <span class="nc">Button</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">imgs</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-               <span class="n">label_pos</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">imgs</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">label_pos</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This inherits pretty much everything it needs from Widget, it just</span>
 <span class="sd">    takes a list of images rather than Shapes. Otherwise same Arguments.</span>
 
@@ -226,25 +231,25 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">imgs</span><span class="p">:</span>
       <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
         <span class="n">i</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">icon_path</span> <span class="o">+</span> <span class="n">i</span>
-      <span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+      <span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
       <span class="n">shape</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Sprite</span><span class="p">(</span><span class="n">camera</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">tex</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">tex</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
       <span class="n">shape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">tex</span><span class="p">])</span>
       <span class="n">shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Button</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">gui</span><span class="p">,</span> <span class="n">shapes</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
-                  <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="n">label_pos</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="n">shortcut</span><span class="p">)</span>
-</div>
+                  <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="n">label_pos</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="n">shortcut</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Radio"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Radio">[docs]</a><span class="k">class</span> <span class="nc">Radio</span><span class="p">(</span><span class="n">Button</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-               <span class="n">label_pos</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">label_pos</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is a toggle button with two checkbox images. Same Arguments</span>
 <span class="sd">    as Widget but missing the list of Shapes completely.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Radio</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">gui</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;cba0.gif&#39;</span><span class="p">,</span> <span class="s">&#39;cba1.gif&#39;</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
-        <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="n">label_pos</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="n">shortcut</span><span class="p">)</span>
-</div>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Radio</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">gui</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;cba0.gif&#39;</span><span class="p">,</span> <span class="s1">&#39;cba1.gif&#39;</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+        <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="n">label_pos</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="n">shortcut</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Scrollbar"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Scrollbar">[docs]</a><span class="k">class</span> <span class="nc">Scrollbar</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">start_val</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-               <span class="n">label_pos</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">start_val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">label_pos</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This consists of four Shapes but the first one is duplicated so</span>
 <span class="sd">    the Widget.draw() method can be used unchanged. The images are hard</span>
 <span class="sd">    coded so no list of Shapes or images needs to be supplied however</span>
@@ -260,25 +265,25 @@
 <span class="sd">    so the function needs to be defined with this in mind i.e.</span>
 <span class="sd">    ``def cb(*args):`` args will then be available as a tuple (0.343,)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">imgs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;scroll.gif&quot;</span><span class="p">,</span> <span class="s">&quot;scroll.gif&quot;</span><span class="p">,</span> <span class="s">&quot;scroll_lh.gif&quot;</span><span class="p">,</span> <span class="s">&quot;scroll_rh.gif&quot;</span><span class="p">,</span>
-            <span class="s">&quot;scroll_thumb.gif&quot;</span><span class="p">]</span>
+    <span class="n">imgs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;scroll.gif&quot;</span><span class="p">,</span> <span class="s2">&quot;scroll.gif&quot;</span><span class="p">,</span> <span class="s2">&quot;scroll_lh.gif&quot;</span><span class="p">,</span> <span class="s2">&quot;scroll_rh.gif&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;scroll_thumb.gif&quot;</span><span class="p">]</span>
     <span class="n">shapes</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">end_w</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">im</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">imgs</span><span class="p">):</span>
-      <span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">icon_path</span> <span class="o">+</span> <span class="n">im</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+      <span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">icon_path</span> <span class="o">+</span> <span class="n">im</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
       <span class="n">w</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">ix</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">width</span>
       <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">end_w</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">ix</span> <span class="c">#offsets for end buttons</span>
+        <span class="n">end_w</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">ix</span> <span class="c1">#offsets for end buttons</span>
       <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-        <span class="n">thumb_w</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">ix</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="c">#offset for thumb</span>
+        <span class="n">thumb_w</span> <span class="o">=</span> <span class="n">tex</span><span class="o">.</span><span class="n">ix</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="c1">#offset for thumb</span>
       <span class="n">shape</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Sprite</span><span class="p">(</span><span class="n">camera</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">tex</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
       <span class="n">shape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">tex</span><span class="p">])</span>
       <span class="n">shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Scrollbar</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">gui</span><span class="p">,</span> <span class="n">shapes</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
             <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="n">label_pos</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="n">shortcut</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">t_stop</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">thumb_w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">thumb_w</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">start_val</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">start_val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">start_val</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="mf">2.0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">thumbpos</span> <span class="o">=</span> <span class="n">start_val</span> <span class="o">/</span> <span class="n">width</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_stop</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_stop</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">positionX</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_stop</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">thumbpos</span><span class="p">)</span>
@@ -287,10 +292,10 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">translateX</span><span class="p">((</span><span class="n">width</span> <span class="o">+</span> <span class="n">end_w</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">end_w</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">end_w</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">label_pos</span> <span class="o">==</span> <span class="s">&#39;left&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">label_pos</span> <span class="o">==</span> <span class="s1">&#39;left&#39;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="o">.</span><span class="n">translateX</span><span class="p">(</span><span class="o">-</span><span class="n">end_w</span><span class="p">)</span>
-      <span class="k">elif</span> <span class="n">label_pos</span> <span class="o">==</span> <span class="s">&#39;right&#39;</span><span class="p">:</span>
+      <span class="k">elif</span> <span class="n">label_pos</span> <span class="o">==</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="o">.</span><span class="n">translateX</span><span class="p">(</span><span class="n">end_w</span><span class="p">)</span>
         
   <span class="k">def</span> <span class="nf">_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
@@ -308,10 +313,10 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">positionX</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_stop</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">thumbpos</span><span class="p">)</span>
       
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">((</span><span class="n">thumb_x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_stop</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_stop</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_stop</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-</div>
+      <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">((</span><span class="n">thumb_x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_stop</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_stop</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_stop</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span></div>
+
 <div class="viewcode-block" id="MenuItem"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.MenuItem">[docs]</a><span class="k">class</span> <span class="nc">MenuItem</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;These are the clickable Widgets of the menu system. Instead of a</span>
 <span class="sd">    list of Shapes they have a string argument, there is no label or</span>
 <span class="sd">    label_pos and the x and y values are obtained from the position and</span>
@@ -321,13 +326,13 @@
 <span class="sd">        string used to construct a pi3d.String</span>
 <span class="sd">        </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">menu_text</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">is_3d</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                              <span class="n">camera</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s">&#39;L&#39;</span><span class="p">)</span>
+    <span class="n">menu_text</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">is_3d</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                              <span class="n">camera</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
     <span class="n">menu_text</span><span class="o">.</span><span class="n">set_shader</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">shader</span><span class="p">)</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">MenuItem</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">gui</span><span class="p">,</span> <span class="p">[</span><span class="n">menu_text</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="n">shortcut</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">child_menu</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">own_menu</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">child_menu</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">own_menu</span> <span class="o">=</span> <span class="kc">None</span>
 
   <span class="k">def</span> <span class="nf">_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">own_menu</span><span class="o">.</span><span class="n">menuitems</span><span class="p">:</span>
@@ -338,11 +343,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">child_menu</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">child_menu</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">MenuItem</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_click</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-</div>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MenuItem</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_click</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Menu"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Menu">[docs]</a><span class="k">class</span> <span class="nc">Menu</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_item</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">menuitems</span><span class="o">=</span><span class="p">[],</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">horiz</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                <span class="n">position</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">menuitems</span><span class="o">=</span><span class="p">[],</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">horiz</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">position</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Container for MenuItems, forming either a horizontal or vertical</span>
 <span class="sd">    bar. Arguments</span>
 
@@ -369,9 +374,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">visible</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">parent_item</span> <span class="o">=</span> <span class="n">parent_item</span>
-    <span class="k">if</span> <span class="n">parent_item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">parent_item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">parent_item</span><span class="o">.</span><span class="n">child_menu</span> <span class="o">=</span> <span class="bp">self</span>
-      <span class="k">if</span> <span class="n">position</span> <span class="o">==</span> <span class="s">&#39;right&#39;</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">position</span> <span class="o">==</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">parent_item</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">5</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">parent_item</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
       <span class="k">else</span><span class="p">:</span>
@@ -391,24 +396,24 @@
       <span class="k">else</span><span class="p">:</span>
         <span class="n">i_y</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">menuitems</span> <span class="o">=</span> <span class="n">menuitems</span>
-    <span class="k">if</span> <span class="n">parent_item</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">parent_item</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Menu.hide"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Menu.hide">[docs]</a>  <span class="k">def</span> <span class="nf">hide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">menuitems</span><span class="p">:</span>
-      <span class="n">i</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="n">i</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
       <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">child_menu</span><span class="p">:</span>
-        <span class="n">i</span><span class="o">.</span><span class="n">child_menu</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
-</div>
+        <span class="n">i</span><span class="o">.</span><span class="n">child_menu</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="Menu.show"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Menu.show">[docs]</a>  <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">menuitems</span><span class="p">:</span>
-      <span class="n">i</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="bp">True</span>
-</div></div>
+      <span class="n">i</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span></div></div>
+
 <div class="viewcode-block" id="TextBox"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.TextBox">[docs]</a><span class="k">class</span> <span class="nc">TextBox</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-               <span class="n">label_pos</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">label_pos</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">gui</span> <span class="o">=</span> <span class="n">gui</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">txt</span> <span class="o">=</span> <span class="n">txt</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
@@ -418,24 +423,24 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">label_pos</span> <span class="o">=</span> <span class="n">label_pos</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span> <span class="o">=</span> <span class="n">shortcut</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span>
-    <span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">icon_path</span> <span class="o">+</span> <span class="s">&#39;tool_stop.gif&#39;</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">icon_path</span> <span class="o">+</span> <span class="s1">&#39;tool_stop.gif&#39;</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cursor_shape</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Sprite</span><span class="p">(</span><span class="n">camera</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">tex</span><span class="o">.</span><span class="n">ix</span><span class="o">/</span><span class="mf">10.0</span><span class="p">,</span>
                           <span class="n">h</span><span class="o">=</span><span class="n">tex</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cursor_shape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">tex</span><span class="p">])</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">recreate</span><span class="p">()</span>
 
 <div class="viewcode-block" id="TextBox.recreate"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.TextBox.recreate">[docs]</a>  <span class="k">def</span> <span class="nf">recreate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">c_lookup</span> <span class="o">=</span> <span class="p">[]</span> <span class="c">#mapping between clicked char and char in string</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">c_lookup</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#mapping between clicked char and char in string</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">txt</span><span class="p">):</span>
-      <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">c_lookup</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">textbox</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span> <span class="n">is_3d</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                              <span class="n">camera</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s">&#39;L&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">textbox</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span> <span class="n">is_3d</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                              <span class="n">camera</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
     <span class="n">textbox</span><span class="o">.</span><span class="n">set_shader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">shader</span><span class="p">)</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">TextBox</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gui</span><span class="p">,</span> <span class="p">[</span><span class="n">textbox</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
                         <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
-                        <span class="n">label_pos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label_pos</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span><span class="p">)</span>
-</div>
+                        <span class="n">label_pos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label_pos</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span><span class="p">)</span></div>
+
   <span class="k">def</span> <span class="nf">_get_charindex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Find the x,y location of each letter&#39;s bottom left and top right</span>
 <span class="sd">    vertices to return a character index of the click x,y</span>
@@ -445,8 +450,8 @@
     <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">verts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">nv</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">verts</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nv</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
-      <span class="n">vtr</span> <span class="o">=</span> <span class="n">verts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="c"># top right</span>
-      <span class="n">vbl</span> <span class="o">=</span> <span class="n">verts</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="c"># bottom left</span>
+      <span class="n">vtr</span> <span class="o">=</span> <span class="n">verts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="c1"># top right</span>
+      <span class="n">vbl</span> <span class="o">=</span> <span class="n">verts</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="c1"># bottom left</span>
       <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">vbl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">vtr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="n">vbl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">vtr</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
         <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
         <span class="n">c_i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">c_lookup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -473,20 +478,20 @@
     <span class="sd">&quot;&quot;&quot;have to use a slightly different version without the _click() call</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span><span class="p">:</span>
-      <span class="k">return</span> <span class="bp">True</span>
-    <span class="k">return</span> <span class="bp">False</span>
-</div>
+      <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
   <span class="k">def</span> <span class="nf">_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="c">#mouse click</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="c1">#mouse click</span>
       <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">args</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_charindex</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span> <span class="c">#keyboard input</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1">#keyboard input</span>
       <span class="n">k</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">:</span> <span class="c">#backspace use tab char</span>
+      <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">:</span> <span class="c1">#backspace use tab char</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt</span><span class="p">[:(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="p">:]</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">-=</span> <span class="mi">1</span>
-      <span class="k">elif</span> <span class="n">k</span> <span class="o">==</span> <span class="s">&#39;</span><span class="se">\r</span><span class="s">&#39;</span><span class="p">:</span> <span class="c">#delete use car ret char</span>
+      <span class="k">elif</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">:</span> <span class="c1">#delete use car ret char</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):]</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="p">):]</span>
@@ -505,26 +510,23 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -533,13 +535,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

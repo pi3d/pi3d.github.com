@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Texture &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.Texture &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,67 +38,71 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.Texture</h1><div class="highlight"><pre>
-<span class="c">#from __future__ import absolute_import, division, print_function, unicode_literals</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="c1">#from __future__ import absolute_import, division, print_function, unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">ctypes</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">six_mod.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
+<span class="kn">from</span> <span class="nn">six_mod.moves</span> <span class="k">import</span> <span class="n">xrange</span>
 
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="k">try</span><span class="p">:</span>
+  <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+  <span class="n">PIL_OK</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+  <span class="n">PIL_OK</span> <span class="o">=</span> <span class="kc">False</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_ints</span>
-<span class="kn">from</span> <span class="nn">pi3d.util.Loadable</span> <span class="kn">import</span> <span class="n">Loadable</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="k">import</span> <span class="n">c_ints</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.Loadable</span> <span class="k">import</span> <span class="n">Loadable</span>
 
 <span class="n">MAX_SIZE</span> <span class="o">=</span> <span class="mi">1920</span>
-<span class="n">DEFER_TEXTURE_LOADING</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">DEFER_TEXTURE_LOADING</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">WIDTHS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span>
            <span class="mi">288</span><span class="p">,</span> <span class="mi">384</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">576</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">720</span><span class="p">,</span> <span class="mi">768</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">960</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1080</span><span class="p">,</span> <span class="mi">1920</span><span class="p">]</span>
 <span class="n">FILE</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">PIL_IMAGE</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">NUMPY</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">FORMAT_MODES</span> <span class="o">=</span> <span class="p">{</span><span class="n">GL_ALPHA</span><span class="p">:</span> <span class="s">&#39;L&#39;</span><span class="p">,</span>
-                <span class="n">GL_LUMINANCE</span><span class="p">:</span> <span class="s">&#39;L&#39;</span><span class="p">,</span>
-                <span class="n">GL_LUMINANCE_ALPHA</span><span class="p">:</span> <span class="s">&#39;LA&#39;</span><span class="p">,</span>
-                <span class="n">GL_RGB</span><span class="p">:</span> <span class="s">&#39;RGB&#39;</span><span class="p">,</span>
-                <span class="n">GL_RGBA</span><span class="p">:</span> <span class="s">&#39;RGBA&#39;</span><span class="p">}</span>
+<span class="n">FORMAT_MODES</span> <span class="o">=</span> <span class="p">{</span><span class="n">GL_ALPHA</span><span class="p">:</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span>
+                <span class="n">GL_LUMINANCE</span><span class="p">:</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span>
+                <span class="n">GL_LUMINANCE_ALPHA</span><span class="p">:</span> <span class="s1">&#39;LA&#39;</span><span class="p">,</span>
+                <span class="n">GL_RGB</span><span class="p">:</span> <span class="s1">&#39;RGB&#39;</span><span class="p">,</span>
+                <span class="n">GL_RGBA</span><span class="p">:</span> <span class="s1">&#39;RGBA&#39;</span><span class="p">}</span>
 
 <div class="viewcode-block" id="round_up_to_power_of_2"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.round_up_to_power_of_2">[docs]</a><span class="k">def</span> <span class="nf">round_up_to_power_of_2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span>
   <span class="k">while</span> <span class="n">p</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">:</span>
     <span class="n">p</span> <span class="o">+=</span> <span class="n">p</span>
-  <span class="k">return</span> <span class="n">p</span>
-</div>
+  <span class="k">return</span> <span class="n">p</span></div>
+
 <span class="k">def</span> <span class="nf">_normal_map</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39; takes a numpy array and returns a normal map (as np array using</span>
 <span class="sd">  lightness as height map. Argument factor can scale the effect</span>
 <span class="sd">  &#39;&#39;&#39;</span>
   <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-    <span class="n">gray</span> <span class="o">=</span> <span class="p">(</span><span class="n">image</span><span class="p">[:,:,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="p">[</span><span class="mf">0.2989</span><span class="p">,</span> <span class="mf">0.5870</span><span class="p">,</span> <span class="mf">0.1140</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c"># grayscale</span>
+    <span class="n">gray</span> <span class="o">=</span> <span class="p">(</span><span class="n">image</span><span class="p">[:,:,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="p">[</span><span class="mf">0.2989</span><span class="p">,</span> <span class="mf">0.5870</span><span class="p">,</span> <span class="mf">0.1140</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># grayscale</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="n">gray</span> <span class="o">=</span> <span class="n">image</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
-  <span class="n">grdnt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">gray</span><span class="p">)</span> <span class="c"># a tuple of two arrays x and y gradients</span>
-  <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">128.0</span> <span class="o">-</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">factor</span> <span class="c"># range -256 to +256 converted to</span>
-  <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">128.0</span> <span class="o">+</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">factor</span> <span class="c"># 0-255. x swapped r to l</span>
-  <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">65025</span> <span class="o">-</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c"># ensure +ve for sqrt</span>
-  <span class="n">n_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c"># RGB same size</span>
-  <span class="n">n_map</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c"># R</span>
-  <span class="n">n_map</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c"># G</span>
-  <span class="n">n_map</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c"># B</span>
+  <span class="n">grdnt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">gray</span><span class="p">)</span> <span class="c1"># a tuple of two arrays x and y gradients</span>
+  <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">128.0</span> <span class="o">-</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">factor</span> <span class="c1"># range -256 to +256 converted to</span>
+  <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">128.0</span> <span class="o">+</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">factor</span> <span class="c1"># 0-255. x swapped r to l</span>
+  <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">65025</span> <span class="o">-</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># ensure +ve for sqrt</span>
+  <span class="n">n_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c1"># RGB same size</span>
+  <span class="n">n_map</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c1"># R</span>
+  <span class="n">n_map</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">grdnt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c1"># G</span>
+  <span class="n">n_map</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c1"># B</span>
   <span class="k">return</span> <span class="n">n_map</span>
 
 <div class="viewcode-block" id="Texture"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.Texture">[docs]</a><span class="k">class</span> <span class="nc">Texture</span><span class="p">(</span><span class="n">Loadable</span><span class="p">):</span>
@@ -112,9 +118,9 @@
 <span class="sd">  Allowed widths 4, 8, 16, 32, 48, 64, 72, 96, 128, 144, 192, 256, 288,</span>
 <span class="sd">  384, 512, 576, 640, 720, 768, 800, 960, 1024, 1080, 1920</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_string</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-               <span class="n">defer</span><span class="o">=</span><span class="n">DEFER_TEXTURE_LOADING</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">m_repeat</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-               <span class="n">free_after_load</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">i_format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_string</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+               <span class="n">defer</span><span class="o">=</span><span class="n">DEFER_TEXTURE_LOADING</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">m_repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+               <span class="n">free_after_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">i_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">normal_map</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments:</span>
@@ -160,21 +166,21 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Texture</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
-      <span class="c"># should jump out of try/except if not a string when startswith() called</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">=</span> <span class="n">FILE</span> <span class="c"># read image from file</span>
-      <span class="k">if</span> <span class="n">file_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">file_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;C:&#39;</span><span class="p">):</span> <span class="c">#absolute address</span>
+      <span class="c1"># should jump out of try/except if not a string when startswith() called</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">=</span> <span class="n">FILE</span> <span class="c1"># read image from file</span>
+      <span class="k">if</span> <span class="n">file_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">file_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;C:&#39;</span><span class="p">):</span> <span class="c1">#absolute address</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">file_string</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">file_string</span><span class="p">)</span>
-          <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">file_string</span><span class="p">)):</span> <span class="c"># this could theoretically get different files with same name</span>
+          <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">file_string</span><span class="p">)):</span> <span class="c1"># this could theoretically get different files with same name</span>
             <span class="k">break</span>
     <span class="k">except</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">=</span> <span class="n">file_string</span>
       <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">=</span> <span class="n">NUMPY</span> <span class="c"># file_string is a numpy array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">=</span> <span class="n">NUMPY</span> <span class="c1"># file_string is a numpy array</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">=</span> <span class="n">PIL_IMAGE</span> <span class="c"># file_string is a PIL Image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">=</span> <span class="n">PIL_IMAGE</span> <span class="c1"># file_string is a PIL Image</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">blend</span> <span class="o">=</span> <span class="n">blend</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">flip</span> <span class="o">=</span> <span class="n">flip</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
@@ -185,7 +191,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">i_format</span> <span class="o">=</span> <span class="n">i_format</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="nb">filter</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">normal_map</span> <span class="o">=</span> <span class="n">normal_map</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">if</span> <span class="n">defer</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">load_disk</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
@@ -194,18 +200,18 @@
   <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Texture</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__del__</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
-      <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
-      <span class="k">if</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="k">import</span> <span class="n">Display</span>
+      <span class="k">if</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">tidy_needed</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">tidy_needed</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">except</span><span class="p">:</span>
-      <span class="k">pass</span> <span class="c">#many reasonable reasons why this might fail</span>
+      <span class="k">pass</span> <span class="c1">#many reasonable reasons why this might fail</span>
 
 <div class="viewcode-block" id="Texture.tex"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.Texture.tex">[docs]</a>  <span class="k">def</span> <span class="nf">tex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;do the deferred opengl work and return texture&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span>
-</div>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span></div>
+
   <span class="k">def</span> <span class="nf">_get_format_from_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">req_format</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;get GL format depending on channels in array. doesn&#39;t verify if #channels</span>
 <span class="sd">    is consistent with the GL format&quot;&quot;&quot;</span>
@@ -222,18 +228,18 @@
 <span class="sd">    if no i_format is specified, choose the most adequate OpenGL format depending</span>
 <span class="sd">    on image mode.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_format</span><span class="p">:</span>
-      <span class="c"># if format is specified, convert the image accordingly</span>
+      <span class="c1"># if format is specified, convert the image accordingly</span>
       <span class="n">expected_mode</span> <span class="o">=</span> <span class="n">FORMAT_MODES</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">i_format</span><span class="p">]</span>
       <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="n">expected_mode</span><span class="p">:</span>
         <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">expected_mode</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;RGBA&#39;</span><span class="p">,</span> <span class="s">&#39;RGB&#39;</span><span class="p">,</span> <span class="s">&#39;LA&#39;</span><span class="p">,</span> <span class="s">&#39;L&#39;</span><span class="p">]:</span>
-        <span class="c"># other image types are converted to rgba</span>
-        <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;RGBA&#39;</span><span class="p">,</span> <span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="s1">&#39;LA&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">]:</span>
+        <span class="c1"># other image types are converted to rgba</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGBA&#39;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;LA&#39;</span><span class="p">:</span>
-      <span class="c"># convert LA image to array directly doesn&#39;t work</span>
-      <span class="c"># convert to rgba and strip rg channel - seems to be the fastest way</span>
-      <span class="n">rgba</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;LA&#39;</span><span class="p">:</span>
+      <span class="c1"># convert LA image to array directly doesn&#39;t work</span>
+      <span class="c1"># convert to rgba and strip rg channel - seems to be the fastest way</span>
+      <span class="n">rgba</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGBA&#39;</span><span class="p">)</span>
       <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rgba</span><span class="p">)[:,:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
@@ -249,41 +255,50 @@
 <span class="sd">    don&#39;t do all this so have to override this</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="c"># If already loaded, abort</span>
+    <span class="c1"># If already loaded, abort</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
       <span class="k">return</span>
 
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">==</span> <span class="n">FILE</span><span class="p">:</span>
-      <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">+</span> <span class="s">&#39; &#39;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">==</span> <span class="n">FILE</span> <span class="ow">and</span> <span class="n">PIL_OK</span><span class="p">:</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
       <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">==</span> <span class="n">PIL_IMAGE</span><span class="p">:</span>
-      <span class="n">s</span> <span class="o">=</span> <span class="s">&#39;PIL.Image &#39;</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">==</span> <span class="n">PIL_IMAGE</span> <span class="ow">and</span> <span class="n">PIL_OK</span><span class="p">:</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;PIL.Image &#39;</span>
       <span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="n">s</span> <span class="o">=</span> <span class="s">&#39;numpy.ndarray &#39;</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="o">.</span><span class="n">shape</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="bp">True</span>
-      <span class="k">return</span> <span class="c"># skip the rest for numpy arrays - faster but no size checking</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">==</span> <span class="n">NUMPY</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;numpy.ndarray &#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span>
+      <span class="k">else</span><span class="p">:</span> <span class="c1"># i.e. FILE but not PIL_OK</span>
+        <span class="sd">&#39;&#39;&#39; NB this has to be a compressed numpy array saved using something like</span>
+<span class="sd">              im = np.array(Image.open(&#39;{}.png&#39;.format(FNAME)))</span>
+<span class="sd">              np.savez_compressed(&#39;{}&#39;.format(FNAME), im)</span>
+<span class="sd">        which will produce a file with extension .npz &#39;&#39;&#39;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">)[</span><span class="s1">&#39;arr_0&#39;</span><span class="p">]</span> <span class="c1"># has to be saved with default key</span>
 
-    <span class="c"># only do this if loading from disk or PIL image</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="kc">True</span>
+      <span class="k">return</span> <span class="c1"># skip the rest for numpy arrays - faster but no size checking</span>
+
+    <span class="c1"># only do this if loading from disk or PIL image</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">s</span> <span class="o">+=</span> <span class="s">&#39;(</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;(</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span><span class="p">:</span>
       <span class="n">resize_type</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">BICUBIC</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">resize_type</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">NEAREST</span>
 
-    <span class="c"># work out if sizes &gt; MAX_SIZE or coerce to golden values in WIDTHS</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">&gt;</span> <span class="n">MAX_SIZE</span><span class="p">:</span> <span class="c"># fairly rare circumstance</span>
+    <span class="c1"># work out if sizes &gt; MAX_SIZE or coerce to golden values in WIDTHS</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">&gt;</span> <span class="n">MAX_SIZE</span><span class="p">:</span> <span class="c1"># fairly rare circumstance</span>
       <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="nb">int</span><span class="p">((</span><span class="n">MAX_SIZE</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">),</span> <span class="n">MAX_SIZE</span><span class="p">))</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">WIDTHS</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
       <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">==</span> <span class="n">WIDTHS</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-        <span class="k">break</span> <span class="c"># no need to resize as already a golden size</span>
+        <span class="k">break</span> <span class="c1"># no need to resize as already a golden size</span>
       <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">&gt;</span> <span class="n">WIDTHS</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
         <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">WIDTHS</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">int</span><span class="p">((</span><span class="n">WIDTHS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">)),</span>
                         <span class="n">resize_type</span><span class="p">)</span>
@@ -291,49 +306,49 @@
         <span class="k">break</span>
 
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&#39;Loading ...{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loading ...</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">:</span>
       <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_TOP_BOTTOM</span><span class="p">)</span>
 
-    <span class="c">#self.image = im.tostring(&#39;raw&#39;, RGBs) # TODO change to tobytes WHEN Pillow is default PIL in debian (jessie becomes current)</span>
+    <span class="c1">#self.image = im.tostring(&#39;raw&#39;, RGBs) # TODO change to tobytes WHEN Pillow is default PIL in debian (jessie becomes current)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img_to_array</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">==</span> <span class="n">FILE</span> <span class="ow">and</span> <span class="s">&#39;fonts/&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_type</span> <span class="o">==</span> <span class="n">FILE</span> <span class="ow">and</span> <span class="s1">&#39;fonts/&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">im</span>
       
-    <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="kc">True</span>
 
   <span class="k">def</span> <span class="nf">_load_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;overrides method of Loadable&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
       <span class="n">opengles</span><span class="o">.</span><span class="n">glGenTextures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span> <span class="c"># TODO windows throws exceptions just for this call!</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;[warning glGenTextures() on windows only!]&quot;</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
-    <span class="k">if</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">except</span><span class="p">:</span> <span class="c1"># TODO windows throws exceptions just for this call!</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[warning glGenTextures() on windows only!]&quot;</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="k">import</span> <span class="n">Display</span>
+    <span class="k">if</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">update_ndarray</span><span class="p">()</span>
 
   <span class="k">def</span> <span class="nf">_get_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
     <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span>
-    <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-      <span class="c"># default for mipmap is linear</span>
+    <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="c1"># default for mipmap is linear</span>
       <span class="n">f</span> <span class="o">=</span> <span class="n">GL_LINEAR</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span> <span class="k">else</span> <span class="n">GL_NEAREST</span>
 
     <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">GL_TEXTURE_MIN_FILTER</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span><span class="p">:</span>
-      <span class="c"># use mipmaps for min filter if requested requested</span>
+      <span class="c1"># use mipmaps for min filter if requested requested</span>
       <span class="n">f</span> <span class="o">=</span> <span class="n">GL_LINEAR_MIPMAP_NEAREST</span> <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="n">GL_LINEAR</span> <span class="k">else</span> <span class="n">GL_NEAREST_MIPMAP_NEAREST</span>
 
     <span class="k">return</span> <span class="n">f</span>
 
-<div class="viewcode-block" id="Texture.update_ndarray"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.Texture.update_ndarray">[docs]</a>  <span class="k">def</span> <span class="nf">update_ndarray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_array</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Texture.update_ndarray"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.Texture.update_ndarray">[docs]</a>  <span class="k">def</span> <span class="nf">update_ndarray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;to allow numpy arrays to be patched in to textures without regenerating</span>
 <span class="sd">    new glTextureBuffers i.e. for movie textures&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">new_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">new_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">new_array</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glBindTexture</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">)</span>
-    <span class="c"># set filters according to mipmap and filter request</span>
+    <span class="c1"># set filters according to mipmap and filter request</span>
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="n">GL_TEXTURE_MIN_FILTER</span><span class="p">,</span> <span class="n">GL_TEXTURE_MAG_FILTER</span><span class="p">]:</span>
       <span class="n">opengles</span><span class="o">.</span><span class="n">glTexParameteri</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_filter</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
 
@@ -351,51 +366,51 @@
       <span class="n">opengles</span><span class="o">.</span><span class="n">glGenerateMipmap</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_after_load</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="kc">False</span></div>
 
-</div>
+
   <span class="k">def</span> <span class="nf">_unload_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;clear it out&quot;&quot;&quot;</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteTextures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">))</span>
 
     
-  <span class="c"># Implement pickle/unpickle support</span>
+  <span class="c1"># Implement pickle/unpickle support</span>
   <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="c"># Make sure the image is actually loaded</span>
+    <span class="c1"># Make sure the image is actually loaded</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_load_disk</span><span class="p">()</span>
       
     <span class="k">return</span> <span class="p">{</span>
-      <span class="s">&#39;blend&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">blend</span><span class="p">,</span>
-      <span class="s">&#39;flip&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">,</span>
-      <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-      <span class="s">&#39;mipmap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span><span class="p">,</span>
-      <span class="s">&#39;file_string&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">,</span>
-      <span class="s">&#39;ix&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span>
-      <span class="s">&#39;iy&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span>
-      <span class="s">&#39;image&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
-      <span class="s">&#39;_tex&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">,</span>
-      <span class="s">&#39;_loaded&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">,</span>
-      <span class="s">&#39;opengl_loaded&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
-      <span class="s">&#39;disk_loaded&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">disk_loaded</span><span class="p">,</span>
-      <span class="s">&#39;m_repeat&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_repeat</span><span class="p">,</span>
-      <span class="s">&#39;i_format&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_format</span><span class="p">,</span>
-      <span class="s">&#39;free_after_load&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_after_load</span><span class="p">,</span>
-      <span class="s">&#39;filter&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span>
-      <span class="p">}</span>
-</div>
+      <span class="s1">&#39;blend&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">blend</span><span class="p">,</span>
+      <span class="s1">&#39;flip&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">,</span>
+      <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+      <span class="s1">&#39;mipmap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span><span class="p">,</span>
+      <span class="s1">&#39;file_string&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_string</span><span class="p">,</span>
+      <span class="s1">&#39;ix&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span>
+      <span class="s1">&#39;iy&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">,</span>
+      <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
+      <span class="s1">&#39;_tex&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span><span class="p">,</span>
+      <span class="s1">&#39;_loaded&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">,</span>
+      <span class="s1">&#39;opengl_loaded&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+      <span class="s1">&#39;disk_loaded&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">disk_loaded</span><span class="p">,</span>
+      <span class="s1">&#39;m_repeat&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_repeat</span><span class="p">,</span>
+      <span class="s1">&#39;i_format&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_format</span><span class="p">,</span>
+      <span class="s1">&#39;free_after_load&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_after_load</span><span class="p">,</span>
+      <span class="s1">&#39;filter&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span>
+      <span class="p">}</span></div>
+
 <div class="viewcode-block" id="TextureCache"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.TextureCache">[docs]</a><span class="k">class</span> <span class="nc">TextureCache</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span> <span class="c">#TODO use max_size in some way</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="c1">#TODO use max_size in some way</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
 <div class="viewcode-block" id="TextureCache.clear"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.TextureCache.clear">[docs]</a>  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
-</div>
-<div class="viewcode-block" id="TextureCache.create"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.TextureCache.create">[docs]</a>  <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_string</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+<div class="viewcode-block" id="TextureCache.create"><a class="viewcode-back" href="../../pi3d.html#pi3d.Texture.TextureCache.create">[docs]</a>  <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_string</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="n">key</span> <span class="o">=</span> <span class="n">file_string</span><span class="p">,</span> <span class="n">blend</span><span class="p">,</span> <span class="n">flip</span><span class="p">,</span> <span class="n">size</span>
-    <span class="n">texture</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">texture</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">texture</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">texture</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">texture</span> <span class="o">=</span> <span class="n">Texture</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">texture</span>
 
@@ -405,26 +420,23 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -433,13 +445,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

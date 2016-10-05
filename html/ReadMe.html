@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction to pi3d &mdash; pi3d 2.13 documentation</title>
+    <title>Introduction to pi3d &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,12 +23,14 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="index.html" />
     <link rel="next" title="Frequently Asked Questions" href="FAQ.html" />
     <link rel="prev" title="Welcome to pi3d’s documentation!" href="index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +45,14 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pi3d’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.13 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.13 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="introduction-to-pi3d">
 <h1>Introduction to pi3d<a class="headerlink" href="#introduction-to-pi3d" title="Permalink to this headline">¶</a></h1>
@@ -73,7 +75,7 @@ or via mesa or ANGLE on &#8216;big&#8217; machines. This makes it generally <em>
 and opens up the world of <em>shaders</em> that allow effects such as normal and
 reflection maps, blurring and many others. It has various demos of built-in
 shapes, landscapes, model loading, walk-about camera and much more! See the demos
-included with this code and experiment with them ..</p>
+on github.com/pi3d/pi3d_demos and experiment with them ..</p>
 <p>If you are reading this document as the ReadMe in the repository then you
 can find the full version of the documentation here
 <a class="reference external" href="http://pi3d.github.com/html/index.html">http://pi3d.github.com/html/index.html</a></p>
@@ -214,15 +216,15 @@ pi3d with different levels of complexity.</p>
 <li><p class="first"><strong>Qick Start Guide, NB take the time to read the paragraphs below too</strong></p>
 <p>As of 2015/09/24 there is a raspbian jessie SD image which already has
 the relevant dependencies installed. You then just need to:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cd ~
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd ~
 $ sudo apt-get update
 $ sudo apt-get upgrade
 $ sudo pip-3.2 install pi3d
 $ sudo raspi-config # set gpu_mem=128
 </pre></div>
 </div>
-<p>(or <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">pip</span> <span class="pre">install</span></tt> if you want to use python 2 for some reason).</p>
-<p>Although you can <tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></tt> pi3d_demos  as in the recipe below this
+<p>(or <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">pip</span> <span class="pre">install</span></code> if you want to use python 2 for some reason).</p>
+<p>Although you can <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></code> pi3d_demos  as in the recipe below this
 will include quite a bit of extra history so it is quicker to download
 the zip from github.com/pi3d/pi3d_demos and extract it on your system,
 either using browser and desktop or wget and unzip.</p>
@@ -232,7 +234,7 @@ even if you use either of these quick start recipes... <em>certainly</em> if
 have any non-standard aspirations or set-up. The long
 list of dependencies (3rd apt-get line) may take a while to run as well
 as the install Pillow. Both will create hundreds of lines of messages:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cd ~
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd ~
 $ sudo apt-get update
 $ sudo apt-get upgrade
 $ sudo apt-get install python3-dev python3-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
@@ -259,18 +261,18 @@ $ python3 Earth.py
 installed and whether you want to work with some of the latest additions.</p>
 <p>If you have pip installed you should be able to open a terminal and
 type:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo pip install pi3d
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo pip install pi3d
   or for python3
 $ sudo pip-3.2 install pi3d
 </pre></div>
 </div>
 <p>(or pip3 or whatever see below*) If you don&#8217;t have pip installed
-you probably should install it as described below under <tt class="docutils literal"><span class="pre">Python</span> <span class="pre">Imaging</span></tt>
+you probably should install it as described below under <code class="docutils literal"><span class="pre">Python</span> <span class="pre">Imaging</span></code>
 as it&#8217;s the easiest way to install Pillow prior to debian jessie based
-installations.  You can do the equivalent of <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></tt> manually
+installations.  You can do the equivalent of <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></code> manually
 by downloading from <a class="reference external" href="https://pypi.python.org/pypi/pi3d">https://pypi.python.org/pypi/pi3d</a> and extracting
 the package, then in a terminal:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo python setup.py install
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo python setup.py install
   or for python3
 $ sudo python3 setup.py install
 </pre></div>
@@ -281,18 +283,18 @@ relevant location on your device (for instance
 by your applications.</p>
 <p>If you might want to use features being added in the develop branch (i.e. between
 issues) you will need to download or git clone the latest code from
-<a class="reference external" href="https://github.com/tipam/pi3d/">https://github.com/tipam/pi3d/</a> where there is a <tt class="docutils literal"><span class="pre">Download</span> <span class="pre">ZIP</span></tt> link,
-or you can install git (bundled in raspbian) then clone using <tt class="docutils literal"><span class="pre">git</span>
-<span class="pre">clone</span> <span class="pre">https://github.com/tipam/pi3d.git</span></tt> this git method will give
+<a class="reference external" href="https://github.com/tipam/pi3d/">https://github.com/tipam/pi3d/</a> where there is a <code class="docutils literal"><span class="pre">Download</span> <span class="pre">ZIP</span></code> link,
+or you can install git (bundled in raspbian) then clone using <code class="docutils literal"><span class="pre">git</span>
+<span class="pre">clone</span> <span class="pre">https://github.com/tipam/pi3d.git</span></code> this git method will give
 you the option to update the code by running, from the pi3d directory
-<tt class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">master</span></tt></p>
+<code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">master</span></code></p>
 </li>
 <li><p class="first"><strong>Memory Split setup</strong></p>
 <p>Although most demos work on 64MB of memory, you are strongly advised to have
 a 128MB of graphics memory split, especially for full-screen 3D graphics.
 In the latest Raspbian build you need to either choose the GUI setup,
-run <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">raspi-config</span></tt> or edit the config.txt file (in the boot
-directory) and set the variable <tt class="docutils literal"><span class="pre">gpu_mem=128</span></tt> for 128MB of graphics
+run <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">raspi-config</span></code> or edit the config.txt file (in the boot
+directory) and set the variable <code class="docutils literal"><span class="pre">gpu_mem=128</span></code> for 128MB of graphics
 memory.</p>
 </li>
 <li><p class="first"><strong>Install Python Imaging</strong></p>
@@ -302,39 +304,39 @@ pi3d (though see the minimal example below, which doesn&#8217;t!). The
 original Imaging library is no longer really maintained and
 doesn&#8217;t run on python_3. The better equivalent replacement is Pillow.</p>
 <p>As of raspbian jessie Pillow is the default imaging library. It&#8217;s already
-installed on the <tt class="docutils literal"><span class="pre">fully</span> <span class="pre">featured</span></tt> SD image, but if it&#8217;s left off the
+installed on the <code class="docutils literal"><span class="pre">fully</span> <span class="pre">featured</span></code> SD image, but if it&#8217;s left off the
 jessie lite image (rumoured to be in the pipeline) it can be installed
 using the debian package manager:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get install python3-pil
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install python3-pil
 </pre></div>
 </div>
-<p>(or <tt class="docutils literal"><span class="pre">python-pil</span></tt> if using python2, but prior
+<p>(or <code class="docutils literal"><span class="pre">python-pil</span></code> if using python2, but prior
 to jessie you needed to:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get install python3-dev python3-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install python3-dev python3-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
 $ sudo apt-get install python3-pip
 $ sudo pip-3.2 install Pillow
 ...
 </pre></div>
 </div>
 <p>If you miss any of the dependent libraries and need to add them later
-you will have to <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">uninstall</span></tt> then re <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></tt></p>
+you will have to <code class="docutils literal"><span class="pre">pip</span> <span class="pre">uninstall</span></code> then re <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></code></p>
 <p>For python2 support the first above will provide the required graphics
-libraries used by Pillow but you will need to swap to <tt class="docutils literal"><span class="pre">python-dev</span></tt>
-and <tt class="docutils literal"><span class="pre">python-setuptools</span></tt> also pip is different:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get install python-pip
+libraries used by Pillow but you will need to swap to <code class="docutils literal"><span class="pre">python-dev</span></code>
+and <code class="docutils literal"><span class="pre">python-setuptools</span></code> also pip is different:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install python-pip
 $ sudo pip install Pillow
 </pre></div>
 </div>
-<p>(<a href="#id1"><span class="problematic" id="id2">*</span></a>on ubuntu and jessie <tt class="docutils literal"><span class="pre">pip3</span></tt> should work, could be other names,
+<p>(<a href="#id1"><span class="problematic" id="id2">*</span></a>on ubuntu and jessie <code class="docutils literal"><span class="pre">pip3</span></code> should work, could be other names,
 google for help or search:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo find /usr/bin/ -name pip*
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo find /usr/bin/ -name pip*
 </pre></div>
 </div>
 <p>!) If had previously installed the old PIL:
-using <tt class="docutils literal"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">python-imaging</span></tt> When you later switch
-to Pillow you will need to <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">remove</span> <span class="pre">python-imaging</span></tt> first.</p>
+using <code class="docutils literal"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">python-imaging</span></code> When you later switch
+to Pillow you will need to <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">remove</span> <span class="pre">python-imaging</span></code> first.</p>
 <p>To run on Arch linux you will need to install:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ pacman -S python2
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pacman -S python2
 $ pacman -S python2-pillow
 $ pacman -S python2-numpy
 </pre></div>
@@ -353,10 +355,10 @@ of all the steps to get a quick loading stand-alone pi3d SD card.</p>
 it will need to have python installed. Setting up in a Linux environment
 is most similar to the procedure for the Raspberry Pi. Linux can be set
 up in its own boot partition or in vmware (eg Player which is free, you
-will also need to <tt class="docutils literal"><span class="pre">enable</span> <span class="pre">3d</span> <span class="pre">acceleration</span></tt>.)</p>
+will also need to <code class="docutils literal"><span class="pre">enable</span> <span class="pre">3d</span> <span class="pre">acceleration</span></code>.)</p>
 <p>You need to install libraries
 that emulate OpenGLES behaviour for the gpu:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get install mesa-utils-extra
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install mesa-utils-extra
 </pre></div>
 </div>
 <p>Which should install mesa versions of libEGL.so and libGLESv2.so However
@@ -367,7 +369,7 @@ and libgles2-mesa-dev may provide the required libraries.</p>
 more setting up and didn&#8217;t render graphics! Apparently LinuxMint does
 work. One issue running under vmware is that the Mouse class doesn&#8217;t get
 the correct movements back from /dev/input/mice so you have to use the
-argument <tt class="docutils literal"><span class="pre">use_x=True</span></tt>. This provides coordinates of the pointer position
+argument <code class="docutils literal"><span class="pre">use_x=True</span></code>. This provides coordinates of the pointer position
 relative to the window so limits movement for steering as used in the demos.</p>
 <p>The installation of PIL or Pillow should be the same as for the Raspberry
 Pi above but you are more likely to need to manually install python3-numpy
@@ -398,7 +400,7 @@ install (If you want the 64 bit version you have to avoid the obvious and look
 at the list of all versions as the default download button will be 32 bit) <strong>then
 install everything else from Christoph Gohlke&#8217;s site</strong>
 <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">http://www.lfd.uci.edu/~gohlke/pythonlibs/</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>1. Install python from python.org. When running the installer I had
+<div class="highlight-default"><div class="highlight"><pre><span></span>1. Install python from python.org. When running the installer I had
 to select the last option in the list of components to install
 ``..add python.exe to Path`` by selecting the option to install on
 hard drive. Also choose the option to install for all users
@@ -414,16 +416,16 @@ several ANGLE dll files on your system or download them from
 <a class="reference external" href="http://github.com/paddywwoof/pi3d_windll">http://github.com/paddywwoof/pi3d_windll</a> and copy them into the starting
 directory of the main python file of your project. (If you are running
 64 bit python you will have to use the downloaded versions.) In theory
-you could alter the Windows <tt class="docutils literal"><span class="pre">Path</span></tt> to point to the location of these
+you could alter the Windows <code class="docutils literal"><span class="pre">Path</span></code> to point to the location of these
 files but I couldn&#8217;t get that to work. If you manage to do this then you
-need to edit the path to these files in the pi3d file <tt class="docutils literal"><span class="pre">pi3d/constants/__init__.py</span></tt>
+need to edit the path to these files in the pi3d file <code class="docutils literal"><span class="pre">pi3d/constants/__init__.py</span></code>
 around lines 87,88. You should be able to find the Chrome and Firefox
-copies of the dlls by starting a search from <tt class="docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\</span></tt>
+copies of the dlls by starting a search from <code class="docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\</span></code>
 You need to copy the files:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">libglesv2</span><span class="o">.</span><span class="n">dll</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">libglesv2</span><span class="o">.</span><span class="n">dll</span>
 <span class="n">libegl</span><span class="o">.</span><span class="n">dll</span>
-<span class="n">d3dcompiler_47</span><span class="o">.</span><span class="n">dll</span> <span class="c">## NB the number at the end will increment with later releases</span>
-<span class="n">mozglue</span><span class="o">.</span><span class="n">dll</span> <span class="c">## only for Firefox</span>
+<span class="n">d3dcompiler_47</span><span class="o">.</span><span class="n">dll</span> <span class="c1">## NB the number at the end will increment with later releases</span>
+<span class="n">mozglue</span><span class="o">.</span><span class="n">dll</span> <span class="c1">## only for Firefox</span>
 </pre></div>
 </div>
 <p>You might only need the first two files if your system has recent drivers
@@ -434,16 +436,16 @@ I will rationalize them when I get chance.</p>
 either clone it with git or download the zip from github and extract
 somewhere sensible on your system. If you do this you will then have to
 add the path to pi3d at the beginning of any files trying to import pi3d:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;C:/Users/whoever/Documents/GitHub/pi3d&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;C:/Users/whoever/Documents/GitHub/pi3d&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>For convenience, in pi3d_demos this is included in a file <tt class="docutils literal"><span class="pre">demo.py</span></tt>
+<p>For convenience, in pi3d_demos this is included in a file <code class="docutils literal"><span class="pre">demo.py</span></code>
 which is imported at the start of each file. I have found it safer to use
-generic forward <tt class="docutils literal"><span class="pre">/</span></tt> than windows <tt class="docutils literal"><span class="pre">\</span></tt> or <tt class="docutils literal"><span class="pre">\\</span></tt> in these paths.</p>
+generic forward <code class="docutils literal"><span class="pre">/</span></code> than windows <code class="docutils literal"><span class="pre">\</span></code> or <code class="docutils literal"><span class="pre">\\</span></code> in these paths.</p>
 <p>On windows the pi3d events system (as used by Silo and a couple of other
 demos) does not work as it uses fairly low level linux specific code.</p>
-<p>If you <tt class="docutils literal"><span class="pre">mymouse</span> <span class="pre">=</span> <span class="pre">pi3d.Mouse(restrict=False)</span></tt> as in most of the demos
+<p>If you <code class="docutils literal"><span class="pre">mymouse</span> <span class="pre">=</span> <span class="pre">pi3d.Mouse(restrict=False)</span></code> as in most of the demos
 then the cursor becomes hidden and stuck at the centre of the pygame window.
 This means you can&#8217;t move or resize the window or close it with the X.
 i.e. you must make sure that you have a keyboard methods of escaping from
@@ -464,30 +466,30 @@ see <a class="reference external" href="AndroidUse.html">Android</a></div></bloc
 on the RaspberryPi Geany seems to be the easiest and most compatible
 application to use for creating and running Python scripts. Download
 and install it with:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get install geany xterm
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install geany xterm
 </pre></div>
 </div>
 <p>NB IDLE can&#8217;t cope with some aspects of the way that most of the pi3d
 demos get key presses using the curses module. There will be an error
-to the effect <tt class="docutils literal"><span class="pre">curses.cbreak()</span> <span class="pre">returned</span> <span class="pre">ERR</span></tt></p>
+to the effect <code class="docutils literal"><span class="pre">curses.cbreak()</span> <span class="pre">returned</span> <span class="pre">ERR</span></code></p>
 </li>
 <li><p class="first"><strong>Optionally, install tk.</strong></p>
 <p>Some of the demos require the tk graphics toolkit.  To download and install it:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get install tk
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install tk
 </pre></div>
 </div>
 </li>
 <li><p class="first"><strong>Load and run</strong></p>
 <p>NB to get all the demos from github and run, in
 a terminal:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ git clone https://github.com/pi3d/pi3d_demos.git
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone https://github.com/pi3d/pi3d_demos.git
 $ cd ~/pi3d_demos
 $ python3 Minimal.py
 </pre></div>
 </div>
 <p>or load any of the demos into Geany and run (using the cogs icon). As a minimum,
 scripts need these elements in order to use the pi3d library:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pi3d</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pi3d</span>
 <span class="n">DISPLAY</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 <span class="n">ball</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Sphere</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
 <span class="k">while</span> <span class="n">DISPLAY</span><span class="o">.</span><span class="n">loop_running</span><span class="p">():</span>
@@ -545,42 +547,42 @@ faster way to make surfaces look shiny than ray tracing.</p>
 if you draw a <a class="reference external" href="pi3d.html#pi3d.Shape.Shape">Shape</a> without creating a <a class="reference external" href="pi3d.html#pi3d.Light.Light">Light</a> a default instance will be
 created by the <a class="reference external" href="pi3d.html#pi3d.Display.Display">Display</a>. The <a class="reference external" href="pi3d.html#pi3d.Light.Light">Light</a> has properties defining the direction,
 the colour (and strength i.e. RGB values) and ambient colour (and strength).</p>
-<p>Although drawing a Shape requires references to <tt class="docutils literal"><span class="pre">Shader</span></tt>, <tt class="docutils literal"><span class="pre">Light</span></tt> and <tt class="docutils literal"><span class="pre">Camera</span></tt>
+<p>Although drawing a Shape requires references to <code class="docutils literal"><span class="pre">Shader</span></code>, <code class="docutils literal"><span class="pre">Light</span></code> and <code class="docutils literal"><span class="pre">Camera</span></code>
 objects, default instances will be created automatically if they are not
 specified (as in the example minimal code above)</p>
 <p>When you look through the demos you will see one or two things that may
 not be immediately obvious. All the demos start with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 </pre></div>
 </div>
 <p>Although these lines can often be left out, the first tells any process running the file
 as a script that it&#8217;s python and the second is basically to help the transition
 of this code to run using python 3:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">demo</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">demo</span>
 </pre></div>
 </div>
 <p>Allows the demo files to be put in a different location from pi3d but still run. If you install
-pi3d using pip or <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> then you can take this out:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pi3d</span>
+pi3d using pip or <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> then you can take this out:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pi3d</span>
 </pre></div>
 </div>
 <p>Is an alternative to importing just what you need i.e.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pi3d</span> <span class="kn">import</span> <span class="n">Display</span>
-<span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="kn">import</span> <span class="n">Texture</span>
-<span class="kn">from</span> <span class="nn">pi3d.Keyboard</span> <span class="kn">import</span> <span class="n">Keyboard</span>
-<span class="kn">from</span> <span class="nn">pi3d.Light</span> <span class="kn">import</span> <span class="n">Light</span>
-<span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="kn">import</span> <span class="n">Shader</span>
-<span class="kn">from</span> <span class="nn">pi3d.util.String</span> <span class="kn">import</span> <span class="n">String</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d</span> <span class="k">import</span> <span class="n">Display</span>
+<span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="k">import</span> <span class="n">Texture</span>
+<span class="kn">from</span> <span class="nn">pi3d.Keyboard</span> <span class="k">import</span> <span class="n">Keyboard</span>
+<span class="kn">from</span> <span class="nn">pi3d.Light</span> <span class="k">import</span> <span class="n">Light</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="k">import</span> <span class="n">Shader</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.String</span> <span class="k">import</span> <span class="n">String</span>
 <span class="o">...</span>
-<span class="kn">from</span> <span class="nn">pi3d.shape.Sphere</span> <span class="kn">import</span> <span class="n">Sphere</span>
-<span class="kn">from</span> <span class="nn">pi3d.shape.Sprite</span> <span class="kn">import</span> <span class="n">Sprite</span>
+<span class="kn">from</span> <span class="nn">pi3d.shape.Sphere</span> <span class="k">import</span> <span class="n">Sphere</span>
+<span class="kn">from</span> <span class="nn">pi3d.shape.Sprite</span> <span class="k">import</span> <span class="n">Sprite</span>
 </pre></div>
 </div>
-<p>If you import the whole lot using <tt class="docutils literal"><span class="pre">import</span> <span class="pre">pi3d</span></tt> then you need to prefix classes
-and functions with <tt class="docutils literal"><span class="pre">pi3d.</span></tt> A third way to import the modules would be to use
-<tt class="docutils literal"><span class="pre">from</span> <span class="pre">pi3d</span> <span class="pre">import</span> <span class="pre">*</span></tt> this saves having to use the <tt class="docutils literal"><span class="pre">pi3d.</span></tt> prefix but
+<p>If you import the whole lot using <code class="docutils literal"><span class="pre">import</span> <span class="pre">pi3d</span></code> then you need to prefix classes
+and functions with <code class="docutils literal"><span class="pre">pi3d.</span></code> A third way to import the modules would be to use
+<code class="docutils literal"><span class="pre">from</span> <span class="pre">pi3d</span> <span class="pre">import</span> <span class="pre">*</span></code> this saves having to use the <code class="docutils literal"><span class="pre">pi3d.</span></code> prefix but
 is <strong>much harder to debug</strong> if there is a name conflict.</p>
 </div></blockquote>
 </div>
@@ -607,7 +609,7 @@ to pi3d - keep up the good work!</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -630,29 +632,28 @@ to pi3d - keep up the good work!</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="FAQ.html"
                         title="next chapter">Frequently Asked Questions</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/ReadMe.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ReadMe.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -667,12 +668,12 @@ to pi3d - keep up the good work!</p>
         <li class="right" >
           <a href="index.html" title="Welcome to pi3d’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.13 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.13 documentation</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

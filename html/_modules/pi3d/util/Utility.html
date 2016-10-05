@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.Utility &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.util.Utility &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,40 +38,40 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.util.Utility</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">copy</span>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">bisect</span>
 
-<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_float</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">subtract</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">divide</span><span class="p">,</span> <span class="n">sqrt</span> <span class="k">as</span> <span class="n">npsqrt</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">radians</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">acos</span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_float</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">subtract</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">divide</span><span class="p">,</span> <span class="n">sqrt</span> <span class="k">as</span> <span class="n">npsqrt</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">radians</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">acos</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="kn">import</span> <span class="n">c_bytes</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="k">import</span> <span class="n">c_bytes</span>
 
 <div class="viewcode-block" id="normalize_v3"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.normalize_v3">[docs]</a><span class="k">def</span> <span class="nf">normalize_v3</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Normalize a numpy array of 3 component vectors shape=(n,3) &#39;&#39;&#39;</span>
     <span class="n">lens</span> <span class="o">=</span> <span class="n">npsqrt</span><span class="p">(</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.000001</span>
-    <span class="k">return</span> <span class="n">divide</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lens</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-</div>
+    <span class="k">return</span> <span class="n">divide</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lens</span><span class="p">)</span><span class="o">.</span><span class="n">T</span></div>
+
 <div class="viewcode-block" id="magnitude"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.magnitude">[docs]</a><span class="k">def</span> <span class="nf">magnitude</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Return the magnitude (root mean square) of the vector.&quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span>
-</div>
+  <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="distance"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.distance">[docs]</a><span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Return the distance between two points.&quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">magnitude</span><span class="p">(</span><span class="o">*</span><span class="n">subtract</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v1</span><span class="p">))</span>
-</div>
+  <span class="k">return</span> <span class="n">magnitude</span><span class="p">(</span><span class="o">*</span><span class="n">subtract</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v1</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="from_polar"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.from_polar">[docs]</a><span class="k">def</span> <span class="nf">from_polar</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">magnitude</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Convert polar coordinates into Cartesian (x, y) coordinates.</span>
@@ -81,8 +83,8 @@
 <span class="sd">  *magnitude*</span>
 <span class="sd">    Vector length.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">from_polar_rad</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">direction</span><span class="p">),</span> <span class="n">magnitude</span><span class="p">)</span>
-</div>
+  <span class="k">return</span> <span class="n">from_polar_rad</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">direction</span><span class="p">),</span> <span class="n">magnitude</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="from_polar_rad"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.from_polar_rad">[docs]</a><span class="k">def</span> <span class="nf">from_polar_rad</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">magnitude</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Convert polar coordinates into Cartesian (x, y) coordinates.</span>
@@ -94,30 +96,30 @@
 <span class="sd">  *magnitude*</span>
 <span class="sd">    Vector length.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="n">magnitude</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">direction</span><span class="p">),</span> <span class="n">magnitude</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">magnitude</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">direction</span><span class="p">),</span> <span class="n">magnitude</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="vec_sub"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.vec_sub">[docs]</a><span class="k">def</span> <span class="nf">vec_sub</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Return the difference between two vectors.&quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="p">[</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)]</span>
-</div>
+  <span class="k">return</span> <span class="p">[</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)]</span></div>
+
 <div class="viewcode-block" id="vec_dot"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.vec_dot">[docs]</a><span class="k">def</span> <span class="nf">vec_dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Return the dot product of two vectors.&quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-</div>
+  <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="vec_cross"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.vec_cross">[docs]</a><span class="k">def</span> <span class="nf">vec_cross</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Return the cross product of two vectors.&quot;&quot;&quot;</span>
   <span class="k">return</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
           <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-          <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-</div>
+          <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span></div>
+
 <div class="viewcode-block" id="vec_normal"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.vec_normal">[docs]</a><span class="k">def</span> <span class="nf">vec_normal</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Return a vector normalized to unit length for a vector of non-zero length,</span>
 <span class="sd">  otherwise returns the original vector.&quot;&quot;&quot;</span>
   <span class="n">n</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vec</span><span class="p">))</span> <span class="ow">or</span> <span class="mi">1</span>
-  <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="o">/</span> <span class="n">n</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vec</span><span class="p">]</span>
+  <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="o">/</span> <span class="n">n</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vec</span><span class="p">]</span></div>
 
-</div>
+
 <div class="viewcode-block" id="draw_level_of_detail"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Utility.draw_level_of_detail">[docs]</a><span class="k">def</span> <span class="nf">draw_level_of_detail</span><span class="p">(</span><span class="n">here</span><span class="p">,</span> <span class="n">there</span><span class="p">,</span> <span class="n">mlist</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Level Of Detail checking and rendering.  The shader and texture information</span>
@@ -141,11 +143,11 @@
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">dist</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">here</span><span class="p">,</span> <span class="n">there</span><span class="p">)</span>
 
-  <span class="n">index</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">mlist</span><span class="p">,</span> <span class="p">[</span><span class="n">dist</span><span class="p">,</span> <span class="bp">None</span><span class="p">])</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">mlist</span><span class="p">,</span> <span class="p">[</span><span class="n">dist</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
   <span class="n">model</span> <span class="o">=</span> <span class="n">mlist</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)][</span><span class="mi">1</span><span class="p">]</span>
   <span class="n">model</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">there</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">there</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">there</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-  <span class="n">model</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-</div>
+  <span class="n">model</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd"># TODO: None of these functions is actually called in the codebase.</span>
 
@@ -443,26 +445,23 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -471,13 +470,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

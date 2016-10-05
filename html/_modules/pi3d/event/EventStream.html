@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.event.EventStream &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.event.EventStream &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,32 +38,32 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.event.EventStream</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">fcntl</span>
+<span></span><span class="kn">import</span> <span class="nn">fcntl</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">select</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.event.Constants</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.event.Constants</span> <span class="k">import</span> <span class="o">*</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="kn">import</span> <span class="n">ioctl</span>
-<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="kn">import</span> <span class="n">AbsAxisScaling</span>
-<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="kn">import</span> <span class="n">EventStruct</span>
-<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="kn">import</span> <span class="n">Format</span>
-<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Log</span>
+<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="k">import</span> <span class="n">ioctl</span>
+<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="k">import</span> <span class="n">AbsAxisScaling</span>
+<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="k">import</span> <span class="n">EventStruct</span>
+<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="k">import</span> <span class="n">Format</span>
+<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="k">import</span> <span class="n">Log</span>
 
 <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
-<span class="n">EVIOCGRAB</span> <span class="o">=</span> <span class="n">ioctl</span><span class="o">.</span><span class="n">_IOW</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s">&#39;E&#39;</span><span class="p">),</span> <span class="mh">0x90</span><span class="p">,</span> <span class="s">&quot;i&quot;</span><span class="p">)</span>          <span class="c"># Grab/Release device</span>
+<span class="n">EVIOCGRAB</span> <span class="o">=</span> <span class="n">ioctl</span><span class="o">.</span><span class="n">_IOW</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">),</span> <span class="mh">0x90</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">)</span>          <span class="c1"># Grab/Release device</span>
 
 <div class="viewcode-block" id="EventStream"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventStream.EventStream">[docs]</a><span class="k">class</span> <span class="nc">EventStream</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
@@ -120,16 +122,16 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">deviceIndex</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">deviceType</span> <span class="o">=</span> <span class="n">deviceType</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s">&quot;/dev/input/event&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/dev/input/event&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">filehandle</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">O_RDWR</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">grab</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">grabbed</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">grab</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">grabbed</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">EventStream</span><span class="o">.</span><span class="n">AllStreams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">absInfo</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">EventStream</span><span class="o">.</span><span class="n">numAxes</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">absInfo</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">EventStream</span><span class="o">.</span><span class="n">numAxes</span>
 
-  <span class="c">#def acquire_abs_info(self, axis):</span>
-  <span class="c">#  assert (axis &lt; EventStream.numAxes), &quot;Axis number out of range&quot;</span>
-  <span class="c">#  self.absinfo[axis] = AbsAxisScaling(EventStream.axisToEvent[axis])</span>
+  <span class="c1">#def acquire_abs_info(self, axis):</span>
+  <span class="c1">#  assert (axis &lt; EventStream.numAxes), &quot;Axis number out of range&quot;</span>
+  <span class="c1">#  self.absinfo[axis] = AbsAxisScaling(EventStream.axisToEvent[axis])</span>
 
 <div class="viewcode-block" id="EventStream.acquire_abs_info"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventStream.EventStream.acquire_abs_info">[docs]</a>  <span class="k">def</span> <span class="nf">acquire_abs_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -138,8 +140,8 @@
 <span class="sd">    This will only be called for joystick-type devices.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">EventStream</span><span class="o">.</span><span class="n">numAxes</span><span class="p">):</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">absInfo</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="n">AbsAxisScaling</span><span class="o">.</span><span class="n">AbsAxisScaling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">EventStream</span><span class="o">.</span><span class="n">axisToEvent</span><span class="p">[</span><span class="n">axis</span><span class="p">])</span>
-</div>
+      <span class="bp">self</span><span class="o">.</span><span class="n">absInfo</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="n">AbsAxisScaling</span><span class="o">.</span><span class="n">AbsAxisScaling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">EventStream</span><span class="o">.</span><span class="n">axisToEvent</span><span class="p">[</span><span class="n">axis</span><span class="p">])</span></div>
+
 <div class="viewcode-block" id="EventStream.scale"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventStream.EventStream.scale">[docs]</a>  <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Scale the given value according to the given axis.</span>
@@ -147,13 +149,13 @@
 <span class="sd">    acquire_abs_info must have been previously called to acquire the data to</span>
 <span class="sd">    do the scaling.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="p">(</span><span class="n">axis</span> <span class="o">&lt;</span> <span class="n">EventStream</span><span class="o">.</span><span class="n">numAxes</span><span class="p">),</span> <span class="s">&quot;Axis number out of range&quot;</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">axis</span> <span class="o">&lt;</span> <span class="n">EventStream</span><span class="o">.</span><span class="n">numAxes</span><span class="p">),</span> <span class="s2">&quot;Axis number out of range&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">absInfo</span><span class="p">[</span><span class="n">axis</span><span class="p">]:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">absInfo</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="k">return</span> <span class="n">value</span>
-</div>
-<div class="viewcode-block" id="EventStream.grab"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventStream.EventStream.grab">[docs]</a>  <span class="k">def</span> <span class="nf">grab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grab</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="EventStream.grab"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventStream.EventStream.grab">[docs]</a>  <span class="k">def</span> <span class="nf">grab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grab</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Grab (or release) exclusive access to all devices of the given type.</span>
 
@@ -163,12 +165,12 @@
 <span class="sd">    keyboard for example to use it for text entry. While not grabbed, all key-down</span>
 <span class="sd">    and key-hold events are filtered out.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c">#print &quot;grab(&quot;, self, &quot;,&quot;, grab,&quot;) =&quot;, 1 if grab else 0, &quot;with 0x%x&quot;%(EVIOCGRAB)</span>
+    <span class="c1">#print &quot;grab(&quot;, self, &quot;,&quot;, grab,&quot;) =&quot;, 1 if grab else 0, &quot;with 0x%x&quot;%(EVIOCGRAB)</span>
     <span class="n">fcntl</span><span class="o">.</span><span class="n">ioctl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filehandle</span><span class="p">,</span> <span class="n">EVIOCGRAB</span><span class="p">,</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">grab</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">grabbed</span> <span class="o">=</span> <span class="n">grab</span>
-    <span class="c">#flush outstanding events</span>
-    <span class="c">#while self.next(): pass</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">grabbed</span> <span class="o">=</span> <span class="n">grab</span></div>
+    <span class="c1">#flush outstanding events</span>
+    <span class="c1">#while self.next(): pass</span>
+
   <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Required to make this class an iterator</span>
@@ -189,29 +191,29 @@
         <span class="n">event</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">event</span>
 
-    <span class="k">return</span> <span class="bp">None</span>
-</div>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
   <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="EventStream.grab_by_type"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventStream.EventStream.grab_by_type">[docs]</a>  <span class="k">def</span> <span class="nf">grab_by_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deviceType</span><span class="p">,</span> <span class="n">deviceIndex</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">grab</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">streams</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="EventStream.grab_by_type"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventStream.EventStream.grab_by_type">[docs]</a>  <span class="k">def</span> <span class="nf">grab_by_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deviceType</span><span class="p">,</span> <span class="n">deviceIndex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grab</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">streams</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Grabs all streams of the given type.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">streams</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">streams</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">streams</span> <span class="o">=</span> <span class="n">EventStream</span><span class="o">.</span><span class="n">AllStreams</span>
 
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">streams</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">deviceType</span> <span class="o">==</span> <span class="n">deviceType</span> <span class="ow">and</span> <span class="p">(</span><span class="n">deviceIndex</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span>
+      <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">deviceType</span> <span class="o">==</span> <span class="n">deviceType</span> <span class="ow">and</span> <span class="p">(</span><span class="n">deviceIndex</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span>
                                         <span class="n">x</span><span class="o">.</span><span class="n">deviceIndex</span> <span class="o">==</span> <span class="n">deviceIndex</span><span class="p">):</span>
-        <span class="n">x</span><span class="o">.</span><span class="n">grab</span><span class="p">(</span><span class="n">grab</span><span class="p">)</span>
-</div>
+        <span class="n">x</span><span class="o">.</span><span class="n">grab</span><span class="p">(</span><span class="n">grab</span><span class="p">)</span></div>
+
   <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="EventStream.allNext"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventStream.EventStream.allNext">[docs]</a>  <span class="k">def</span> <span class="nf">allNext</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">streams</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="EventStream.allNext"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventStream.EventStream.allNext">[docs]</a>  <span class="k">def</span> <span class="nf">allNext</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">streams</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A generator fuction returning all waiting events in the given streams</span>
 
 <span class="sd">    If the streams parameter is not given, then all streams are selected.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">streams</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">streams</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">streams</span> <span class="o">=</span> <span class="n">EventStream</span><span class="o">.</span><span class="n">AllStreams</span>
 
     <span class="n">selectlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">filehandle</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">streams</span><span class="p">]</span>
@@ -222,12 +224,12 @@
         <span class="k">try</span><span class="p">:</span>
           <span class="n">s</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">Format</span><span class="o">.</span><span class="n">EventSize</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-          <span class="n">failed</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;failed&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+          <span class="n">failed</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s1">&#39;failed&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
           <span class="k">if</span> <span class="ow">not</span> <span class="n">failed</span><span class="p">:</span>
             <span class="n">failed</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;failed&#39;</span><span class="p">,</span> <span class="n">failed</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s1">&#39;failed&#39;</span><span class="p">,</span> <span class="n">failed</span><span class="p">)</span>
           <span class="k">if</span> <span class="n">fd</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">failed</span><span class="p">:</span>
-            <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t read fd </span><span class="si">%d</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t read fd </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
             <span class="n">failed</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
           <span class="k">continue</span>
         <span class="k">if</span> <span class="n">s</span><span class="p">:</span>
@@ -238,8 +240,8 @@
           <span class="n">event</span> <span class="o">=</span> <span class="n">EventStruct</span><span class="o">.</span><span class="n">EventStruct</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
           <span class="n">event</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
           <span class="k">yield</span> <span class="n">event</span>
-      <span class="n">ready</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">selectlist</span><span class="p">,</span> <span class="p">[</span> <span class="p">],</span> <span class="p">[</span> <span class="p">],</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-</div>
+      <span class="n">ready</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">selectlist</span><span class="p">,</span> <span class="p">[</span> <span class="p">],</span> <span class="p">[</span> <span class="p">],</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
   <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span>
 
@@ -249,11 +251,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
       <span class="n">EventStream</span><span class="o">.</span><span class="n">AllStreams</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">grab</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">grab</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
       <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filehandle</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
-      <span class="k">pass</span>
-</div>
+      <span class="k">pass</span></div>
+
   <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Ungrabs the file and closes it.</span>
@@ -264,26 +266,23 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -292,13 +291,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

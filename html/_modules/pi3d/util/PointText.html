@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.PointText &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.util.PointText &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,23 +38,23 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.util.PointText</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">pi3d.shape.Points</span> <span class="kn">import</span> <span class="n">Points</span>
-<span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="kn">import</span> <span class="n">Shader</span>
-<span class="kn">from</span> <span class="nn">pi3d.util.TextBlock</span> <span class="kn">import</span> <span class="n">TextBlock</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pi3d.shape.Points</span> <span class="k">import</span> <span class="n">Points</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="k">import</span> <span class="n">Shader</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.TextBlock</span> <span class="k">import</span> <span class="n">TextBlock</span>
 
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">colorsys</span>
@@ -75,97 +77,96 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">max_chars</span> <span class="o">=</span> <span class="n">max_chars</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="s">&quot;uv_pointsprite&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="s2">&quot;uv_pointsprite&quot;</span><span class="p">)</span>
     
     <span class="bp">self</span><span class="o">.</span><span class="n">locations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">max_chars</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="c"># :,2 for size and z offset. </span>
-    <span class="c"># size=fract(location[2] range 0.0 to 0.999)</span>
-    <span class="c"># zoffset = (location[2] - size)*0.1</span>
+    <span class="c1"># :,2 for size and z offset. </span>
+    <span class="c1"># size=fract(location[2] range 0.0 to 0.999)</span>
+    <span class="c1"># zoffset = (location[2] - size)*0.1</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">normals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">max_chars</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="c"># :,0 for rotation</span>
-    <span class="c"># :,1 for red and green, red=normal[1]/999, green=fract(normal[1])</span>
-    <span class="c"># :,2 for blue and alpha, blue=normal[2]/999, alpha=fract(normal[2])    </span>
+    <span class="c1"># :,0 for rotation</span>
+    <span class="c1"># :,1 for red and green, red=normal[1]/999, green=fract(normal[1])</span>
+    <span class="c1"># :,2 for blue and alpha, blue=normal[2]/999, alpha=fract(normal[2])    </span>
     <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">uv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">max_chars</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="c"># u picnum.u v</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">uv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">max_chars</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="c1"># u picnum.u v</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_first_free_char</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_do_buffer_reinit</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_do_buffer_reinit</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">point_size</span> <span class="o">=</span> <span class="n">point_size</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">Points</span><span class="p">(</span><span class="n">camera</span><span class="o">=</span><span class="n">camera</span><span class="p">,</span> <span class="n">vertices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">locations</span><span class="p">,</span> <span class="n">normals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">,</span>
                        <span class="n">tex_coords</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uv</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">point_size</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">48</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.058</span>  <span class="c"># used to hold &quot;patch size&quot; passed to shader</span>
-    <span class="c">#Reset all characters to space so there are no false character shadows</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">48</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.058</span>  <span class="c1"># used to hold &quot;patch size&quot; passed to shader</span>
+    <span class="c1">#Reset all characters to space so there are no false character shadows</span>
     <span class="k">try</span><span class="p">:</span>
-      <span class="n">glyph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">glyph_table</span><span class="p">[</span><span class="s">&#39; &#39;</span><span class="p">]</span> <span class="c">#u&#39; &#39; doesn&#39;t work on python3.2!!</span>
+      <span class="n">glyph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">glyph_table</span><span class="p">[</span><span class="s1">&#39; &#39;</span><span class="p">]</span> <span class="c1">#u&#39; &#39; doesn&#39;t work on python3.2!!</span>
     <span class="k">except</span><span class="p">:</span>
-      <span class="n">glyph</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">glyph_table</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span> <span class="c">#in case &#39; &#39; isn&#39;t there</span>
+      <span class="n">glyph</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">glyph_table</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#in case &#39; &#39; isn&#39;t there</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">uv</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">glyph</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
 
 <div class="viewcode-block" id="PointText.regen"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PointText.PointText.regen">[docs]</a>  <span class="k">def</span> <span class="nf">regen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Regenerate all text blocks that are linked to data objects and have</span>
 <span class="sd">    changed value &#39;&#39;&#39;</span>
     <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="n">data_obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="n">data_obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">block</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">block</span><span class="o">.</span><span class="n">last_value</span><span class="p">:</span>
           <span class="n">block</span><span class="o">.</span><span class="n">last_value</span> <span class="o">=</span> <span class="n">value</span>
-          <span class="n">block</span><span class="o">.</span><span class="n">set_text</span><span class="p">()</span>
-</div>
+          <span class="n">block</span><span class="o">.</span><span class="n">set_text</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="PointText.add_text_block"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PointText.PointText.add_text_block">[docs]</a>  <span class="k">def</span> <span class="nf">add_text_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_block</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Add a text block to the collection, setting the object link to this</span>
 <span class="sd">    service and setting the buffer offset allocated to the text block.</span>
 <span class="sd">    This is required for the text block to update the buffer allocated to</span>
 <span class="sd">    it. Also tracks the next unallocated character in the buffer. &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_free_char</span> <span class="o">+</span> <span class="n">text_block</span><span class="o">.</span><span class="n">char_count</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_chars</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;failed to allocate space in characers for &quot;</span> <span class="o">+</span> <span class="n">text_block</span><span class="o">.</span><span class="n">char_count</span> <span class="o">+</span> <span class="s">&quot; characters&quot;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;failed to allocate space in characers for &quot;</span> <span class="o">+</span> <span class="n">text_block</span><span class="o">.</span><span class="n">char_count</span> <span class="o">+</span> <span class="s2">&quot; characters&quot;</span><span class="p">)</span>
       <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text_block</span><span class="p">)</span>
     <span class="n">text_block</span><span class="o">.</span><span class="n">set_text_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_free_char</span><span class="p">)</span>
     <span class="n">text_block</span><span class="o">.</span><span class="n">set_text</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_first_free_char</span> <span class="o">+=</span> <span class="n">text_block</span><span class="o">.</span><span class="n">char_count</span>
-    <span class="k">return</span> <span class="mi">0</span>
-</div>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
 <div class="viewcode-block" id="PointText.draw"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PointText.PointText.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Draw all the text characters.  If the re_init flag is set then</span>
 <span class="sd">    update the points shape buffer. &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_buffer_reinit</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">re_init</span><span class="p">(</span><span class="n">pts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">locations</span><span class="p">,</span> <span class="n">normals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">,</span>
-                              <span class="n">texcoords</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uv</span><span class="p">)</span> <span class="c"># reform opengles array_buffer</span>
+                              <span class="n">texcoords</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uv</span><span class="p">)</span> <span class="c1"># reform opengles array_buffer</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="PointText.set_do_reinit"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PointText.PointText.set_do_reinit">[docs]</a>  <span class="k">def</span> <span class="nf">set_do_reinit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_do_buffer_reinit</span> <span class="o">=</span> <span class="bp">True</span>
-</pre></div></div></div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_do_buffer_reinit</span> <span class="o">=</span> <span class="kc">True</span></div></div>
+
+
+</pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -174,13 +175,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

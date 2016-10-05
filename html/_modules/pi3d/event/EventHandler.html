@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.event.EventHandler &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.event.EventHandler &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,21 +38,21 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.event.EventHandler</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">threading</span>
+<span></span><span class="kn">import</span> <span class="nn">threading</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.event.Constants</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pi3d.event.EventStream</span> <span class="kn">import</span> <span class="n">EventStream</span>
+<span class="kn">from</span> <span class="nn">pi3d.event.Constants</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.event.EventStream</span> <span class="k">import</span> <span class="n">EventStream</span>
 
 <div class="viewcode-block" id="EventHandler"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventHandler.EventHandler">[docs]</a><span class="k">class</span> <span class="nc">EventHandler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
@@ -60,7 +62,7 @@
 <span class="sd">  other device buttons), ABS (joysticks and gamepad analogue sticks) and SYN</span>
 <span class="sd">  (delimits simultaneous events such as mouse movements)</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">relHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">absHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">synHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyHandler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">relHandler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">absHandler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">synHandler</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">relHandler</span> <span class="o">=</span> <span class="n">relHandler</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">keyHandler</span> <span class="o">=</span> <span class="n">keyHandler</span>
@@ -117,34 +119,34 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">mutex</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
 
     <span class="k">try</span><span class="p">:</span>
-      <span class="n">Handled</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="n">Handled</span> <span class="o">=</span> <span class="kc">False</span>
       <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">eventType</span> <span class="o">==</span> <span class="n">EV_SYN</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">synHandler</span><span class="p">:</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">synHandler</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceType</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
-          <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+          <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
       <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventType</span> <span class="o">==</span> <span class="n">EV_KEY</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">grabbed</span> <span class="o">==</span> <span class="bp">False</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-          <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">grabbed</span> <span class="o">==</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">eventCode</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keyHandler</span><span class="p">:</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">keyHandler</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceType</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
       <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventType</span> <span class="o">==</span> <span class="n">EV_REL</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">REL_X</span><span class="p">:</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">relx</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">+=</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span>
           <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">relHandler</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">relHandler</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceType</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-          <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+          <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">REL_Y</span><span class="p">:</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">rely</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">+=</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span>
           <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">relHandler</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">relHandler</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceType</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-          <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+          <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">REL_WHEEL</span><span class="p">:</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">relv</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">+=</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span>
           <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">relHandler</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">relHandler</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceType</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-          <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+          <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">REL_HWHEEL</span><span class="p">:</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">relh</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">+=</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span>
           <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">relHandler</span><span class="p">:</span>
@@ -153,31 +155,31 @@
           <span class="bp">self</span><span class="o">.</span><span class="n">relh</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">+=</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span>
           <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">relHandler</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">relHandler</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceType</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
-          <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+          <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
       <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventType</span> <span class="o">==</span> <span class="n">EV_ABS</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">ABS_X</span><span class="p">:</span>
-          <span class="n">Handled</span> <span class="o">=</span> <span class="bp">True</span>
+          <span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">absx</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">EventStream</span><span class="o">.</span><span class="n">axisX</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">ABS_Y</span><span class="p">:</span>
-          <span class="n">Handled</span> <span class="o">=</span> <span class="bp">True</span>
+          <span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">absy</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">EventStream</span><span class="o">.</span><span class="n">axisY</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">ABS_Z</span><span class="p">:</span>
-          <span class="n">Handled</span> <span class="o">=</span> <span class="bp">True</span>
+          <span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">absz</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">EventStream</span><span class="o">.</span><span class="n">axisZ</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">ABS_RX</span><span class="p">:</span>
-          <span class="n">Handled</span> <span class="o">=</span> <span class="bp">True</span>
+          <span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">absx2</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">EventStream</span><span class="o">.</span><span class="n">axisRX</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">ABS_RY</span><span class="p">:</span>
-          <span class="n">Handled</span> <span class="o">=</span> <span class="bp">True</span>
+          <span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">absy2</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">EventStream</span><span class="o">.</span><span class="n">axisRY</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">ABS_RZ</span><span class="p">:</span>
-          <span class="n">Handled</span> <span class="o">=</span> <span class="bp">True</span>
+          <span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">absz2</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">EventStream</span><span class="o">.</span><span class="n">axisRZ</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">ABS_HAT0X</span><span class="p">:</span>
-          <span class="n">Handled</span> <span class="o">=</span> <span class="bp">True</span>
+          <span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">abshatx</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">EventStream</span><span class="o">.</span><span class="n">axisHat0X</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">eventCode</span> <span class="o">==</span> <span class="n">ABS_HAT0Y</span><span class="p">:</span>
-          <span class="n">Handled</span> <span class="o">=</span> <span class="bp">True</span>
+          <span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">abshaty</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">EventStream</span><span class="o">.</span><span class="n">axisHat0Y</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">Handled</span><span class="p">:</span>
           <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">absHandler</span><span class="p">:</span>
@@ -185,11 +187,11 @@
               <span class="bp">self</span><span class="o">.</span><span class="n">absx</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">absy</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">absz</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">],</span>
               <span class="bp">self</span><span class="o">.</span><span class="n">absx2</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">absy2</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">absz2</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">],</span>
               <span class="bp">self</span><span class="o">.</span><span class="n">abshatx</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">abshaty</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">])</span>
-          <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+          <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">finally</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">mutex</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">ret</span>
-</div>
+    <span class="k">return</span> <span class="n">ret</span></div>
+
 <div class="viewcode-block" id="EventHandler.get_rel_movement"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventHandler.EventHandler.get_rel_movement">[docs]</a>  <span class="k">def</span> <span class="nf">get_rel_movement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the accumulated REL (mouse or other relative device) movements</span>
@@ -209,8 +211,8 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">reld</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">finally</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">mutex</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">ret</span>
-</div>
+    <span class="k">return</span> <span class="n">ret</span></div>
+
 <div class="viewcode-block" id="EventHandler.key_state"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventHandler.EventHandler.key_state">[docs]</a>  <span class="k">def</span> <span class="nf">key_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buttonCode</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the last event value for the given key code.</span>
@@ -222,8 +224,8 @@
     <span class="k">try</span><span class="p">:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="n">buttonCode</span><span class="p">]</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-      <span class="k">return</span> <span class="mi">0</span>
-</div>
+      <span class="k">return</span> <span class="mi">0</span></div>
+
 <div class="viewcode-block" id="EventHandler.clear_key"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventHandler.EventHandler.clear_key">[docs]</a>  <span class="k">def</span> <span class="nf">clear_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buttonCode</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Clears the  event value for the given key code.</span>
@@ -234,8 +236,8 @@
     <span class="k">try</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="n">buttonCode</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-      <span class="k">pass</span>
-</div>
+      <span class="k">pass</span></div>
+
 <div class="viewcode-block" id="EventHandler.get_keys"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventHandler.EventHandler.get_keys">[docs]</a>  <span class="k">def</span> <span class="nf">get_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the first of whichever keys have been pressed.</span>
@@ -251,32 +253,30 @@
       <span class="k">return</span> <span class="n">k_list</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
       <span class="k">pass</span>
-    <span class="k">return</span> <span class="n">k_list</span>
-</pre></div></div></div>
+    <span class="k">return</span> <span class="n">k_list</span></div></div>
+
+</pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -285,13 +285,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

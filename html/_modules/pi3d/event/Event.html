@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.event.Event &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.event.Event &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,37 +38,37 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.event.Event</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">six_mod</span>
+<span></span><span class="kn">import</span> <span class="nn">six_mod</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="kn">import</span> <span class="n">EventHandler</span>
-<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="kn">import</span> <span class="n">Keys</span>
-<span class="kn">from</span> <span class="nn">pi3d.event.FindDevices</span> <span class="kn">import</span> <span class="n">find_devices</span>
-<span class="kn">from</span> <span class="nn">pi3d.event.Constants</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pi3d.event.EventStream</span> <span class="kn">import</span> <span class="n">EventStream</span>
+<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="k">import</span> <span class="n">EventHandler</span>
+<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="k">import</span> <span class="n">Keys</span>
+<span class="kn">from</span> <span class="nn">pi3d.event.FindDevices</span> <span class="k">import</span> <span class="n">find_devices</span>
+<span class="kn">from</span> <span class="nn">pi3d.event.Constants</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.event.EventStream</span> <span class="k">import</span> <span class="n">EventStream</span>
 
-<span class="n">_KEYS</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">Keys</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">))</span>
+<span class="n">_KEYS</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">Keys</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">))</span>
 <span class="n">KEY_CODE</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Keys</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_KEYS</span><span class="p">)</span>
 <span class="n">CODE_KEY</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">KEY_CODE</span><span class="p">:</span>
   <span class="n">CODE_KEY</span><span class="p">[</span><span class="n">KEY_CODE</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span> <span class="o">=</span> <span class="n">v</span>
 
 <div class="viewcode-block" id="key_to_code"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.key_to_code">[docs]</a><span class="k">def</span> <span class="nf">key_to_code</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-  <span class="k">return</span> <span class="n">KEY_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">six_mod</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span>
-</div>
+  <span class="k">return</span> <span class="n">KEY_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">six_mod</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span></div>
+
 <div class="viewcode-block" id="code_to_key"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.code_to_key">[docs]</a><span class="k">def</span> <span class="nf">code_to_key</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
-  <span class="k">return</span> <span class="n">CODE_KEY</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
-</div>
+  <span class="k">return</span> <span class="n">CODE_KEY</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="InputEvents"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents">[docs]</a><span class="k">class</span> <span class="nc">InputEvents</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Encapsulates the entire InputEvents subsystem.</span>
 
@@ -110,28 +112,28 @@
 <span class="sd">  The keys are listed in pi3d.event.Constants.py or /usr/include/linux/input.h</span>
 <span class="sd">  Note that the key names refer to a US keyboard.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyboardHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mouseHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">joystickHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">synHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">unhandledHandler</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">wantKeyboard</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">wantMouse</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">wantJoystick</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyboardHandler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mouseHandler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">joystickHandler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">synHandler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unhandledHandler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wantKeyboard</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">wantMouse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">wantJoystick</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unhandledHandler</span> <span class="o">=</span> <span class="n">unhandledHandler</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">streams</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
     <span class="k">if</span> <span class="n">wantKeyboard</span><span class="p">:</span>
-      <span class="n">keyboards</span> <span class="o">=</span>  <span class="n">find_devices</span><span class="p">(</span><span class="s">&quot;kbd&quot;</span><span class="p">)</span>
+      <span class="n">keyboards</span> <span class="o">=</span>  <span class="n">find_devices</span><span class="p">(</span><span class="s2">&quot;kbd&quot;</span><span class="p">)</span>
       <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keyboards</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;keyboard&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;keyboard&quot;</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">keyboards</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;keyboards =&quot;</span><span class="p">,</span> <span class="n">keyboards</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;keyboards =&quot;</span><span class="p">,</span> <span class="n">keyboards</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">wantMouse</span><span class="p">:</span>
-      <span class="n">mice</span> <span class="o">=</span> <span class="n">find_devices</span><span class="p">(</span><span class="s">&quot;mouse&quot;</span><span class="p">,</span> <span class="n">butNot</span><span class="o">=</span><span class="n">keyboards</span><span class="p">)</span>
+      <span class="n">mice</span> <span class="o">=</span> <span class="n">find_devices</span><span class="p">(</span><span class="s2">&quot;mouse&quot;</span><span class="p">,</span> <span class="n">butNot</span><span class="o">=</span><span class="n">keyboards</span><span class="p">)</span>
       <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mice</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;mouse&quot;</span><span class="p">))</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;mice = &quot;</span><span class="p">,</span> <span class="n">mice</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;mouse&quot;</span><span class="p">))</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mice = &quot;</span><span class="p">,</span> <span class="n">mice</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">mice</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
     <span class="k">if</span> <span class="n">wantJoystick</span><span class="p">:</span>
-      <span class="n">joysticks</span> <span class="o">=</span> <span class="n">find_devices</span><span class="p">(</span><span class="s">&quot;js&quot;</span><span class="p">,</span> <span class="n">butNot</span><span class="o">=</span><span class="n">keyboards</span><span class="o">+</span><span class="n">mice</span><span class="p">)</span>
+      <span class="n">joysticks</span> <span class="o">=</span> <span class="n">find_devices</span><span class="p">(</span><span class="s2">&quot;js&quot;</span><span class="p">,</span> <span class="n">butNot</span><span class="o">=</span><span class="n">keyboards</span><span class="o">+</span><span class="n">mice</span><span class="p">)</span>
       <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">joysticks</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;joystick&quot;</span><span class="p">))</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;joysticks =&quot;</span><span class="p">,</span> <span class="n">joysticks</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;joystick&quot;</span><span class="p">))</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;joysticks =&quot;</span><span class="p">,</span> <span class="n">joysticks</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="p">:</span>
       <span class="n">x</span><span class="o">.</span><span class="n">acquire_abs_info</span><span class="p">()</span>
 
@@ -144,8 +146,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">EventStream</span><span class="o">.</span><span class="n">allNext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="p">):</span>
       <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">unhandledHandler</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unhandledHandler</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unhandledHandler</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="InputEvents.key_state"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.key_state">[docs]</a>  <span class="k">def</span> <span class="nf">key_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the state of the given key.</span>
@@ -176,19 +178,19 @@
 
 <span class="sd">    The direction pad is hat0 (see get_hat)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">key_state</span><span class="p">(</span><span class="n">key_to_code</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
-</div>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">key_state</span><span class="p">(</span><span class="n">key_to_code</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="InputEvents.clear_key"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.clear_key">[docs]</a>  <span class="k">def</span> <span class="nf">clear_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Clears the state of the given key.</span>
 
 <span class="sd">    Emulates a key-up, but does not call any handlers.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">clear_key</span><span class="p">(</span><span class="n">key_to_code</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
-</div>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">clear_key</span><span class="p">(</span><span class="n">key_to_code</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="InputEvents.get_keys"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.get_keys">[docs]</a>  <span class="k">def</span> <span class="nf">get_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">code_to_key</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">get_keys</span><span class="p">()]</span>
-</div>
+    <span class="k">return</span> <span class="p">[</span><span class="n">code_to_key</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">get_keys</span><span class="p">()]</span></div>
+
 <div class="viewcode-block" id="InputEvents.get_joystick"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.get_joystick">[docs]</a>  <span class="k">def</span> <span class="nf">get_joystick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the x,y coordinates for a joystick or left gamepad analogue stick.</span>
@@ -198,8 +200,8 @@
 <span class="sd">    The values are returned as a tuple. All values are -1.0 to +1.0 with</span>
 <span class="sd">    0.0 being centred.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absx</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absy</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-</div>
+    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absx</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absy</span><span class="p">[</span><span class="n">index</span><span class="p">])</span></div>
+
 <div class="viewcode-block" id="InputEvents.get_joystick3d"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.get_joystick3d">[docs]</a>  <span class="k">def</span> <span class="nf">get_joystick3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the x,y,z coordinates for a joystick or left gamepad analogue stick</span>
@@ -209,8 +211,8 @@
 <span class="sd">    The values are returned as a tuple. All values are -1.0 to +1.0 with</span>
 <span class="sd">    0.0 being centred.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absx</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absy</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absz</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-</div>
+    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absx</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absy</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absz</span><span class="p">[</span><span class="n">index</span><span class="p">])</span></div>
+
 <div class="viewcode-block" id="InputEvents.get_joystickR"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.get_joystickR">[docs]</a>  <span class="k">def</span> <span class="nf">get_joystickR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the x,y coordinates for a right gamepad analogue stick.</span>
@@ -222,9 +224,9 @@
 
 <span class="sd">    All values are -1.0 to +1.0 with 0.0 being centred.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c">#return (self.handler.absz2[index], self.handler.absz[index])</span>
-    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absx2</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absz2</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-</div>
+    <span class="c1">#return (self.handler.absz2[index], self.handler.absz[index])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absx2</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absz2</span><span class="p">[</span><span class="n">index</span><span class="p">])</span></div>
+
 <div class="viewcode-block" id="InputEvents.get_joystickB3d"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.get_joystickB3d">[docs]</a>  <span class="k">def</span> <span class="nf">get_joystickB3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the x,y,z coordinates for a 2nd joystick control</span>
@@ -234,8 +236,8 @@
 <span class="sd">    The values are returned as a tuple. All values are -1.0 to +1.0 with</span>
 <span class="sd">    0.0 being centred.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absx2</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absy2</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absz2</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-</div>
+    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absx2</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absy2</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">absz2</span><span class="p">[</span><span class="n">index</span><span class="p">])</span></div>
+
 <div class="viewcode-block" id="InputEvents.get_hat"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.get_hat">[docs]</a>  <span class="k">def</span> <span class="nf">get_hat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the x,y coordinates for a joystick hat or gamepad direction pad</span>
@@ -245,8 +247,8 @@
 <span class="sd">    The values are returned as a tuple.  All values are -1.0 to +1.0 with</span>
 <span class="sd">    0.0 being centred.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">abshatx</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">abshaty</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-</div>
+    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">abshatx</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">abshaty</span><span class="p">[</span><span class="n">index</span><span class="p">])</span></div>
+
 <div class="viewcode-block" id="InputEvents.get_mouse_movement"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.get_mouse_movement">[docs]</a>  <span class="k">def</span> <span class="nf">get_mouse_movement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the accumulated mouse movements since the last call.</span>
@@ -255,9 +257,9 @@
 
 <span class="sd">    The returned value is a tuple: (X, Y, WHEEL, H-WHEEL)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">get_rel_movement</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="InputEvents.grab_by_type"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.grab_by_type">[docs]</a>  <span class="k">def</span> <span class="nf">grab_by_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deviceType</span><span class="p">,</span> <span class="n">deviceIndex</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">grab</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">get_rel_movement</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="InputEvents.grab_by_type"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.grab_by_type">[docs]</a>  <span class="k">def</span> <span class="nf">grab_by_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deviceType</span><span class="p">,</span> <span class="n">deviceIndex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grab</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Grab (or release) exclusive access to all devices of the given type.</span>
 
@@ -282,8 +284,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">grab</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">do_input_events</span><span class="p">()</span>
-    <span class="n">EventStream</span><span class="o">.</span><span class="n">grab_by_type</span><span class="p">(</span><span class="n">deviceType</span><span class="p">,</span> <span class="n">deviceIndex</span><span class="p">,</span> <span class="n">grab</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="p">)</span>
-</div>
+    <span class="n">EventStream</span><span class="o">.</span><span class="n">grab_by_type</span><span class="p">(</span><span class="n">deviceType</span><span class="p">,</span> <span class="n">deviceIndex</span><span class="p">,</span> <span class="n">grab</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="InputEvents.release"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.Event.InputEvents.release">[docs]</a>  <span class="k">def</span> <span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Ungrabs all streams and closes all files.</span>
@@ -291,32 +293,30 @@
 <span class="sd">    Only do this when you&#39;re finished with this object. You can&#39;t use it again.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="p">:</span>
-      <span class="n">s</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-</pre></div></div></div>
+      <span class="n">s</span><span class="o">.</span><span class="n">release</span><span class="p">()</span></div></div>
+
+</pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -325,13 +325,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

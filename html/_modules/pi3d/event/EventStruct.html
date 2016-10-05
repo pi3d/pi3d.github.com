@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.event.EventStruct &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.event.EventStruct &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,20 +38,20 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.event.EventStruct</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">struct</span>
+<span></span><span class="kn">import</span> <span class="nn">struct</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="kn">import</span> <span class="n">Format</span>
+<span class="kn">from</span> <span class="nn">pi3d.event</span> <span class="k">import</span> <span class="n">Format</span>
 
 <div class="viewcode-block" id="EventStruct"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventStruct.EventStruct">[docs]</a><span class="k">class</span> <span class="nc">EventStruct</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
@@ -65,8 +67,8 @@
 <span class="sd">  This class is responsible for converting the Linux input event structure into</span>
 <span class="sd">  one of these objects and back again.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">eventType</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">eventCode</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-               <span class="n">eventValue</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eventType</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eventCode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">eventValue</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a new event.</span>
 
@@ -83,12 +85,12 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Uses the stream to give the device type and whether it is currently grabbed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="s">&quot;Input event </span><span class="si">%s</span><span class="s">[</span><span class="si">%d</span><span class="s">], </span><span class="si">%d</span><span class="s"> -- </span><span class="si">%f</span><span class="s">: 0x</span><span class="si">%x</span><span class="s">(0x</span><span class="si">%x</span><span class="s">) = 0x</span><span class="si">%x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+    <span class="k">return</span> <span class="s2">&quot;Input event </span><span class="si">%s</span><span class="s2">[</span><span class="si">%d</span><span class="s2">], </span><span class="si">%d</span><span class="s2"> -- </span><span class="si">%f</span><span class="s2">: 0x</span><span class="si">%x</span><span class="s2">(0x</span><span class="si">%x</span><span class="s2">) = 0x</span><span class="si">%x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceType</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">deviceIndex</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">grabbed</span><span class="p">,</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventType</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventCode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s">&quot;EventStruct(</span><span class="si">%s</span><span class="s">, </span><span class="si">%f</span><span class="s">, 0x</span><span class="si">%x</span><span class="s">, 0x</span><span class="si">%x</span><span class="s">, 0x</span><span class="si">%x</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+    <span class="k">return</span> <span class="s2">&quot;EventStruct(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%f</span><span class="s2">, 0x</span><span class="si">%x</span><span class="s2">, 0x</span><span class="si">%x</span><span class="s2">, 0x</span><span class="si">%x</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
       <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventType</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventCode</span><span class="p">,</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
 
@@ -99,11 +101,11 @@
 <span class="sd">    The output is packed into a string. It is unlikely that this function</span>
 <span class="sd">    will be required, but it might as well be here.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">tint</span> <span class="o">=</span> <span class="nb">long</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
-    <span class="n">tfrac</span> <span class="o">=</span> <span class="nb">long</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">-</span> <span class="n">tint</span><span class="p">)</span><span class="o">*</span><span class="mi">1000000</span><span class="p">)</span>
+    <span class="n">tint</span> <span class="o">=</span> <span class="n">long</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+    <span class="n">tfrac</span> <span class="o">=</span> <span class="n">long</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">-</span> <span class="n">tint</span><span class="p">)</span><span class="o">*</span><span class="mi">1000000</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">Format</span><span class="o">.</span><span class="n">Event</span><span class="p">,</span> <span class="n">tsec</span><span class="p">,</span> <span class="n">tfrac</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventType</span><span class="p">,</span>
-                       <span class="bp">self</span><span class="o">.</span><span class="n">eventCode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span>
-</div>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">eventCode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eventValue</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="EventStruct.decode"><a class="viewcode-back" href="../../../pi3d.event.html#pi3d.event.EventStruct.EventStruct.decode">[docs]</a>  <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Decode a Linux input event into the fields of this object.</span>
@@ -121,26 +123,23 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -149,13 +148,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

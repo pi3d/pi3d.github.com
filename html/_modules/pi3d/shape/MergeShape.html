@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.shape.MergeShape &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.shape.MergeShape &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,29 +38,29 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.shape.MergeShape</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
-<span class="c">#import ctypes</span>
+<span class="c1">#import ctypes</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="k">import</span> <span class="n">Buffer</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
-<span class="kn">from</span> <span class="nn">pi3d.util.RotateVec</span> <span class="kn">import</span> <span class="n">rotate_vec</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="k">import</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.RotateVec</span> <span class="k">import</span> <span class="n">rotate_vec</span>
 
 <div class="viewcode-block" id="MergeShape"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape">[docs]</a><span class="k">class</span> <span class="nc">MergeShape</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot; 3d model inherits from Shape. As there is quite a time penalty for</span>
@@ -71,7 +73,7 @@
 <span class="sd">  (i.e. more complex Model objects) each must be combined into a different</span>
 <span class="sd">  MergeShape</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">light</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">light</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
                <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
@@ -81,16 +83,16 @@
                                    <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;Creating Merge Shape ...&quot;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating Merge Shape ...&quot;</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">normals</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c">#stores all indices for single render</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c1">#stores all indices for single render</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tex_coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="p">))</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">childModel</span> <span class="o">=</span> <span class="bp">None</span> <span class="c">#unused but asked for by pickle</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">childModel</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1">#unused but asked for by pickle</span>
 
 <div class="viewcode-block" id="MergeShape.merge"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.merge">[docs]</a>  <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
             <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
@@ -115,10 +117,10 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="n">buflist</span> <span class="o">=</span> <span class="n">bufr</span>
 
-    <span class="n">buf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span> <span class="c"># alias to tidy code</span>
+    <span class="n">buf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span> <span class="c1"># alias to tidy code</span>
     <span class="n">vertices</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">buf</span>
     <span class="n">normals</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[:,</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">buf</span>
-    <span class="n">tex_coords</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[:,</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">buf</span> <span class="c">#TODO this will only cope with N_BYTES == 32</span>
+    <span class="n">tex_coords</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[:,</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">buf</span> <span class="c1">#TODO this will only cope with N_BYTES == 32</span>
     <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="p">[:]</span>
 
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">buflist</span><span class="p">:</span>
@@ -130,7 +132,7 @@
       <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufr</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">)</span>
 
       <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Merging&quot;</span><span class="p">,</span> <span class="n">bufr</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Merging&quot;</span><span class="p">,</span> <span class="n">bufr</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
       <span class="n">original_vertex_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span>
 
@@ -155,7 +157,7 @@
       <span class="n">normals</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
       <span class="n">tex_coords</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-      <span class="c">#ctypes.restype = ctypes.c_short  # TODO: remove this side-effect.</span>
+      <span class="c1">#ctypes.restype = ctypes.c_short  # TODO: remove this side-effect.</span>
       <span class="n">faces</span> <span class="o">=</span> <span class="n">bufr</span><span class="o">.</span><span class="n">element_array_buffer</span> <span class="o">+</span> <span class="n">original_vertex_count</span>
       <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">faces</span><span class="p">)</span>
 
@@ -163,18 +165,18 @@
       <span class="n">indices</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">tex_coords</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">normals</span><span class="p">)]</span>
-    <span class="c"># add some Buffer details from last one in list</span>
+    <span class="c1"># add some Buffer details from last one in list</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">bufr</span><span class="o">.</span><span class="n">shader</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="n">bufr</span><span class="o">.</span><span class="n">material</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">textures</span> <span class="o">=</span> <span class="n">bufr</span><span class="o">.</span><span class="n">textures</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">bufr</span><span class="o">.</span><span class="n">draw_method</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unib</span> <span class="o">=</span> <span class="n">bufr</span><span class="o">.</span><span class="n">unib</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unib</span> <span class="o">=</span> <span class="n">bufr</span><span class="o">.</span><span class="n">unib</span></div>
+
 <div class="viewcode-block" id="MergeShape.add"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.add">[docs]</a>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
           <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;wrapper to alias merge method&quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">)</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="MergeShape.cluster"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.cluster">[docs]</a>  <span class="k">def</span> <span class="nf">cluster</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">elevmap</span><span class="p">,</span> <span class="n">xpos</span><span class="p">,</span> <span class="n">zpos</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">minscl</span><span class="p">,</span> <span class="n">maxscl</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;generates a random cluster on an ElevationMap.</span>
 
@@ -197,7 +199,7 @@
 <span class="sd">      *maxscl*</span>
 <span class="sd">        The maximum scale value for random selection.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c">#create a cluster of shapes on an elevation map</span>
+    <span class="c1">#create a cluster of shapes on an elevation map</span>
     <span class="n">blist</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
       <span class="n">x</span> <span class="o">=</span> <span class="n">xpos</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">w</span> <span class="o">*</span> <span class="mf">0.5</span>
@@ -206,8 +208,8 @@
       <span class="n">rt</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mf">360.0</span>
       <span class="n">y</span> <span class="o">=</span> <span class="n">elevmap</span><span class="o">.</span><span class="n">calcHeight</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="n">rh</span> <span class="o">*</span> <span class="mi">2</span>
       <span class="n">blist</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">rt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">rh</span><span class="p">,</span> <span class="n">rh</span><span class="p">,</span> <span class="n">rh</span><span class="p">])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">blist</span><span class="p">)</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">blist</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="MergeShape.radialCopy"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.MergeShape.MergeShape.radialCopy">[docs]</a>  <span class="k">def</span> <span class="nf">radialCopy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufr</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">startRadius</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">endRadius</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
                  <span class="n">startAngle</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">endAngle</span><span class="o">=</span><span class="mf">360.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;generates a radially copied cluster, axix is in the y direction.</span>
@@ -238,7 +240,7 @@
 
     <span class="n">blist</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">st</span><span class="p">)):</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;merging &quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;merging &quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
       <span class="n">ca</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">sta</span><span class="p">))</span>
       <span class="n">sa</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">sta</span><span class="p">))</span>
       <span class="n">sta</span> <span class="o">+=</span> <span class="n">step</span>
@@ -247,32 +249,29 @@
                 <span class="mi">0</span><span class="p">,</span> <span class="n">sta</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">blist</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;merged all&quot;</span><span class="p">)</span></div></div>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;merged all&quot;</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -281,13 +280,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

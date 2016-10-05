@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.Defocus &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.util.Defocus &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,23 +38,22 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.util.Defocus</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">ctypes</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span></span><span class="kn">import</span> <span class="nn">ctypes</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="kn">import</span> <span class="n">Shader</span>
-<span class="kn">from</span> <span class="nn">pi3d.util.OffScreenTexture</span> <span class="kn">import</span> <span class="n">OffScreenTexture</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="k">import</span> <span class="n">Shader</span>
+<span class="kn">from</span> <span class="nn">pi3d.util.OffScreenTexture</span> <span class="k">import</span> <span class="n">OffScreenTexture</span>
 
 <div class="viewcode-block" id="Defocus"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Defocus.Defocus">[docs]</a><span class="k">class</span> <span class="nc">Defocus</span><span class="p">(</span><span class="n">OffScreenTexture</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;For creating a depth-of-field blurring effect on selected objects&quot;&quot;&quot;</span>
@@ -60,9 +61,9 @@
     <span class="sd">&quot;&quot;&quot; calls Texture.__init__ but doesn&#39;t need to set file name as</span>
 <span class="sd">    texture generated from the framebuffer</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Defocus</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="s">&quot;defocus&quot;</span><span class="p">)</span>
-    <span class="c"># load blur shader</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="s">&quot;defocus&quot;</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Defocus</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="s2">&quot;defocus&quot;</span><span class="p">)</span>
+    <span class="c1"># load blur shader</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="s2">&quot;defocus&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Defocus.start_blur"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Defocus.Defocus.start_blur">[docs]</a>  <span class="k">def</span> <span class="nf">start_blur</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; after calling this method all object.draw()s will rendered</span>
@@ -71,13 +72,13 @@
 <span class="sd">    background then re-draw them using the blur() method. Large objects</span>
 <span class="sd">    will obviously take a while to draw and re-draw</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Defocus</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>
-</div>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Defocus</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="Defocus.end_blur"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Defocus.Defocus.end_blur">[docs]</a>  <span class="k">def</span> <span class="nf">end_blur</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; stop capturing to texture and resume normal rendering to default</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Defocus</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_end</span><span class="p">()</span>
-</div>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Defocus</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_end</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="Defocus.blur"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Defocus.Defocus.blur">[docs]</a>  <span class="k">def</span> <span class="nf">blur</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dist_fr</span><span class="p">,</span> <span class="n">dist_to</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; draw the shape using the saved texture</span>
 <span class="sd">    Arguments:</span>
@@ -91,37 +92,35 @@
 <span class="sd">      *amount*</span>
 <span class="sd">        degree of max blur, float. Values over 5 will cause banding</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">42</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_fr</span> <span class="c"># shader unif[14]</span>
+    <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">42</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_fr</span> <span class="c1"># shader unif[14]</span>
     <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">43</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_to</span>
     <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">44</span><span class="p">]</span> <span class="o">=</span> <span class="n">amount</span>
-    <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">45</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="c"># shader unif[15]</span>
+    <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">45</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="c1"># shader unif[15]</span>
     <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">46</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span>
-    <span class="n">shape</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-</pre></div></div></div>
+    <span class="n">shape</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span></div></div>
+
+</pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -130,13 +129,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

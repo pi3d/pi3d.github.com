@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.shape.ElevationMap &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.shape.ElevationMap &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,43 +38,47 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.shape.ElevationMap</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">six_mod.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
+<span class="kn">from</span> <span class="nn">six_mod.moves</span> <span class="k">import</span> <span class="n">xrange</span>
 
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageOps</span>
+<span class="k">try</span><span class="p">:</span>
+  <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+  <span class="n">PIL_OK</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+  <span class="n">PIL_OK</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">pi3d</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="kn">import</span> <span class="n">Buffer</span>
-<span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="kn">import</span> <span class="n">Shape</span>
-<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Utility</span>
+<span class="kn">from</span> <span class="nn">pi3d</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="k">import</span> <span class="n">Buffer</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="k">import</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="k">import</span> <span class="n">Utility</span>
 
-<span class="c"># a rectangular surface where elevation is defined by a greyscal image</span>
+<span class="c1"># a rectangular surface where elevation is defined by a greyscal image</span>
 <div class="viewcode-block" id="ElevationMap"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap">[docs]</a><span class="k">class</span> <span class="nc">ElevationMap</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot; 3d model inherits from Shape</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">light</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">light</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">width</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
-               <span class="n">divx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">divy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ntiles</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+               <span class="n">divx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">divy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ntiles</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-               <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+               <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;uses standard constructor for Shape</span>
 
 <span class="sd">    Arguments:</span>
@@ -100,40 +106,51 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">ElevationMap</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>
                                        <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
-    <span class="n">divx</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c"># one more vertex in each direction than number of divisions</span>
+    <span class="n">divx</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1"># one more vertex in each direction than number of divisions</span>
     <span class="n">divy</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">if</span> <span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">or</span> <span class="n">divy</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;... Map size can&#39;t be bigger than 199x199 divisions&quot;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;... Map size can&#39;t be bigger than 199x199 divisions&quot;</span><span class="p">)</span>
       <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
       <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
-    <span class="c">#print(type(mapfile), type(&quot;&quot;))</span>
+    <span class="c1">#print(type(mapfile), type(&quot;&quot;))</span>
 
-    <span class="k">try</span><span class="p">:</span>
-      <span class="k">if</span> <span class="s">&#39;&#39;</span> <span class="o">+</span> <span class="n">mapfile</span> <span class="o">==</span> <span class="n">mapfile</span><span class="p">:</span> <span class="c">#HORRIBLE. Only way to cope with python2v3</span>
-        <span class="k">if</span> <span class="n">mapfile</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;/&#39;</span><span class="p">:</span>
-          <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span><span class="p">):</span> <span class="c"># this could theoretically get different files with same name</span>
-              <span class="n">mapfile</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span>
-              <span class="k">break</span>
-        <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-          <span class="k">print</span><span class="p">(</span><span class="s">&quot;Loading height map ...&quot;</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">PIL_OK</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="n">mapfile</span> <span class="o">==</span> <span class="n">mapfile</span><span class="p">:</span> <span class="c1">#HORRIBLE. Only way to cope with python2v3</span>
+          <span class="k">if</span> <span class="n">mapfile</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;/&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+              <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span><span class="p">):</span> <span class="c1"># this could theoretically get different files with same name</span>
+                <span class="n">mapfile</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span>
+                <span class="k">break</span>
+          <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading height map ...&quot;</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">)</span>
 
-        <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">im</span> <span class="o">=</span> <span class="n">mapfile</span> <span class="c">#allow image files to be passed as mapfile</span>
-    <span class="k">except</span><span class="p">:</span>
-      <span class="n">im</span> <span class="o">=</span> <span class="n">mapfile</span>
-    <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">ix</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">ix</span> <span class="o">!=</span> <span class="n">divx</span> <span class="ow">and</span> <span class="n">iy</span> <span class="o">!=</span> <span class="n">divy</span><span class="p">):</span>
-      <span class="k">if</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
-        <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
-      <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">divx</span><span class="p">,</span> <span class="n">divy</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+          <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">im</span> <span class="o">=</span> <span class="n">mapfile</span> <span class="c1">#allow image files to be passed as mapfile</span>
+      <span class="k">except</span><span class="p">:</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">mapfile</span>
       <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">ix</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">ix</span> <span class="o">!=</span> <span class="n">divx</span> <span class="ow">and</span> <span class="n">iy</span> <span class="o">!=</span> <span class="n">divy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
+          <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">divx</span><span class="p">,</span> <span class="n">divy</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+        <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
 
-    <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_TOP_BOTTOM</span><span class="p">)</span>
-    <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_LEFT_RIGHT</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+      <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_TOP_BOTTOM</span><span class="p">)</span>
+      <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_LEFT_RIGHT</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span> 
+      <span class="sd">&#39;&#39;&#39; images saved as compressed numpy npz file. No resizing so needs </span>
+<span class="sd">      to be right size. TODO make this repeated code less WET&#39;&#39;&#39;</span>
+      <span class="k">if</span> <span class="n">mapfile</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;/&#39;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+          <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span><span class="p">):</span> <span class="c1"># this could theoretically get different files with same name</span>
+            <span class="n">mapfile</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span>
+            <span class="k">break</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)[</span><span class="s1">&#39;arr_0&#39;</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># has to be saved with default key</span>
+      <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
@@ -144,7 +161,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">ht_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">&quot;Creating Elevation Map ...&quot;</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating Elevation Map ...&quot;</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">wh</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">0.5</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">hh</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">*</span> <span class="mf">0.5</span>
@@ -159,10 +176,10 @@
     <span class="n">tex_coords</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">iy</span><span class="p">):</span>
-      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ix</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">iy</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ix</span><span class="p">):</span>
         <span class="n">pxl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
-        <span class="n">hgt</span> <span class="o">=</span> <span class="n">pxl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">pxl</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="k">else</span> <span class="n">pxl</span>
+        <span class="n">hgt</span> <span class="o">=</span> <span class="n">pxl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">pxl</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">pxl</span>
         <span class="n">hgt</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht</span>
         <span class="n">this_x</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">wh</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws</span>
         <span class="n">this_z</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">hh</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">hs</span>
@@ -170,7 +187,7 @@
         <span class="n">tex_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="n">ix</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">tx</span><span class="p">,</span> <span class="p">(</span><span class="n">iy</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">ty</span><span class="p">))</span>
 
     <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="c">#create one long triangle_strip by alternating X directions</span>
+    <span class="c1">#create one long triangle_strip by alternating X directions</span>
     <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">iy</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
       <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ix</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">ix</span><span class="p">)</span><span class="o">+</span><span class="n">x</span>
@@ -179,13 +196,13 @@
         <span class="n">s</span> <span class="o">+=</span> <span class="mi">2</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verts</span><span class="p">,</span> <span class="n">tex_coords</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">smooth</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verts</span><span class="p">,</span> <span class="n">tex_coords</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">smooth</span><span class="p">))</span>
 
 <div class="viewcode-block" id="ElevationMap.dropOn"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap.dropOn">[docs]</a>  <span class="k">def</span> <span class="nf">dropOn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;determines approximately how high an object is when dropped on the map</span>
 <span class="sd">     (providing it&#39;s inside the map area)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c">#adjust for map not set at origin</span>
+    <span class="c1">#adjust for map not set at origin</span>
     <span class="n">px</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">pz</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="sd">&#39;&#39;&#39;</span>
@@ -200,10 +217,10 @@
                           <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">hh</span> <span class="o">+</span> <span class="n">pz</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">hs</span><span class="p">)]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">pixht</span> <span class="o">=</span> <span class="mf">0.0</span>
-    <span class="k">return</span> <span class="n">pixht</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">pixht</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
 
-</div>
-<div class="viewcode-block" id="ElevationMap.calcHeight"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap.calcHeight">[docs]</a>  <span class="k">def</span> <span class="nf">calcHeight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">inc_normal</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">regular_map</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ElevationMap.calcHeight"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap.calcHeight">[docs]</a>  <span class="k">def</span> <span class="nf">calcHeight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">inc_normal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">regular_map</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;accurately return the height of the map at the point specified</span>
 
 <span class="sd">    Arguments:</span>
@@ -217,11 +234,11 @@
 <span class="sd">        around areas of detail. TODO implement functionality to generate</span>
 <span class="sd">        this type of map.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">px</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c"># adjust p for locatoin of map</span>
+    <span class="n">px</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># adjust p for locatoin of map</span>
     <span class="n">pz</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">element_array_buffer</span> <span class="c"># alias to faces array for readability!</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span> <span class="c"># alias to vertices array for readability!</span>
-    <span class="k">if</span> <span class="n">regular_map</span><span class="p">:</span> <span class="c"># for regular arrays of vertices this is quicker</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">element_array_buffer</span> <span class="c1"># alias to faces array for readability!</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span> <span class="c1"># alias to vertices array for readability!</span>
+    <span class="k">if</span> <span class="n">regular_map</span><span class="p">:</span> <span class="c1"># for regular arrays of vertices this is quicker</span>
       <span class="k">if</span> <span class="n">px</span> <span class="o">&gt;</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">wh</span> <span class="ow">and</span> <span class="n">px</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">wh</span> <span class="ow">and</span> <span class="n">pz</span> <span class="o">&gt;</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">hh</span> <span class="ow">and</span> <span class="n">pz</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">hh</span><span class="p">:</span>
         <span class="n">ipx</span><span class="p">,</span> <span class="n">ipz</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">wh</span> <span class="o">+</span> <span class="n">px</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="p">),</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">hh</span> <span class="o">+</span> <span class="n">pz</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">hs</span><span class="p">)</span>
         <span class="n">ix</span> <span class="o">=</span> <span class="p">(</span><span class="n">ipx</span> <span class="o">+</span> <span class="n">ipz</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="mi">2</span>
@@ -229,27 +246,27 @@
           <span class="n">ix</span> <span class="o">+=</span> <span class="mi">1</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="n">ix</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">else</span><span class="p">:</span> <span class="c"># but this is pretty quick</span>
-      <span class="n">x0</span><span class="p">,</span> <span class="n">z0</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="mi">2</span><span class="p">]</span> <span class="c"># two 1D arrays of x,z coords of 1st corners of faces</span>
-      <span class="n">x1</span><span class="p">,</span> <span class="n">z1</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="mi">2</span><span class="p">]</span> <span class="c"># ditto 2nd corner</span>
-      <span class="n">x2</span><span class="p">,</span> <span class="n">z2</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="mi">2</span><span class="p">]</span> <span class="c"># ditto 3rd corner</span>
-      <span class="c"># ix should be a tuple containing a list of face indexes where px,pz is</span>
-      <span class="c"># a point inside the triangle formed by the three corners listed above</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># but this is pretty quick</span>
+      <span class="n">x0</span><span class="p">,</span> <span class="n">z0</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># two 1D arrays of x,z coords of 1st corners of faces</span>
+      <span class="n">x1</span><span class="p">,</span> <span class="n">z1</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># ditto 2nd corner</span>
+      <span class="n">x2</span><span class="p">,</span> <span class="n">z2</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># ditto 3rd corner</span>
+      <span class="c1"># ix should be a tuple containing a list of face indexes where px,pz is</span>
+      <span class="c1"># a point inside the triangle formed by the three corners listed above</span>
       <span class="n">ix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(((</span><span class="n">z1</span> <span class="o">-</span> <span class="n">z0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">px</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">pz</span> <span class="o">-</span> <span class="n">z0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">&amp;</span>
                     <span class="p">((</span><span class="n">z2</span> <span class="o">-</span> <span class="n">z1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">px</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">x2</span> <span class="o">+</span> <span class="n">x1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">pz</span> <span class="o">-</span> <span class="n">z1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">&amp;</span>
                     <span class="p">((</span><span class="n">z0</span> <span class="o">-</span> <span class="n">z2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">px</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">x0</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">pz</span> <span class="o">-</span> <span class="n">z2</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">))</span>
-      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># at least one face found</span>
-        <span class="n">ix</span> <span class="o">=</span> <span class="n">ix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c"># should only have one but return the first anyway</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># at least one face found</span>
+        <span class="n">ix</span> <span class="o">=</span> <span class="n">ix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># should only have one but return the first anyway</span>
       <span class="k">else</span><span class="p">:</span>
          <span class="n">ix</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ht_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht_n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_intersect_face</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pz</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">inc_normal</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">ht_n</span> <span class="o">/=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ht_n</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">**</span> <span class="mf">0.5</span> <span class="c"># normalise to unit len</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ht_n</span> <span class="o">/=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ht_n</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">**</span> <span class="mf">0.5</span> <span class="c1"># normalise to unit len</span>
       <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht_n</span><span class="p">)</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht_y</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht_y</span></div>
 
-</div>
-<div class="viewcode-block" id="ElevationMap.clashTest"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap.clashTest">[docs]</a>  <span class="k">def</span> <span class="nf">clashTest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">rad</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ElevationMap.clashTest"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap.clashTest">[docs]</a>  <span class="k">def</span> <span class="nf">clashTest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">rad</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Works out if an object at a given location and radius will overlap</span>
 <span class="sd">    with the map surface. NB it is possible for tunnel through the mesh.</span>
 <span class="sd">    Returns four values:</span>
@@ -267,35 +284,35 @@
 <span class="sd">        size of the square around the point to select faces from - defaults</span>
 <span class="sd">        to 2 x rad</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">element_array_buffer</span> <span class="c"># alias to faces array for readability!</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span> <span class="c"># alias to vertices array for readability!</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="p">[[</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">pz</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">],:</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>  <span class="c"># vector from each corner to point</span>
-    <span class="c"># reduce scope by only considering reasonably near vertices</span>
-    <span class="n">span</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">rad</span> <span class="k">if</span> <span class="n">span</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">span</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">element_array_buffer</span> <span class="c1"># alias to faces array for readability!</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span> <span class="c1"># alias to vertices array for readability!</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">[[</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">pz</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">],:</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>  <span class="c1"># vector from each corner to point</span>
+    <span class="c1"># reduce scope by only considering reasonably near vertices</span>
+    <span class="n">span</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">rad</span> <span class="k">if</span> <span class="n">span</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">span</span> <span class="o">/</span> <span class="mf">2.0</span>
     <span class="n">ix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">span</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">span</span><span class="p">)</span> <span class="o">|</span>
                   <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">span</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">span</span><span class="p">)</span> <span class="o">|</span>
                   <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">span</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">span</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span> <span class="c"># now only work with subset of faces</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">ix</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span> <span class="c"># reduce p list to mach subse</span>
-    <span class="n">nVec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">element_normals</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span> <span class="c"># alias to normals for subse of faces</span>
-    <span class="c"># cross product of each edge with normal is vector in plane of face</span>
-    <span class="c"># at rt angle to edge pointing inwards, then dot product of these with</span>
-    <span class="c"># vectors from corners to point.</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s">&#39;...j,...j&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">nVec</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">],:</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">3</span><span class="p">],:</span><span class="mi">3</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
-    <span class="c"># if all are &gt;= 0 then normal from plane to point passes through triangle</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span> <span class="c1"># now only work with subset of faces</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">ix</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span> <span class="c1"># reduce p list to mach subse</span>
+    <span class="n">nVec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">element_normals</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span> <span class="c1"># alias to normals for subse of faces</span>
+    <span class="c1"># cross product of each edge with normal is vector in plane of face</span>
+    <span class="c1"># at rt angle to edge pointing inwards, then dot product of these with</span>
+    <span class="c1"># vectors from corners to point.</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;...j,...j&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">nVec</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">],:</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[:,(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">3</span><span class="p">],:</span><span class="mi">3</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+    <span class="c1"># if all are &gt;= 0 then normal from plane to point passes through triangle</span>
     <span class="n">ix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">&amp;</span>
                   <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">&amp;</span>
                   <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">))</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># at least one face found, but could be several in convex area</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># at least one face found, but could be several in convex area</span>
       <span class="n">ix</span> <span class="o">=</span> <span class="n">ix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s">&#39;...j,...j&#39;</span><span class="p">,</span> <span class="n">nVec</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span> <span class="p">[</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">pz</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">0</span><span class="p">],:</span><span class="mi">3</span><span class="p">])</span>
+      <span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;...j,...j&#39;</span><span class="p">,</span> <span class="n">nVec</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span> <span class="p">[</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">pz</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">0</span><span class="p">],:</span><span class="mi">3</span><span class="p">])</span>
       <span class="n">dix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dists</span><span class="p">))</span>
-      <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dists</span><span class="p">[</span><span class="n">dix</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">rad</span><span class="p">:</span> <span class="c"># TODO is there a more efficient way rather than doing abs() twice?</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="n">nVec</span><span class="p">[</span><span class="n">ix</span><span class="p">][</span><span class="n">dix</span><span class="p">]</span> <span class="c"># alias for brevity</span>
-        <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">rad</span> <span class="o">-</span> <span class="n">dists</span><span class="p">[</span><span class="n">dix</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dists</span><span class="p">[</span><span class="n">dix</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">rad</span><span class="p">:</span> <span class="c1"># TODO is there a more efficient way rather than doing abs() twice?</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">nVec</span><span class="p">[</span><span class="n">ix</span><span class="p">][</span><span class="n">dix</span><span class="p">]</span> <span class="c1"># alias for brevity</span>
+        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">rad</span> <span class="o">-</span> <span class="n">dists</span><span class="p">[</span><span class="n">dix</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="ElevationMap.pitch_roll"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap.pitch_roll">[docs]</a>  <span class="k">def</span> <span class="nf">pitch_roll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;works out the pitch (rx) and roll (rz) to apply to an object</span>
 <span class="sd">    on the surface of the map at this point</span>
@@ -308,14 +325,14 @@
 <span class="sd">      *pz*</span>
 <span class="sd">        z location</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">y</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calcHeight</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calcHeight</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
     <span class="n">sidev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">])</span>
     <span class="n">sidev</span> <span class="o">/=</span> <span class="p">((</span><span class="n">sidev</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">**</span> <span class="mf">0.5</span>
-    <span class="c">#forwd = np.cross(sidev, normp)</span>
+    <span class="c1">#forwd = np.cross(sidev, normp)</span>
     <span class="n">forwd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">n</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">n</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
     <span class="n">forwd</span> <span class="o">/=</span> <span class="p">((</span><span class="n">forwd</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">**</span> <span class="mf">0.5</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="o">-</span><span class="n">forwd</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">sidev</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
-</div>
+    <span class="k">return</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="o">-</span><span class="n">forwd</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">sidev</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span></div>
+
   <span class="k">def</span> <span class="nf">_intersect_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;calculates the y intersection of a point on a face and returns the y</span>
 <span class="sd">    value of the intersection of the line defined by x,z of pos through the</span>
@@ -340,32 +357,32 @@
     <span class="n">kVal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">nVec</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">kVal</span> <span class="o">-</span> <span class="n">nVec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">nVec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">pos</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">nVec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">nVec</span>
 
-  <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c"># to allow pickling</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">childModel</span> <span class="o">=</span> <span class="bp">None</span>
+  <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># to allow pickling</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">childModel</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">state</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ElevationMap</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__getstate__</span><span class="p">()</span>
-    <span class="n">state</span><span class="p">[</span><span class="s">&#39;width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
-    <span class="n">state</span><span class="p">[</span><span class="s">&#39;height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span>
-    <span class="n">state</span><span class="p">[</span><span class="s">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span>
-    <span class="n">state</span><span class="p">[</span><span class="s">&#39;ix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span>
-    <span class="n">state</span><span class="p">[</span><span class="s">&#39;iy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span>
-    <span class="n">state</span><span class="p">[</span><span class="s">&#39;wh&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wh</span>
-    <span class="n">state</span><span class="p">[</span><span class="s">&#39;hh&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hh</span>
-    <span class="n">state</span><span class="p">[</span><span class="s">&#39;ws&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws</span>
-    <span class="n">state</span><span class="p">[</span><span class="s">&#39;hs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hs</span>
+    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
+    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span>
+    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span>
+    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;ix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span>
+    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;iy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span>
+    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;wh&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wh</span>
+    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;hh&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hh</span>
+    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;ws&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws</span>
+    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;hs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hs</span>
     <span class="k">return</span> <span class="n">state</span>
 
   <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">ElevationMap</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;width&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;height&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;depth&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;ix&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;iy&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">wh</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;wh&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">hh</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;hh&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ws</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;ws&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">hs</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s">&#39;hs&#39;</span><span class="p">]</span>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;ix&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;iy&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">wh</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;wh&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">hh</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;hh&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ws</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;ws&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">hs</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;hs&#39;</span><span class="p">]</span></div>
+
 <span class="k">def</span> <span class="nf">_intersect_triangle</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;calculates the y intersection of a point on a triangle and returns the y</span>
 <span class="sd">  value of the intersection of the line defined by x,z of pos through the</span>
@@ -377,37 +394,35 @@
 <span class="sd">    *pos*</span>
 <span class="sd">      tuple (x,y,z) defining the x,z of the vertical line intersecting triangle</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="c">#calc normal from two edge vectors v2-v1 and v3-v1</span>
+  <span class="c1">#calc normal from two edge vectors v2-v1 and v3-v1</span>
   <span class="n">nVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">((</span><span class="n">v2</span> <span class="o">-</span> <span class="n">v1</span><span class="p">),</span> <span class="p">(</span><span class="n">v3</span> <span class="o">-</span> <span class="n">v1</span><span class="p">))</span>
-  <span class="c">#equation of plane: Ax + By + Cz = kVal where A,B,C are components of normal. x,y,z for point v1 to find kVal</span>
+  <span class="c1">#equation of plane: Ax + By + Cz = kVal where A,B,C are components of normal. x,y,z for point v1 to find kVal</span>
   <span class="n">kVal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">nVec</span><span class="p">,</span> <span class="n">v1</span><span class="p">)</span>
-  <span class="c">#return y val i.e. y = (kVal - Ax - Cz)/B also the normal vector seeing as this has been calculated</span>
+  <span class="c1">#return y val i.e. y = (kVal - Ax - Cz)/B also the normal vector seeing as this has been calculated</span>
   <span class="k">return</span> <span class="p">(</span><span class="n">kVal</span> <span class="o">-</span> <span class="n">nVec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">nVec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">pos</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">nVec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">nVec</span>
+
 </pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -416,13 +431,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

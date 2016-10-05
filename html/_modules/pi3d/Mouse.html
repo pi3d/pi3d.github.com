@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Mouse &mdash; pi3d 2.13 documentation</title>
+    <title>pi3d.Mouse &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,11 +23,13 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,18 +38,18 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for pi3d.Mouse</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">six_mod</span>
@@ -58,28 +60,28 @@
 <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">USE_PYGAME</span><span class="p">:</span>
   <span class="kn">import</span> <span class="nn">pygame</span>
 <span class="k">elif</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
-  <span class="kn">from</span> <span class="nn">pyxlib</span> <span class="kn">import</span> <span class="n">xlib</span>
-  <span class="kn">from</span> <span class="nn">pyxlib.x</span> <span class="kn">import</span> <span class="o">*</span>
+  <span class="kn">from</span> <span class="nn">pyxlib</span> <span class="k">import</span> <span class="n">xlib</span>
+  <span class="kn">from</span> <span class="nn">pyxlib.x</span> <span class="k">import</span> <span class="o">*</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="kn">import</span> <span class="n">Log</span>
+<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="k">import</span> <span class="n">Log</span>
 
 <span class="k">class</span> <span class="nc">_nixMouse</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;holds Mouse object, see also (the preferred) events methods&quot;&quot;&quot;</span>
   <span class="n">BUTTON_1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span>
   <span class="n">BUTTON_2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
-  <span class="n">LEFT_BUTTON</span> <span class="o">=</span> <span class="mi">9</span> <span class="c"># 1001</span>
-  <span class="n">RIGHT_BUTTON</span> <span class="o">=</span> <span class="mi">10</span> <span class="c"># 1010</span>
-  <span class="n">MIDDLE_BUTTON</span> <span class="o">=</span> <span class="mi">12</span> <span class="c"># 1100</span>
-  <span class="n">BUTTON_UP</span> <span class="o">=</span> <span class="mi">8</span> <span class="c"># 1000</span>
-  <span class="n">MOUSE_WHEEL_UP</span> <span class="o">=</span> <span class="mi">13</span> <span class="c"># TODO way of setting IMPS/2 mouse to get scroll events</span>
-  <span class="n">MOUSE_WHEEL_DOWN</span> <span class="o">=</span> <span class="mi">14</span> <span class="c"># would need 4 bytes rather than 3 in _check_event()</span>
+  <span class="n">LEFT_BUTTON</span> <span class="o">=</span> <span class="mi">9</span> <span class="c1"># 1001</span>
+  <span class="n">RIGHT_BUTTON</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># 1010</span>
+  <span class="n">MIDDLE_BUTTON</span> <span class="o">=</span> <span class="mi">12</span> <span class="c1"># 1100</span>
+  <span class="n">BUTTON_UP</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># 1000</span>
+  <span class="n">MOUSE_WHEEL_UP</span> <span class="o">=</span> <span class="mi">13</span> <span class="c1"># TODO way of setting IMPS/2 mouse to get scroll events</span>
+  <span class="n">MOUSE_WHEEL_DOWN</span> <span class="o">=</span> <span class="mi">14</span> <span class="c1"># would need 4 bytes rather than 3 in _check_event()</span>
   <span class="n">BUTTONS</span> <span class="o">=</span> <span class="n">BUTTON_1</span> <span class="o">&amp;</span> <span class="n">BUTTON_2</span>
   <span class="n">HEADER</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>
   <span class="n">XSIGN</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span>
   <span class="n">YSIGN</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span>
-  <span class="n">INSTANCE</span> <span class="o">=</span> <span class="bp">None</span>
+  <span class="n">INSTANCE</span> <span class="o">=</span> <span class="kc">None</span>
 
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse</span><span class="o">=</span><span class="s">&#39;mice&#39;</span><span class="p">,</span> <span class="n">restrict</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">use_x</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse</span><span class="o">=</span><span class="s1">&#39;mice&#39;</span><span class="p">,</span> <span class="n">restrict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">use_x</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *mouse*</span>
@@ -92,20 +94,20 @@
 <span class="sd">        mouse y limit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">_nixMouse</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/dev/input/&#39;</span> <span class="o">+</span> <span class="n">mouse</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">buffr</span> <span class="o">=</span> <span class="s">&#39;&#39;</span> <span class="k">if</span> <span class="n">six_mod</span><span class="o">.</span><span class="n">PY3</span> <span class="k">else</span> <span class="n">b</span><span class="s">&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/dev/input/&#39;</span> <span class="o">+</span> <span class="n">mouse</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buffr</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">six_mod</span><span class="o">.</span><span class="n">PY3</span> <span class="k">else</span> <span class="n">b</span><span class="s1">&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">restrict</span> <span class="o">=</span> <span class="n">restrict</span>
 
-    <span class="c">#create a pointer to this so Display.destroy can stop the thread</span>
-    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
+    <span class="c1">#create a pointer to this so Display.destroy can stop the thread</span>
+    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="k">import</span> <span class="n">Display</span>
     <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">external_mouse</span> <span class="o">=</span> <span class="bp">self</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">use_x</span> <span class="o">=</span> <span class="bp">False</span>
-    <span class="k">if</span> <span class="n">use_x</span><span class="p">:</span> <span class="c"># version as argument to __init__</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">use_x</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">use_x</span><span class="p">:</span> <span class="c1"># version as argument to __init__</span>
       <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span> <span class="ow">and</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_PI</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">d</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">window</span>
@@ -116,22 +118,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">rootx</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rooty</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">use_x</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_x</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_offset</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_offset</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span> <span class="o">//</span> <span class="mi">2</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span> <span class="c"># to kill app rather than waiting for mouse event</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># to kill app rather than waiting for mouse event</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
   <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">button</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">button</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
       <span class="nb">super</span><span class="p">(</span><span class="n">_nixMouse</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -158,7 +160,7 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
       <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="c"># need resetting after a read as no event will do this</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="c1"># need resetting after a read as no event will do this</span>
       <span class="k">return</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span>
 
   <span class="k">def</span> <span class="nf">button_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -178,8 +180,8 @@
       <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffr</span><span class="p">]</span>
       <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">]:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="c">#else:</span>
-      <span class="c">#  self._buttons = 0</span>
+      <span class="c1">#else:</span>
+      <span class="c1">#  self._buttons = 0</span>
       <span class="n">buttons</span> <span class="o">=</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">buffr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
       <span class="k">if</span> <span class="p">(</span><span class="n">buttons</span> <span class="o">&amp;</span> <span class="n">_nixMouse</span><span class="o">.</span><span class="n">HEADER</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -202,24 +204,24 @@
 
     <span class="k">else</span><span class="p">:</span>
       <span class="k">try</span><span class="p">:</span>
-        <span class="n">strn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&quot;latin-1&quot;</span><span class="p">)</span>
+        <span class="n">strn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;latin-1&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">buffr</span> <span class="o">+=</span> <span class="n">strn</span>
       <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;exception is: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;exception is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="k">return</span>
 
   <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="k">class</span> <span class="nc">_pygameMouse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;holds Mouse object, see also (the preferred) events methods&quot;&quot;&quot;</span>
   <span class="n">BUTTON_1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span>
   <span class="n">BUTTON_2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
-  <span class="n">LEFT_BUTTON</span> <span class="o">=</span> <span class="mi">9</span> <span class="c"># 1001</span>
-  <span class="n">RIGHT_BUTTON</span> <span class="o">=</span> <span class="mi">10</span> <span class="c"># 1010</span>
-  <span class="n">MIDDLE_BUTTON</span> <span class="o">=</span> <span class="mi">12</span> <span class="c"># 1100</span>
-  <span class="n">BUTTON_UP</span> <span class="o">=</span> <span class="mi">8</span> <span class="c"># 1000</span>
+  <span class="n">LEFT_BUTTON</span> <span class="o">=</span> <span class="mi">9</span> <span class="c1"># 1001</span>
+  <span class="n">RIGHT_BUTTON</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># 1010</span>
+  <span class="n">MIDDLE_BUTTON</span> <span class="o">=</span> <span class="mi">12</span> <span class="c1"># 1100</span>
+  <span class="n">BUTTON_UP</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># 1000</span>
   <span class="n">MOUSE_WHEEL_UP</span> <span class="o">=</span> <span class="mi">13</span>
   <span class="n">MOUSE_WHEEL_DOWN</span> <span class="o">=</span> <span class="mi">14</span>
   <span class="n">BUTTON_MAP</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span><span class="n">LEFT_BUTTON</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="n">MIDDLE_BUTTON</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="n">RIGHT_BUTTON</span><span class="p">,</span>
@@ -228,9 +230,9 @@
   <span class="n">HEADER</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>
   <span class="n">XSIGN</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span>
   <span class="n">YSIGN</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span>
-  <span class="n">INSTANCE</span> <span class="o">=</span> <span class="bp">None</span>
+  <span class="n">INSTANCE</span> <span class="o">=</span> <span class="kc">None</span>
 
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">restrict</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">use_x</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">restrict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">use_x</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *mouse*</span>
@@ -243,13 +245,13 @@
 <span class="sd">        mouse y limit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="kn">import</span> <span class="n">Display</span>
+    <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="k">import</span> <span class="n">Display</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">centre</span> <span class="o">=</span> <span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">restrict</span> <span class="o">=</span> <span class="n">restrict</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrict</span><span class="p">:</span>
       <span class="kn">import</span> <span class="nn">pygame</span>
       <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">)</span>
-      <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+      <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">BUTTON_UP</span>
 
   <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -265,21 +267,21 @@
     <span class="kn">import</span> <span class="nn">pygame</span>
     <span class="n">pos_list</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEMOTION</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">pos_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span> <span class="c"># discard all but the last position</span>
+      <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">pos_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span> <span class="c1"># discard all but the last position</span>
       <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrict</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="o">-</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="c"># swap to +ve upwards</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="o">-</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="c1"># swap to +ve upwards</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="o">-</span><span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span> <span class="c"># swap to +ve upwards</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span> <span class="c1"># swap to +ve upwards</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">)</span>
     <span class="n">but_list</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">but_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">BUTTON_MAP</span><span class="p">[</span><span class="n">but_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">button</span><span class="p">]</span> <span class="c"># discard all but last button</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="n">_pygameMouse</span><span class="o">.</span><span class="n">BUTTON_MAP</span><span class="p">[</span><span class="n">but_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">button</span><span class="p">]</span> <span class="c1"># discard all but last button</span>
     <span class="k">else</span><span class="p">:</span>  
       <span class="n">but_list</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEBUTTONUP</span><span class="p">)</span>
       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">but_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -296,7 +298,7 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_event</span><span class="p">()</span>
     <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="c"># need resetting after a read as no event will do this</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="c1"># need resetting after a read as no event will do this</span>
     <span class="k">return</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span>
     
   <span class="k">def</span> <span class="nf">button_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -310,7 +312,7 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_event</span><span class="p">()</span>
     <span class="n">b_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span>
-    <span class="c">#self._buttons = _pygameMouse.BUTTON_UP</span>
+    <span class="c1">#self._buttons = _pygameMouse.BUTTON_UP</span>
     <span class="k">return</span> <span class="n">b_val</span>
 
   <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -330,26 +332,23 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -358,13 +357,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pi3d 2.13 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

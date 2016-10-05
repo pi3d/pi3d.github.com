@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using pi3d with Android devices &mdash; pi3d 2.13 documentation</title>
+    <title>Using pi3d with Android devices &#8212; pi3d 2.13 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,12 +23,14 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="pi3d 2.13 documentation" href="index.html" />
     <link rel="next" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="3D Graphics Explanation" href="GPUexplain.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +45,14 @@
         <li class="right" >
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pi3d 2.13 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.13 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="using-pi3d-with-android-devices">
 <h1>Using pi3d with Android devices<a class="headerlink" href="#using-pi3d-with-android-devices" title="Permalink to this headline">¶</a></h1>
@@ -102,9 +104,9 @@ buildozer and already had most of the required applications installed
 but I was missing ant. When you start to try to use it you will get
 error messages telling you which components are missing, if any.</p>
 <p>3.2 Add a recipe for pi3d. You need to create the file in this location
-<tt class="docutils literal"><span class="pre">whereveryouput/python-for-android/recipes/pi3d/recipe.sh</span></tt> with
+<code class="docutils literal"><span class="pre">whereveryouput/python-for-android/recipes/pi3d/recipe.sh</span></code> with
 contents:</p>
-<div class="highlight-python"><div class="highlight"><pre>#!/bin/bash
+<div class="highlight-default"><div class="highlight"><pre><span></span>#!/bin/bash
 
 VERSION_pi3d=${VERSION_pi3d:-stable}
 URL_pi3d=https://github.com/tipam/pi3d/archive/master.zip
@@ -154,33 +156,33 @@ function postbuild_pi3d() {
 it seems stable (and no-negative feedback!) 5th February 2015.</p>
 <p>3.3 See posts here: <a class="reference external" href="https://github.com/kivy/python-for-android/issues/301">https://github.com/kivy/python-for-android/issues/301</a>
 To get python-for-android to be able to use ctypes you need to
-edit <tt class="docutils literal"><span class="pre">whereveritis/android/platform/android-ndk-r9c/platforms/android-14/arch-arm/usr/include/malloc.h</span></tt>
+edit <code class="docutils literal"><span class="pre">whereveritis/android/platform/android-ndk-r9c/platforms/android-14/arch-arm/usr/include/malloc.h</span></code>
 and change:</p>
-<div class="highlight-python"><div class="highlight"><pre>//extern size_t malloc_usable_size(const void*); //this
-extern size_t malloc_usable_size(void*); //to this
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">extern</span> <span class="n">size_t</span> <span class="n">malloc_usable_size</span><span class="p">(</span><span class="n">const</span> <span class="n">void</span><span class="o">*</span><span class="p">);</span> <span class="o">//</span><span class="n">this</span>
+<span class="n">extern</span> <span class="n">size_t</span> <span class="n">malloc_usable_size</span><span class="p">(</span><span class="n">void</span><span class="o">*</span><span class="p">);</span> <span class="o">//</span><span class="n">to</span> <span class="n">this</span>
 </pre></div>
 </div>
-<p>You also need to edit <tt class="docutils literal"><span class="pre">whereveryouput/python-for-android/distribute.sh</span></tt>
+<p>You also need to edit <code class="docutils literal"><span class="pre">whereveryouput/python-for-android/distribute.sh</span></code>
 and comment out the lines:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># try rm -rf ctypes</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># try rm -rf ctypes</span>
 <span class="o">...</span>
-<span class="c"># try rm -rf lib-dynload/_ctypes_test.so</span>
+<span class="c1"># try rm -rf lib-dynload/_ctypes_test.so</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">whereveryouput/python-for-android/recipes/python/patches/disable-modules.patch</span></tt>
+<p><code class="docutils literal"><span class="pre">whereveryouput/python-for-android/recipes/python/patches/disable-modules.patch</span></code>
 and take ctypes out of the line:</p>
-<div class="highlight-python"><div class="highlight"><pre>+disabled_module_list = [&#39;spwd&#39;,&#39;bz2&#39;,&#39;ossaudiodev&#39;,...
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+</span><span class="n">disabled_module_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;spwd&#39;</span><span class="p">,</span><span class="s1">&#39;bz2&#39;</span><span class="p">,</span><span class="s1">&#39;ossaudiodev&#39;</span><span class="p">,</span><span class="o">...</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">whereveryouput/python-for-android/recipes/python/recipe.sh</span></tt> and
+<p><code class="docutils literal"><span class="pre">whereveryouput/python-for-android/recipes/python/recipe.sh</span></code> and
 replace the lines that look like:</p>
-<div class="highlight-python"><div class="highlight"><pre>try ./configure --host=arm-eabi OPT=$OFLAG --prefix=&quot;$BUILD_PATH/python-install&quot; --enable-shared ...
+<div class="highlight-default"><div class="highlight"><pre><span></span>try ./configure --host=arm-eabi OPT=$OFLAG --prefix=&quot;$BUILD_PATH/python-install&quot; --enable-shared ...
 echo ./configure --host=arm-eabi  OPT=$OFLAG --prefix=&quot;$BUILD_PATH/python-install&quot; --enable-shared ...
 </pre></div>
 </div>
 <p>with the
 following:</p>
-<div class="highlight-python"><div class="highlight"><pre>export HOSTARCH=arm-eabi
+<div class="highlight-default"><div class="highlight"><pre><span></span>export HOSTARCH=arm-eabi
 export BUILDARCH=x86_64-linux-gnu
 export CFLAGS=&quot;$CFLAGS -DNO_MALLINFO&quot;
 try ./configure --host=$HOSTARCH --build=$BUILDARCH --prefix=&quot;$BUILD_PATH/python-install&quot; --enable-shared ...
@@ -195,7 +197,7 @@ hierarchy of dependencies. On my bottom-of-the-range but 2014 laptop
 it takes 25 minutes. Once this has been done successfully it shouldn&#8217;t
 need to be re-done until there are modifications in the support packages
 (that you want to include):</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cd whereveryouput/python-for-android
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd whereveryouput/python-for-android
 $ ./distribute.sh -m &quot;pi3d&quot;
 </pre></div>
 </div>
@@ -203,18 +205,18 @@ $ ./distribute.sh -m &quot;pi3d&quot;
 in the pi3d library or there was a typo in one of the mods above) then
 you need to put in an additional -f also if you have problems it might
 be useful to see the output, you can direct this to a file by adding
-<tt class="docutils literal"><span class="pre">&gt;</span> <span class="pre">path/to/file.txt</span> <span class="pre">2&gt;&amp;1</span></tt> on the end. Note that the question asking
+<code class="docutils literal"><span class="pre">&gt;</span> <span class="pre">path/to/file.txt</span> <span class="pre">2&gt;&amp;1</span></code> on the end. Note that the question asking
 for you to press any key will stop the script indefinitely so do several
 &#8216;Enters&#8217; after starting it running.</p>
 <p>To make distribute.sh re-download the source code from the remote
 repository you seem to have to delete the files in
-<tt class="docutils literal"><span class="pre">whereveryouput/python-for-android/.packages/pi3d/</span></tt></p>
+<code class="docutils literal"><span class="pre">whereveryouput/python-for-android/.packages/pi3d/</span></code></p>
 <p>3.5 Set up test project before launching into anything too complicated:
 Create a directory in your home directory with an appropriate name
-create a subdirectory called <tt class="docutils literal"><span class="pre">textures</span></tt> and copy into it the image
+create a subdirectory called <code class="docutils literal"><span class="pre">textures</span></code> and copy into it the image
 file from pi3d_demos (you can use whatever you want but change the
 program appropriately):</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mkdir ~/pi3d_android
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ mkdir ~/pi3d_android
 $ mkdir ~/pi3d_android/pi3dtest/
 $ mkdir ~/pi3d_android/pi3dtest/textures/
 $ cp ~/pi3d_demos/textures/PATRN.PNG ~/pi3d_android/pi3dtest/textures/
@@ -222,19 +224,19 @@ $ cp ~/pi3d_demos/textures/PATRN.PNG ~/pi3d_android/pi3dtest/textures/
 </div>
 <p>Now create a minimal demo file in ~/pi3d_android/pi3dtest/ (in this example)
 called main.py and fill it with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">pi3d</span>
 
-<span class="n">DISPLAY</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">depth</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span> <span class="c"># NB need to set here, see build.py below</span>
-<span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="s">&#39;textures/PATRN.PNG&#39;</span><span class="p">)</span>
+<span class="n">DISPLAY</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">depth</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span> <span class="c1"># NB need to set here, see build.py below</span>
+<span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="s1">&#39;textures/PATRN.PNG&#39;</span><span class="p">)</span>
 <span class="n">ball</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Sphere</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
-<span class="n">shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s">&#39;uv_light&#39;</span><span class="p">)</span>
+<span class="n">shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s1">&#39;uv_light&#39;</span><span class="p">)</span>
 <span class="n">ball</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">tex</span><span class="p">])</span>
 <span class="n">t</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="n">rotate</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">rotate</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="k">def</span> <span class="nf">pi3dloop</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
   <span class="k">global</span> <span class="n">DISPLAY</span><span class="p">,</span> <span class="n">ball</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">rotate</span>
@@ -247,10 +249,10 @@ called main.py and fill it with:</p>
     <span class="n">ball</span><span class="o">.</span><span class="n">rotateIncY</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
   <span class="k">if</span> <span class="n">DISPLAY</span><span class="o">.</span><span class="n">android</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">moved</span><span class="p">:</span>
     <span class="n">ball</span><span class="o">.</span><span class="n">translateX</span><span class="p">(</span><span class="n">DISPLAY</span><span class="o">.</span><span class="n">android</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">touch</span><span class="o">.</span><span class="n">dx</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">)</span>
-    <span class="n">DISPLAY</span><span class="o">.</span><span class="n">android</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">moved</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">DISPLAY</span><span class="o">.</span><span class="n">android</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">moved</span> <span class="o">=</span> <span class="kc">False</span>
   <span class="k">if</span> <span class="n">DISPLAY</span><span class="o">.</span><span class="n">android</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">tapped</span><span class="p">:</span>
     <span class="n">rotate</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">rotate</span>
-    <span class="n">DISPLAY</span><span class="o">.</span><span class="n">android</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">tapped</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">DISPLAY</span><span class="o">.</span><span class="n">android</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">tapped</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="n">DISPLAY</span><span class="o">.</span><span class="n">android</span><span class="o">.</span><span class="n">set_loop</span><span class="p">(</span><span class="n">pi3dloop</span><span class="p">)</span>
 <span class="n">DISPLAY</span><span class="o">.</span><span class="n">android</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -258,23 +260,23 @@ called main.py and fill it with:</p>
 <span class="n">DISPLAY</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>There is also a more <tt class="docutils literal"><span class="pre">professional</span></tt> layout of the ForestWalk demo in
+<p>There is also a more <code class="docutils literal"><span class="pre">professional</span></code> layout of the ForestWalk demo in
 the develop (as at 16 Jan 15) branch of github.com/pi3d/pi3d_demos in
-a directory called <tt class="docutils literal"><span class="pre">android</span></tt>. This shows how the project can be
+a directory called <code class="docutils literal"><span class="pre">android</span></code>. This shows how the project can be
 constructed as a class with a method containing the main loop. That
 example should run unaltered on Raspberry Pi, unix or android.</p>
 <p>3.6 Running ./distribute.sh (in step 3.4) should have generated a
-default distribution in <tt class="docutils literal"><span class="pre">whereveryouput/python-for-android/dist/default/</span></tt>
-this needs to have a <tt class="docutils literal"><span class="pre">project.properties</span></tt> file with a minimum single
-line <tt class="docutils literal"><span class="pre">target=android-14</span></tt> (as per default version created in the directory.
+default distribution in <code class="docutils literal"><span class="pre">whereveryouput/python-for-android/dist/default/</span></code>
+this needs to have a <code class="docutils literal"><span class="pre">project.properties</span></code> file with a minimum single
+line <code class="docutils literal"><span class="pre">target=android-14</span></code> (as per default version created in the directory.
 I have to recreate this file each time I run distribute.sh) From this
 directory run:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./build.py --dir ~/pi3d_android/pi3dtest --package org.demo.pi3dtest --name &quot;pi3dtest&quot; --meta-data surface.depth=16 --version 1.0.0 debug
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./build.py --dir ~/pi3d_android/pi3dtest --package org.demo.pi3dtest --name &quot;pi3dtest&quot; --meta-data surface.depth=16 --version 1.0.0 debug
 </pre></div>
 </div>
 <p>Which shouldn&#8217;t take too long and will put the android apk package
-file into the <tt class="docutils literal"><span class="pre">bin</span></tt> subdirectory. The script will complain if the
-four <tt class="docutils literal"><span class="pre">export</span></tt> commands (see python-for-android instructions) haven&#8217;t
+file into the <code class="docutils literal"><span class="pre">bin</span></code> subdirectory. The script will complain if the
+four <code class="docutils literal"><span class="pre">export</span></code> commands (see python-for-android instructions) haven&#8217;t
 been run.</p>
 <p>I found that some phones needed to have the bits set for the depth buffer
 so if the app needs to be deployed generally you need to include this
@@ -304,19 +306,19 @@ with underlines) if you are going to run the emulator from command line.</p>
 uncheck the option to Filter only for this application.</p>
 <p>3.7.3 If you&#8217;re using linux you can now close Android Studio which
 will free a lot of resources. You can start the emulator:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cd whereveritis/Android/Sdk/tools
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd whereveritis/Android/Sdk/tools
 $ ./emulator -avd Nexus_One_API_19
 </pre></div>
 </div>
 <p>To start logcat
 (from a different terminal):</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cd whereveritis/Android/Sdk/platform-tools
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd whereveritis/Android/Sdk/platform-tools
 $ ./adb logcat
 </pre></div>
 </div>
 <p>To install new versions of your android
 package onto the emulator:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./adb install -r whereveryouput/python-for-android/dist/default/bin/pi3dtest-0.0.1-debug.apk
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./adb install -r whereveryouput/python-for-android/dist/default/bin/pi3dtest-0.0.1-debug.apk
 </pre></div>
 </div>
 </div></blockquote>
@@ -328,17 +330,17 @@ sign the apk see <a class="reference external" href="http://developer.android.co
 </li>
 <li><p class="first">At the moment I am aware of the following deficiencies or incompatible
 modules when running pi3d on android:</p>
-<div class="highlight-python"><div class="highlight"><pre>Mouse
-Keyboard
-Event
-Font (However Pngfont *does* work and pi3d_demos/fonts/Arial.png has been tidied)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Mouse</span>
+<span class="n">Keyboard</span>
+<span class="n">Event</span>
+<span class="n">Font</span> <span class="p">(</span><span class="n">However</span> <span class="n">Pngfont</span> <span class="o">*</span><span class="n">does</span><span class="o">*</span> <span class="n">work</span> <span class="ow">and</span> <span class="n">pi3d_demos</span><span class="o">/</span><span class="n">fonts</span><span class="o">/</span><span class="n">Arial</span><span class="o">.</span><span class="n">png</span> <span class="n">has</span> <span class="n">been</span> <span class="n">tidied</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 </ol>
 <p>Recipe - you will almost certainly need to modify details of this for running
 on your system (obviously the /home/paddy/ parts of the paths):</p>
-<div class="highlight-python"><div class="highlight"><pre># notes for compiling and distributing
+<div class="highlight-default"><div class="highlight"><pre><span></span># notes for compiling and distributing
 export ANDROIDNDK=/home/paddy/.buildozer/android/platform/android-ndk-r9c
 export ANDROIDSDK=/home/paddy/.buildozer/android/platform/android-sdk-21
 export ANDROIDNDKVER=r9c
@@ -366,7 +368,7 @@ jarsigner -verify -verbose -certs /home/paddy/python-for-android/dist/default/bi
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="GPUexplain.html"
@@ -374,29 +376,28 @@ jarsigner -verify -verbose -certs /home/paddy/python-for-android/dist/default/bi
   <h4>Next topic</h4>
   <p class="topless"><a href="pi3d.html"
                         title="next chapter">pi3d Package</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/AndroidUse.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/AndroidUse.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -411,12 +412,12 @@ jarsigner -verify -verbose -certs /home/paddy/python-for-android/dist/default/bi
         <li class="right" >
           <a href="GPUexplain.html" title="3D Graphics Explanation"
              >previous</a> |</li>
-        <li><a href="index.html">pi3d 2.13 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.13 documentation</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2016, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>
