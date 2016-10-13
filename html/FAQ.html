@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &#8212; pi3d 2.13 documentation</title>
+    <title>Frequently Asked Questions &#8212; pi3d 2.15 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.13',
+        VERSION:     '2.15',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.13 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.15 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.13 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.15 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -895,6 +895,32 @@ as faces (draw_method set to GL_TRIANGLES) and some as points or lines.
 You can set different Shaders for different Buffers from v2.6</p>
 </div></blockquote>
 </div>
+<div class="section" id="without-pil-pillow">
+<h2>Without PIL (Pillow)<a class="headerlink" href="#without-pil-pillow" title="Permalink to this headline">¶</a></h2>
+<p>Can I use pi3d without installing PIL - for instance trying to
+run on a different platform or to have an ultra small SD image?</p>
+<blockquote>
+<div><p>Yes as of v2.15 you can do this but some of the classes will not work
+i.e. FixedString, Font, Building</p>
+<p>The Pngfont will still work for rendering text. HOWEVER normal image files
+cannot be imported (jpg, png, gif) instead you have to convert these into
+compressed saved numpy files (npz) including any png files used as fonts.
+This can be done using a simple script on a machine that does have PIL
+installed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">dirctry</span> <span class="o">=</span> <span class="s1">&#39;textures&#39;</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dirctry</span><span class="p">):</span>
+  <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;jpg&#39;</span><span class="p">,</span><span class="s1">&#39;png&#39;</span><span class="p">,</span><span class="s1">&#39;gif&#39;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dirctry</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">savez_compressed</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dirctry</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">im</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
 <div class="section" id="minimal-sd-card">
 <h2>Minimal SD card<a class="headerlink" href="#minimal-sd-card" title="Permalink to this headline">¶</a></h2>
 <p>How can I set up an SD card without all of Raspbian&#8217;s clutter that will
@@ -1208,6 +1234,29 @@ or changing colour.</p>
 (with TextBlock components) see the demo StringMulti.py</div></blockquote>
 </div>
 </div>
+<div class="section" id="normal-map-generation">
+<h2>Normal Map generation<a class="headerlink" href="#normal-map-generation" title="Permalink to this headline">¶</a></h2>
+<p>I have a low polygon model that I want to appear more detailed. I know I
+can do that if I have a normal map to supply to the <code class="docutils literal"><span class="pre">.._bump</span></code> or <code class="docutils literal"><span class="pre">.._reflect</span></code>
+shaders. Is there a way to generate these automatically.</p>
+<blockquote>
+<div><p>Yes. If you simply use the same image file for the texture and the
+normal map then this will alter the lighting of the surface. However this
+will often give rather strange effects due to the interpretation of surface
+normals from RGB values. To get a better result you can create a version
+that uses the lightness of the image as a height map, for instance in
+the Water.py demo:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">shapeimg</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="s2">&quot;textures/straw1.jpg&quot;</span><span class="p">)</span>
+<span class="n">shapebump</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="s2">&quot;textures/straw1.jpg&quot;</span><span class="p">,</span> <span class="n">normal_map</span><span class="o">=-</span><span class="mf">6.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The size and sign of the normal_map argument can be used to compensate
+for the contrast and positive/negative nature of the image.</p>
+<p>Alternatively you can make a copy of the colour texture image and edit
+it with GIMP (or similar) to make a greyscale version that matches the
+surface geometry you want.</p>
+</div></blockquote>
+</div>
 <div class="section" id="texture-animation">
 <h2>Texture animation<a class="headerlink" href="#texture-animation" title="Permalink to this headline">¶</a></h2>
 <p>Is it possible to change a texture every frame at a reasonable frame
@@ -1352,6 +1401,7 @@ python-for-android from a linux machine. There are instructions here
 <li><a class="reference internal" href="#blend-shaders">Blend shaders</a></li>
 <li><a class="reference internal" href="#points">Points</a></li>
 <li><a class="reference internal" href="#lines">Lines</a></li>
+<li><a class="reference internal" href="#without-pil-pillow">Without PIL (Pillow)</a></li>
 <li><a class="reference internal" href="#minimal-sd-card">Minimal SD card</a></li>
 <li><a class="reference internal" href="#pypy">pypy</a></li>
 <li><a class="reference internal" href="#diy-environments">DIY environments</a><ul>
@@ -1366,6 +1416,7 @@ python-for-android from a linux machine. There are instructions here
 <li><a class="reference internal" href="#pointtext">PointText</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#normal-map-generation">Normal Map generation</a></li>
 <li><a class="reference internal" href="#texture-animation">Texture animation</a></li>
 <li><a class="reference internal" href="#profiling">Profiling</a></li>
 <li><a class="reference internal" href="#desktop-or-laptop">Desktop or laptop</a></li>
@@ -1416,7 +1467,7 @@ python-for-android from a linux machine. There are instructions here
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.13 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.15 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>util Package &#8212; pi3d 2.13 documentation</title>
+    <title>util Package &#8212; pi3d 2.15 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.13',
+        VERSION:     '2.15',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.13 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.15 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.13 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.15 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -229,8 +229,8 @@ rather than two triangles for each letter.</p>
 <dt><em>camera</em>:</dt>
 <dd>Camera object passed on to constructor of sprite</dd>
 <dt><em>color</em>:</dt>
-<dd>Color in format #RRGGBB, (255,0,0,255) etc (as accepted by PIL.ImageDraw)
-default (255, 255, 255, 255) i.e. white 100% alpha</dd>
+<dd>Color in format &#8216;#RRGGBB&#8217;, (255,0,0,255), &#8216;orange&#8217; etc (as accepted 
+by PIL.ImageDraw) default (255, 255, 255, 255) i.e. white 100% alpha</dd>
 <dt><em>font_size</em>:</dt>
 <dd>Point size for drawing the letters on the internal Texture. default 24</dd>
 <dt><em>margin</em>:</dt>
@@ -245,8 +245,9 @@ transparent.</dd>
 <dd>can be passed to init otherwise needs to be set in set_shader or
 draw. default None</dd>
 <dt><em>f_type</em>:</dt>
-<dd>filter type. BUMP will generate a normal map (indented), EMBOSS,
-CONTOUR, BLUR and SMOOTH do what they sound like they will do.</dd>
+<dd>filter type. BUMP will generate a normal map (indented by default,
++BUMP or BUMP+ will make it stick out), EMBOSS, CONTOUR, BLUR and 
+SMOOTH do what they sound like they will do.</dd>
 </dl>
 <dl class="method">
 <dt id="pi3d.util.FixedString.FixedString.set_shader">
@@ -258,13 +259,6 @@ CONTOUR, BLUR and SMOOTH do what they sound like they will do.</dd>
 <dt id="pi3d.util.FixedString.FixedString.draw">
 <code class="descname">draw</code><span class="sig-paren">(</span><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em>, <em>mlist=[]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>wrapper for Shape.draw()</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pi3d.util.FixedString.FixedString.make_bump_map">
-<code class="descname">make_bump_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString.make_bump_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString.make_bump_map" title="Permalink to this definition">¶</a></dt>
-<dd><p>essentially just blurs the image then allocates R or G values
-according to the rate of change of grayscale in x and y directions</p>
 </dd></dl>
 
 </dd></dl>
@@ -287,7 +281,8 @@ then creates a table mapping codepoints to subrectangles of that Texture.</p>
 <div>File path/name to a TrueType font file.</div></blockquote>
 <dl class="docutils">
 <dt><em>color</em>:</dt>
-<dd>Color in standard hex format #RRGGBB</dd>
+<dd>Color in format &#8216;#RRGGBB&#8217;, (255,0,0,255), &#8216;orange&#8217; etc (as accepted 
+by PIL.ImageDraw) default (255, 255, 255, 255) i.e. white 100% alpha</dd>
 <dt><em>font_size</em>:</dt>
 <dd>Point size for drawing the letters on the internal Texture</dd>
 <dt><em>codepoints</em>:</dt>
@@ -318,6 +313,9 @@ no longer used - all Font Textures are 1024.</dd>
 value is 1.1; you can get a tighter bounding if you set this down
 closer to 1, but italics might get cut off at the right. Since PointText
 this isn&#8217;t used.</dd>
+<dt><em>background_color</em>:</dt>
+<dd>filled background in ImageDraw format as above. default None i.e.
+transparent.</dd>
 </dl>
 </dd></dl>
 
@@ -789,6 +787,11 @@ NB the values must be three value tuples or 1D arrays</dd>
 <p>Will save whatever has been rendered since the last call to Display.clear().</p>
 <p>The file will be saved in the same directory as the app if you don&#8217;t add a path
 to it!</p>
+<p>If PIL is not available then the screenshot will be saved as a compressed 
+numpy array and &#8216;.npz&#8217; will be appended to the filestring you supply. 
+The image can be extracted from the npz file using:</p>
+<blockquote>
+<div>img = np.load(&#8216;filestring.npz&#8217;)[&#8216;arr_0&#8217;]</div></blockquote>
 <p>If this function is called without any argument then it will not save to
 file and will return a numpy array of the screen. The array and file, if
 saved, will have the alpha values removed.</p>
@@ -1261,7 +1264,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.13 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.15 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &#8212; pi3d 2.13 documentation</title>
+    <title>pi3d Package &#8212; pi3d 2.15 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.13',
+        VERSION:     '2.15',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.13 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.15 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.13 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.15 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -1515,7 +1515,7 @@ anti aliased which is done by Display.create(samples=4)</p>
 
 <dl class="class">
 <dt id="pi3d.Texture.Texture">
-<em class="property">class </em><code class="descclassname">pi3d.Texture.</code><code class="descname">Texture</code><span class="sig-paren">(</span><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em>, <em>m_repeat=False</em>, <em>free_after_load=False</em>, <em>i_format=None</em>, <em>filter=None</em>, <em>normal_map=-1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pi3d.Texture.</code><code class="descname">Texture</code><span class="sig-paren">(</span><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em>, <em>m_repeat=False</em>, <em>free_after_load=False</em>, <em>i_format=None</em>, <em>filter=None</em>, <em>normal_map=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><code class="xref py py-class docutils literal"><span class="pre">pi3d.util.Loadable.Loadable</span></code></a></p>
 <p>loads an image file from disk and converts it into an array that
 can be used by shaders. It inherits from Loadable in order that the
@@ -1565,9 +1565,9 @@ then this can be used to make a non-seamless texture tile</dd>
 if mipmap is true: NEAREST_MIPMAP_NEAREST or LINEAR_MIPMAP_NEAREST (default) will be used as minfilter 
 if mipmap is false: NEAREST (default) or LINEAR will be used as filter</dd>
 <dt><em>normal_map</em></dt>
-<dd>if a value &gt; 0.0 then the image file will be converted into a normal
-map where Luminance value is proportional to height. The value of
-nomral_map is used the scale the effect (see _normal_map())</dd>
+<dd>if a value is not None then the image file will be converted into a 
+normal map where Luminance value is proportional to height. The 
+value of nomral_map is used the scale the effect (see _normal_map())</dd>
 </dl>
 </dd>
 </dl>
@@ -1763,7 +1763,7 @@ new glTextureBuffers i.e. for movie textures</p>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.13 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.15 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

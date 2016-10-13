@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.Font &#8212; pi3d 2.13 documentation</title>
+    <title>pi3d.util.Font &#8212; pi3d 2.15 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.13',
+        VERSION:     '2.15',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.15 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.15 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -59,10 +59,8 @@
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
   <span class="n">unichr</span> <span class="o">=</span> <span class="nb">chr</span>
 
-<span class="k">try</span><span class="p">:</span>
-  <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
-<span class="k">except</span><span class="p">:</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Unable to import libraries from PIL&#39;</span><span class="p">)</span>
+<span class="c1"># NB PIL must be available to use Font. Otherwise use Pngfont</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="k">import</span> <span class="n">Texture</span>
@@ -87,7 +85,8 @@
 <span class="sd">      File path/name to a TrueType font file.</span>
 
 <span class="sd">    *color*:</span>
-<span class="sd">      Color in standard hex format #RRGGBB</span>
+<span class="sd">      Color in format &#39;#RRGGBB&#39;, (255,0,0,255), &#39;orange&#39; etc (as accepted </span>
+<span class="sd">      by PIL.ImageDraw) default (255, 255, 255, 255) i.e. white 100% alpha</span>
 
 <span class="sd">    *font_size*:</span>
 <span class="sd">      Point size for drawing the letters on the internal Texture</span>
@@ -125,6 +124,10 @@
 <span class="sd">      value is 1.1; you can get a tighter bounding if you set this down</span>
 <span class="sd">      closer to 1, but italics might get cut off at the right. Since PointText</span>
 <span class="sd">      this isn&#39;t used.</span>
+
+<span class="sd">    *background_color*:</span>
+<span class="sd">      filled background in ImageDraw format as above. default None i.e.</span>
+<span class="sd">      transparent. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Font</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="n">mipmap</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
@@ -201,10 +204,15 @@
         <span class="n">xindex</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">yindex</span> <span class="o">+=</span> <span class="mi">1</span>
 
-    <span class="n">RGBs</span> <span class="o">=</span> <span class="s1">&#39;RGBA&#39;</span> <span class="c1"># if self.alpha else &#39;RGB&#39; # always alpha</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">RGBs</span><span class="p">)</span>
+    <span class="c1">#RGBs = &#39;RGBA&#39; # if self.alpha else &#39;RGB&#39; # always alpha</span>
+    <span class="c1">#self.im = self.im.convert(RGBs)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">background_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">ImageColor</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">ImageColor</span><span class="o">.</span><span class="n">getrgb</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">[:,:,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">_load_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -240,7 +248,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.15 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

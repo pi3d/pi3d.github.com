@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.FixedString &#8212; pi3d 2.13 documentation</title>
+    <title>pi3d.util.FixedString &#8212; pi3d 2.15 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.13',
+        VERSION:     '2.15',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="top" title="pi3d 2.13 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.15 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.15 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -59,10 +59,8 @@
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
   <span class="n">unichr</span> <span class="o">=</span> <span class="nb">chr</span>
 
-<span class="k">try</span><span class="p">:</span>
-  <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
-<span class="k">except</span><span class="p">:</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Unable to import libraries from PIL&#39;</span><span class="p">)</span>
+<span class="c1"># NB PIL must be available to use FixedString. Otherwise use Pngfont</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="k">import</span> <span class="o">*</span>
@@ -91,8 +89,8 @@
 <span class="sd">      Camera object passed on to constructor of sprite</span>
 <span class="sd">      </span>
 <span class="sd">    *color*:</span>
-<span class="sd">      Color in format #RRGGBB, (255,0,0,255) etc (as accepted by PIL.ImageDraw)</span>
-<span class="sd">      default (255, 255, 255, 255) i.e. white 100% alpha</span>
+<span class="sd">      Color in format &#39;#RRGGBB&#39;, (255,0,0,255), &#39;orange&#39; etc (as accepted </span>
+<span class="sd">      by PIL.ImageDraw) default (255, 255, 255, 255) i.e. white 100% alpha</span>
 
 <span class="sd">    *font_size*:</span>
 <span class="sd">      Point size for drawing the letters on the internal Texture. default 24</span>
@@ -113,8 +111,9 @@
 <span class="sd">      draw. default None</span>
 <span class="sd">      </span>
 <span class="sd">    *f_type*:</span>
-<span class="sd">      filter type. BUMP will generate a normal map (indented), EMBOSS,</span>
-<span class="sd">      CONTOUR, BLUR and SMOOTH do what they sound like they will do.</span>
+<span class="sd">      filter type. BUMP will generate a normal map (indented by default,</span>
+<span class="sd">      +BUMP or BUMP+ will make it stick out), EMBOSS, CONTOUR, BLUR and </span>
+<span class="sd">      SMOOTH do what they sound like they will do.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">FixedString</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="n">mipmap</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
@@ -162,8 +161,9 @@
 
     <span class="k">if</span> <span class="n">f_type</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
       <span class="k">pass</span>
-    <span class="k">elif</span> <span class="n">f_type</span> <span class="o">==</span> <span class="s1">&#39;BUMP&#39;</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_bump_map</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="s1">&#39;BUMP&#39;</span> <span class="ow">in</span> <span class="n">f_type</span><span class="p">:</span>
+      <span class="n">amount</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="k">if</span> <span class="s1">&#39;+&#39;</span> <span class="ow">in</span> <span class="n">f_type</span> <span class="k">else</span> <span class="mf">1.0</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normal_map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="n">amount</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">ImageFilter</span>
       <span class="k">if</span> <span class="n">f_type</span> <span class="o">==</span> <span class="s1">&#39;EMBOSS&#39;</span><span class="p">:</span>
@@ -174,10 +174,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="o">.</span><span class="n">BLUR</span><span class="p">)</span>
       <span class="k">elif</span> <span class="n">f_type</span> <span class="o">==</span> <span class="s1">&#39;SMOOTH&#39;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="o">.</span><span class="n">SMOOTH_MORE</span><span class="p">)</span>
-        
-    <span class="c1">#self.image = self.im.convert(&#39;RGBA&#39;).tostring(&#39;raw&#39;, &#39;RGBA&#39;)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGBA&#39;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">background_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+          <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">ImageColor</span>
+          <span class="n">color</span> <span class="o">=</span> <span class="n">ImageColor</span><span class="o">.</span><span class="n">getrgb</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">[:,:,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
     
     <span class="n">bmedge</span> <span class="o">=</span> <span class="n">nlines</span> <span class="o">*</span> <span class="n">height</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">margin</span>
@@ -198,32 +200,6 @@
     <span class="sd">&#39;&#39;&#39;wrapper for Shape.draw()&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">txtrs</span><span class="p">,</span> <span class="n">ntl</span><span class="p">,</span> <span class="n">shny</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">mlist</span><span class="p">)</span></div>
     
-<div class="viewcode-block" id="FixedString.make_bump_map"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.FixedString.FixedString.make_bump_map">[docs]</a>  <span class="k">def</span> <span class="nf">make_bump_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; essentially just blurs the image then allocates R or G values</span>
-<span class="sd">    according to the rate of change of grayscale in x and y directions</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span>
-         <span class="p">[</span><span class="mf">0.025</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.065</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.025</span><span class="p">],</span>
-         <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.065</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span>  <span class="mf">0.065</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
-         <span class="p">[</span><span class="mf">0.025</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.065</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.025</span><span class="p">],</span>
-         <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]]</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-    <span class="n">steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">istep</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
-      <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">jstep</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
-        <span class="n">c</span> <span class="o">+=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">istep</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">jstep</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-    <span class="n">cx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">cy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-    <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">c</span> <span class="o">-</span> <span class="n">cy</span><span class="p">)</span> <span class="o">+</span> <span class="mi">127</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">c</span> <span class="o">-</span> <span class="n">cx</span><span class="p">)</span> <span class="o">+</span> <span class="mi">127</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">((</span><span class="mi">65025</span> <span class="o">-</span> <span class="p">(</span><span class="mi">127</span> <span class="o">-</span> <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="mi">127</span> <span class="o">-</span> <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    <span class="n">d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
-    <span class="k">return</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div>
-
   <span class="k">def</span> <span class="nf">_load_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    we need to stop the normal file loading by overriding this method</span>
@@ -258,7 +234,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.13 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.15 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

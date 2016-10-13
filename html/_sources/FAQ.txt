@@ -894,6 +894,33 @@ of a Shape.
   as faces (draw_method set to GL_TRIANGLES) and some as points or lines.
   You can set different Shaders for different Buffers from v2.6
 
+Without PIL (Pillow)
+--------------------
+
+Can I use pi3d without installing PIL - for instance trying to
+run on a different platform or to have an ultra small SD image?
+
+  Yes as of v2.15 you can do this but some of the classes will not work
+  i.e. FixedString, Font, Building
+
+  The Pngfont will still work for rendering text. HOWEVER normal image files
+  cannot be imported (jpg, png, gif) instead you have to convert these into
+  compressed saved numpy files (npz) including any png files used as fonts.
+  This can be done using a simple script on a machine that does have PIL 
+  installed::
+
+    from PIL import Image
+    import numpy as np
+    import os
+    dirctry = 'textures'
+    for f in os.listdir(dirctry):
+      f = f.split('.')
+      if f[-1].lower() in ['jpg','png','gif']:
+        print(f)
+        im = np.array(Image.open('{}/{}.{}'.format(dirctry, f[0], f[1])))
+        np.savez_compressed('{}/{}'.format(dirctry, f[0]), im)
+
+
 Minimal SD card
 ---------------
 
@@ -1243,6 +1270,31 @@ or changing colour.
 
   For complicated things like this then the PointText class should be used
   (with TextBlock components) see the demo StringMulti.py
+
+Normal Map generation
+---------------------
+
+I have a low polygon model that I want to appear more detailed. I know I
+can do that if I have a normal map to supply to the ``.._bump`` or ``.._reflect``
+shaders. Is there a way to generate these automatically.
+
+  Yes. If you simply use the same image file for the texture and the
+  normal map then this will alter the lighting of the surface. However this
+  will often give rather strange effects due to the interpretation of surface
+  normals from RGB values. To get a better result you can create a version
+  that uses the lightness of the image as a height map, for instance in
+  the Water.py demo::
+  
+    shapeimg = pi3d.Texture("textures/straw1.jpg")
+    shapebump = pi3d.Texture("textures/straw1.jpg", normal_map=-6.0)
+
+  The size and sign of the normal_map argument can be used to compensate
+  for the contrast and positive/negative nature of the image.
+  
+  Alternatively you can make a copy of the colour texture image and edit
+  it with GIMP (or similar) to make a greyscale version that matches the
+  surface geometry you want.
+  
 
 Texture animation
 -----------------
