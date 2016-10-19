@@ -285,6 +285,42 @@ and is incorporated in pi3d. Try running the demo from the command
 line. Geany seems to run ok on the Raspberry pi and has python highlighting
 and context suggestions.</div></blockquote>
 </div>
+<div class="section" id="scrambled-terminal-after-ctrl-c-or-crash">
+<h3>scrambled terminal after Ctrl-C or crash<a class="headerlink" href="#scrambled-terminal-after-ctrl-c-or-crash" title="Permalink to this headline">¶</a></h3>
+<p>With some of the demos the terminal seems to stop working after a break
+out of the program. Sometimes typing doesn&#8217;t appear on the screen, sometimes
+carriage return doesn&#8217;t work.</p>
+<blockquote>
+<div><p>This is due to curses being used for the keyboard input system. It needs
+to do some tidying up by calling pi3d.Keyboard.close().</p>
+<p>You can return the terminal to a normal state with <code class="docutils literal"><span class="pre">$</span> <span class="pre">stty</span> <span class="pre">sane</span></code> or
+with <code class="docutils literal"><span class="pre">$</span> <span class="pre">reset</span></code>. A more complete solution that allows programs to be
+stopped with Ctrl+c and the required closing down code still to run
+would be a variation of:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">keys</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Keyboard</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+  <span class="k">while</span> <span class="n">DISPLAY</span><span class="o">.</span><span class="n">loop_running</span><span class="p">():</span>
+<span class="o">...</span>
+    <span class="k">if</span> <span class="n">keys</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="o">==</span> <span class="mi">27</span><span class="p">:</span>
+      <span class="k">break</span>
+
+<span class="k">finally</span><span class="p">:</span> <span class="c1">#can also except KeyboardInterrup: for ctrl c specific things</span>
+  <span class="n">keys</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>alternatively from release
+v2.15 onwards there is a KeyboardContext that can be used:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">KeyboardContext</span><span class="p">()</span> <span class="k">as</span> <span class="n">keys</span><span class="p">:</span>
+  <span class="k">while</span> <span class="n">DISPLAY</span><span class="o">.</span><span class="n">loop_running</span><span class="p">():</span>
+    <span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">keys</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="o">==</span> <span class="mi">27</span><span class="p">:</span>
+      <span class="k">break</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
 </div>
 <div class="section" id="optional-arguments">
 <h2>Optional arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
@@ -499,8 +535,7 @@ numpy is used as well. See the demos <code class="docutils literal"><span class=
 <p>How do I display 2D images in front of a 3D scene? (or behind, for that
 matter)</p>
 <blockquote>
-<div><p>Either draw them onto a Canvas object using the 2d_flat shader or
-create two cameras one 3D and one 2D and assign the relevant camera
+<div><p>create two cameras one 3D and one 2D and assign the relevant camera
 to the types of objects you want to be drawn by each method. You
 can move the 3D camera around the scene but leave the 2D one stationary,
 that way you won&#8217;t have to keep moving and rotating the 2D objects
@@ -522,6 +557,9 @@ rendering by the Shader (i.e. which obscures the other) follows:</p>
 need more than one you need to explicitly create them, and it&#8217;s a good
 idea to assign the one you want to each object as an argument while
 the object is being created.</p>
+<p>Before the development of the orthographic Camera matrix system there
+was a system of drawing onto a Canvas object using the 2d_flat shader.
+This method is really deprecated although</p>
 </div></blockquote>
 </div>
 <div class="section" id="default-fog-distance">
@@ -1362,6 +1400,7 @@ python-for-android from a linux machine. There are instructions here
 <li><a class="reference internal" href="#unlit-silhouettes">unlit silhouettes</a></li>
 <li><a class="reference internal" href="#mouse-not-working">Mouse not working</a></li>
 <li><a class="reference internal" href="#cbreak-error">cbreak error</a></li>
+<li><a class="reference internal" href="#scrambled-terminal-after-ctrl-c-or-crash">scrambled terminal after Ctrl-C or crash</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#optional-arguments">Optional arguments</a></li>

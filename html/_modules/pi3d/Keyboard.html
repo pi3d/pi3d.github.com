@@ -51,7 +51,7 @@
   <h1>Source code for pi3d.Keyboard</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
-<span class="kn">import</span> <span class="nn">pi3d</span>
+<span class="kn">import</span> <span class="nn">contextlib</span><span class="o">,</span> <span class="nn">pi3d</span>
 
 <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">USE_PYGAME</span><span class="p">:</span>
   <span class="kn">import</span> <span class="nn">pygame</span>
@@ -237,13 +237,13 @@
   <span class="sd">&quot;&quot;&quot; In this case KEYBOARD maps pygame codes to the X11 codes used above</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">KEYBOARD</span> <span class="o">=</span> <span class="p">{</span><span class="mi">282</span><span class="p">:[</span><span class="mi">145</span><span class="p">,</span> <span class="s2">&quot;F1&quot;</span><span class="p">],</span> <span class="mi">283</span><span class="p">:[</span><span class="mi">146</span><span class="p">,</span> <span class="s2">&quot;F2&quot;</span><span class="p">],</span> <span class="mi">284</span><span class="p">:[</span><span class="mi">147</span><span class="p">,</span> <span class="s2">&quot;F3&quot;</span><span class="p">],</span>
-            <span class="mi">285</span><span class="p">:[</span><span class="mi">148</span><span class="p">,</span> <span class="s2">&quot;F4&quot;</span><span class="p">],</span> <span class="mi">286</span><span class="p">:[</span><span class="mi">149</span><span class="p">,</span> <span class="s2">&quot;F5&quot;</span><span class="p">],</span> <span class="mi">287</span><span class="p">:[</span><span class="mi">150</span><span class="p">,</span> <span class="s2">&quot;F6&quot;</span><span class="p">],</span> <span class="mi">288</span><span class="p">:[</span><span class="mi">151</span><span class="p">,</span> <span class="s2">&quot;F7&quot;</span><span class="p">],</span> 
+            <span class="mi">285</span><span class="p">:[</span><span class="mi">148</span><span class="p">,</span> <span class="s2">&quot;F4&quot;</span><span class="p">],</span> <span class="mi">286</span><span class="p">:[</span><span class="mi">149</span><span class="p">,</span> <span class="s2">&quot;F5&quot;</span><span class="p">],</span> <span class="mi">287</span><span class="p">:[</span><span class="mi">150</span><span class="p">,</span> <span class="s2">&quot;F6&quot;</span><span class="p">],</span> <span class="mi">288</span><span class="p">:[</span><span class="mi">151</span><span class="p">,</span> <span class="s2">&quot;F7&quot;</span><span class="p">],</span>
             <span class="mi">289</span><span class="p">:[</span><span class="mi">152</span><span class="p">,</span> <span class="s2">&quot;F8&quot;</span><span class="p">],</span> <span class="mi">290</span><span class="p">:[</span><span class="mi">153</span><span class="p">,</span> <span class="s2">&quot;F9&quot;</span><span class="p">],</span> <span class="mi">291</span><span class="p">:[</span><span class="mi">154</span><span class="p">,</span> <span class="s2">&quot;F10&quot;</span><span class="p">],</span> <span class="mi">60</span><span class="p">:[</span><span class="mi">92</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">],</span>
             <span class="mi">292</span><span class="p">:[</span><span class="mi">155</span><span class="p">,</span> <span class="s2">&quot;F11&quot;</span><span class="p">],</span> <span class="mi">293</span><span class="p">:[</span><span class="mi">156</span><span class="p">,</span> <span class="s2">&quot;F12&quot;</span><span class="p">],</span> <span class="mi">271</span><span class="p">:[</span><span class="mi">13</span><span class="p">,</span> <span class="s2">&quot;KP_Enter&quot;</span><span class="p">],</span>
-            <span class="mi">305</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Control_R&quot;</span><span class="p">],</span> <span class="mi">306</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Control_L&quot;</span><span class="p">],</span> <span class="mi">308</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Alt_L&quot;</span><span class="p">],</span> 
-            <span class="mi">307</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Alt_R&quot;</span><span class="p">],</span> <span class="mi">278</span><span class="p">:[</span><span class="mi">129</span><span class="p">,</span> <span class="s2">&quot;Home&quot;</span><span class="p">],</span> <span class="mi">273</span><span class="p">:[</span><span class="mi">134</span><span class="p">,</span> <span class="s2">&quot;Up&quot;</span><span class="p">],</span> 
+            <span class="mi">305</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Control_R&quot;</span><span class="p">],</span> <span class="mi">306</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Control_L&quot;</span><span class="p">],</span> <span class="mi">308</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Alt_L&quot;</span><span class="p">],</span>
+            <span class="mi">307</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Alt_R&quot;</span><span class="p">],</span> <span class="mi">278</span><span class="p">:[</span><span class="mi">129</span><span class="p">,</span> <span class="s2">&quot;Home&quot;</span><span class="p">],</span> <span class="mi">273</span><span class="p">:[</span><span class="mi">134</span><span class="p">,</span> <span class="s2">&quot;Up&quot;</span><span class="p">],</span>
             <span class="mi">280</span><span class="p">:[</span><span class="mi">130</span><span class="p">,</span> <span class="s2">&quot;Page_Up&quot;</span><span class="p">],</span> <span class="mi">276</span><span class="p">:[</span><span class="mi">136</span><span class="p">,</span> <span class="s2">&quot;Left&quot;</span><span class="p">],</span> <span class="mi">275</span><span class="p">:[</span><span class="mi">137</span><span class="p">,</span> <span class="s2">&quot;Right&quot;</span><span class="p">],</span>
-            <span class="mi">279</span><span class="p">:[</span><span class="mi">132</span><span class="p">,</span> <span class="s2">&quot;End&quot;</span><span class="p">],</span> <span class="mi">274</span><span class="p">:[</span><span class="mi">135</span><span class="p">,</span> <span class="s2">&quot;Down&quot;</span><span class="p">],</span> <span class="mi">281</span><span class="p">:[</span><span class="mi">133</span><span class="p">,</span> <span class="s2">&quot;Page_Down&quot;</span><span class="p">],</span> 
+            <span class="mi">279</span><span class="p">:[</span><span class="mi">132</span><span class="p">,</span> <span class="s2">&quot;End&quot;</span><span class="p">],</span> <span class="mi">274</span><span class="p">:[</span><span class="mi">135</span><span class="p">,</span> <span class="s2">&quot;Down&quot;</span><span class="p">],</span> <span class="mi">281</span><span class="p">:[</span><span class="mi">133</span><span class="p">,</span> <span class="s2">&quot;Page_Down&quot;</span><span class="p">],</span>
             <span class="mi">277</span><span class="p">:[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;Insert&quot;</span><span class="p">],</span> <span class="mi">127</span><span class="p">:[</span><span class="mi">131</span><span class="p">,</span> <span class="s2">&quot;DEL&quot;</span><span class="p">],</span> <span class="mi">304</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;Shift_L&quot;</span><span class="p">],</span>
             <span class="mi">303</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;Shift_R&quot;</span><span class="p">],</span> <span class="mi">301</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;Caps&quot;</span><span class="p">],</span> <span class="mi">13</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;Return&quot;</span><span class="p">],</span> <span class="mi">8</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;BackSpace&quot;</span><span class="p">]}</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -289,6 +289,14 @@
 
 
 <div class="viewcode-block" id="Keyboard"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.Keyboard">[docs]</a><span class="k">def</span> <span class="nf">Keyboard</span><span class="p">(</span><span class="n">use_curses</span><span class="o">=</span><span class="n">USE_CURSES</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Wrapper for the various keyboards appropriate to the PLATFORM</span>
+<span class="sd">  </span>
+<span class="sd">  argument:</span>
+<span class="sd">  </span>
+<span class="sd">    *use_curses*</span>
+<span class="sd">      default True, use CursesKeyboard on raspberry pi rather than</span>
+<span class="sd">      SysKeyboard</span>
+<span class="sd">  &#39;&#39;&#39;</span>
   <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">AndroidKeyboard</span><span class="p">()</span>
   <span class="c1">#elif PLATFORM == PLATFORM_WINDOWS:</span>
@@ -298,6 +306,23 @@
     <span class="k">return</span> <span class="n">x11Keyboard</span><span class="p">()</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">CursesKeyboard</span><span class="p">()</span> <span class="k">if</span> <span class="n">use_curses</span> <span class="k">else</span> <span class="n">SysKeyboard</span><span class="p">()</span></div>
+
+
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<div class="viewcode-block" id="KeyboardContext"><a class="viewcode-back" href="../../pi3d.html#pi3d.Keyboard.KeyboardContext">[docs]</a><span class="k">def</span> <span class="nf">KeyboardContext</span><span class="p">(</span><span class="n">use_curses</span><span class="o">=</span><span class="n">USE_CURSES</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Using a context manager alows curses to restore the terminal to its</span>
+<span class="sd">    initial tidy state even if the program is quitted using Ctrl+c.</span>
+<span class="sd">    Typical usage::</span>
+
+<span class="sd">        with KeyboardContext() as keys:</span>
+<span class="sd">          while DISPLAY.loop_running():</span>
+<span class="sd">            sprite.draw()</span>
+<span class="sd">            if keys.read() == 27:</span>
+<span class="sd">              break</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">keyboard</span> <span class="o">=</span> <span class="n">Keyboard</span><span class="p">(</span><span class="n">use_curses</span><span class="o">=</span><span class="n">use_curses</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="n">keyboard</span>
+    <span class="n">keyboard</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 </pre></div>
 
           </div>

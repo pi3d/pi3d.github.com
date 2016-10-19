@@ -250,6 +250,43 @@ error: cbreak() returned ERR``
   line. Geany seems to run ok on the Raspberry pi and has python highlighting
   and context suggestions.
 
+scrambled terminal after Ctrl-C or crash
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+With some of the demos the terminal seems to stop working after a break
+out of the program. Sometimes typing doesn't appear on the screen, sometimes
+carriage return doesn't work.
+
+  This is due to curses being used for the keyboard input system. It needs
+  to do some tidying up by calling pi3d.Keyboard.close().
+  
+  You can return the terminal to a normal state with ``$ stty sane`` or 
+  with ``$ reset``. A more complete solution that allows programs to be
+  stopped with Ctrl+c and the required closing down code still to run
+  would be a variation of::
+
+    keys = pi3d.Keyboard()
+    ...
+    try:
+      while DISPLAY.loop_running():
+    ...
+        if keys.read() == 27:
+          break
+
+    finally: #can also except KeyboardInterrup: for ctrl c specific things
+      keys.close()
+    ...
+    
+  alternatively from release
+  v2.15 onwards there is a KeyboardContext that can be used::
+  
+    with KeyboardContext() as keys:
+      while DISPLAY.loop_running():
+        sprite.draw()
+        if keys.read() == 27:
+          break
+
+
 Optional arguments
 ------------------
 
@@ -476,7 +513,7 @@ nearness of 2D relative to 3D
 How do I display 2D images in front of a 3D scene? (or behind, for that
 matter)
 
-  Either draw them onto a Canvas object using the 2d_flat shader or
+  
   create two cameras one 3D and one 2D and assign the relevant camera
   to the types of objects you want to be drawn by each method. You
   can move the 3D camera around the scene but leave the 2D one stationary,
@@ -500,6 +537,10 @@ matter)
   need more than one you need to explicitly create them, and it's a good
   idea to assign the one you want to each object as an argument while
   the object is being created.
+  
+  Before the development of the orthographic Camera matrix system there
+  was a system of drawing onto a Canvas object using the 2d_flat shader.
+  This method is really deprecated although 
 
 Default fog distance
 ~~~~~~~~~~~~~~~~~~~~

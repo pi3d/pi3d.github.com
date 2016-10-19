@@ -737,7 +737,31 @@ terminal window or session.</p>
 <dl class="function">
 <dt id="pi3d.Keyboard.Keyboard">
 <code class="descclassname">pi3d.Keyboard.</code><code class="descname">Keyboard</code><span class="sig-paren">(</span><em>use_curses=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Keyboard.html#Keyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.Keyboard" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Wrapper for the various keyboards appropriate to the PLATFORM</p>
+<p>argument:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>use_curses</em></dt>
+<dd>default True, use CursesKeyboard on raspberry pi rather than
+SysKeyboard</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.Keyboard.KeyboardContext">
+<code class="descclassname">pi3d.Keyboard.</code><code class="descname">KeyboardContext</code><span class="sig-paren">(</span><em>use_curses=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Keyboard.html#KeyboardContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.KeyboardContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Using a context manager alows curses to restore the terminal to its
+initial tidy state even if the program is quitted using Ctrl+c.
+Typical usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">KeyboardContext</span><span class="p">()</span> <span class="k">as</span> <span class="n">keys</span><span class="p">:</span>
+  <span class="k">while</span> <span class="n">DISPLAY</span><span class="o">.</span><span class="n">loop_running</span><span class="p">():</span>
+    <span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">keys</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="o">==</span> <span class="mi">27</span><span class="p">:</span>
+      <span class="k">break</span>
+</pre></div>
+</div>
+</dd></dl>
 
 </div>
 <div class="section" id="module-pi3d.Light">

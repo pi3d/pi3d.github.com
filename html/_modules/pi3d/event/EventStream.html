@@ -224,22 +224,17 @@
         <span class="k">try</span><span class="p">:</span>
           <span class="n">s</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">Format</span><span class="o">.</span><span class="n">EventSize</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-          <span class="n">failed</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s1">&#39;failed&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-          <span class="k">if</span> <span class="ow">not</span> <span class="n">failed</span><span class="p">:</span>
-            <span class="n">failed</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s1">&#39;failed&#39;</span><span class="p">,</span> <span class="n">failed</span><span class="p">)</span>
-          <span class="k">if</span> <span class="n">fd</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">failed</span><span class="p">:</span>
-            <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t read fd </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-            <span class="n">failed</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
-          <span class="k">continue</span>
+          <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t read fd </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+          <span class="n">selectlist</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
+          <span class="n">s</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">streams</span><span class="p">:</span>
+          <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">filehandle</span> <span class="o">==</span> <span class="n">fd</span><span class="p">:</span>
+            <span class="n">stream</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="k">break</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">EventStruct</span><span class="o">.</span><span class="n">EventStruct</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">s</span><span class="p">:</span>
-          <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">streams</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">filehandle</span> <span class="o">==</span> <span class="n">fd</span><span class="p">:</span>
-              <span class="n">stream</span> <span class="o">=</span> <span class="n">x</span>
-              <span class="k">break</span>
-          <span class="n">event</span> <span class="o">=</span> <span class="n">EventStruct</span><span class="o">.</span><span class="n">EventStruct</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
           <span class="n">event</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-          <span class="k">yield</span> <span class="n">event</span>
+        <span class="k">yield</span> <span class="n">event</span>
       <span class="n">ready</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">selectlist</span><span class="p">,</span> <span class="p">[</span> <span class="p">],</span> <span class="p">[</span> <span class="p">],</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
   <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
