@@ -561,9 +561,15 @@ Pixel perfect
 How do I display an image exactly without anti-aliasing or smoothing
 i.e. pixel perfect?
 
-  This can be done by using the 2d_flat shader and spcifying when the
-  Texture is loaded that mipmap=False. Because this is a global setting
-  it will be overwritten by whichever Texture is the last to be loaded.
+  This can be done by using a Camera with argument ``is_3d=False`` and 
+  spcifying, when the Texture is loaded, that ``mipmap=False``. Because 
+  this is a global setting it will be overwritten by whichever Texture is 
+  the last to be loaded. Use the ``uv_flat`` shader and the Sprite or ImageSprite
+  Shape.
+  
+  It is also important that the image is one of the standard widths used
+  by the GPU (see the FAQ section on ``Texture blurring`` below) also; 
+  that the dimensions of the image are the same as the sprite.
 
 anti-aliasing
 ~~~~~~~~~~~~~
@@ -596,6 +602,81 @@ Some of my Textures look a bit blurred or pixely.
 
   Allowed widths 4, 8, 16, 32, 48, 64, 72, 96, 128, 144, 192, 256, 288,
   384, 512, 576, 640, 720, 768, 800, 960, 1024, 1080, 1920
+  
+Display size greater than 2048
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Is there any way to use monitors with higher resolution than the 2048 limit
+of the OpenGL ES implementation on the Raspberry Pi?
+
+  This is not straightforward but it is possible to use the python multiprocessing
+  module to run two instances of pi3d in different "slices" of the screen.
+  Because the processes are running in parallel there is a problem with
+  synchronisation, however for slow operations such as a slideshow this
+  can be reduced to an ammount that is indescernable. The code would be something
+  like::
+
+    import pi3d
+    import numpy as np
+    import ctypes
+    from multiprocessing import Process
+    from multiprocessing.sharedctypes import RawArray, RawValue
+    from PIL import Image
+
+    W, H = 2160, 1440
+    L_X, L_Y, L_W, L_H = 0, 0, 985, 1440
+    R_X, R_Y, R_W, R_H = 985, 0, W - 985, 1440
+    img = ['temp10.png', 'temp11.png'] #images 2160x1440
+    img_i = 0
+    img_n = 2
+
+    def leftScreen(arr, flag):
+      L_display = pi3d.Display.create(x=L_X, y=L_Y, w=L_W, h=L_H)
+      L_camera = pi3d.Camera(is_3d=False)
+      L_shader = pi3d.Shader('uv_flat')
+      L_sprite = pi3d.Sprite(w=L_W, h=L_H, camera=L_camera)
+      L_tex_arr = np.frombuffer(arr, dtype=np.uint8)
+      L_tex_arr.shape = (H, W, 4)
+      while L_display.loop_running():
+        while flag.value == 0:
+          pass
+        if flag.value == 3:
+          break
+        L_tex = pi3d.Texture(L_tex_arr[:,:L_W,:].copy())
+        L_sprite.set_draw_details(L_shader, [L_tex])
+        flag.value = 0
+        L_sprite.draw()
+      L_display.destroy()
+
+    flag = RawValue(ctypes.c_int, 0)
+    shared_arr = RawArray(ctypes.c_uint8, H * W * 4) # alternatively, Array automatically does locking in which case
+    tex_arr = np.frombuffer(shared_arr, dtype=np.uint8) # you need to call Array.get_obj() method here
+    tex_arr.shape = (H, W, 4)
+
+    p = Process(target=leftScreen, args=(shared_arr, flag))
+    p.start()
+
+    display = pi3d.Display.create(x=R_X, y=R_Y, w=R_W, h=R_H)
+    camera = pi3d.Camera(is_3d=False)
+    shader = pi3d.Shader('uv_flat')
+    sprite = pi3d.Sprite(w=R_W, h=R_H, camera=camera)
+
+    tm = 0
+    while display.loop_running() and tm < 800:
+      if (tm % 100) == 0:
+        tex_arr[:] = np.array(Image.open(img[img_i]))
+        flag.value = 1
+        img_i = (img_i + 1) % img_n
+        tex = pi3d.Texture(tex_arr[:,R_X:,:].copy())
+        sprite.set_draw_details(shader, [tex])
+      while flag.value == 1:
+        pass
+      sprite.draw()
+      tm += 1
+
+    flag.value = 3
+    shared_arr = None
+    display.destroy()
 
 Log messages
 ------------
@@ -934,6 +1015,27 @@ of a Shape.
   It is possible to create multiple Buffers within a Shape and set some
   as faces (draw_method set to GL_TRIANGLES) and some as points or lines.
   You can set different Shaders for different Buffers from v2.6
+
+Using numpy arrays for Textures
+-------------------------------
+
+I would like to do fast array processing with numpy and use the results
+directly as Textures in pi3d. How do I do this?
+
+  You can pass either a PIL Image or a numpy array directly to the Texture
+  class as it creates an instance. The numpy array will need to have shape
+  (H, W, N) where N is 4, 3 or 1 and the array must be ``dtype=np.uint8``
+  If you attempt to use a slice of another array the resultant texture will
+  be scrambled unless you make an explicit copy i.e.::
+  
+    ar = np.array([[[2 * i, 2 * j - i, i + j] for i in range(128)] 
+                    for j in range(128)], dtype=np.uint8)
+    tex = pi3d.Texture(ar[:50,:100].copy()) # try without copy()
+    
+  To refresh the Texture with a constantly changing numpy array use the
+  ``Texture.update_ndarray()`` method. This can be passed the new array
+  as an argument, alternatively and faster, the Texture.image ndarray can
+  be modified in situ.
 
 Without PIL (Pillow)
 --------------------
@@ -1351,6 +1453,12 @@ image manipulation program such as OpenCV, Scipy or numpy?
   There is also a method Texture.update_ndarray(new_array) that can
   efficiently switch the image to the new array. See the demo
   ``VideoWalk.py`` which maps a movie onto a shape using ffmpeg.
+  
+  A much faster system can be used on the Raspberry Pi that utilises the
+  C code used in the demos in /opt/vc/src/hello_pi. This is tricky programming
+  but a working version has been created by @swhner
+  https://github.com/swehner/foos/blob/opengl_replay/foos/ui/opengl_replay.py
+  and https://github.com/swehner/foos/blob/opengl_replay/egl_replay/video_helper.c
 
 Profiling
 ---------

@@ -581,9 +581,15 @@ z=5000. From v1.12 This will be increased but in the mean time you can:</p>
 <p>How do I display an image exactly without anti-aliasing or smoothing
 i.e. pixel perfect?</p>
 <blockquote>
-<div>This can be done by using the 2d_flat shader and spcifying when the
-Texture is loaded that mipmap=False. Because this is a global setting
-it will be overwritten by whichever Texture is the last to be loaded.</div></blockquote>
+<div><p>This can be done by using a Camera with argument <code class="docutils literal"><span class="pre">is_3d=False</span></code> and
+spcifying, when the Texture is loaded, that <code class="docutils literal"><span class="pre">mipmap=False</span></code>. Because
+this is a global setting it will be overwritten by whichever Texture is
+the last to be loaded. Use the <code class="docutils literal"><span class="pre">uv_flat</span></code> shader and the Sprite or ImageSprite
+Shape.</p>
+<p>It is also important that the image is one of the standard widths used
+by the GPU (see the FAQ section on <code class="docutils literal"><span class="pre">Texture</span> <span class="pre">blurring</span></code> below) also;
+that the dimensions of the image are the same as the sprite.</p>
+</div></blockquote>
 </div>
 <div class="section" id="anti-aliasing">
 <h3>anti-aliasing<a class="headerlink" href="#anti-aliasing" title="Permalink to this headline">¶</a></h3>
@@ -614,6 +620,82 @@ width is a value not in this list then it will be rescaled with a
 resulting loss of clarity</strong></p>
 <p>Allowed widths 4, 8, 16, 32, 48, 64, 72, 96, 128, 144, 192, 256, 288,
 384, 512, 576, 640, 720, 768, 800, 960, 1024, 1080, 1920</p>
+</div></blockquote>
+</div>
+<div class="section" id="display-size-greater-than-2048">
+<h3>Display size greater than 2048<a class="headerlink" href="#display-size-greater-than-2048" title="Permalink to this headline">¶</a></h3>
+<p>Is there any way to use monitors with higher resolution than the 2048 limit
+of the OpenGL ES implementation on the Raspberry Pi?</p>
+<blockquote>
+<div><p>This is not straightforward but it is possible to use the python multiprocessing
+module to run two instances of pi3d in different &#8220;slices&#8221; of the screen.
+Because the processes are running in parallel there is a problem with
+synchronisation, however for slow operations such as a slideshow this
+can be reduced to an ammount that is indescernable. The code would be something
+like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pi3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">Process</span>
+<span class="kn">from</span> <span class="nn">multiprocessing.sharedctypes</span> <span class="k">import</span> <span class="n">RawArray</span><span class="p">,</span> <span class="n">RawValue</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+
+<span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mi">2160</span><span class="p">,</span> <span class="mi">1440</span>
+<span class="n">L_X</span><span class="p">,</span> <span class="n">L_Y</span><span class="p">,</span> <span class="n">L_W</span><span class="p">,</span> <span class="n">L_H</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">985</span><span class="p">,</span> <span class="mi">1440</span>
+<span class="n">R_X</span><span class="p">,</span> <span class="n">R_Y</span><span class="p">,</span> <span class="n">R_W</span><span class="p">,</span> <span class="n">R_H</span> <span class="o">=</span> <span class="mi">985</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">W</span> <span class="o">-</span> <span class="mi">985</span><span class="p">,</span> <span class="mi">1440</span>
+<span class="n">img</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp10.png&#39;</span><span class="p">,</span> <span class="s1">&#39;temp11.png&#39;</span><span class="p">]</span> <span class="c1">#images 2160x1440</span>
+<span class="n">img_i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">img_n</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">leftScreen</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">flag</span><span class="p">):</span>
+  <span class="n">L_display</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">L_X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">L_Y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">L_W</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">L_H</span><span class="p">)</span>
+  <span class="n">L_camera</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Camera</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+  <span class="n">L_shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s1">&#39;uv_flat&#39;</span><span class="p">)</span>
+  <span class="n">L_sprite</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Sprite</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">L_W</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">L_H</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="n">L_camera</span><span class="p">)</span>
+  <span class="n">L_tex_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+  <span class="n">L_tex_arr</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+  <span class="k">while</span> <span class="n">L_display</span><span class="o">.</span><span class="n">loop_running</span><span class="p">():</span>
+    <span class="k">while</span> <span class="n">flag</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">pass</span>
+    <span class="k">if</span> <span class="n">flag</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+      <span class="k">break</span>
+    <span class="n">L_tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="n">L_tex_arr</span><span class="p">[:,:</span><span class="n">L_W</span><span class="p">,:]</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="n">L_sprite</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">L_shader</span><span class="p">,</span> <span class="p">[</span><span class="n">L_tex</span><span class="p">])</span>
+    <span class="n">flag</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">L_sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+  <span class="n">L_display</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="n">RawValue</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">shared_arr</span> <span class="o">=</span> <span class="n">RawArray</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">,</span> <span class="n">H</span> <span class="o">*</span> <span class="n">W</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># alternatively, Array automatically does locking in which case</span>
+<span class="n">tex_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">shared_arr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c1"># you need to call Array.get_obj() method here</span>
+<span class="n">tex_arr</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">leftScreen</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">shared_arr</span><span class="p">,</span> <span class="n">flag</span><span class="p">))</span>
+<span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="n">display</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">R_X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">R_Y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">R_W</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">R_H</span><span class="p">)</span>
+<span class="n">camera</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Camera</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s1">&#39;uv_flat&#39;</span><span class="p">)</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Sprite</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">R_W</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">R_H</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="n">camera</span><span class="p">)</span>
+
+<span class="n">tm</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">display</span><span class="o">.</span><span class="n">loop_running</span><span class="p">()</span> <span class="ow">and</span> <span class="n">tm</span> <span class="o">&lt;</span> <span class="mi">800</span><span class="p">:</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">tm</span> <span class="o">%</span> <span class="mi">100</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">tex_arr</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="n">img_i</span><span class="p">]))</span>
+    <span class="n">flag</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">img_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">img_i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">img_n</span>
+    <span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="n">tex_arr</span><span class="p">[:,</span><span class="n">R_X</span><span class="p">:,:]</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="n">sprite</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">tex</span><span class="p">])</span>
+  <span class="k">while</span> <span class="n">flag</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">pass</span>
+  <span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+  <span class="n">tm</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">flag</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">shared_arr</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">display</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
 </div></blockquote>
 </div>
 </div>
@@ -931,6 +1013,27 @@ The pi3d.Lines class does this for you.</p>
 <p>It is possible to create multiple Buffers within a Shape and set some
 as faces (draw_method set to GL_TRIANGLES) and some as points or lines.
 You can set different Shaders for different Buffers from v2.6</p>
+</div></blockquote>
+</div>
+<div class="section" id="using-numpy-arrays-for-textures">
+<h2>Using numpy arrays for Textures<a class="headerlink" href="#using-numpy-arrays-for-textures" title="Permalink to this headline">¶</a></h2>
+<p>I would like to do fast array processing with numpy and use the results
+directly as Textures in pi3d. How do I do this?</p>
+<blockquote>
+<div><p>You can pass either a PIL Image or a numpy array directly to the Texture
+class as it creates an instance. The numpy array will need to have shape
+(H, W, N) where N is 4, 3 or 1 and the array must be <code class="docutils literal"><span class="pre">dtype=np.uint8</span></code>
+If you attempt to use a slice of another array the resultant texture will
+be scrambled unless you make an explicit copy i.e.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">j</span> <span class="o">-</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">128</span><span class="p">)]</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">128</span><span class="p">)],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="n">ar</span><span class="p">[:</span><span class="mi">50</span><span class="p">,:</span><span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span> <span class="c1"># try without copy()</span>
+</pre></div>
+</div>
+<p>To refresh the Texture with a constantly changing numpy array use the
+<code class="docutils literal"><span class="pre">Texture.update_ndarray()</span></code> method. This can be passed the new array
+as an argument, alternatively and faster, the Texture.image ndarray can
+be modified in situ.</p>
 </div></blockquote>
 </div>
 <div class="section" id="without-pil-pillow">
@@ -1307,6 +1410,11 @@ is 3 for RGB or 4 for RGBA), remember C arrays are row,col,pixel)</p>
 <p>There is also a method Texture.update_ndarray(new_array) that can
 efficiently switch the image to the new array. See the demo
 <code class="docutils literal"><span class="pre">VideoWalk.py</span></code> which maps a movie onto a shape using ffmpeg.</p>
+<p>A much faster system can be used on the Raspberry Pi that utilises the
+C code used in the demos in /opt/vc/src/hello_pi. This is tricky programming
+but a working version has been created by &#64;swhner
+<a class="reference external" href="https://github.com/swehner/foos/blob/opengl_replay/foos/ui/opengl_replay.py">https://github.com/swehner/foos/blob/opengl_replay/foos/ui/opengl_replay.py</a>
+and <a class="reference external" href="https://github.com/swehner/foos/blob/opengl_replay/egl_replay/video_helper.c">https://github.com/swehner/foos/blob/opengl_replay/egl_replay/video_helper.c</a></p>
 </div></blockquote>
 </div>
 <div class="section" id="profiling">
@@ -1415,6 +1523,7 @@ python-for-android from a linux machine. There are instructions here
 <li><a class="reference internal" href="#pixel-perfect">Pixel perfect</a></li>
 <li><a class="reference internal" href="#anti-aliasing">anti-aliasing</a></li>
 <li><a class="reference internal" href="#texture-blurring">Texture blurring</a></li>
+<li><a class="reference internal" href="#display-size-greater-than-2048">Display size greater than 2048</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#log-messages">Log messages</a><ul>
@@ -1440,6 +1549,7 @@ python-for-android from a linux machine. There are instructions here
 <li><a class="reference internal" href="#blend-shaders">Blend shaders</a></li>
 <li><a class="reference internal" href="#points">Points</a></li>
 <li><a class="reference internal" href="#lines">Lines</a></li>
+<li><a class="reference internal" href="#using-numpy-arrays-for-textures">Using numpy arrays for Textures</a></li>
 <li><a class="reference internal" href="#without-pil-pillow">Without PIL (Pillow)</a></li>
 <li><a class="reference internal" href="#minimal-sd-card">Minimal SD card</a></li>
 <li><a class="reference internal" href="#pypy">pypy</a></li>
