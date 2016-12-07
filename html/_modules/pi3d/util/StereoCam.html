@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.StereoCam &#8212; pi3d 2.15 documentation</title>
+    <title>pi3d.util.StereoCam &#8212; pi3d 2.16 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.15',
+        VERSION:     '2.16',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="top" title="pi3d 2.15 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.16 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -75,9 +75,7 @@
 <span class="sd">    texture generated from the framebuffer. Keyword Arguments:</span>
 
 <span class="sd">      *shader*</span>
-<span class="sd">        to use when drawing sprite, defaults to post_base, a simple</span>
-<span class="sd">        3x3 convolution that does basic edge detection. Can be copied to</span>
-<span class="sd">        project directory and modified as required.</span>
+<span class="sd">        to use when drawing sprite, defaults to uv_flat.</span>
 
 <span class="sd">      *mipmap*</span>
 <span class="sd">        can be set to True with slight cost to speed, or use fxaa shader</span>
@@ -91,7 +89,7 @@
 <span class="sd">        must be drawn with a special interlacing shader.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># load shader</span>
-    <span class="k">if</span> <span class="n">interlace</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">interlace</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># i.e. default side by side behaviour</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="n">vshader_source</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -116,8 +114,8 @@
 <span class="s2">  gl_FragColor = mix(texc0, texc1, step(0.5, fract(coord.x / </span><span class="si">{:f}</span><span class="s2">)));</span>
 <span class="s2">}}</span>
 <span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">interlace</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">))</span>
-      <span class="c1">#self.shader = Shader(&quot;2d_flat&quot;)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">()</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera_3d</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">()</span> <span class="c1"># create 3d cam first so it becomes default instance</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">forMtrx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="c1"># initially not rotated</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">camera_2d</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -235,7 +233,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pi3d.constants.egl &#8212; pi3d 2.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="top" title="pi3d 2.16 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pi3d.constants.egl</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains integer constants from a C header file named something</span>
+<span class="sd">like egl.h.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">EGL_SUCCESS</span> <span class="o">=</span> <span class="mh">0x3000</span>
+<span class="n">EGL_NOT_INITIALIZED</span> <span class="o">=</span> <span class="mh">0x3001</span>
+<span class="n">EGL_BAD_ACCESS</span> <span class="o">=</span> <span class="mh">0x3002</span>
+<span class="n">EGL_BAD_ALLOC</span> <span class="o">=</span> <span class="mh">0x3003</span>
+<span class="n">EGL_BAD_ATTRIBUTE</span> <span class="o">=</span> <span class="mh">0x3004</span>
+<span class="n">EGL_BAD_CONFIG</span> <span class="o">=</span> <span class="mh">0x3005</span>
+<span class="n">EGL_BAD_CONTEXT</span> <span class="o">=</span> <span class="mh">0x3006</span>
+<span class="n">EGL_BAD_CURRENT_SURFACE</span> <span class="o">=</span> <span class="mh">0x3007</span>
+<span class="n">EGL_BAD_DISPLAY</span> <span class="o">=</span> <span class="mh">0x3008</span>
+<span class="n">EGL_BAD_MATCH</span> <span class="o">=</span> <span class="mh">0x3009</span>
+<span class="n">EGL_BAD_NATIVE_PIXMAP</span> <span class="o">=</span> <span class="mh">0x300A</span>
+<span class="n">EGL_BAD_NATIVE_WINDOW</span> <span class="o">=</span> <span class="mh">0x300B</span>
+<span class="n">EGL_BAD_PARAMETER</span> <span class="o">=</span> <span class="mh">0x300C</span>
+<span class="n">EGL_BAD_SURFACE</span> <span class="o">=</span> <span class="mh">0x300D</span>
+<span class="n">EGL_CONTEXT_LOST</span> <span class="o">=</span> <span class="mh">0x300E</span>
+<span class="n">EGL_BUFFER_SIZE</span> <span class="o">=</span> <span class="mh">0x3020</span>
+<span class="n">EGL_ALPHA_SIZE</span> <span class="o">=</span> <span class="mh">0x3021</span>
+<span class="n">EGL_BLUE_SIZE</span> <span class="o">=</span> <span class="mh">0x3022</span>
+<span class="n">EGL_GREEN_SIZE</span> <span class="o">=</span> <span class="mh">0x3023</span>
+<span class="n">EGL_RED_SIZE</span> <span class="o">=</span> <span class="mh">0x3024</span>
+<span class="n">EGL_DEPTH_SIZE</span> <span class="o">=</span> <span class="mh">0x3025</span>
+<span class="n">EGL_STENCIL_SIZE</span> <span class="o">=</span> <span class="mh">0x3026</span>
+<span class="n">EGL_CONFIG_CAVEAT</span> <span class="o">=</span> <span class="mh">0x3027</span>
+<span class="n">EGL_CONFIG_ID</span> <span class="o">=</span> <span class="mh">0x3028</span>
+<span class="n">EGL_LEVEL</span> <span class="o">=</span> <span class="mh">0x3029</span>
+<span class="n">EGL_MAX_PBUFFER_HEIGHT</span> <span class="o">=</span> <span class="mh">0x302A</span>
+<span class="n">EGL_MAX_PBUFFER_PIXELS</span> <span class="o">=</span> <span class="mh">0x302B</span>
+<span class="n">EGL_MAX_PBUFFER_WIDTH</span> <span class="o">=</span> <span class="mh">0x302C</span>
+<span class="n">EGL_NATIVE_RENDERABLE</span> <span class="o">=</span> <span class="mh">0x302D</span>
+<span class="n">EGL_NATIVE_VISUAL_ID</span> <span class="o">=</span> <span class="mh">0x302E</span>
+<span class="n">EGL_NATIVE_VISUAL_TYPE</span> <span class="o">=</span> <span class="mh">0x302F</span>
+<span class="n">EGL_SAMPLES</span> <span class="o">=</span> <span class="mh">0x3031</span>
+<span class="n">EGL_SAMPLE_BUFFERS</span> <span class="o">=</span> <span class="mh">0x3032</span>
+<span class="n">EGL_SURFACE_TYPE</span> <span class="o">=</span> <span class="mh">0x3033</span>
+<span class="n">EGL_TRANSPARENT_TYPE</span> <span class="o">=</span> <span class="mh">0x3034</span>
+<span class="n">EGL_TRANSPARENT_BLUE_VALUE</span> <span class="o">=</span> <span class="mh">0x3035</span>
+<span class="n">EGL_TRANSPARENT_GREEN_VALUE</span> <span class="o">=</span> <span class="mh">0x3036</span>
+<span class="n">EGL_TRANSPARENT_RED_VALUE</span> <span class="o">=</span> <span class="mh">0x3037</span>
+<span class="n">EGL_NONE</span> <span class="o">=</span> <span class="mh">0x3038</span>
+<span class="n">EGL_BIND_TO_TEXTURE_RGB</span> <span class="o">=</span> <span class="mh">0x3039</span>
+<span class="n">EGL_BIND_TO_TEXTURE_RGBA</span> <span class="o">=</span> <span class="mh">0x303A</span>
+<span class="n">EGL_MIN_SWAP_INTERVAL</span> <span class="o">=</span> <span class="mh">0x303B</span>
+<span class="n">EGL_MAX_SWAP_INTERVAL</span> <span class="o">=</span> <span class="mh">0x303C</span>
+<span class="n">EGL_LUMINANCE_SIZE</span> <span class="o">=</span> <span class="mh">0x303D</span>
+<span class="n">EGL_ALPHA_MASK_SIZE</span> <span class="o">=</span> <span class="mh">0x303E</span>
+<span class="n">EGL_COLOR_BUFFER_TYPE</span> <span class="o">=</span> <span class="mh">0x303F</span>
+<span class="n">EGL_RENDERABLE_TYPE</span> <span class="o">=</span> <span class="mh">0x3040</span>
+<span class="n">EGL_MATCH_NATIVE_PIXMAP</span> <span class="o">=</span> <span class="mh">0x3041</span>
+<span class="n">EGL_CONFORMANT</span> <span class="o">=</span> <span class="mh">0x3042</span>
+<span class="n">EGL_SLOW_CONFIG</span> <span class="o">=</span> <span class="mh">0x3050</span>
+<span class="n">EGL_NON_CONFORMANT_CONFIG</span> <span class="o">=</span> <span class="mh">0x3051</span>
+<span class="n">EGL_TRANSPARENT_RGB</span> <span class="o">=</span> <span class="mh">0x3052</span>
+<span class="n">EGL_RGB_BUFFER</span> <span class="o">=</span> <span class="mh">0x308E</span>
+<span class="n">EGL_LUMINANCE_BUFFER</span> <span class="o">=</span> <span class="mh">0x308F</span>
+<span class="n">EGL_NO_TEXTURE</span> <span class="o">=</span> <span class="mh">0x305C</span>
+<span class="n">EGL_TEXTURE_RGB</span> <span class="o">=</span> <span class="mh">0x305D</span>
+<span class="n">EGL_TEXTURE_RGBA</span> <span class="o">=</span> <span class="mh">0x305E</span>
+<span class="n">EGL_TEXTURE_2D</span> <span class="o">=</span> <span class="mh">0x305F</span>
+<span class="n">EGL_PBUFFER_BIT</span> <span class="o">=</span> <span class="mh">0x0001</span>
+<span class="n">EGL_PIXMAP_BIT</span> <span class="o">=</span> <span class="mh">0x0002</span>
+<span class="n">EGL_WINDOW_BIT</span> <span class="o">=</span> <span class="mh">0x0004</span>
+<span class="n">EGL_VG_COLORSPACE_LINEAR_BIT</span> <span class="o">=</span> <span class="mh">0x0020</span>
+<span class="n">EGL_VG_ALPHA_FORMAT_PRE_BIT</span> <span class="o">=</span> <span class="mh">0x0040</span>
+<span class="n">EGL_MULTISAMPLE_RESOLVE_BOX_BIT</span> <span class="o">=</span> <span class="mh">0x0200</span>
+<span class="n">EGL_SWAP_BEHAVIOR_PRESERVED_BIT</span> <span class="o">=</span> <span class="mh">0x0400</span>
+<span class="n">EGL_OPENGL_ES_BIT</span> <span class="o">=</span> <span class="mh">0x0001</span>
+<span class="n">EGL_OPENVG_BIT</span> <span class="o">=</span> <span class="mh">0x0002</span>
+<span class="n">EGL_OPENGL_ES2_BIT</span> <span class="o">=</span> <span class="mh">0x0004</span>
+<span class="n">EGL_OPENGL_BIT</span> <span class="o">=</span> <span class="mh">0x0008</span>
+<span class="n">EGL_VENDOR</span> <span class="o">=</span> <span class="mh">0x3053</span>
+<span class="n">EGL_VERSION</span> <span class="o">=</span> <span class="mh">0x3054</span>
+<span class="n">EGL_EXTENSIONS</span> <span class="o">=</span> <span class="mh">0x3055</span>
+<span class="n">EGL_CLIENT_APIS</span> <span class="o">=</span> <span class="mh">0x308D</span>
+<span class="n">EGL_HEIGHT</span> <span class="o">=</span> <span class="mh">0x3056</span>
+<span class="n">EGL_WIDTH</span> <span class="o">=</span> <span class="mh">0x3057</span>
+<span class="n">EGL_LARGEST_PBUFFER</span> <span class="o">=</span> <span class="mh">0x3058</span>
+<span class="n">EGL_TEXTURE_FORMAT</span> <span class="o">=</span> <span class="mh">0x3080</span>
+<span class="n">EGL_TEXTURE_TARGET</span> <span class="o">=</span> <span class="mh">0x3081</span>
+<span class="n">EGL_MIPMAP_TEXTURE</span> <span class="o">=</span> <span class="mh">0x3082</span>
+<span class="n">EGL_MIPMAP_LEVEL</span> <span class="o">=</span> <span class="mh">0x3083</span>
+<span class="n">EGL_RENDER_BUFFER</span> <span class="o">=</span> <span class="mh">0x3086</span>
+<span class="n">EGL_VG_COLORSPACE</span> <span class="o">=</span> <span class="mh">0x3087</span>
+<span class="n">EGL_VG_ALPHA_FORMAT</span> <span class="o">=</span> <span class="mh">0x3088</span>
+<span class="n">EGL_HORIZONTAL_RESOLUTION</span> <span class="o">=</span> <span class="mh">0x3090</span>
+<span class="n">EGL_VERTICAL_RESOLUTION</span> <span class="o">=</span> <span class="mh">0x3091</span>
+<span class="n">EGL_PIXEL_ASPECT_RATIO</span> <span class="o">=</span> <span class="mh">0x3092</span>
+<span class="n">EGL_SWAP_BEHAVIOR</span> <span class="o">=</span> <span class="mh">0x3093</span>
+<span class="n">EGL_MULTISAMPLE_RESOLVE</span> <span class="o">=</span> <span class="mh">0x3099</span>
+<span class="n">EGL_BACK_BUFFER</span> <span class="o">=</span> <span class="mh">0x3084</span>
+<span class="n">EGL_SINGLE_BUFFER</span> <span class="o">=</span> <span class="mh">0x3085</span>
+<span class="n">EGL_VG_COLORSPACE_sRGB</span> <span class="o">=</span> <span class="mh">0x3089</span>
+<span class="n">EGL_VG_COLORSPACE_LINEAR</span> <span class="o">=</span> <span class="mh">0x308A</span>
+<span class="n">EGL_VG_ALPHA_FORMAT_NONPRE</span> <span class="o">=</span> <span class="mh">0x308B</span>
+<span class="n">EGL_VG_ALPHA_FORMAT_PRE</span> <span class="o">=</span> <span class="mh">0x308C</span>
+<span class="n">EGL_BUFFER_PRESERVED</span> <span class="o">=</span> <span class="mh">0x3094</span>
+<span class="n">EGL_BUFFER_DESTROYED</span> <span class="o">=</span> <span class="mh">0x3095</span>
+<span class="n">EGL_OPENVG_IMAGE</span> <span class="o">=</span> <span class="mh">0x3096</span>
+<span class="n">EGL_CONTEXT_CLIENT_TYPE</span> <span class="o">=</span> <span class="mh">0x3097</span>
+<span class="n">EGL_CONTEXT_CLIENT_VERSION</span> <span class="o">=</span> <span class="mh">0x3098</span>
+<span class="n">EGL_MULTISAMPLE_RESOLVE_DEFAULT</span> <span class="o">=</span> <span class="mh">0x309A</span>
+<span class="n">EGL_MULTISAMPLE_RESOLVE_BOX</span> <span class="o">=</span> <span class="mh">0x309B</span>
+<span class="n">EGL_OPENGL_ES_API</span> <span class="o">=</span> <span class="mh">0x30A0</span>
+<span class="n">EGL_OPENVG_API</span> <span class="o">=</span> <span class="mh">0x30A1</span>
+<span class="n">EGL_OPENGL_API</span> <span class="o">=</span> <span class="mh">0x30A2</span>
+<span class="n">EGL_DRAW</span> <span class="o">=</span> <span class="mh">0x3059</span>
+<span class="n">EGL_READ</span> <span class="o">=</span> <span class="mh">0x305A</span>
+<span class="n">EGL_CORE_NATIVE_ENGINE</span> <span class="o">=</span> <span class="mh">0x305B</span>
+
+<div class="viewcode-block" id="set_egl_function_args"><a class="viewcode-back" href="../../../pi3d.constants.html#pi3d.constants.egl.set_egl_function_args">[docs]</a><span class="k">def</span> <span class="nf">set_egl_function_args</span><span class="p">(</span><span class="n">egl</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  typedef int EGLBoolean;</span>
+<span class="sd">  typedef int32_t EGLint;</span>
+<span class="sd">  typedef void *EGLDisplay;</span>
+<span class="sd">  typedef void *EGLConfig;</span>
+<span class="sd">  typedef void *EGLSurface;</span>
+<span class="sd">  typedef void *EGLContext;</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">POINTER</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_int32</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_float</span>
+
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglChooseConfig</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_int32</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_int32</span><span class="p">)]</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglChooseConfig</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_int</span> <span class="c1">#EGLBoolean</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglCreateContext</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_int32</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglCreateContext</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_void_p</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglCreateWindowSurface</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_int32</span><span class="p">]</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglCreateWindowSurface</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_void_p</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglDestroyContext</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglDestroySurface</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglGetCurrentSurface</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int32</span><span class="p">]</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglGetCurrentSurface</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_void_p</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglGetDisplay</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_void_p</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglInitialize</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_int32</span><span class="p">),</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_int32</span><span class="p">)]</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglMakeCurrent</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglSwapBuffers</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglQuerySurface</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_int32</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_int32</span><span class="p">)]</span>
+  <span class="n">egl</span><span class="o">.</span><span class="n">eglTerminate</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_void_p</span><span class="p">]</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>

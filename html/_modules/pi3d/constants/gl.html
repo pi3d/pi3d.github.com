@@ -1,0 +1,545 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pi3d.constants.gl &#8212; pi3d 2.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="top" title="pi3d 2.16 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pi3d.constants.gl</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains integer constants from a C header file named something</span>
+<span class="sd">like gl.h.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">GL_DEPTH_BUFFER_BIT</span> <span class="o">=</span> <span class="mh">0x00000100</span>
+<span class="n">GL_STENCIL_BUFFER_BIT</span> <span class="o">=</span> <span class="mh">0x00000400</span>
+<span class="n">GL_COLOR_BUFFER_BIT</span> <span class="o">=</span> <span class="mh">0x00004000</span>
+<span class="n">GL_POINTS</span> <span class="o">=</span> <span class="mh">0x0000</span>
+<span class="n">GL_LINES</span> <span class="o">=</span> <span class="mh">0x0001</span>
+<span class="n">GL_LINE_LOOP</span> <span class="o">=</span> <span class="mh">0x0002</span>
+<span class="n">GL_LINE_STRIP</span> <span class="o">=</span> <span class="mh">0x0003</span>
+<span class="n">GL_TRIANGLES</span> <span class="o">=</span> <span class="mh">0x0004</span>
+<span class="n">GL_TRIANGLE_STRIP</span> <span class="o">=</span> <span class="mh">0x0005</span>
+<span class="n">GL_TRIANGLE_FAN</span> <span class="o">=</span> <span class="mh">0x0006</span>
+<span class="n">GL_NEVER</span> <span class="o">=</span> <span class="mh">0x0200</span>
+<span class="n">GL_LESS</span> <span class="o">=</span> <span class="mh">0x0201</span>
+<span class="n">GL_EQUAL</span> <span class="o">=</span> <span class="mh">0x0202</span>
+<span class="n">GL_LEQUAL</span> <span class="o">=</span> <span class="mh">0x0203</span>
+<span class="n">GL_GREATER</span> <span class="o">=</span> <span class="mh">0x0204</span>
+<span class="n">GL_NOTEQUAL</span> <span class="o">=</span> <span class="mh">0x0205</span>
+<span class="n">GL_GEQUAL</span> <span class="o">=</span> <span class="mh">0x0206</span>
+<span class="n">GL_ALWAYS</span> <span class="o">=</span> <span class="mh">0x0207</span>
+<span class="n">GL_SRC_COLOR</span> <span class="o">=</span> <span class="mh">0x0300</span>
+<span class="n">GL_ONE_MINUS_SRC_COLOR</span> <span class="o">=</span> <span class="mh">0x0301</span>
+<span class="n">GL_SRC_ALPHA</span> <span class="o">=</span> <span class="mh">0x0302</span>
+<span class="n">GL_ONE_MINUS_SRC_ALPHA</span> <span class="o">=</span> <span class="mh">0x0303</span>
+<span class="n">GL_DST_ALPHA</span> <span class="o">=</span> <span class="mh">0x0304</span>
+<span class="n">GL_ONE_MINUS_DST_ALPHA</span> <span class="o">=</span> <span class="mh">0x0305</span>
+<span class="n">GL_DST_COLOR</span> <span class="o">=</span> <span class="mh">0x0306</span>
+<span class="n">GL_ONE_MINUS_DST_COLOR</span> <span class="o">=</span> <span class="mh">0x0307</span>
+<span class="n">GL_SRC_ALPHA_SATURATE</span> <span class="o">=</span> <span class="mh">0x0308</span>
+<span class="n">GL_CLIP_PLANE0</span> <span class="o">=</span> <span class="mh">0x3000</span>
+<span class="n">GL_CLIP_PLANE1</span> <span class="o">=</span> <span class="mh">0x3001</span>
+<span class="n">GL_CLIP_PLANE2</span> <span class="o">=</span> <span class="mh">0x3002</span>
+<span class="n">GL_CLIP_PLANE3</span> <span class="o">=</span> <span class="mh">0x3003</span>
+<span class="n">GL_CLIP_PLANE4</span> <span class="o">=</span> <span class="mh">0x3004</span>
+<span class="n">GL_CLIP_PLANE5</span> <span class="o">=</span> <span class="mh">0x3005</span>
+<span class="n">GL_FRONT</span> <span class="o">=</span> <span class="mh">0x0404</span>
+<span class="n">GL_BACK</span> <span class="o">=</span> <span class="mh">0x0405</span>
+<span class="n">GL_FRONT_AND_BACK</span> <span class="o">=</span> <span class="mh">0x0408</span>
+<span class="n">GL_FOG</span> <span class="o">=</span> <span class="mh">0x0B60</span>
+<span class="n">GL_LIGHTING</span> <span class="o">=</span> <span class="mh">0x0B50</span>
+<span class="n">GL_TEXTURE_2D</span> <span class="o">=</span> <span class="mh">0x0DE1</span>
+<span class="n">GL_CULL_FACE</span> <span class="o">=</span> <span class="mh">0x0B44</span>
+<span class="n">GL_ALPHA_TEST</span> <span class="o">=</span> <span class="mh">0x0BC0</span>
+<span class="n">GL_BLEND</span> <span class="o">=</span> <span class="mh">0x0BE2</span>
+<span class="n">GL_COLOR_LOGIC_OP</span> <span class="o">=</span> <span class="mh">0x0BF2</span>
+<span class="n">GL_DITHER</span> <span class="o">=</span> <span class="mh">0x0BD0</span>
+<span class="n">GL_STENCIL_TEST</span> <span class="o">=</span> <span class="mh">0x0B90</span>
+<span class="n">GL_DEPTH_TEST</span> <span class="o">=</span> <span class="mh">0x0B71</span>
+<span class="n">GL_POINT_SMOOTH</span> <span class="o">=</span> <span class="mh">0x0B10</span>
+<span class="n">GL_LINE_SMOOTH</span> <span class="o">=</span> <span class="mh">0x0B20</span>
+<span class="n">GL_SCISSOR_TEST</span> <span class="o">=</span> <span class="mh">0x0C11</span>
+<span class="n">GL_COLOR_MATERIAL</span> <span class="o">=</span> <span class="mh">0x0B57</span>
+<span class="n">GL_NORMALIZE</span> <span class="o">=</span> <span class="mh">0x0BA1</span>
+<span class="n">GL_RESCALE_NORMAL</span> <span class="o">=</span> <span class="mh">0x803A</span>
+<span class="n">GL_POLYGON_OFFSET_FILL</span> <span class="o">=</span> <span class="mh">0x8037</span>
+<span class="n">GL_VERTEX_ARRAY</span> <span class="o">=</span> <span class="mh">0x8074</span>
+<span class="n">GL_NORMAL_ARRAY</span> <span class="o">=</span> <span class="mh">0x8075</span>
+<span class="n">GL_COLOR_ARRAY</span> <span class="o">=</span> <span class="mh">0x8076</span>
+<span class="n">GL_TEXTURE_COORD_ARRAY</span> <span class="o">=</span> <span class="mh">0x8078</span>
+<span class="n">GL_MULTISAMPLE</span> <span class="o">=</span> <span class="mh">0x809D</span>
+<span class="n">GL_SAMPLE_ALPHA_TO_COVERAGE</span> <span class="o">=</span> <span class="mh">0x809E</span>
+<span class="n">GL_SAMPLE_ALPHA_TO_ONE</span> <span class="o">=</span> <span class="mh">0x809F</span>
+<span class="n">GL_SAMPLE_COVERAGE</span> <span class="o">=</span> <span class="mh">0x80A0</span>
+<span class="n">GL_NO_ERROR</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">GL_INVALID_ENUM</span> <span class="o">=</span> <span class="mh">0x0500</span>
+<span class="n">GL_INVALID_VALUE</span> <span class="o">=</span> <span class="mh">0x0501</span>
+<span class="n">GL_INVALID_OPERATION</span> <span class="o">=</span> <span class="mh">0x0502</span>
+<span class="n">GL_STACK_OVERFLOW</span> <span class="o">=</span> <span class="mh">0x0503</span>
+<span class="n">GL_STACK_UNDERFLOW</span> <span class="o">=</span> <span class="mh">0x0504</span>
+<span class="n">GL_OUT_OF_MEMORY</span> <span class="o">=</span> <span class="mh">0x0505</span>
+<span class="n">GL_INVALID_FRAMEBUFFER_OPERATION</span> <span class="o">=</span> <span class="mh">0x0506</span>
+<span class="n">GL_EXP</span> <span class="o">=</span> <span class="mh">0x0800</span>
+<span class="n">GL_EXP2</span> <span class="o">=</span> <span class="mh">0x0801</span>
+<span class="n">GL_FOG_DENSITY</span> <span class="o">=</span> <span class="mh">0x0B62</span>
+<span class="n">GL_FOG_START</span> <span class="o">=</span> <span class="mh">0x0B63</span>
+<span class="n">GL_FOG_END</span> <span class="o">=</span> <span class="mh">0x0B64</span>
+<span class="n">GL_FOG_MODE</span> <span class="o">=</span> <span class="mh">0x0B65</span>
+<span class="n">GL_FOG_COLOR</span> <span class="o">=</span> <span class="mh">0x0B66</span>
+<span class="n">GL_CW</span> <span class="o">=</span> <span class="mh">0x0900</span>
+<span class="n">GL_CCW</span> <span class="o">=</span> <span class="mh">0x0901</span>
+<span class="n">GL_CURRENT_COLOR</span> <span class="o">=</span> <span class="mh">0x0B00</span>
+<span class="n">GL_CURRENT_NORMAL</span> <span class="o">=</span> <span class="mh">0x0B02</span>
+<span class="n">GL_CURRENT_TEXTURE_COORDS</span> <span class="o">=</span> <span class="mh">0x0B03</span>
+<span class="n">GL_POINT_SIZE</span> <span class="o">=</span> <span class="mh">0x0B11</span>
+<span class="n">GL_POINT_SIZE_MIN</span> <span class="o">=</span> <span class="mh">0x8126</span>
+<span class="n">GL_POINT_SIZE_MAX</span> <span class="o">=</span> <span class="mh">0x8127</span>
+<span class="n">GL_POINT_FADE_THRESHOLD_SIZE</span> <span class="o">=</span> <span class="mh">0x8128</span>
+<span class="n">GL_POINT_DISTANCE_ATTENUATION</span> <span class="o">=</span> <span class="mh">0x8129</span>
+<span class="n">GL_SMOOTH_POINT_SIZE_RANGE</span> <span class="o">=</span> <span class="mh">0x0B12</span>
+<span class="n">GL_LINE_WIDTH</span> <span class="o">=</span> <span class="mh">0x0B21</span>
+<span class="n">GL_SMOOTH_LINE_WIDTH_RANGE</span> <span class="o">=</span> <span class="mh">0x0B22</span>
+<span class="n">GL_ALIASED_POINT_SIZE_RANGE</span> <span class="o">=</span> <span class="mh">0x846D</span>
+<span class="n">GL_ALIASED_LINE_WIDTH_RANGE</span> <span class="o">=</span> <span class="mh">0x846E</span>
+<span class="n">GL_CULL_FACE_MODE</span> <span class="o">=</span> <span class="mh">0x0B45</span>
+<span class="n">GL_FRONT_FACE</span> <span class="o">=</span> <span class="mh">0x0B46</span>
+<span class="n">GL_SHADE_MODEL</span> <span class="o">=</span> <span class="mh">0x0B54</span>
+<span class="n">GL_DEPTH_RANGE</span> <span class="o">=</span> <span class="mh">0x0B70</span>
+<span class="n">GL_DEPTH_WRITEMASK</span> <span class="o">=</span> <span class="mh">0x0B72</span>
+<span class="n">GL_DEPTH_CLEAR_VALUE</span> <span class="o">=</span> <span class="mh">0x0B73</span>
+<span class="n">GL_DEPTH_FUNC</span> <span class="o">=</span> <span class="mh">0x0B74</span>
+<span class="n">GL_STENCIL_CLEAR_VALUE</span> <span class="o">=</span> <span class="mh">0x0B91</span>
+<span class="n">GL_STENCIL_FUNC</span> <span class="o">=</span> <span class="mh">0x0B92</span>
+<span class="n">GL_STENCIL_VALUE_MASK</span> <span class="o">=</span> <span class="mh">0x0B93</span>
+<span class="n">GL_STENCIL_FAIL</span> <span class="o">=</span> <span class="mh">0x0B94</span>
+<span class="n">GL_STENCIL_PASS_DEPTH_FAIL</span> <span class="o">=</span> <span class="mh">0x0B95</span>
+<span class="n">GL_STENCIL_PASS_DEPTH_PASS</span> <span class="o">=</span> <span class="mh">0x0B96</span>
+<span class="n">GL_STENCIL_REF</span> <span class="o">=</span> <span class="mh">0x0B97</span>
+<span class="n">GL_STENCIL_WRITEMASK</span> <span class="o">=</span> <span class="mh">0x0B98</span>
+<span class="n">GL_MATRIX_MODE</span> <span class="o">=</span> <span class="mh">0x0BA0</span>
+<span class="n">GL_VIEWPORT</span> <span class="o">=</span> <span class="mh">0x0BA2</span>
+<span class="n">GL_MODELVIEW_STACK_DEPTH</span> <span class="o">=</span> <span class="mh">0x0BA3</span>
+<span class="n">GL_PROJECTION_STACK_DEPTH</span> <span class="o">=</span> <span class="mh">0x0BA4</span>
+<span class="n">GL_TEXTURE_STACK_DEPTH</span> <span class="o">=</span> <span class="mh">0x0BA5</span>
+<span class="n">GL_MODELVIEW_MATRIX</span> <span class="o">=</span> <span class="mh">0x0BA6</span>
+<span class="n">GL_PROJECTION_MATRIX</span> <span class="o">=</span> <span class="mh">0x0BA7</span>
+<span class="n">GL_TEXTURE_MATRIX</span> <span class="o">=</span> <span class="mh">0x0BA8</span>
+<span class="n">GL_ALPHA_TEST_FUNC</span> <span class="o">=</span> <span class="mh">0x0BC1</span>
+<span class="n">GL_ALPHA_TEST_REF</span> <span class="o">=</span> <span class="mh">0x0BC2</span>
+<span class="n">GL_BLEND_DST</span> <span class="o">=</span> <span class="mh">0x0BE0</span>
+<span class="n">GL_BLEND_SRC</span> <span class="o">=</span> <span class="mh">0x0BE1</span>
+<span class="n">GL_LOGIC_OP_MODE</span> <span class="o">=</span> <span class="mh">0x0BF0</span>
+<span class="n">GL_SCISSOR_BOX</span> <span class="o">=</span> <span class="mh">0x0C10</span>
+<span class="n">GL_SCISSOR_TEST</span> <span class="o">=</span> <span class="mh">0x0C11</span>
+<span class="n">GL_COLOR_CLEAR_VALUE</span> <span class="o">=</span> <span class="mh">0x0C22</span>
+<span class="n">GL_COLOR_WRITEMASK</span> <span class="o">=</span> <span class="mh">0x0C23</span>
+<span class="n">GL_UNPACK_ALIGNMENT</span> <span class="o">=</span> <span class="mh">0x0CF5</span>
+<span class="n">GL_PACK_ALIGNMENT</span> <span class="o">=</span> <span class="mh">0x0D05</span>
+<span class="n">GL_MAX_LIGHTS</span> <span class="o">=</span> <span class="mh">0x0D31</span>
+<span class="n">GL_MAX_CLIP_PLANES</span> <span class="o">=</span> <span class="mh">0x0D32</span>
+<span class="n">GL_MAX_TEXTURE_SIZE</span> <span class="o">=</span> <span class="mh">0x0D33</span>
+<span class="n">GL_MAX_MODELVIEW_STACK_DEPTH</span> <span class="o">=</span> <span class="mh">0x0D36</span>
+<span class="n">GL_MAX_PROJECTION_STACK_DEPTH</span> <span class="o">=</span> <span class="mh">0x0D38</span>
+<span class="n">GL_MAX_TEXTURE_STACK_DEPTH</span> <span class="o">=</span> <span class="mh">0x0D39</span>
+<span class="n">GL_MAX_VIEWPORT_DIMS</span> <span class="o">=</span> <span class="mh">0x0D3A</span>
+<span class="n">GL_MAX_TEXTURE_UNITS</span> <span class="o">=</span> <span class="mh">0x84E2</span>
+<span class="n">GL_SUBPIXEL_BITS</span> <span class="o">=</span> <span class="mh">0x0D50</span>
+<span class="n">GL_RED_BITS</span> <span class="o">=</span> <span class="mh">0x0D52</span>
+<span class="n">GL_GREEN_BITS</span> <span class="o">=</span> <span class="mh">0x0D53</span>
+<span class="n">GL_BLUE_BITS</span> <span class="o">=</span> <span class="mh">0x0D54</span>
+<span class="n">GL_ALPHA_BITS</span> <span class="o">=</span> <span class="mh">0x0D55</span>
+<span class="n">GL_DEPTH_BITS</span> <span class="o">=</span> <span class="mh">0x0D56</span>
+<span class="n">GL_STENCIL_BITS</span> <span class="o">=</span> <span class="mh">0x0D57</span>
+<span class="n">GL_POLYGON_OFFSET_UNITS</span> <span class="o">=</span> <span class="mh">0x2A00</span>
+<span class="n">GL_POLYGON_OFFSET_FILL</span> <span class="o">=</span> <span class="mh">0x8037</span>
+<span class="n">GL_POLYGON_OFFSET_FACTOR</span> <span class="o">=</span> <span class="mh">0x8038</span>
+<span class="n">GL_TEXTURE_BINDING_2D</span> <span class="o">=</span> <span class="mh">0x8069</span>
+<span class="n">GL_VERTEX_ARRAY_SIZE</span> <span class="o">=</span> <span class="mh">0x807A</span>
+<span class="n">GL_VERTEX_ARRAY_TYPE</span> <span class="o">=</span> <span class="mh">0x807B</span>
+<span class="n">GL_VERTEX_ARRAY_STRIDE</span> <span class="o">=</span> <span class="mh">0x807C</span>
+<span class="n">GL_NORMAL_ARRAY_TYPE</span> <span class="o">=</span> <span class="mh">0x807E</span>
+<span class="n">GL_NORMAL_ARRAY_STRIDE</span> <span class="o">=</span> <span class="mh">0x807F</span>
+<span class="n">GL_COLOR_ARRAY_SIZE</span> <span class="o">=</span> <span class="mh">0x8081</span>
+<span class="n">GL_COLOR_ARRAY_TYPE</span> <span class="o">=</span> <span class="mh">0x8082</span>
+<span class="n">GL_COLOR_ARRAY_STRIDE</span> <span class="o">=</span> <span class="mh">0x8083</span>
+<span class="n">GL_TEXTURE_COORD_ARRAY_SIZE</span> <span class="o">=</span> <span class="mh">0x8088</span>
+<span class="n">GL_TEXTURE_COORD_ARRAY_TYPE</span> <span class="o">=</span> <span class="mh">0x8089</span>
+<span class="n">GL_TEXTURE_COORD_ARRAY_STRIDE</span> <span class="o">=</span> <span class="mh">0x808A</span>
+<span class="n">GL_VERTEX_ARRAY_POINTER</span> <span class="o">=</span> <span class="mh">0x808E</span>
+<span class="n">GL_NORMAL_ARRAY_POINTER</span> <span class="o">=</span> <span class="mh">0x808F</span>
+<span class="n">GL_COLOR_ARRAY_POINTER</span> <span class="o">=</span> <span class="mh">0x8090</span>
+<span class="n">GL_TEXTURE_COORD_ARRAY_POINTER</span> <span class="o">=</span> <span class="mh">0x8092</span>
+<span class="n">GL_SAMPLE_BUFFERS</span> <span class="o">=</span> <span class="mh">0x80A8</span>
+<span class="n">GL_SAMPLES</span> <span class="o">=</span> <span class="mh">0x80A9</span>
+<span class="n">GL_SAMPLE_COVERAGE_VALUE</span> <span class="o">=</span> <span class="mh">0x80AA</span>
+<span class="n">GL_SAMPLE_COVERAGE_INVERT</span> <span class="o">=</span> <span class="mh">0x80AB</span>
+<span class="n">GL_NUM_COMPRESSED_TEXTURE_FORMATS</span> <span class="o">=</span> <span class="mh">0x86A2</span>
+<span class="n">GL_COMPRESSED_TEXTURE_FORMATS</span> <span class="o">=</span> <span class="mh">0x86A3</span>
+<span class="n">GL_DONT_CARE</span> <span class="o">=</span> <span class="mh">0x1100</span>
+<span class="n">GL_FASTEST</span> <span class="o">=</span> <span class="mh">0x1101</span>
+<span class="n">GL_NICEST</span> <span class="o">=</span> <span class="mh">0x1102</span>
+<span class="n">GL_PERSPECTIVE_CORRECTION_HINT</span> <span class="o">=</span> <span class="mh">0x0C50</span>
+<span class="n">GL_POINT_SMOOTH_HINT</span> <span class="o">=</span> <span class="mh">0x0C51</span>
+<span class="n">GL_LINE_SMOOTH_HINT</span> <span class="o">=</span> <span class="mh">0x0C52</span>
+<span class="n">GL_FOG_HINT</span> <span class="o">=</span> <span class="mh">0x0C54</span>
+<span class="n">GL_GENERATE_MIPMAP_HINT</span> <span class="o">=</span> <span class="mh">0x8192</span>
+<span class="n">GL_LIGHT_MODEL_AMBIENT</span> <span class="o">=</span> <span class="mh">0x0B53</span>
+<span class="n">GL_LIGHT_MODEL_TWO_SIDE</span> <span class="o">=</span> <span class="mh">0x0B52</span>
+<span class="n">GL_AMBIENT</span> <span class="o">=</span> <span class="mh">0x1200</span>
+<span class="n">GL_DIFFUSE</span> <span class="o">=</span> <span class="mh">0x1201</span>
+<span class="n">GL_SPECULAR</span> <span class="o">=</span> <span class="mh">0x1202</span>
+<span class="n">GL_POSITION</span> <span class="o">=</span> <span class="mh">0x1203</span>
+<span class="n">GL_SPOT_DIRECTION</span> <span class="o">=</span> <span class="mh">0x1204</span>
+<span class="n">GL_SPOT_EXPONENT</span> <span class="o">=</span> <span class="mh">0x1205</span>
+<span class="n">GL_SPOT_CUTOFF</span> <span class="o">=</span> <span class="mh">0x1206</span>
+<span class="n">GL_CONSTANT_ATTENUATION</span> <span class="o">=</span> <span class="mh">0x1207</span>
+<span class="n">GL_LINEAR_ATTENUATION</span> <span class="o">=</span> <span class="mh">0x1208</span>
+<span class="n">GL_QUADRATIC_ATTENUATION</span> <span class="o">=</span> <span class="mh">0x1209</span>
+<span class="n">GL_BYTE</span> <span class="o">=</span> <span class="mh">0x1400</span>
+<span class="n">GL_UNSIGNED_BYTE</span> <span class="o">=</span> <span class="mh">0x1401</span>
+<span class="n">GL_SHORT</span> <span class="o">=</span> <span class="mh">0x1402</span>
+<span class="n">GL_UNSIGNED_SHORT</span> <span class="o">=</span> <span class="mh">0x1403</span>
+<span class="n">GL_FLOAT</span> <span class="o">=</span> <span class="mh">0x1406</span>
+<span class="n">GL_FIXED</span> <span class="o">=</span> <span class="mh">0x140C</span>
+<span class="n">GL_CLEAR</span> <span class="o">=</span> <span class="mh">0x1500</span>
+<span class="n">GL_AND</span> <span class="o">=</span> <span class="mh">0x1501</span>
+<span class="n">GL_AND_REVERSE</span> <span class="o">=</span> <span class="mh">0x1502</span>
+<span class="n">GL_COPY</span> <span class="o">=</span> <span class="mh">0x1503</span>
+<span class="n">GL_AND_INVERTED</span> <span class="o">=</span> <span class="mh">0x1504</span>
+<span class="n">GL_NOOP</span> <span class="o">=</span> <span class="mh">0x1505</span>
+<span class="n">GL_XOR</span> <span class="o">=</span> <span class="mh">0x1506</span>
+<span class="n">GL_OR</span> <span class="o">=</span> <span class="mh">0x1507</span>
+<span class="n">GL_NOR</span> <span class="o">=</span> <span class="mh">0x1508</span>
+<span class="n">GL_EQUIV</span> <span class="o">=</span> <span class="mh">0x1509</span>
+<span class="n">GL_INVERT</span> <span class="o">=</span> <span class="mh">0x150A</span>
+<span class="n">GL_OR_REVERSE</span> <span class="o">=</span> <span class="mh">0x150B</span>
+<span class="n">GL_COPY_INVERTED</span> <span class="o">=</span> <span class="mh">0x150C</span>
+<span class="n">GL_OR_INVERTED</span> <span class="o">=</span> <span class="mh">0x150D</span>
+<span class="n">GL_NAND</span> <span class="o">=</span> <span class="mh">0x150E</span>
+<span class="n">GL_SET</span> <span class="o">=</span> <span class="mh">0x150F</span>
+<span class="n">GL_EMISSION</span> <span class="o">=</span> <span class="mh">0x1600</span>
+<span class="n">GL_SHININESS</span> <span class="o">=</span> <span class="mh">0x1601</span>
+<span class="n">GL_AMBIENT_AND_DIFFUSE</span> <span class="o">=</span> <span class="mh">0x1602</span>
+<span class="n">GL_MODELVIEW</span> <span class="o">=</span> <span class="mh">0x1700</span>
+<span class="n">GL_PROJECTION</span> <span class="o">=</span> <span class="mh">0x1701</span>
+<span class="n">GL_TEXTURE</span> <span class="o">=</span> <span class="mh">0x1702</span>
+<span class="n">GL_ALPHA</span> <span class="o">=</span> <span class="mh">0x1906</span>
+<span class="n">GL_RGB</span> <span class="o">=</span> <span class="mh">0x1907</span>
+<span class="n">GL_RGBA</span> <span class="o">=</span> <span class="mh">0x1908</span>
+<span class="n">GL_LUMINANCE</span> <span class="o">=</span> <span class="mh">0x1909</span>
+<span class="n">GL_LUMINANCE_ALPHA</span> <span class="o">=</span> <span class="mh">0x190A</span>
+<span class="n">GL_UNPACK_ALIGNMENT</span> <span class="o">=</span> <span class="mh">0x0CF5</span>
+<span class="n">GL_PACK_ALIGNMENT</span> <span class="o">=</span> <span class="mh">0x0D05</span>
+<span class="n">GL_UNSIGNED_SHORT_4_4_4_4</span> <span class="o">=</span> <span class="mh">0x8033</span>
+<span class="n">GL_UNSIGNED_SHORT_5_5_5_1</span> <span class="o">=</span> <span class="mh">0x8034</span>
+<span class="n">GL_UNSIGNED_SHORT_5_6_5</span> <span class="o">=</span> <span class="mh">0x8363</span>
+<span class="n">GL_FLAT</span> <span class="o">=</span> <span class="mh">0x1D00</span>
+<span class="n">GL_SMOOTH</span> <span class="o">=</span> <span class="mh">0x1D01</span>
+<span class="n">GL_KEEP</span> <span class="o">=</span> <span class="mh">0x1E00</span>
+<span class="n">GL_REPLACE</span> <span class="o">=</span> <span class="mh">0x1E01</span>
+<span class="n">GL_INCR</span> <span class="o">=</span> <span class="mh">0x1E02</span>
+<span class="n">GL_DECR</span> <span class="o">=</span> <span class="mh">0x1E03</span>
+<span class="n">GL_VENDOR</span> <span class="o">=</span> <span class="mh">0x1F00</span>
+<span class="n">GL_RENDERER</span> <span class="o">=</span> <span class="mh">0x1F01</span>
+<span class="n">GL_VERSION</span> <span class="o">=</span> <span class="mh">0x1F02</span>
+<span class="n">GL_EXTENSIONS</span> <span class="o">=</span> <span class="mh">0x1F03</span>
+<span class="n">GL_MODULATE</span> <span class="o">=</span> <span class="mh">0x2100</span>
+<span class="n">GL_DECAL</span> <span class="o">=</span> <span class="mh">0x2101</span>
+<span class="n">GL_ADD</span> <span class="o">=</span> <span class="mh">0x0104</span>
+<span class="n">GL_TEXTURE_ENV_MODE</span> <span class="o">=</span> <span class="mh">0x2200</span>
+<span class="n">GL_TEXTURE_ENV_COLOR</span> <span class="o">=</span> <span class="mh">0x2201</span>
+<span class="n">GL_TEXTURE_ENV</span> <span class="o">=</span> <span class="mh">0x2300</span>
+<span class="n">GL_NEAREST</span> <span class="o">=</span> <span class="mh">0x2600</span>
+<span class="n">GL_LINEAR</span> <span class="o">=</span> <span class="mh">0x2601</span>
+<span class="n">GL_NEAREST_MIPMAP_NEAREST</span> <span class="o">=</span> <span class="mh">0x2700</span>
+<span class="n">GL_LINEAR_MIPMAP_NEAREST</span> <span class="o">=</span> <span class="mh">0x2701</span>
+<span class="n">GL_NEAREST_MIPMAP_LINEAR</span> <span class="o">=</span> <span class="mh">0x2702</span>
+<span class="n">GL_LINEAR_MIPMAP_LINEAR</span> <span class="o">=</span> <span class="mh">0x2703</span>
+<span class="n">GL_TEXTURE_MAG_FILTER</span> <span class="o">=</span> <span class="mh">0x2800</span>
+<span class="n">GL_TEXTURE_MIN_FILTER</span> <span class="o">=</span> <span class="mh">0x2801</span>
+<span class="n">GL_TEXTURE_WRAP_S</span> <span class="o">=</span> <span class="mh">0x2802</span>
+<span class="n">GL_TEXTURE_WRAP_T</span> <span class="o">=</span> <span class="mh">0x2803</span>
+<span class="n">GL_GENERATE_MIPMAP</span> <span class="o">=</span> <span class="mh">0x8191</span>
+<span class="n">GL_TEXTURE0</span> <span class="o">=</span> <span class="mh">0x84C0</span>
+<span class="n">GL_TEXTURE1</span> <span class="o">=</span> <span class="mh">0x84C1</span>
+<span class="n">GL_TEXTURE2</span> <span class="o">=</span> <span class="mh">0x84C2</span>
+<span class="n">GL_TEXTURE3</span> <span class="o">=</span> <span class="mh">0x84C3</span>
+<span class="n">GL_TEXTURE4</span> <span class="o">=</span> <span class="mh">0x84C4</span>
+<span class="n">GL_TEXTURE5</span> <span class="o">=</span> <span class="mh">0x84C5</span>
+<span class="n">GL_TEXTURE6</span> <span class="o">=</span> <span class="mh">0x84C6</span>
+<span class="n">GL_TEXTURE7</span> <span class="o">=</span> <span class="mh">0x84C7</span>
+<span class="n">GL_TEXTURE8</span> <span class="o">=</span> <span class="mh">0x84C8</span>
+<span class="n">GL_TEXTURE9</span> <span class="o">=</span> <span class="mh">0x84C9</span>
+<span class="n">GL_TEXTURE10</span> <span class="o">=</span> <span class="mh">0x84CA</span>
+<span class="n">GL_TEXTURE11</span> <span class="o">=</span> <span class="mh">0x84CB</span>
+<span class="n">GL_TEXTURE12</span> <span class="o">=</span> <span class="mh">0x84CC</span>
+<span class="n">GL_TEXTURE13</span> <span class="o">=</span> <span class="mh">0x84CD</span>
+<span class="n">GL_TEXTURE14</span> <span class="o">=</span> <span class="mh">0x84CE</span>
+<span class="n">GL_TEXTURE15</span> <span class="o">=</span> <span class="mh">0x84CF</span>
+<span class="n">GL_TEXTURE16</span> <span class="o">=</span> <span class="mh">0x84D0</span>
+<span class="n">GL_TEXTURE17</span> <span class="o">=</span> <span class="mh">0x84D1</span>
+<span class="n">GL_TEXTURE18</span> <span class="o">=</span> <span class="mh">0x84D2</span>
+<span class="n">GL_TEXTURE19</span> <span class="o">=</span> <span class="mh">0x84D3</span>
+<span class="n">GL_TEXTURE20</span> <span class="o">=</span> <span class="mh">0x84D4</span>
+<span class="n">GL_TEXTURE21</span> <span class="o">=</span> <span class="mh">0x84D5</span>
+<span class="n">GL_TEXTURE22</span> <span class="o">=</span> <span class="mh">0x84D6</span>
+<span class="n">GL_TEXTURE23</span> <span class="o">=</span> <span class="mh">0x84D7</span>
+<span class="n">GL_TEXTURE24</span> <span class="o">=</span> <span class="mh">0x84D8</span>
+<span class="n">GL_TEXTURE25</span> <span class="o">=</span> <span class="mh">0x84D9</span>
+<span class="n">GL_TEXTURE26</span> <span class="o">=</span> <span class="mh">0x84DA</span>
+<span class="n">GL_TEXTURE27</span> <span class="o">=</span> <span class="mh">0x84DB</span>
+<span class="n">GL_TEXTURE28</span> <span class="o">=</span> <span class="mh">0x84DC</span>
+<span class="n">GL_TEXTURE29</span> <span class="o">=</span> <span class="mh">0x84DD</span>
+<span class="n">GL_TEXTURE30</span> <span class="o">=</span> <span class="mh">0x84DE</span>
+<span class="n">GL_TEXTURE31</span> <span class="o">=</span> <span class="mh">0x84DF</span>
+<span class="n">GL_ACTIVE_TEXTURE</span> <span class="o">=</span> <span class="mh">0x84E0</span>
+<span class="n">GL_CLIENT_ACTIVE_TEXTURE</span> <span class="o">=</span> <span class="mh">0x84E1</span>
+<span class="n">GL_REPEAT</span> <span class="o">=</span> <span class="mh">0x2901</span>
+<span class="n">GL_CLAMP_TO_EDGE</span> <span class="o">=</span> <span class="mh">0x812F</span>
+<span class="n">GL_LIGHT0</span> <span class="o">=</span> <span class="mh">0x4000</span>
+<span class="n">GL_LIGHT1</span> <span class="o">=</span> <span class="mh">0x4001</span>
+<span class="n">GL_LIGHT2</span> <span class="o">=</span> <span class="mh">0x4002</span>
+<span class="n">GL_LIGHT3</span> <span class="o">=</span> <span class="mh">0x4003</span>
+<span class="n">GL_LIGHT4</span> <span class="o">=</span> <span class="mh">0x4004</span>
+<span class="n">GL_LIGHT5</span> <span class="o">=</span> <span class="mh">0x4005</span>
+<span class="n">GL_LIGHT6</span> <span class="o">=</span> <span class="mh">0x4006</span>
+<span class="n">GL_LIGHT7</span> <span class="o">=</span> <span class="mh">0x4007</span>
+<span class="n">GL_ARRAY_BUFFER</span> <span class="o">=</span> <span class="mh">0x8892</span>
+<span class="n">GL_ELEMENT_ARRAY_BUFFER</span> <span class="o">=</span> <span class="mh">0x8893</span>
+<span class="n">GL_ARRAY_BUFFER_BINDING</span> <span class="o">=</span> <span class="mh">0x8894</span>
+<span class="n">GL_ELEMENT_ARRAY_BUFFER_BINDING</span> <span class="o">=</span> <span class="mh">0x8895</span>
+<span class="n">GL_VERTEX_ARRAY_BUFFER_BINDING</span> <span class="o">=</span> <span class="mh">0x8896</span>
+<span class="n">GL_NORMAL_ARRAY_BUFFER_BINDING</span> <span class="o">=</span> <span class="mh">0x8897</span>
+<span class="n">GL_COLOR_ARRAY_BUFFER_BINDING</span> <span class="o">=</span> <span class="mh">0x8898</span>
+<span class="n">GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING</span> <span class="o">=</span> <span class="mh">0x889A</span>
+<span class="n">GL_STATIC_DRAW</span> <span class="o">=</span> <span class="mh">0x88E4</span>
+<span class="n">GL_DYNAMIC_DRAW</span> <span class="o">=</span> <span class="mh">0x88E8</span>
+<span class="n">GL_BUFFER_SIZE</span> <span class="o">=</span> <span class="mh">0x8764</span>
+<span class="n">GL_BUFFER_USAGE</span> <span class="o">=</span> <span class="mh">0x8765</span>
+<span class="n">GL_SUBTRACT</span> <span class="o">=</span> <span class="mh">0x84E7</span>
+<span class="n">GL_COMBINE</span> <span class="o">=</span> <span class="mh">0x8570</span>
+<span class="n">GL_COMBINE_RGB</span> <span class="o">=</span> <span class="mh">0x8571</span>
+<span class="n">GL_COMBINE_ALPHA</span> <span class="o">=</span> <span class="mh">0x8572</span>
+<span class="n">GL_RGB_SCALE</span> <span class="o">=</span> <span class="mh">0x8573</span>
+<span class="n">GL_ADD_SIGNED</span> <span class="o">=</span> <span class="mh">0x8574</span>
+<span class="n">GL_INTERPOLATE</span> <span class="o">=</span> <span class="mh">0x8575</span>
+<span class="n">GL_CONSTANT</span> <span class="o">=</span> <span class="mh">0x8576</span>
+<span class="n">GL_PRIMARY_COLOR</span> <span class="o">=</span> <span class="mh">0x8577</span>
+<span class="n">GL_PREVIOUS</span> <span class="o">=</span> <span class="mh">0x8578</span>
+<span class="n">GL_OPERAND0_RGB</span> <span class="o">=</span> <span class="mh">0x8590</span>
+<span class="n">GL_OPERAND1_RGB</span> <span class="o">=</span> <span class="mh">0x8591</span>
+<span class="n">GL_OPERAND2_RGB</span> <span class="o">=</span> <span class="mh">0x8592</span>
+<span class="n">GL_OPERAND0_ALPHA</span> <span class="o">=</span> <span class="mh">0x8598</span>
+<span class="n">GL_OPERAND1_ALPHA</span> <span class="o">=</span> <span class="mh">0x8599</span>
+<span class="n">GL_OPERAND2_ALPHA</span> <span class="o">=</span> <span class="mh">0x859A</span>
+<span class="n">GL_ALPHA_SCALE</span> <span class="o">=</span> <span class="mh">0x0D1C</span>
+<span class="n">GL_SRC0_RGB</span> <span class="o">=</span> <span class="mh">0x8580</span>
+<span class="n">GL_SRC1_RGB</span> <span class="o">=</span> <span class="mh">0x8581</span>
+<span class="n">GL_SRC2_RGB</span> <span class="o">=</span> <span class="mh">0x8582</span>
+<span class="n">GL_SRC0_ALPHA</span> <span class="o">=</span> <span class="mh">0x8588</span>
+<span class="n">GL_SRC1_ALPHA</span> <span class="o">=</span> <span class="mh">0x8589</span>
+<span class="n">GL_SRC2_ALPHA</span> <span class="o">=</span> <span class="mh">0x858A</span>
+<span class="n">GL_DOT3_RGB</span> <span class="o">=</span> <span class="mh">0x86AE</span>
+<span class="n">GL_DOT3_RGBA</span> <span class="o">=</span> <span class="mh">0x86AF</span>
+<span class="n">GL_IMPLEMENTATION_COLOR_READ_TYPE_OES</span> <span class="o">=</span> <span class="mh">0x8B9A</span>
+<span class="n">GL_IMPLEMENTATION_COLOR_READ_FORMAT_OES</span> <span class="o">=</span> <span class="mh">0x8B9B</span>
+<span class="n">GL_PALETTE4_RGB8_OES</span> <span class="o">=</span> <span class="mh">0x8B90</span>
+<span class="n">GL_PALETTE4_RGBA8_OES</span> <span class="o">=</span> <span class="mh">0x8B91</span>
+<span class="n">GL_PALETTE4_R5_G6_B5_OES</span> <span class="o">=</span> <span class="mh">0x8B92</span>
+<span class="n">GL_PALETTE4_RGBA4_OES</span> <span class="o">=</span> <span class="mh">0x8B93</span>
+<span class="n">GL_PALETTE4_RGB5_A1_OES</span> <span class="o">=</span> <span class="mh">0x8B94</span>
+<span class="n">GL_PALETTE8_RGB8_OES</span> <span class="o">=</span> <span class="mh">0x8B95</span>
+<span class="n">GL_PALETTE8_RGBA8_OES</span> <span class="o">=</span> <span class="mh">0x8B96</span>
+<span class="n">GL_PALETTE8_R5_G6_B5_OES</span> <span class="o">=</span> <span class="mh">0x8B97</span>
+<span class="n">GL_PALETTE8_RGBA4_OES</span> <span class="o">=</span> <span class="mh">0x8B98</span>
+<span class="n">GL_PALETTE8_RGB5_A1_OES</span> <span class="o">=</span> <span class="mh">0x8B99</span>
+<span class="n">GL_POINT_SIZE_ARRAY_OES</span> <span class="o">=</span> <span class="mh">0x8B9C</span>
+<span class="n">GL_POINT_SIZE_ARRAY_TYPE_OES</span> <span class="o">=</span> <span class="mh">0x898A</span>
+<span class="n">GL_POINT_SIZE_ARRAY_STRIDE_OES</span> <span class="o">=</span> <span class="mh">0x898B</span>
+<span class="n">GL_POINT_SIZE_ARRAY_POINTER_OES</span> <span class="o">=</span> <span class="mh">0x898C</span>
+<span class="n">GL_POINT_SIZE_ARRAY_BUFFER_BINDING_OES</span> <span class="o">=</span> <span class="mh">0x8B9F</span>
+<span class="n">GL_POINT_SPRITE_OES</span> <span class="o">=</span> <span class="mh">0x8861</span>
+<span class="n">GL_COORD_REPLACE_OES</span> <span class="o">=</span> <span class="mh">0x8862</span>
+
+<div class="viewcode-block" id="set_gles_function_args"><a class="viewcode-back" href="../../../pi3d.constants.html#pi3d.constants.gl.set_gles_function_args">[docs]</a><span class="k">def</span> <span class="nf">set_gles_function_args</span><span class="p">(</span><span class="n">gles</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  typedef unsigned int GLenum;</span>
+<span class="sd">  typedef unsigned char GLboolean;</span>
+<span class="sd">  typedef unsigned int GLbitfield;</span>
+<span class="sd">  typedef signed char GLbyte;</span>
+<span class="sd">  typedef short GLshort;</span>
+<span class="sd">  typedef int GLint;</span>
+<span class="sd">  typedef int GLsizei;</span>
+<span class="sd">  typedef unsigned char GLubyte;</span>
+<span class="sd">  typedef unsigned short GLushort;</span>
+<span class="sd">  typedef unsigned int GLuint;</span>
+<span class="sd">  typedef float GLfloat;</span>
+<span class="sd">  typedef float GLclampf;</span>
+<span class="sd">  typedef void GLvoid;</span>
+<span class="sd">  typedef int GLintptrARB;</span>
+<span class="sd">  typedef int GLsizeiptrARB;</span>
+<span class="sd">  typedef int GLfixed;</span>
+<span class="sd">  typedef int GLclampx;</span>
+<span class="sd">  /* Internal convenience typedefs */</span>
+<span class="sd">  typedef void (*_GLfuncptr)();</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">POINTER</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_int32</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_float</span><span class="p">,</span> <span class="n">c_char</span><span class="p">,</span> <span class="n">c_char_p</span><span class="p">,</span> <span class="n">c_ubyte</span>
+
+  <span class="n">gles</span><span class="o">.</span><span class="n">glActiveTexture</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glAttachShader</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLuint, GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glBindBuffer</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum, GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glBindFramebuffer</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum, GLuint </span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glBindRenderbuffer</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum, GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glBindTexture</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum, GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glBlendFuncSeparate</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum, GLenum, GLenum, GLenum</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glBufferData</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum, GLsizeiptr, const GLvoid *, GLenum</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glBufferSubData</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span> <span class="c1">#GLenum, GLintptr, GLsizeiptr, const GLvoid *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glCheckFramebufferStatus</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glClear</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLbitfield</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glClearColor</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_float</span><span class="p">,</span> <span class="n">c_float</span><span class="p">,</span> <span class="n">c_float</span><span class="p">,</span> <span class="n">c_float</span><span class="p">]</span> <span class="c1">#GLclampf, GLclampf, GLclampf, GLclampf </span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glColorMask</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_ubyte</span><span class="p">,</span> <span class="n">c_ubyte</span><span class="p">,</span> <span class="n">c_ubyte</span><span class="p">,</span> <span class="n">c_ubyte</span><span class="p">]</span> <span class="c1">#GLboolean, GLboolean, GLboolean blue, GLboolean</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glCompileShader</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1"># GLuint</span>
+  <span class="c1">#gles.glCreateProgram.argtypes = [] # void</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glCreateProgram</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_uint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glCreateShader</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glCreateShader</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_uint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glCullFace</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glDeleteBuffers</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_uint</span><span class="p">)]</span> <span class="c1">#GLsizei, const GLuint *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glDeleteFramebuffers</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_uint</span><span class="p">)]</span> <span class="c1">#GLsizei, const GLuint *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glDeleteProgram</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glDeleteRenderbuffers</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_uint</span><span class="p">)]</span> <span class="c1">#GLsizei, const GLuint *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glDeleteShader</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glDeleteTextures</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_uint</span><span class="p">)]</span> <span class="c1">#GLsizei, const GLuint *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glDepthFunc</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glDepthMask</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_ubyte</span><span class="p">]</span> <span class="c1">#GLboolean </span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glDepthRangef</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_float</span><span class="p">,</span> <span class="n">c_float</span><span class="p">]</span> <span class="c1">#GLclampf, GLclampf </span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glDisable</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum </span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glDrawElements</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span> <span class="c1">#GLenum, GLsizei, GLenum, const GLvoid *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glEnable</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum </span>
+  <span class="c1">#gles.glEnableClientState.argtypes = [] #</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glEnableVertexAttribArray</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLuint </span>
+  <span class="c1">#gles.glFinish.argtypes = [] #void</span>
+  <span class="c1">#gles.glFlush.argtypes = [] #void</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glFramebufferRenderbuffer</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum, GLenum, GLenum, GLuint </span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glFramebufferTexture2D</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">]</span> <span class="c1">#GLenum, GLenum, GLenum, GLuint, GLint </span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glGenBuffers</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_uint</span><span class="p">)]</span> <span class="c1">#GLsizei, GLuint *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glGenerateMipmap</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glGenFramebuffers</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_uint</span><span class="p">)]</span> <span class="c1">#GLsizei, GLuint *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glGenRenderbuffers</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_uint</span><span class="p">)]</span> <span class="c1">#GLsizei, GLuint *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glGenTextures</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_uint</span><span class="p">)]</span> <span class="c1">#GLsizei, GLuint *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glGetAttribLocation</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_char</span><span class="p">)]</span> <span class="c1">#GLuint, const GLchar *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glGetAttribLocation</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_int</span>
+  <span class="c1">#gles.glGetError.argtypes = [] #void</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glGetProgramInfoLog</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_int</span><span class="p">),</span> <span class="n">c_void_p</span><span class="p">]</span> <span class="c1">#GLuint, GLsizei, GLsizei *, GLchar *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glGetShaderInfoLog</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_int</span><span class="p">),</span> <span class="n">c_void_p</span><span class="p">]</span> <span class="c1">#GLuint, GLsizei, GLsizei *, GLchar *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_char</span><span class="p">)]</span> <span class="c1">#GLuint, const GLchar *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glGetUniformLocation</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_int</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glHint</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLenum, GLenum</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glIsBuffer</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glIsBuffer</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_ubyte</span> <span class="c1">#GLboolean</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glIsProgram</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glIsProgram</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_ubyte</span> <span class="c1">#GLboolean</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glIsShader</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glIsShader</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">c_ubyte</span> <span class="c1">#GLboolean</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glIsTexture</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glIsTexture</span><span class="o">.</span><span class="n">retype</span> <span class="o">=</span> <span class="n">c_ubyte</span> <span class="c1">#GLboolean</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glLinkProgram</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">]</span> <span class="c1">#GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glLineWidth</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_float</span><span class="p">]</span> <span class="c1">#GLfloat</span>
+  <span class="c1">#gles.glLoadIdentity.argtypes = [] #</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glReadPixels</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span> <span class="c1">#GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, GLvoid * </span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glRenderbufferStorage</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">]</span> <span class="c1">#GLenum, GLenum, GLsizei, GLsizei</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glScissor</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">]</span> <span class="c1">#GLint, GLint, GLsizei, GLsizei</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glShaderSource</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_char_p</span><span class="p">),</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_int</span><span class="p">)]</span> <span class="c1">#GLuint, GLsizei, const GLchar * const *, const GLint *</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glTexImage2D</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="c1">#GLenum, GLint, GLint, GLsizei, GLsizei, GLint,</span>
+                                <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span> <span class="c1">#GLenum, GLenum, const GLvoid * </span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glTexParameteri</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">]</span> <span class="c1">#GLenum, GLenum, GLint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glUniform1i</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">]</span> <span class="c1">#GLint, GLint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glUniform3fv</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span> <span class="c1">#GLint, GLsizei, const GLfloat * ## NB was c_void_p</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glUniformMatrix4fv</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_ubyte</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span> <span class="c1">#GLint, GLsizei, GLboolean, const GLfloat * ## NB was c_void_p</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glUseProgram</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">]</span> <span class="c1">#GLuint</span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glVertexAttribPointer</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">,</span> <span class="n">c_ubyte</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">]</span> <span class="c1">#GLuint, GLint, GLenum, GLboolean, GLsizei, const GLvoid * </span>
+  <span class="n">gles</span><span class="o">.</span><span class="n">glViewport</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">]</span> <span class="c1">#GLint, GLint, GLsizei, GLsizei</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>

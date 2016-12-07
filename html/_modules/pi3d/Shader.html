@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Shader &#8212; pi3d 2.15 documentation</title>
+    <title>pi3d.Shader &#8212; pi3d 2.16 documentation</title>
     
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.15',
+        VERSION:     '2.16',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="top" title="pi3d 2.15 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.16 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.16 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -53,6 +53,7 @@
 
 <span class="kn">import</span> <span class="nn">ctypes</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="k">import</span> <span class="n">resource_string</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="k">import</span> <span class="n">c_chars</span>
@@ -137,9 +138,11 @@
 
     <span class="k">def</span> <span class="nf">make_shader</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">shader_type</span><span class="p">):</span>
       <span class="n">src</span> <span class="o">=</span> <span class="n">src</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_shader</span><span class="p">(</span><span class="n">shfile</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
-      <span class="n">characters</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+      <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">src</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">bytes</span><span class="p">:</span> <span class="c1">#if ..shader_source passed as a string to __init__</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+      <span class="n">characters</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
       <span class="n">shader</span> <span class="o">=</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glCreateShader</span><span class="p">(</span><span class="n">shader_type</span><span class="p">)</span>
-      <span class="n">src_len</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)(</span><span class="nb">len</span><span class="p">(</span><span class="n">src</span><span class="p">))</span> <span class="c1"># array of just one c_int</span>
+      <span class="n">src_len</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
       <span class="n">opengles</span><span class="o">.</span><span class="n">glShaderSource</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">characters</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">src_len</span><span class="p">))</span>
       <span class="n">opengles</span><span class="o">.</span><span class="n">glCompileShader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">showshaderlog</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
@@ -208,22 +211,26 @@
       <span class="n">shader</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">loglen</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">log</span><span class="p">))</span></div>
 
   <span class="k">def</span> <span class="nf">_load_shader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sfile</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-      <span class="k">for</span> <span class="n">prest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;/shaders/&#39;</span><span class="p">,</span> <span class="s1">&#39;/pi3d/shaders/&#39;</span><span class="p">]:</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">prest</span> <span class="o">+</span> <span class="n">sfile</span><span class="p">):</span>
-          <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_include_includes</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">prest</span><span class="p">,</span> <span class="n">sfile</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">sfile</span><span class="p">):</span>
-      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_include_includes</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sfile</span><span class="p">)</span>
-
-  <span class="k">def</span> <span class="nf">_include_includes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">sfile</span><span class="p">):</span>
-    <span class="n">new_text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">sfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-      <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-        <span class="k">if</span> <span class="s1">&#39;#include&#39;</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
-          <span class="n">inc_file</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
-          <span class="n">new_text</span> <span class="o">=</span> <span class="n">new_text</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_include_includes</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">inc_file</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-          <span class="n">new_text</span> <span class="o">=</span> <span class="n">new_text</span> <span class="o">+</span> <span class="n">l</span>
+    <span class="sd">&#39;&#39;&#39; takes a file name as string, tries to find it then returns the</span>
+<span class="sd">    contents as a bytes object swapping out the #include statements recursively. </span>
+<span class="sd">    This means that if you make your own shader with #includes, the names </span>
+<span class="sd">    of the include files must be different from the standard pi3d ones unless </span>
+<span class="sd">    you intend to use the standard ones.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">sfile</span><span class="p">)</span> <span class="o">==</span> <span class="nb">bytes</span><span class="p">:</span> <span class="c1">#annoyingly resource_string has string argument.</span>
+      <span class="n">sfile</span> <span class="o">=</span> <span class="n">sfile</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="n">new_text</span> <span class="o">=</span> <span class="n">b</span><span class="s1">&#39;&#39;</span> <span class="c1">#but then returns a bytes object so swap to bytes!</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">st</span> <span class="o">=</span> <span class="n">resource_string</span><span class="p">(</span><span class="s1">&#39;pi3d&#39;</span><span class="p">,</span> <span class="s1">&#39;shaders/&#39;</span> <span class="o">+</span> <span class="n">sfile</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+      <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;no file shaders/&#39;</span> <span class="o">+</span> <span class="n">sfile</span> <span class="o">+</span> <span class="s1">&#39; in pkg_resources trying&#39;</span><span class="p">)</span>
+      <span class="n">st</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sfile</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1">#assume it&#39;s a non-standard shader in a file</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">st</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">b</span><span class="s1">&#39;#include&#39;</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+        <span class="n">inc_file</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">new_text</span> <span class="o">=</span> <span class="n">new_text</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_shader</span><span class="p">(</span><span class="n">inc_file</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_text</span> <span class="o">=</span> <span class="n">new_text</span> <span class="o">+</span> <span class="n">l</span> <span class="o">+</span> <span class="n">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="n">new_text</span></div>
 </pre></div>
 
@@ -255,7 +262,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.16 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

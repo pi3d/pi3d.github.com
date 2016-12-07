@@ -81,6 +81,14 @@ util Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`PexParticles` Module
+---------------------
+
+.. automodule:: pi3d.util.PexParticles
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`Pngfont` Module
 ---------------------
 

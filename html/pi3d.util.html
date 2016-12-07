@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>util Package &#8212; pi3d 2.15 documentation</title>
+    <title>util Package &#8212; pi3d 2.16 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.15',
+        VERSION:     '2.16',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.15 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.16 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.16 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -629,6 +629,91 @@ texture generated from the framebuffer</p>
 </dd></dl>
 
 </div>
+<div class="section" id="pexparticles-module">
+<h2><code class="xref py py-mod docutils literal"><span class="pre">PexParticles</span></code> Module<a class="headerlink" href="#pexparticles-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pi3d.util.PexParticles"></span><dl class="class">
+<dt id="pi3d.util.PexParticles.PexParticles">
+<em class="property">class </em><code class="descclassname">pi3d.util.PexParticles.</code><code class="descname">PexParticles</code><span class="sig-paren">(</span><em>pex_file</em>, <em>emission_rate=10</em>, <em>scale=1.0</em>, <em>rot_rate=None</em>, <em>rot_var=0.0</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/PexParticles.html#PexParticles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PexParticles.PexParticles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.shape.html#pi3d.shape.Points.Points" title="pi3d.shape.Points.Points"><code class="xref py py-class docutils literal"><span class="pre">pi3d.shape.Points.Points</span></code></a></p>
+<p>has to be supplied with a pex xml type file to parse. The results
+are loaded into new attributes of the instance of this class with identifiers
+matching the Elements of the pex file. There is zero checking for the
+correct file format:</p>
+<blockquote>
+<div>self.texture={name:&#8217;particle.png&#8217;}
+self.sourcePosition={x:160.00,y:369.01}
+self.sourcePositionVariance={x:60.00,y:0.00}
+self.speed=138.16
+self.speedVariance=0.00
+self.particleLifeSpan=0.7000
+self.particleLifespanVariance=0.0000
+self.angle=224.38
+self.angleVariance=360.00
+self.gravity={x:0.00,y:-1400.00}
+self.radialAcceleration=0.00
+self.tangentialAcceleration=0.00
+self.radialAccelVariance=0.00
+self.tangentialAccelVariance=-0.00
+self.startColor={red:0.15,green:0.06,blue:1.00,alpha:1.00}
+self.startColorVariance={red:0.00,green:0.00,blue:0.00,alpha:0.00}
+self.finishColor={red:0.00,green:0.14,blue:0.23,alpha:0.00}
+self.finishColorVariance={red:0.00,green:0.00,blue:0.00,alpha:0.00}
+self.maxParticles=300
+self.startParticleSize=43.79
+self.startParticleSizeVariance=0.00
+self.finishParticleSize=138.11
+self.FinishParticleSizeVariance=0.00
+self.duration=-1.00
+self.emitterType=0
+self.maxRadius=100.00
+self.maxRadiusVariance=0.00
+self.minRadius=0.00
+self.rotatePerSecond=0.00
+self.rotatePerSecondVariance=0.00
+self.blendFuncSource=770
+self.blendFuncDestination=772
+self.rotationStart=0.00
+self.rotationStartVariance=0.00
+self.rotationEnd=0.00
+self.rotationEndVariance=0.00</div></blockquote>
+<dl class="attribute">
+<dt id="pi3d.util.PexParticles.PexParticles.rot_var">
+<code class="descname">rot_var</code><em class="property"> = None</em><a class="headerlink" href="#pi3d.util.PexParticles.PexParticles.rot_var" title="Permalink to this definition">¶</a></dt>
+<dd><p>make the numpy arrays to hold the particle info
+vertices[0]   x position of centre of point relative to centre of screen in pixels
+vertices[1]   y position
+vertices[2]   z depth but fract(z) is used as a multiplier for point size
+normals[0]    rotation in radians
+normals[1]    red and green values to multiply with the texture
+normals[2]    blue and alph values to multiply with the texture. The values</p>
+<blockquote>
+<div>are packed into the whole number and fractional parts of
+the float i.e. where R and G are between 0.0 and 0.999
+normals[:,2] = floor(999 * R) + G</div></blockquote>
+<dl class="docutils">
+<dt>tex_coords[0] distance of left side of sprite square from left side of</dt>
+<dd>texture in uv scale 0.0 to 1.0</dd>
+</dl>
+<p>tex_coords[1] distance of top of sprite square from top of texture
+arr[8]        x velocity
+arr[9]        y velocity
+arr[10]       lifespan
+arr[11]       lifespan remaining
+arr[12:16]    rgba target values
+arr[16:20]    rgba difference
+arr[20]       size delta (finish size - start size) / full_lifespan
+arr[21]       radial acceleration
+arr[22]       tangential acceleration</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.PexParticles.PexParticles.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/PexParticles.html#PexParticles.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PexParticles.PexParticles.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.util.Pngfont">
 <span id="pngfont-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Pngfont</span></code> Module<a class="headerlink" href="#module-pi3d.util.Pngfont" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -855,9 +940,7 @@ texture generated from the framebuffer. Keyword Arguments:</p>
 <blockquote>
 <div><dl class="docutils">
 <dt><em>shader</em></dt>
-<dd>to use when drawing sprite, defaults to post_base, a simple
-3x3 convolution that does basic edge detection. Can be copied to
-project directory and modified as required.</dd>
+<dd>to use when drawing sprite, defaults to uv_flat.</dd>
 <dt><em>mipmap</em></dt>
 <dd>can be set to True with slight cost to speed, or use fxaa shader</dd>
 <dt><em>separation</em></dt>
@@ -1213,6 +1296,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
 <li><a class="reference internal" href="#module-pi3d.util.Loadable"><code class="docutils literal"><span class="pre">Loadable</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Log"><code class="docutils literal"><span class="pre">Log</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.OffScreenTexture"><code class="docutils literal"><span class="pre">OffScreenTexture</span></code> Module</a></li>
+<li><a class="reference internal" href="#pexparticles-module"><code class="docutils literal"><span class="pre">PexParticles</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Pngfont"><code class="docutils literal"><span class="pre">Pngfont</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.PointText"><code class="docutils literal"><span class="pre">PointText</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.PostProcess"><code class="docutils literal"><span class="pre">PostProcess</span></code> Module</a></li>
@@ -1264,7 +1348,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.16 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>

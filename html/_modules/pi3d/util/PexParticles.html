@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pi3d.util.PexParticles &#8212; pi3d 2.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="top" title="pi3d 2.16 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pi3d.util.PexParticles</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">from</span> <span class="nn">xml.dom.minidom</span> <span class="k">import</span> <span class="n">parse</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">pi3d.shape.Points</span> <span class="k">import</span> <span class="n">Points</span>
+<span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="k">import</span> <span class="n">Shader</span>
+<span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="k">import</span> <span class="n">Texture</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<div class="viewcode-block" id="PexParticles"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PexParticles.PexParticles">[docs]</a><span class="k">class</span> <span class="nc">PexParticles</span><span class="p">(</span><span class="n">Points</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pex_file</span><span class="p">,</span> <span class="n">emission_rate</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">rot_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                                <span class="n">rot_var</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; has to be supplied with a pex xml type file to parse. The results</span>
+<span class="sd">    are loaded into new attributes of the instance of this class with identifiers</span>
+<span class="sd">    matching the Elements of the pex file. There is zero checking for the</span>
+<span class="sd">    correct file format:</span>
+<span class="sd">      self.texture={name:&#39;particle.png&#39;}</span>
+<span class="sd">      self.sourcePosition={x:160.00,y:369.01}</span>
+<span class="sd">      self.sourcePositionVariance={x:60.00,y:0.00}</span>
+<span class="sd">      self.speed=138.16</span>
+<span class="sd">      self.speedVariance=0.00</span>
+<span class="sd">      self.particleLifeSpan=0.7000</span>
+<span class="sd">      self.particleLifespanVariance=0.0000</span>
+<span class="sd">      self.angle=224.38</span>
+<span class="sd">      self.angleVariance=360.00</span>
+<span class="sd">      self.gravity={x:0.00,y:-1400.00}</span>
+<span class="sd">      self.radialAcceleration=0.00</span>
+<span class="sd">      self.tangentialAcceleration=0.00</span>
+<span class="sd">      self.radialAccelVariance=0.00</span>
+<span class="sd">      self.tangentialAccelVariance=-0.00</span>
+<span class="sd">      self.startColor={red:0.15,green:0.06,blue:1.00,alpha:1.00}</span>
+<span class="sd">      self.startColorVariance={red:0.00,green:0.00,blue:0.00,alpha:0.00}</span>
+<span class="sd">      self.finishColor={red:0.00,green:0.14,blue:0.23,alpha:0.00}</span>
+<span class="sd">      self.finishColorVariance={red:0.00,green:0.00,blue:0.00,alpha:0.00}</span>
+<span class="sd">      self.maxParticles=300</span>
+<span class="sd">      self.startParticleSize=43.79</span>
+<span class="sd">      self.startParticleSizeVariance=0.00</span>
+<span class="sd">      self.finishParticleSize=138.11</span>
+<span class="sd">      self.FinishParticleSizeVariance=0.00</span>
+<span class="sd">      self.duration=-1.00</span>
+<span class="sd">      self.emitterType=0</span>
+<span class="sd">      self.maxRadius=100.00</span>
+<span class="sd">      self.maxRadiusVariance=0.00</span>
+<span class="sd">      self.minRadius=0.00</span>
+<span class="sd">      self.rotatePerSecond=0.00</span>
+<span class="sd">      self.rotatePerSecondVariance=0.00</span>
+<span class="sd">      self.blendFuncSource=770</span>
+<span class="sd">      self.blendFuncDestination=772</span>
+<span class="sd">      self.rotationStart=0.00</span>
+<span class="sd">      self.rotationStartVariance=0.00</span>
+<span class="sd">      self.rotationEnd=0.00</span>
+<span class="sd">      self.rotationEndVariance=0.00</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># first parse the pex file, json would have been nicer than xml!</span>
+    <span class="n">_config</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">pex_file</span><span class="p">)</span><span class="o">.</span><span class="n">childNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">childNodes</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">_config</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">localName</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">localName</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+          <span class="k">try</span><span class="p">:</span>
+            <span class="n">v_tp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># try int first</span>
+          <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+              <span class="n">v_tp</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># if not try float</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+              <span class="n">v_tp</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># otherwise leave as string</span>
+          <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="c1"># single value &#39;value&#39; don&#39;t use dictionary</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">v_tp</span>
+            <span class="k">break</span>
+          <span class="k">else</span><span class="p">:</span>
+            <span class="n">val</span><span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">v_tp</span> <span class="c1"># not just a value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__setattr__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_emission_rate</span> <span class="o">=</span> <span class="n">emission_rate</span> <span class="c1"># particles per second</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_last_emission_time</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_last_time</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rot_rate</span> <span class="o">=</span> <span class="n">rot_rate</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rot_var</span> <span class="o">=</span> <span class="n">rot_var</span>
+    
+    <span class="sd">&#39;&#39;&#39; make the numpy arrays to hold the particle info</span>
+<span class="sd">    vertices[0]   x position of centre of point relative to centre of screen in pixels</span>
+<span class="sd">    vertices[1]   y position</span>
+<span class="sd">    vertices[2]   z depth but fract(z) is used as a multiplier for point size</span>
+<span class="sd">    normals[0]    rotation in radians</span>
+<span class="sd">    normals[1]    red and green values to multiply with the texture</span>
+<span class="sd">    normals[2]    blue and alph values to multiply with the texture. The values</span>
+<span class="sd">                  are packed into the whole number and fractional parts of</span>
+<span class="sd">                  the float i.e. where R and G are between 0.0 and 0.999</span>
+<span class="sd">                  normals[:,2] = floor(999 * R) + G</span>
+<span class="sd">    tex_coords[0] distance of left side of sprite square from left side of</span>
+<span class="sd">                  texture in uv scale 0.0 to 1.0</span>
+<span class="sd">    tex_coords[1] distance of top of sprite square from top of texture</span>
+<span class="sd">    arr[8]        x velocity</span>
+<span class="sd">    arr[9]        y velocity</span>
+<span class="sd">    arr[10]       lifespan</span>
+<span class="sd">    arr[11]       lifespan remaining</span>
+<span class="sd">    arr[12:16]    rgba target values</span>
+<span class="sd">    arr[16:20]    rgba difference</span>
+<span class="sd">    arr[20]       size delta (finish size - start size) / full_lifespan</span>
+<span class="sd">    arr[21]       radial acceleration</span>
+<span class="sd">    arr[22]       tangential acceleration</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">maxParticles</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">point_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">startParticleSize</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">startParticleSizeVariance</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">finishParticleSize</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FinishParticleSizeVariance</span><span class="p">)</span> <span class="c1">#NB capital F!</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">PexParticles</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> 
+                            <span class="n">normals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[:,</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> 
+                            <span class="n">tex_coords</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[:,</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">],</span> 
+                            <span class="n">point_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">point_size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pass to Points.__init__()</span>
+    <span class="n">shader</span> <span class="o">=</span> <span class="n">Shader</span><span class="p">(</span><span class="s1">&#39;uv_pointsprite&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">tex</span> <span class="o">=</span> <span class="n">Texture</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">texture</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span> <span class="c1"># obvious first!</span>
+    <span class="k">except</span><span class="p">:</span>
+      <span class="kn">import</span> <span class="nn">os</span>
+      <span class="n">tex</span> <span class="o">=</span> <span class="n">Texture</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                      <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">pex_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">texture</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">tex</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">48</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="c1"># sprite uses whole image</span>
+
+<div class="viewcode-block" id="PexParticles.update"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PexParticles.PexParticles.update">[docs]</a>  <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># work out how many new particles to create</span>
+    <span class="n">tm</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="c1"># first time round dt is 0.0 else time since last update</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">tm</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_time</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mf">0.0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_last_time</span> <span class="o">=</span> <span class="n">tm</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_emission_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">n_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emission_rate</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">n_new</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_emission_rate</span> <span class="o">*</span> <span class="p">(</span><span class="n">tm</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_emission_time</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">n_new</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_last_emission_time</span> <span class="o">=</span> <span class="n">tm</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[:</span><span class="o">-</span><span class="n">n_new</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">n_new</span><span class="p">:]</span> <span class="c1"># &#39;age&#39; by moving along</span>
+      <span class="c1"># generate ALL the varying values in one step</span>
+      <span class="n">new_vals</span> <span class="o">=</span> <span class="p">(</span>
+          <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sourcePosition</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">sourcePosition</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span>   <span class="c1"># 0,1,</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">particleLifeSpan</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span>        <span class="c1"># 2,3,4,</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">radialAcceleration</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tangentialAcceleration</span><span class="p">,</span> <span class="c1"># 5,6</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">startColor</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">startColor</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">],</span>     <span class="c1"># 7,8</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">startColor</span><span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">startColor</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">],</span>    <span class="c1"># 9,10</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">finishColor</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">finishColor</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">],</span>   <span class="c1"># 11,12</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">finishColor</span><span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">finishColor</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">],</span>  <span class="c1"># 13,14</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">startParticleSize</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">finishParticleSize</span><span class="p">]</span>      <span class="c1"># 15,16</span>
+            <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">n_new</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span>
+           <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sourcePositionVariance</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">sourcePositionVariance</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">speedVariance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">particleLifespanVariance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angleVariance</span><span class="p">,</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">radialAccelVariance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tangentialAccelVariance</span><span class="p">,</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">startColorVariance</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">startColorVariance</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">],</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">startColorVariance</span><span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">startColorVariance</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">],</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">finishColorVariance</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">finishColorVariance</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">],</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">finishColorVariance</span><span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">finishColorVariance</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">],</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">startParticleSizeVariance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FinishParticleSizeVariance</span><span class="p">])</span> <span class="c1"># NB capital F!</span>
+
+      <span class="c1"># x, y locations</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="n">n_new</span><span class="p">:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_vals</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span>
+      <span class="c1"># velocities</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="n">n_new</span><span class="p">:,</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_vals</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">new_vals</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="n">n_new</span><span class="p">:,</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_vals</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">new_vals</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span>
+      <span class="c1"># lifeSpan</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="n">n_new</span><span class="p">:,</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_vals</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="n">n_new</span><span class="p">:,</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_vals</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+      <span class="c1"># rgba target</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="n">n_new</span><span class="p">:,</span><span class="mi">12</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">new_vals</span><span class="p">[:,</span><span class="mi">11</span><span class="p">:</span><span class="mi">15</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">0.999</span><span class="p">)</span>
+      <span class="c1"># rgba difference</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="n">n_new</span><span class="p">:,</span><span class="mi">16</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">new_vals</span><span class="p">[:,</span><span class="mi">11</span><span class="p">:</span><span class="mi">15</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">0.999</span><span class="p">)</span> <span class="o">-</span> 
+                                 <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">new_vals</span><span class="p">[:,</span><span class="mi">7</span><span class="p">:</span><span class="mi">11</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">0.999</span><span class="p">))</span>
+      <span class="c1"># size</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="n">n_new</span><span class="p">:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_vals</span><span class="p">[:,</span><span class="mi">15</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.999</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_size</span> <span class="c1"># must not approx to 1.0 at medium precision</span>
+      <span class="c1"># and reset the z distance part</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">999.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxParticles</span><span class="p">))</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">%</span> <span class="mf">1.0</span>
+      <span class="c1"># size delta</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="n">n_new</span><span class="p">:,</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.95</span> <span class="o">*</span> <span class="p">(</span><span class="n">new_vals</span><span class="p">[:,</span><span class="mi">16</span><span class="p">]</span> <span class="o">-</span> <span class="n">new_vals</span><span class="p">[:,</span><span class="mi">15</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_size</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="n">n_new</span><span class="p">:,</span><span class="mi">10</span><span class="p">]</span>
+      <span class="c1"># radial and tangential acc</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="n">n_new</span><span class="p">:,</span><span class="mi">21</span><span class="p">:</span><span class="mi">23</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_vals</span><span class="p">[:,</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[:,</span><span class="mi">11</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># make alpha 0 for dead particles</span>
+    <span class="n">ix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[:,</span><span class="mi">11</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># index of live particles</span>
+    <span class="n">radial_v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sourcePosition</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span>
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">sourcePosition</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span> <span class="c1"># vector from emitter</span>
+    <span class="n">radial_v</span> <span class="o">/=</span> <span class="p">((</span><span class="n">radial_v</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">**</span> <span class="mf">0.5</span> <span class="c1"># normalise</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">8</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span> <span class="c1"># location change</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">8</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="o">+=</span> <span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">gravity</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">gravity</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span> <span class="o">+</span> <span class="c1"># velocity change</span>
+                          <span class="n">radial_v</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">21</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># radial and tang acc</span>
+                          <span class="n">radial_v</span><span class="p">[:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">22</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mf">999.0</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">12</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">16</span><span class="p">:</span><span class="mi">19</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span>
+                          <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span><span class="c1"># rb change</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.99</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">13</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">17</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span>
+                          <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="c1"># ga change</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span> <span class="c1"># size change</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span> <span class="o">-=</span> <span class="n">dt</span> <span class="c1"># lifespan remaining</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rot_rate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># rotate if this is set</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rot_rate</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rot_var</span> <span class="o">*</span> 
+                          <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">ix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">))</span> <span class="o">*</span> <span class="n">dt</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">re_init</span><span class="p">(</span><span class="n">pts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">normals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[:,</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> 
+                  <span class="n">texcoords</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[:,</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span> <span class="c1"># re-init the buffers</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2016, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>
