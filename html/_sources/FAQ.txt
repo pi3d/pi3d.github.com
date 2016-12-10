@@ -1149,9 +1149,10 @@ boot quickly and allow me to run a dedicated pi3d application.
     
   In these instructions the ``... `` at the start of lines represents the
   fact this is text inside a file and shouldn't be actually typed in! Also you
-  need to change the WiFi credentials to match your router. In the
-  picture_getter.py script you will need to put in the email server, user
-  and password for picking up images.
+  need to change the WiFi credentials to match your router, NB the SSID
+  and PASSWORD need to be inside quotes. In the picture_getter.py script 
+  you will need to put in the email server, user and password for picking 
+  up images.
 
 pypy
 ----
