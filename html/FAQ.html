@@ -456,8 +456,10 @@ Also you would need to install the driver and start it running first:</p>
 <p>See also in the section <code class="docutils literal"><span class="pre">Permission</span> <span class="pre">denied</span></code> below</p>
 </div></blockquote>
 </div>
+<div class="section" id="d-models">
+<h2>3D models<a class="headerlink" href="#d-models" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="making-3d-models">
-<h2>Making 3D models<a class="headerlink" href="#making-3d-models" title="Permalink to this headline">¶</a></h2>
+<h3>Making 3D models<a class="headerlink" href="#making-3d-models" title="Permalink to this headline">¶</a></h3>
 <p>How do I make my own 3D model to load into pi3d?</p>
 <blockquote>
 <div><p>You will need to &#8216;make&#8217; one on a bigger computer using 3D software such
@@ -494,6 +496,43 @@ use a more detailed (high polygon) model to create a &#8216;normal map&#8217; im
 that can be used to give surface detail to the model in pi3d. Quite
 technical but lots of instructional videos on youtube!</p>
 </div></blockquote>
+</div>
+<div class="section" id="imported-model-doesn-t-appear">
+<h3>Imported model doesn&#8217;t appear<a class="headerlink" href="#imported-model-doesn-t-appear" title="Permalink to this headline">¶</a></h3>
+<p>I have a 3D object in obj format which I tried to import into a scene, but
+I do not see it! I used the file &#8216;LoadModelObj.py&#8217; which I modified. For
+the model, I just took a logo I created a 3D extrusion in Photoshop and
+I exported the layer in OBJ format [but seel also any other method of
+creating 3D obj files]. The fact of not seeing it must be related to the
+size of my model and the parameter of depth z in &#8216;Pi3D.model&#8217;. But I do
+not know how to get the correct settings apart from trying random values.</p>
+<blockquote>
+<div><p>The first issue is with the x,y,z values of the vertices. You can check
+these by opening the obj file in a text editor. In this case the y and z
+values are very large: around 00 and 1840. You can edit them to bring
+the model nearer the origin by globally replacing using regular expressions
+such as <code class="docutils literal"><span class="pre">Search</span> <span class="pre">For</span> <span class="pre">&quot;(</span> <span class="pre">-21)(..)&quot;</span> <span class="pre">Replace</span> <span class="pre">with</span> <span class="pre">&quot;</span> <span class="pre">\2&quot;</span></code>. Or write a simple
+python program to go through all the lines of the obj file, parse out
+the v lines and re-write them with altered values. Once the x,y,z values
+are reasonable you can also import the model and adjust its position manually
+on blender and re-export it. If needed you can also alter the scale of
+the model. If the model is very large you will need to move it further
+from the camera to see it all.</p>
+<p>The second issue is that the uv mapping of textures in obj files is flipped
+compared with the default pi3d sense so if you want to apply your own
+texture you need to set the <code class="docutils literal"><span class="pre">flip=True</span></code> argument to Texture():</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="s1">&#39;Logo_IUT.png&#39;</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">bumptex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="s2">&quot;textures/floor_nm.jpg&quot;</span><span class="p">)</span>
+<span class="n">shinetex</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="s2">&quot;textures/stars.jpg&quot;</span><span class="p">)</span>
+<span class="n">mymodel</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">file_string</span><span class="o">=</span><span class="s1">&#39;Logo_IUT_3D_mod1.obj&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;teapot&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">40.0</span><span class="p">)</span>
+<span class="n">mymodel</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">tex</span><span class="p">,</span> <span class="n">bumptex</span><span class="p">,</span> <span class="n">shinetex</span><span class="p">],</span> <span class="mf">16.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively in blender open the UV editor and specify the correct image
+file to use as a Texture. When you export this it will create an associated
+mtl file which will be picked up when you import the model in pi3d.</p>
+</div></blockquote>
+</div>
 </div>
 <div class="section" id="d-images">
 <h2>2D images<a class="headerlink" href="#d-images" title="Permalink to this headline">¶</a></h2>
@@ -1477,6 +1516,118 @@ a chip and operating system very similar to the Raspberry Pi?</p>
 python-for-android from a linux machine. There are instructions here
 <a class="reference external" href="http://pi3d.github.io/html/AndroidUse.html">http://pi3d.github.io/html/AndroidUse.html</a></div></blockquote>
 </div>
+<div class="section" id="targetting">
+<h2>Targetting<a class="headerlink" href="#targetting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="identify-what-s-in-front-of-the-camera">
+<h3>Identify what&#8217;s in front of the Camera<a class="headerlink" href="#identify-what-s-in-front-of-the-camera" title="Permalink to this headline">¶</a></h3>
+<p>How to find the name of the object in the camera&#8217;s target (pi3D 3d world)
+example:https://www.youtube.com/watch?v=0u91pcNXtcI&amp;feature=autoshare
+sun, world, astroid123?</p>
+<blockquote>
+<div><p>One approach would be to look at the size of the angle between the
+direction to each possible target and the direction the camera is pointing.
+You would then choose objects where that angle was smaller than a threshold
+then choose the nearest if more than one. Say in pi3d_demos.ForestWalk.py
+you had kept a dict of different objects as obj_dict, you could add a
+print() when you press the &#8216;h&#8217; key:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">obj_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;monument&#39;</span><span class="p">:</span><span class="n">monument</span><span class="p">,</span> <span class="s1">&#39;trees1&#39;</span><span class="p">:</span><span class="n">mytrees1</span><span class="p">,</span> <span class="s1">&#39;trees2&#39;</span><span class="p">:</span><span class="n">mytrees2</span><span class="p">,</span> <span class="s1">&#39;trees3&#39;</span><span class="p">:</span><span class="n">mytrees3</span><span class="p">}</span>
+<span class="n">THRESHOLD</span> <span class="o">=</span> <span class="mf">0.95</span>
+<span class="o">...</span>
+  <span class="k">elif</span> <span class="n">k</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">):</span>
+    <span class="n">nearest</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">target_name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">o_name</span> <span class="ow">in</span> <span class="n">obj_dict</span><span class="p">:</span>
+      <span class="n">o</span> <span class="o">=</span> <span class="n">obj_dict</span><span class="p">[</span><span class="n">o_name</span><span class="p">]</span>
+      <span class="n">v1</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">CAMERA</span><span class="o">.</span><span class="n">eye</span> <span class="c1"># numpy vector from camera to object</span>
+      <span class="n">dist</span> <span class="o">=</span> <span class="p">(</span><span class="n">v1</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">**</span> <span class="mf">0.5</span>
+      <span class="n">v1</span> <span class="o">/=</span> <span class="n">dist</span> <span class="c1"># divide by length</span>
+      <span class="n">v2</span> <span class="o">=</span> <span class="n">CAMERA</span><span class="o">.</span><span class="n">get_direction</span><span class="p">()</span> <span class="c1"># already length = 1</span>
+      <span class="n">cos_angle</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span> <span class="c1"># 1 straigt at it, 0 at right angles, -1 opposite direction</span>
+      <span class="k">if</span> <span class="n">cos_angle</span> <span class="o">&gt;=</span> <span class="n">THRESHOLD</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">nearest</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="n">nearest</span><span class="p">:</span>
+          <span class="n">nearest</span> <span class="o">=</span> <span class="n">dist</span>
+          <span class="n">target_name</span> <span class="o">=</span> <span class="n">o_name</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;nothing&#39;</span> <span class="k">if</span> <span class="n">target_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">target_name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However this only works for smallish objects. If you want to see if the
+cross-hairs are hitting the Earth on the meteorize game then you would
+either have to include a size factor into the obj_dict above instead of
+using an overall threshold i.e.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">obj_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;monument&#39;</span><span class="p">:[</span><span class="n">monument</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+    <span class="s1">&#39;trees1&#39;</span><span class="p">:[</span><span class="n">mytrees1</span><span class="p">,</span><span class="mi">15</span><span class="p">],</span>
+    <span class="s1">&#39;trees2&#39;</span><span class="p">:[</span><span class="n">mytrees2</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span>
+    <span class="s1">&#39;trees3&#39;</span><span class="p">:[</span><span class="n">mytrees3</span><span class="p">,</span> <span class="mi">20</span><span class="p">]}</span>
+<span class="n">o</span> <span class="o">=</span> <span class="n">obj_dict</span><span class="p">[</span><span class="n">o_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sz</span> <span class="o">=</span> <span class="n">obj_dict</span><span class="p">[</span><span class="n">o_name</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">cos_angle</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">sz</span> <span class="o">/</span> <span class="n">dist</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+<p>Though this method would have issues with large objects such as the merged
+&#8216;tree&#8217; objects in ForestWalk, where it is possible to be &#8216;inside&#8217; the
+object.</p>
+<p>Or look at each face of the object and see if the vector intercepts each
+triangle - but this would be very slow. See the Pong demo and the
+ElevationMap.clashTest() method.</p>
+<p>Finally a fairly efficient but technical method would be a variation of
+the Clashtest system using glScissor to draw a single pixel of each object
+to an offscreen texture with different RGB values for each then checking
+what if any had been drawn.</p>
+</div></blockquote>
+</div>
+<div class="section" id="bullets">
+<h3>Bullets<a class="headerlink" href="#bullets" title="Permalink to this headline">¶</a></h3>
+<p>How to create bullets and shoot targets?
+(like counter strike)</p>
+<blockquote>
+<div>The bullets in Counter Strike just look like streaks of light with some
+smoke so the best way is probably something like the bullets in DogFight.
+This uses two Plane objects merged at 90 degrees to each other with a
+series of images that can be mapped onto them in sequence (there are two
+sets of guns on the Aeroplane which is why there are four Planes). How
+you animate the target being shot depends on the effect you want. In the
+meteorize game I use a part transparent texture and scale the meteors up
+so they look to be bursting soap bubbles.</div></blockquote>
+</div>
+<div class="section" id="laser-sight">
+<h3>Laser sight<a class="headerlink" href="#laser-sight" title="Permalink to this headline">¶</a></h3>
+<p>How to create a
+laser point for gun?</p>
+<blockquote>
+<div><p>This is the kind of thing you can do.
+For example to modify ForestWalk.py to include a laser dot:</p>
+<p>1.Copy the shaders you want to get lasers on to the pi3d_demos/shaders
+directory and rename i.e. uv_bump_laserdot.vs, uv_bump_laserdot.fs</p>
+<p>2.edit the fragment shaders i.e. uv_bump_lasterdot.fs and add the
+two lines:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#include std_bump.inc</span>
+  <span class="nb">float</span> <span class="n">radial</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">vec2</span><span class="p">(</span><span class="n">gl_FragCoord</span><span class="p">),</span> <span class="n">unif</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">);</span> <span class="o">//</span> <span class="mi">1</span> <span class="o">---</span> <span class="n">distance</span> <span class="kn">from</span> <span class="nn">centre</span> <span class="n">of</span> <span class="n">screen</span>
+  <span class="n">texc</span><span class="o">.</span><span class="n">rgb</span> <span class="o">+=</span> <span class="n">vec3</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">dist</span> <span class="o">*</span> <span class="n">radial</span><span class="p">);</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">---</span> <span class="n">increase</span> <span class="n">R</span><span class="p">,</span> <span class="n">decrease</span> <span class="n">GB</span> <span class="n">reduce</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">distance</span>
+  <span class="n">gl_FragColor</span> <span class="o">=</span>  <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">ffact</span><span class="p">)</span> <span class="o">*</span> <span class="n">texc</span> <span class="o">+</span> <span class="n">ffact</span> <span class="o">*</span> <span class="n">vec4</span><span class="p">(</span><span class="n">unif</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">unif</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span> <span class="o">//</span> <span class="o">------</span> <span class="n">combine</span> <span class="n">using</span> <span class="n">factors</span>
+</pre></div>
+</div>
+<p>2.change ForestWalk.py
+to use the new shaders:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># load shader</span>
+<span class="n">shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s2">&quot;shaders/uv_bump_laserdot&quot;</span><span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>3.change ForestWalk.py to add the x, y location of the screen midpoint to
+each Shape that uses the new shaders:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">mymap</span><span class="o">.</span><span class="n">set_fog</span><span class="p">(</span><span class="o">*</span><span class="n">FOG</span><span class="p">)</span>
+<span class="n">mymap</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">45</span><span class="p">:</span><span class="mi">47</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">DISPLAY</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">DISPLAY</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">]</span> <span class="c1">#or use mymap.set_2d_size(DISPLAY.width / 2.0, DISPLAY.height / 2.0)</span>
+</pre></div>
+</div>
+<p>You could take an alternative route if you are using the obj_dict idea
+from above. In that case you could simply draw the laser dot in the middle
+of the screen (i.e. using a Camera(is_3d=False..)) and scale the dot
+according to distance to the target. The disadvantage is that the dot
+wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
+</div></blockquote>
+</div>
+</div>
 </div>
 
 
@@ -1516,7 +1667,11 @@ python-for-android from a linux machine. There are instructions here
 <li><a class="reference internal" href="#blending">Blending</a></li>
 <li><a class="reference internal" href="#materials">Materials</a></li>
 <li><a class="reference internal" href="#joysticks-etc">joysticks etc</a></li>
+<li><a class="reference internal" href="#d-models">3D models</a><ul>
 <li><a class="reference internal" href="#making-3d-models">Making 3D models</a></li>
+<li><a class="reference internal" href="#imported-model-doesn-t-appear">Imported model doesn&#8217;t appear</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#d-images">2D images</a><ul>
 <li><a class="reference internal" href="#how-to-use-2d-images">How to use 2D images</a></li>
 <li><a class="reference internal" href="#nearness-of-2d-relative-to-3d">nearness of 2D relative to 3D</a></li>
@@ -1571,6 +1726,12 @@ python-for-android from a linux machine. There are instructions here
 <li><a class="reference internal" href="#profiling">Profiling</a></li>
 <li><a class="reference internal" href="#desktop-or-laptop">Desktop or laptop</a></li>
 <li><a class="reference internal" href="#android">Android</a></li>
+<li><a class="reference internal" href="#targetting">Targetting</a><ul>
+<li><a class="reference internal" href="#identify-what-s-in-front-of-the-camera">Identify what&#8217;s in front of the Camera</a></li>
+<li><a class="reference internal" href="#bullets">Bullets</a></li>
+<li><a class="reference internal" href="#laser-sight">Laser sight</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

@@ -428,8 +428,11 @@ application?
 
   See also in the section ``Permission denied`` below
 
+3D models
+---------
+
 Making 3D models
-----------------
+~~~~~~~~~~~~~~~~
 
 How do I make my own 3D model to load into pi3d?
 
@@ -467,6 +470,44 @@ How do I make my own 3D model to load into pi3d?
   use a more detailed (high polygon) model to create a 'normal map' image
   that can be used to give surface detail to the model in pi3d. Quite
   technical but lots of instructional videos on youtube!
+
+Imported model doesn't appear
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+I have a 3D object in obj format which I tried to import into a scene, but 
+I do not see it! I used the file 'LoadModelObj.py' which I modified. For 
+the model, I just took a logo I created a 3D extrusion in Photoshop and 
+I exported the layer in OBJ format [but seel also any other method of 
+creating 3D obj files]. The fact of not seeing it must be related to the 
+size of my model and the parameter of depth z in 'Pi3D.model'. But I do 
+not know how to get the correct settings apart from trying random values.
+
+  The first issue is with the x,y,z values of the vertices. You can check
+  these by opening the obj file in a text editor. In this case the y and z
+  values are very large: around 00 and 1840. You can edit them to bring
+  the model nearer the origin by globally replacing using regular expressions
+  such as ``Search For "( -21)(..)" Replace with " \2"``. Or write a simple
+  python program to go through all the lines of the obj file, parse out
+  the v lines and re-write them with altered values. Once the x,y,z values
+  are reasonable you can also import the model and adjust its position manually 
+  on blender and re-export it. If needed you can also alter the scale of
+  the model. If the model is very large you will need to move it further 
+  from the camera to see it all. 
+  
+  The second issue is that the uv mapping of textures in obj files is flipped 
+  compared with the default pi3d sense so if you want to apply your own 
+  texture you need to set the ``flip=True`` argument to Texture()::
+  
+    tex = pi3d.Texture('Logo_IUT.png', flip=True)
+    bumptex = pi3d.Texture("textures/floor_nm.jpg")
+    shinetex = pi3d.Texture("textures/stars.jpg")
+    mymodel = pi3d.Model(file_string='Logo_IUT_3D_mod1.obj', name='teapot', z=40.0)
+    mymodel.set_draw_details(shader, [tex, bumptex, shinetex], 16.0, 0.5)
+
+  Alternatively in blender open the UV editor and specify the correct image
+  file to use as a Texture. When you export this it will create an associated
+  mtl file which will be picked up when you import the model in pi3d.
+
 
 2D images
 ---------
@@ -1523,6 +1564,123 @@ a chip and operating system very similar to the Raspberry Pi?
   Is is possible; but you have to compile an apk package using
   python-for-android from a linux machine. There are instructions here
   http://pi3d.github.io/html/AndroidUse.html
+
+Targetting
+----------
+
+Identify what's in front of the Camera
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+How to find the name of the object in the camera's target (pi3D 3d world)
+example:https://www.youtube.com/watch?v=0u91pcNXtcI&feature=autoshare
+sun, world, astroid123?
+
+  One approach would be to look at the size of the angle between the 
+  direction to each possible target and the direction the camera is pointing. 
+  You would then choose objects where that angle was smaller than a threshold 
+  then choose the nearest if more than one. Say in pi3d_demos.ForestWalk.py 
+  you had kept a dict of different objects as obj_dict, you could add a 
+  print() when you press the 'h' key::
+
+      obj_dict = {'monument':monument, 'trees1':mytrees1, 'trees2':mytrees2, 'trees3':mytrees3}
+      THRESHOLD = 0.95
+      ...
+        elif k == ord('h'):
+          nearest = None
+          target_name = None
+          for o_name in obj_dict:
+            o = obj_dict[o_name]
+            v1 = o.unif[0:3] - CAMERA.eye # numpy vector from camera to object
+            dist = (v1 ** 2).sum() ** 0.5
+            v1 /= dist # divide by length
+            v2 = CAMERA.get_direction() # already length = 1
+            cos_angle = v1.dot(v2) # 1 straigt at it, 0 at right angles, -1 opposite direction
+            if cos_angle >= THRESHOLD:
+              if nearest is None or dist < nearest:
+                nearest = dist
+                target_name = o_name
+          print('nothing' if target_name is None else target_name)
+
+  However this only works for smallish objects. If you want to see if the 
+  cross-hairs are hitting the Earth on the meteorize game then you would 
+  either have to include a size factor into the obj_dict above instead of 
+  using an overall threshold i.e.::
+
+      obj_dict = {'monument':[monument, 4], 
+          'trees1':[mytrees1,15], 
+          'trees2':[mytrees2,20], 
+          'trees3':[mytrees3, 20]}
+      o = obj_dict[o_name][0]
+      sz = obj_dict[o_name][1]
+      if cos_angle > (1 - (sz / dist) ** 2) ** 0.5
+      
+  Though this method would have issues with large objects such as the merged
+  'tree' objects in ForestWalk, where it is possible to be 'inside' the
+  object.
+
+  Or look at each face of the object and see if the vector intercepts each 
+  triangle - but this would be very slow. See the Pong demo and the 
+  ElevationMap.clashTest() method.
+
+  Finally a fairly efficient but technical method would be a variation of 
+  the Clashtest system using glScissor to draw a single pixel of each object 
+  to an offscreen texture with different RGB values for each then checking 
+  what if any had been drawn.
+
+Bullets
+~~~~~~~
+
+How to create bullets and shoot targets?
+(like counter strike)
+
+  The bullets in Counter Strike just look like streaks of light with some 
+  smoke so the best way is probably something like the bullets in DogFight. 
+  This uses two Plane objects merged at 90 degrees to each other with a 
+  series of images that can be mapped onto them in sequence (there are two 
+  sets of guns on the Aeroplane which is why there are four Planes). How 
+  you animate the target being shot depends on the effect you want. In the 
+  meteorize game I use a part transparent texture and scale the meteors up 
+  so they look to be bursting soap bubbles.
+
+Laser sight
+~~~~~~~~~~~
+
+How to create a 
+laser point for gun?
+
+  This is the kind of thing you can do. 
+  For example to modify ForestWalk.py to include a laser dot:
+
+  1.Copy the shaders you want to get lasers on to the pi3d_demos/shaders 
+  directory and rename i.e. uv_bump_laserdot.vs, uv_bump_laserdot.fs
+
+  2.edit the fragment shaders i.e. uv_bump_lasterdot.fs and add the 
+  two lines::
+
+      #include std_bump.inc
+        float radial = distance(vec2(gl_FragCoord), unif[15].xy); // 1 --- distance from centre of screen
+        texc.rgb += vec3(5.0, -2.0, -2.0) / (dist * radial); // 2 --- increase R, decrease GB reduce size in distance
+        gl_FragColor =  (1.0 - ffact) * texc + ffact * vec4(unif[4], unif[5][1]); // ------ combine using factors
+
+  2.change ForestWalk.py 
+  to use the new shaders::
+
+      # load shader
+      shader = pi3d.Shader("shaders/uv_bump_laserdot")
+      ...
+
+  3.change ForestWalk.py to add the x, y location of the screen midpoint to 
+  each Shape that uses the new shaders::
+
+      ...
+      mymap.set_fog(*FOG)
+      mymap.unif[45:47] = [DISPLAY.width / 2.0, DISPLAY.height / 2.0] #or use mymap.set_2d_size(DISPLAY.width / 2.0, DISPLAY.height / 2.0)
+
+  You could take an alternative route if you are using the obj_dict idea 
+  from above. In that case you could simply draw the laser dot in the middle 
+  of the screen (i.e. using a Camera(is_3d=False..)) and scale the dot 
+  according to distance to the target. The disadvantage is that the dot 
+  wouldn't scale correctly on very large objects such as the terrain.
 
 .. _ReadMe: http://pi3d.github.com/html/index.html
 .. _`ReadMe Linux`: http://pi3d.github.com/html/ReadMe.html#setup-on-desktop-and-laptop-machines
