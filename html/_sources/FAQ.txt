@@ -484,7 +484,7 @@ not know how to get the correct settings apart from trying random values.
 
   The first issue is with the x,y,z values of the vertices. You can check
   these by opening the obj file in a text editor. In this case the y and z
-  values are very large: around 00 and 1840. You can edit them to bring
+  values are very large: around -2100 and 1840. You can edit them to bring
   the model nearer the origin by globally replacing using regular expressions
   such as ``Search For "( -21)(..)" Replace with " \2"``. Or write a simple
   python program to go through all the lines of the obj file, parse out
