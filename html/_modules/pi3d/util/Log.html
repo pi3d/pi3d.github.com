@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.Log &#8212; pi3d 2.16 documentation</title>
+    <title>pi3d.util.Log &#8212; pi3d 2.17 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.16',
+        VERSION:     '2.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="top" title="pi3d 2.16 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.17 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.17 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -56,96 +56,95 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
 
-<span class="c1"># To get debug messages, set LOG_LEVEL to be &#39;DEBUG&#39;.</span>
-<span class="c1">#</span>
-<span class="c1"># Possible levels are:</span>
-<span class="c1">#   DEBUG</span>
-<span class="c1">#   INFO</span>
-<span class="c1">#   WARNING</span>
-<span class="c1">#   ERROR</span>
-<span class="c1">#   CRITICAL</span>
 
-<span class="n">LOG_LEVEL</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span>
-<span class="n">LOG_FILE</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-<span class="n">LOG_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(name)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span>
+<div class="viewcode-block" id="Log"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Log.Log">[docs]</a><span class="k">class</span> <span class="nc">Log</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;WARNING&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    The typical usage of the Log module has a single LOGGER per Python file.</span>
 
-<div class="viewcode-block" id="parent_makedirs"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Log.parent_makedirs">[docs]</a><span class="k">def</span> <span class="nf">parent_makedirs</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
-  <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
-  <span class="k">try</span><span class="p">:</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-  <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">exc</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">EEXIST</span><span class="p">:</span>
-      <span class="k">pass</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="k">raise</span></div>
+<span class="sd">    At the top of the file is typically:</span>
 
-<div class="viewcode-block" id="set_logs"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Log.set_logs">[docs]</a><span class="k">def</span> <span class="nf">set_logs</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      LOGGER = pi3d.Log(__name__, level=&#39;INFO&#39;)</span>
 
-<span class="sd">  You can redirect, filter or reformat your logging by calling Log.set_logs().</span>
-<span class="sd">  Log.set_logs() has three optional parameters:</span>
+<span class="sd">    and then later on you can do things like:</span>
 
-<span class="sd">    level:</span>
-<span class="sd">      can be one of &#39;DEBUG&#39;, &#39;INFO&#39;, &#39;WARNING&#39;, &#39;ERROR&#39;, or &#39;CRITICAL&#39;.</span>
-<span class="sd">      Everything that&#39;s the current log level or greater is displayed -</span>
-<span class="sd">      for example, if your current log level is &#39;WARNING&#39;, then you&#39;ll display</span>
-<span class="sd">      all warning, error, or critical messages.</span>
+<span class="sd">      * LOGGER.debug(&#39;stuff here&#39;)</span>
+<span class="sd">      * LOGGER.info(&#39;Some information about %s&#39;, some_name)</span>
+<span class="sd">      * LOGGER.error(&#39;Not everything was displayed, sorry!&#39;)</span>
+<span class="sd">      * LOGGER.error(&#39;You died with error code %d, message %s&#39;, error_code, msg)</span>
+<span class="sd">      * LOGGER.critical(&#39;Your machine is about to explode.  Leave the building.&#39;)</span>
 
-<span class="sd">    file:</span>
-<span class="sd">       is the name of a file to which to redirect messages.</span>
+<span class="sd">    (Note that the values for the format string, like &quot;some_name&quot;, &quot;error_code&quot; or</span>
+<span class="sd">    &quot;msg&quot; are passed in as arguments - that&#39;s so you never even construct the</span>
+<span class="sd">    message if it isn&#39;t going to be displayed.)</span>
 
-<span class="sd">    format:</span>
-<span class="sd">       controls what information is in the output messages.  The default is</span>
-<span class="sd">         `&#39;%(asctime)s %(levelname)s: %(name)s: %(message)s&#39;`</span>
-<span class="sd">       which results in output looking like this:</span>
-<span class="sd">        `time LEVEL: filename: Your Message Here.`&quot;&quot;&quot;</span>
+<span class="sd">    ***N.B. if name is not passed as an argument then this will set the root</span>
+<span class="sd">    logger properties (and all the pi3d module logging will also be logged.)***</span>
 
-  <span class="k">global</span> <span class="n">HANDLER</span><span class="p">,</span> <span class="n">LOG_LEVEL</span><span class="p">,</span> <span class="n">LOG_FILE</span><span class="p">,</span> <span class="n">LOG_FORMAT</span>
-  <span class="n">LOG_LEVEL</span> <span class="o">=</span> <span class="p">(</span><span class="n">level</span> <span class="ow">or</span> <span class="n">LOG_LEVEL</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-  <span class="n">LOG_FILE</span> <span class="o">=</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">LOG_FILE</span>
-  <span class="n">LOG_FORMAT</span> <span class="o">=</span> <span class="nb">format</span> <span class="ow">or</span> <span class="n">LOG_FORMAT</span>
+<span class="sd">    The level, file, format arguments are passed on to set_logs() see below.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
-  <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
-    <span class="n">level</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">logging</span><span class="p">,</span> <span class="n">LOG_LEVEL</span><span class="p">),</span>
-    <span class="nb">format</span><span class="o">=</span><span class="n">LOG_FORMAT</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span> <span class="c1"># to reference methods to those of the logger instance</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">warning</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">critical</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">critical</span>
 
-  <span class="k">if</span> <span class="n">LOG_FILE</span><span class="p">:</span>
-    <span class="n">parent_makedirs</span><span class="p">(</span><span class="n">LOG_FILE</span><span class="p">)</span>
-    <span class="n">HANDLER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">LOG_FILE</span><span class="p">)</span>
-  <span class="k">else</span><span class="p">:</span>
-    <span class="n">HANDLER</span> <span class="o">=</span> <span class="kc">None</span></div>
+    <span class="c1"># pi3d only adds one handler for each instance of Log. self.HANDLER holds a </span>
+    <span class="c1"># reference to it so that can be changed by subsequent calls to set_logs()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_logs</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
 
-<span class="n">set_logs</span><span class="p">()</span>
+<div class="viewcode-block" id="Log.set_logs"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Log.Log.set_logs">[docs]</a>  <span class="k">def</span> <span class="nf">set_logs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    You can redirect, filter or reformat your logging by calling Log.set_logs().</span>
+<span class="sd">    Log.set_logs() has three optional parameters:</span>
 
-<div class="viewcode-block" id="logger"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Log.logger">[docs]</a><span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  The typical usage of the Log module has a single LOGGER per Python file.</span>
+<span class="sd">      level:</span>
+<span class="sd">        can be one of &#39;DEBUG&#39;, &#39;INFO&#39;, &#39;WARNING&#39;, &#39;ERROR&#39;, or &#39;CRITICAL&#39;.</span>
+<span class="sd">        Everything that&#39;s the current log level or greater is displayed -</span>
+<span class="sd">        for example, if your current log level is &#39;WARNING&#39;, then you&#39;ll display</span>
+<span class="sd">        all warning, error, or critical messages. If this argument is not</span>
+<span class="sd">        supplied then the level will not change from previously set.</span>
 
-<span class="sd">  At the top of the file is typically:</span>
+<span class="sd">      file:</span>
+<span class="sd">         is the name of a file to which to redirect messages. If this argument</span>
+<span class="sd">         is not supplied or is set to None then logging to file will stop</span>
+<span class="sd">         if previously set, and will be directed to terminal.</span>
 
-<span class="sd">    LOGGER = Log.logger(__name__)</span>
+<span class="sd">      format:</span>
+<span class="sd">         controls what information is in the output messages.  The default is</span>
+<span class="sd">           `&#39;%(asctime)s %(levelname)s: %(name)s: %(message)s&#39;`</span>
+<span class="sd">         which results in output looking like this:</span>
+<span class="sd">          `time LEVEL: filename: Your Message Here.`&#39;&#39;&#39;</span>
 
-<span class="sd">  and then later on you can do things like:</span>
+    <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
 
-<span class="sd">    * LOGGER.debug(&#39;stuff here&#39;)</span>
-<span class="sd">    * LOGGER.info(&#39;Some information about %s&#39;, some_name)</span>
-<span class="sd">    * LOGGER.error(&#39;Not everything was displayed, sorry!&#39;)</span>
-<span class="sd">    * LOGGER.error(&#39;You died with error code %d, message %s&#39;, error_code, msg)</span>
-<span class="sd">    * LOGGER.critical(&#39;Your machine is about to explode.  Leave the building.&#39;)</span>
+    <span class="n">hdlrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">handlers</span> <span class="c1"># shortcut</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># this is one created by pi3d previously</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">hdlrs</span><span class="p">:</span>  <span class="c1"># error if it&#39;s been deleted by external actions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># shouldn&#39;t really get here but see above</span>
+      
+    <span class="k">if</span> <span class="n">file</span><span class="p">:</span> <span class="c1"># make new FileHandler</span>
+      <span class="n">file_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">file_handler</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span> <span class="o">=</span> <span class="n">file_handler</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># check if FileHandler previously and remove so logging to screen</span>
+      <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span><span class="p">)</span> <span class="o">==</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="sd">  (Note that the values for the format string, like &quot;some_name&quot;, &quot;error_code&quot; or</span>
-<span class="sd">  &quot;msg&quot; are passed in as arguments - that&#39;s so you never even construct the</span>
-<span class="sd">  message if it isn&#39;t going to be displayed.)</span>
-<span class="sd">  &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># need to make a new StreamHandler</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span><span class="p">)</span>
 
-  <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span> <span class="ow">or</span> <span class="s1">&#39;logging&#39;</span><span class="p">)</span>
-  <span class="k">if</span> <span class="n">HANDLER</span> <span class="ow">and</span> <span class="n">HANDLER</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">log</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">HANDLER</span><span class="p">)</span>
-
-  <span class="k">return</span> <span class="n">log</span></div>
-
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
-<span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Log level is </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">LOG_LEVEL</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="nb">format</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(name)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">HANDLER</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="nb">format</span><span class="p">))</span></div></div>
 </pre></div>
 
           </div>
@@ -176,12 +175,12 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.17 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2016, The pi3d team.
+        &#169; Copyright 2012-2017, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

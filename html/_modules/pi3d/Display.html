@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Display &#8212; pi3d 2.16 documentation</title>
+    <title>pi3d.Display &#8212; pi3d 2.17 documentation</title>
     
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.16',
+        VERSION:     '2.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="top" title="pi3d 2.16 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.17 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.17 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -57,9 +57,9 @@
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">platform</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">import</span> <span class="nn">pi3d</span>
-<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="k">import</span> <span class="n">Log</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.DisplayOpenGL</span> <span class="k">import</span> <span class="n">DisplayOpenGL</span>
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
 
@@ -69,7 +69,7 @@
   <span class="kn">from</span> <span class="nn">pyxlib.x</span> <span class="k">import</span> <span class="o">*</span>
   <span class="kn">from</span> <span class="nn">pyxlib</span> <span class="k">import</span> <span class="n">xlib</span>
 
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
 <span class="n">ALLOW_MULTIPLE_DISPLAYS</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">RAISE_EXCEPTIONS</span> <span class="o">=</span> <span class="kc">True</span>
@@ -447,7 +447,10 @@
           <span class="k">raise</span>
 
   <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+      <span class="k">pass</span> <span class="c1"># often something has already been deleted leading to various None objects</span>
 
 <div class="viewcode-block" id="Display.swap_buffers"><a class="viewcode-back" href="../../pi3d.html#pi3d.Display.Display.swap_buffers">[docs]</a>  <span class="k">def</span> <span class="nf">swap_buffers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">swap_buffers</span><span class="p">()</span></div></div>
@@ -644,12 +647,12 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.17 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2016, The pi3d team.
+        &#169; Copyright 2012-2017, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

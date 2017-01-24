@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.shape.Building &#8212; pi3d 2.16 documentation</title>
+    <title>pi3d.shape.Building &#8212; pi3d 2.17 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.16',
+        VERSION:     '2.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="top" title="pi3d 2.16 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.17 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.17 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -104,10 +104,9 @@
 <span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="k">import</span> <span class="n">Shape</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="k">import</span> <span class="n">Buffer</span>
 <span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="k">import</span> <span class="n">Texture</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="k">import</span> <span class="n">Log</span>
-
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
 <span class="n">rads</span> <span class="o">=</span> <span class="mf">0.017453292512</span> <span class="c1"># degrees to radians</span>
 
@@ -543,13 +542,13 @@
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span><span class="p">):</span> <span class="c1"># this could theoretically get different files with same name</span>
           <span class="n">mapfile</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span>
           <span class="k">break</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading building map ...&quot;</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading building map ...</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">)</span>
 
     <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)</span>
     <span class="n">im</span> <span class="o">=</span> <span class="n">ImageOps</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
     <span class="n">ix</span><span class="p">,</span><span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;image size&quot;</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">iy</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;image size </span><span class="si">%d</span><span class="s2">, </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)</span>
 
     <span class="n">startx</span> <span class="o">=</span> <span class="n">xpos</span> <span class="o">-</span> <span class="n">ix</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">width</span>
     <span class="n">starty</span> <span class="o">=</span> <span class="n">zpos</span> <span class="o">-</span> <span class="n">ix</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">depth</span>
@@ -563,7 +562,6 @@
     <span class="n">pixels</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 
     <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">iy</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
       <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ix</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
           <span class="n">colour</span> <span class="o">=</span> <span class="n">pixels</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]</span>
 
@@ -911,12 +909,12 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.17 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2016, The pi3d team.
+        &#169; Copyright 2012-2017, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

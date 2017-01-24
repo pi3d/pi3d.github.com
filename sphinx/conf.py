@@ -12,7 +12,7 @@
 # serve to show the default.
 
 # -- pi3d specific configuration -------------------------------------------------
-import sys
+import sys, time
 
 def _fix_path():
   from os.path import dirname, exists, join
@@ -49,7 +49,7 @@ release = version
 
 # General information about the project.
 project = 'pi3d'
-copyright = '2012-2016, The pi3d team'
+copyright = '2012-{}, The pi3d team'.format(time.localtime().tm_year)
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

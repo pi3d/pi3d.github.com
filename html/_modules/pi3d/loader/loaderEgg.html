@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.loader.loaderEgg &#8212; pi3d 2.16 documentation</title>
+    <title>pi3d.loader.loaderEgg &#8212; pi3d 2.17 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.16',
+        VERSION:     '2.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="top" title="pi3d 2.16 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.17 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.17 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -54,21 +54,17 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">re</span><span class="o">,</span> <span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">pi3d</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">pi3d</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
 <span class="kn">from</span> <span class="nn">six_mod.moves</span> <span class="k">import</span> <span class="n">xrange</span>
 <span class="kn">from</span> <span class="nn">six_mod</span> <span class="k">import</span> <span class="n">advance_iterator</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="k">import</span> <span class="n">Texture</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="k">import</span> <span class="n">Buffer</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="c1">#########################################################################################</span>
-<span class="c1">#</span>
-<span class="c1"># this block added by paddy gaunt 15 June 2012</span>
-<span class="c1"># Copyright (c) Paddy Gaunt, 2012</span>
-<span class="c1">#</span>
-<span class="c1">#########################################################################################</span>
-<span class="c1">#######################################################################</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
 <div class="viewcode-block" id="vertex"><a class="viewcode-back" href="../../../pi3d.loader.html#pi3d.loader.loaderEgg.vertex">[docs]</a><span class="k">class</span> <span class="nc">vertex</span><span class="p">():</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coords_in</span><span class="p">,</span> <span class="n">UVcoords_in</span><span class="p">,</span> <span class="n">normal_in</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">coords</span> <span class="o">=</span> <span class="n">coords_in</span>
@@ -77,7 +73,6 @@
     <span class="c1"># self.UVbinormal = UVbinormal_in</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">normal</span> <span class="o">=</span> <span class="n">normal_in</span></div>
 
-<span class="c1">########################################################################</span>
 <div class="viewcode-block" id="polygon"><a class="viewcode-back" href="../../../pi3d.loader.html#pi3d.loader.loaderEgg.polygon">[docs]</a><span class="k">class</span> <span class="nc">polygon</span><span class="p">():</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">normal_in</span><span class="p">,</span> <span class="n">rgba_in</span><span class="p">,</span> <span class="n">MRef_in</span><span class="p">,</span> <span class="n">TRef_in</span><span class="p">,</span> <span class="n">vertexRef_in</span><span class="p">,</span> <span class="n">vpkey_in</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">normal</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#should always be three</span>
@@ -97,9 +92,6 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">vref</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">vpKey</span> <span class="o">=</span> <span class="n">vpkey_in</span></div>
-
-<span class="c1">########################################################################</span>
-
 
 <div class="viewcode-block" id="loadFileEGG"><a class="viewcode-back" href="../../../pi3d.loader.html#pi3d.loader.loaderEgg.loadFileEGG">[docs]</a><span class="k">def</span> <span class="nf">loadFileEGG</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">fileName</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Loads an panda3d egg file to produce Buffer object</span>
@@ -133,8 +125,7 @@
         <span class="n">fileName</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">fileName</span>
         <span class="k">break</span>
   <span class="n">filePath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">fileName</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-  <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">filePath</span><span class="p">)</span>
+  <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">filePath</span><span class="p">)</span>
   <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
   <span class="n">l</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># whole thing as a string in memory this will only work for reasonably small files!!!</span>
 
@@ -290,7 +281,7 @@
 
       <span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">indicesLen</span> <span class="o">=</span> <span class="n">ilen</span>
       <span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-      <span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">ttype</span> <span class="o">=</span> <span class="n">GL_TRIANGLES</span>
+      <span class="n">model</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">ttype</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">GL_TRIANGLES</span>
 
       <span class="c1"># load the texture file TODO check if same as previously loaded files (for other loadModel()s)</span>
       <span class="k">if</span> <span class="p">(</span><span class="n">gTRef</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">):</span>
@@ -321,8 +312,7 @@
       <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
       <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">])):</span> <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
       <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">filePath</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s2">&quot;filename&quot;</span><span class="p">])</span>
+      <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;path: </span><span class="si">%s</span><span class="s1">, filename:</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">filePath</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s2">&quot;filename&quot;</span><span class="p">])</span>
       <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s2">&quot;texID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Texture</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filePath</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">textureList</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s2">&quot;filename&quot;</span><span class="p">]),</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="c1"># load from file</span>
     <span class="k">if</span> <span class="s2">&quot;&lt;CoordinateSystem&gt;&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
       <span class="n">model</span><span class="o">.</span><span class="n">coordinateSystem</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -361,12 +351,12 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.17 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2016, The pi3d team.
+        &#169; Copyright 2012-2017, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.shape.ElevationMap &#8212; pi3d 2.16 documentation</title>
+    <title>pi3d.shape.ElevationMap &#8212; pi3d 2.17 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.16',
+        VERSION:     '2.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="top" title="pi3d 2.16 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.17 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.17 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -62,7 +62,9 @@
 <span class="kn">from</span> <span class="nn">pi3d</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="k">import</span> <span class="n">Buffer</span>
 <span class="kn">from</span> <span class="nn">pi3d.Shape</span> <span class="k">import</span> <span class="n">Shape</span>
-<span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="k">import</span> <span class="n">Utility</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">PIL_OK</span><span class="p">:</span>
   <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
@@ -106,7 +108,7 @@
     <span class="n">divx</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1"># one more vertex in each direction than number of divisions</span>
     <span class="n">divy</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">if</span> <span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">or</span> <span class="n">divy</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
-      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;... Map size can&#39;t be bigger than 199x199 divisions&quot;</span><span class="p">)</span>
+      <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;... Map size can&#39;t be bigger than 199x199 divisions&quot;</span><span class="p">)</span>
       <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
       <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
     <span class="c1">#print(type(mapfile), type(&quot;&quot;))</span>
@@ -119,8 +121,7 @@
               <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span><span class="p">):</span> <span class="c1"># this could theoretically get different files with same name</span>
                 <span class="n">mapfile</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span>
                 <span class="k">break</span>
-          <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading height map ...&quot;</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">)</span>
+          <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading height map ...</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">)</span>
 
           <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -157,8 +158,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">ht_y</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ht_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
 
-    <span class="k">if</span> <span class="n">VERBOSE</span><span class="p">:</span>
-      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating Elevation Map ...&quot;</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating Elevation Map ...</span><span class="si">%d</span><span class="s2"> x </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">wh</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">0.5</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">hh</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">*</span> <span class="mf">0.5</span>
@@ -428,12 +428,12 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.17 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2016, The pi3d team.
+        &#169; Copyright 2012-2017, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

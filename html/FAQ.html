@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &#8212; pi3d 2.16 documentation</title>
+    <title>Frequently Asked Questions &#8212; pi3d 2.17 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.16',
+        VERSION:     '2.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.16 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.17 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.16 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.17 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -425,9 +425,9 @@ the demo PyQtCube.py</div></blockquote>
 <p>All the demos use images to create the surface patterns for shapes. Is
 it possible to define a material color.</p>
 <blockquote>
-<div><p>The method myshape.set_material((0.9, 0.4, 0.0)) can be used (the default
-is (0.5, 0.5, 0.5)) but to render using this you need to use an appropriate
-<a href="#id3"><span class="problematic" id="id4">mat_</span></a> shader:</p>
+<div><p>The method <code class="docutils literal"><span class="pre">myshape.set_material((0.9,</span> <span class="pre">0.4,</span> <span class="pre">0.0))</span></code> can be used (the default
+is <code class="docutils literal"><span class="pre">(0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.5)</span></code>) but to render using this you need to use an appropriate
+<a href="#id1"><span class="problematic" id="id2">mat_</span></a> shader:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[])</span> <span class="c1"># shader = Shader(&#39;mat_flat&#39;) uses no lighting</span>
 <span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[])</span> <span class="c1"># mat_light uses a light</span>
 <span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">bumptex</span><span class="p">],</span> <span class="mf">4.0</span><span class="p">)</span> <span class="c1"># mat_bump uses light and normal map</span>
@@ -1180,7 +1180,7 @@ $ crontab -e
 CtrlX,Y,Rtn
 </pre></div>
 </div>
-<p>In these instructions the <a href="#id1"><span class="problematic" id="id2">``</span></a>... `` at the start of lines represents the
+<p>In these instructions the &#8221;...&#8221; at the start of lines represents the
 fact this is text inside a file and shouldn&#8217;t be actually typed in! Also you
 need to change the WiFi credentials to match your router, NB the SSID
 and PASSWORD need to be inside quotes. In the picture_getter.py script
@@ -1598,7 +1598,7 @@ laser point for gun?</p>
 For example to modify ForestWalk.py to include a laser dot:</p>
 <p>1.Copy the shaders you want to get lasers on to the pi3d_demos/shaders
 directory and rename i.e. uv_bump_laserdot.vs, uv_bump_laserdot.fs</p>
-<p>2.edit the fragment shaders i.e. uv_bump_lasterdot.fs and add the
+<p>2.edit the fragment shaders i.e. uv_bump_laserdot.fs and add the
 two lines:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#include std_bump.inc</span>
   <span class="nb">float</span> <span class="n">radial</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">vec2</span><span class="p">(</span><span class="n">gl_FragCoord</span><span class="p">),</span> <span class="n">unif</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">);</span> <span class="o">//</span> <span class="mi">1</span> <span class="o">---</span> <span class="n">distance</span> <span class="kn">from</span> <span class="nn">centre</span> <span class="n">of</span> <span class="n">screen</span>
@@ -1778,11 +1778,11 @@ wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.16 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.17 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2016, The pi3d team.
+        &#169; Copyright 2012-2017, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

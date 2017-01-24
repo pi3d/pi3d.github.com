@@ -398,8 +398,8 @@ Materials
 All the demos use images to create the surface patterns for shapes. Is
 it possible to define a material color.
 
-  The method myshape.set_material((0.9, 0.4, 0.0)) can be used (the default
-  is (0.5, 0.5, 0.5)) but to render using this you need to use an appropriate
+  The method ``myshape.set_material((0.9, 0.4, 0.0))`` can be used (the default
+  is ``(0.5, 0.5, 0.5)``) but to render using this you need to use an appropriate
   mat_ shader::
 
     myshape.set_draw_details(shader, []) # shader = Shader('mat_flat') uses no lighting
@@ -1188,7 +1188,7 @@ boot quickly and allow me to run a dedicated pi3d application.
     ... @reboot screen -dmS PICFRAME /usr/bin/python3 /home/pi/pi3d_pictureframe/PictureFrame.py
     CtrlX,Y,Rtn
     
-  In these instructions the ``... `` at the start of lines represents the
+  In these instructions the "..." at the start of lines represents the
   fact this is text inside a file and shouldn't be actually typed in! Also you
   need to change the WiFi credentials to match your router, NB the SSID
   and PASSWORD need to be inside quotes. In the picture_getter.py script 
@@ -1654,7 +1654,7 @@ laser point for gun?
   1.Copy the shaders you want to get lasers on to the pi3d_demos/shaders 
   directory and rename i.e. uv_bump_laserdot.vs, uv_bump_laserdot.fs
 
-  2.edit the fragment shaders i.e. uv_bump_lasterdot.fs and add the 
+  2.edit the fragment shaders i.e. uv_bump_laserdot.fs and add the 
   two lines::
 
       #include std_bump.inc

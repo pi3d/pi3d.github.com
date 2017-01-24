@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction to pi3d &#8212; pi3d 2.16 documentation</title>
+    <title>Introduction to pi3d &#8212; pi3d 2.17 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.16',
+        VERSION:     '2.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.16 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.17 documentation" href="index.html" />
     <link rel="next" title="Frequently Asked Questions" href="FAQ.html" />
     <link rel="prev" title="Welcome to pi3d’s documentation!" href="index.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pi3d’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.16 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.17 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -57,10 +57,10 @@
   <div class="section" id="introduction-to-pi3d">
 <h1>Introduction to pi3d<a class="headerlink" href="#introduction-to-pi3d" title="Permalink to this headline">¶</a></h1>
 <img alt="_images/rpilogoshad128.png" class="align-left" src="_images/rpilogoshad128.png" />
-<p><strong>pi3d written by Tim Skillman, Paddy Gaunt, Tom Ritchford Copyright (c) 2012-2016</strong></p>
+<p><strong>pi3d written by Tim Skillman, Paddy Gaunt, Tom Ritchford</strong> Copyright © 2012 - 2017</p>
 <p>Here is a link to an excellent, self explanatory <a class="reference external" href="https://youtu.be/gXTU6x8dQJw">YouTube</a> video made by
 Peter Farrell that covers much of the content of this ReadMe.</p>
-<p>There&#8217;s plenty of 3D code flying around at the moment for the Raspberry Pi,
+<p>There&#8217;s plenty of 3D code flying around for the Raspberry Pi,
 but much of it is rather complicated to understand and most of it can sit
 under the bonnet!</p>
 <p>pi3d is a Python module that aims to greatly simplify writing 3D in Python
@@ -219,7 +219,7 @@ the relevant dependencies installed. You then just need to:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ cd ~
 $ sudo apt-get update
 $ sudo apt-get upgrade
-$ sudo pip-3.2 install pi3d
+$ sudo pip3 install pi3d
 $ sudo raspi-config # set gpu_mem=128
 </pre></div>
 </div>
@@ -239,8 +239,8 @@ $ sudo apt-get update
 $ sudo apt-get upgrade
 $ sudo apt-get install python3-dev python3-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
 $ sudo apt-get install python3-pip
-$ sudo pip-3.2 install pi3d
-$ sudo pip-3.2 install Pillow
+$ sudo pip3 install pi3d
+$ sudo pip3 install Pillow
 $ sudo raspi-config # set gpu_mem=128
 
 ####### download demos in their latest form, quicker #######
@@ -263,10 +263,10 @@ installed and whether you want to work with some of the latest additions.</p>
 type:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo pip install pi3d
   or for python3
-$ sudo pip-3.2 install pi3d
+$ sudo pip3 install pi3d
 </pre></div>
 </div>
-<p>(or pip3 or whatever see below*) If you don&#8217;t have pip installed
+<p>(or pip-3.2, pip3.4, pip or whatever see below*) If you don&#8217;t have pip installed
 you probably should install it as described below under <code class="docutils literal"><span class="pre">Python</span> <span class="pre">Imaging</span></code>
 as it&#8217;s the easiest way to install Pillow prior to debian jessie based
 installations.  You can do the equivalent of <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></code> manually
@@ -314,12 +314,12 @@ using the debian package manager:</p>
 to jessie you needed to:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install python3-dev python3-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
 $ sudo apt-get install python3-pip
-$ sudo pip-3.2 install Pillow
+$ sudo pip3 install Pillow
 ...
 </pre></div>
 </div>
 <p>If you miss any of the dependent libraries and need to add them later
-you will have to <code class="docutils literal"><span class="pre">pip</span> <span class="pre">uninstall</span></code> then re <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></code></p>
+you will have to <code class="docutils literal"><span class="pre">pip3</span> <span class="pre">uninstall</span></code> then re <code class="docutils literal"><span class="pre">pip3</span> <span class="pre">install</span></code></p>
 <p>For python2 support the first above will provide the required graphics
 libraries used by Pillow but you will need to swap to <code class="docutils literal"><span class="pre">python-dev</span></code>
 and <code class="docutils literal"><span class="pre">python-setuptools</span></code> also pip is different:</p>
@@ -668,11 +668,11 @@ to pi3d - keep up the good work!</p>
         <li class="right" >
           <a href="index.html" title="Welcome to pi3d’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.16 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.17 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2016, The pi3d team.
+        &#169; Copyright 2012-2017, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

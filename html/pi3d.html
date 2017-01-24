@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &#8212; pi3d 2.16 documentation</title>
+    <title>pi3d Package &#8212; pi3d 2.17 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.16',
+        VERSION:     '2.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.16 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.17 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.16 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.17 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -100,12 +100,48 @@ meeting at this vertex, otherwise just use first (for speed).</dd>
 <dt id="pi3d.Buffer.Buffer.unib">
 <code class="descname">unib</code><em class="property"> = None</em><a class="headerlink" href="#pi3d.Buffer.Buffer.unib" title="Permalink to this definition">¶</a></dt>
 <dd><p>pass to shader array of vec3 uniform variables:</p>
-<blockquote>
-<div>0  ntile, shiny, blend           0   2
-1  material                      3   5
-2  umult, vmult, point_size      6   8
-3  u_off, v_off, line_width/bump 9  10 #NB line width and bump factor</div></blockquote>
-<p>===== ============================ ==== ==  clash but shouldn&#8217;t be an issue</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="73%" />
+<col width="10%" />
+<col width="5%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">vec3</th>
+<th class="head">description</th>
+<th class="head" colspan="2">python</th>
+</tr>
+<tr class="row-even"><th class="head">index</th>
+<th class="head">&nbsp;</th>
+<th class="head">from</th>
+<th class="head">to</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>0</td>
+<td>ntile, shiny, blend</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>material</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>umult, vmult, point_size</td>
+<td>6</td>
+<td>8</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>u_off, v_off, line_width/bump</td>
+<td>9</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p>NB line width and bump factor clash but shouldn&#8217;t be an issue</p>
 </dd></dl>
 
 <dl class="method">
@@ -1788,11 +1824,11 @@ new glTextureBuffers i.e. for movie textures</p>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.16 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.17 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2016, The pi3d team.
+        &#169; Copyright 2012-2017, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
