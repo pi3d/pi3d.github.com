@@ -727,10 +727,14 @@ looking like:
 ``2013-08-19 15:36:46,232 INFO: __main__: Starting CollisionBalls``
 Where does that come from and what does it mean?
 
-  The Log module is started by several of the basic classes (Buffer,
+  The Log module used to be started by several of the basic classes (Buffer,
   EventStream, Display, Loadable, Mouse, parse_mtl, Shader, Screenshot)
-  This means that all programs using the pi3d modules will create a Log
-  as a by-product. It can be used for debugging and recording errors.
+  However there were issues with this adding event handlers into the python
+  logger hierarchy. In version v2.17 the logging within the pi3d module
+  classes was switched to use the normal python logging.
+  
+  The example logger message above is shown because the CollisionBalls demo
+  makes use of the pi3d.Log class.
 
 How to use logging
 ~~~~~~~~~~~~~~~~~~
@@ -738,8 +742,27 @@ How to use logging
 How do I use ``pi3d.Log`` to gather or display useful information
 in my application?
 
-  See the documentation
+  pi3d.Log is a wrapper for python logging. You use it by making an instance
+  of this class in your application then calling the methods ``debug()`` 
+  ``info()`` ``warning()`` etc. Whether the message is logged depends on the
+  ``level`` set and whether it appears on screen or is sent to file and
+  the formatting or additional info can also be controlled. See the documentation
   `here <http://pi3d.github.io/html/pi3d.util.html#module-pi3d.util.Log/>`_.
+
+Printed messages not visible on Raspberry Pi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sometimes I can't get printed messages to show in the terminal
+when running on the Raspberry Pi and it makes it hard to debug the program.
+Sometimes they show but the carriage returns just do line feeds so the text
+works its way across the terminal window.
+
+  This is a side effect of using ncurses for the pi3d.Keyboard which makes
+  it fairly universal where the program is exited by watching for the ESC
+  key.
+
+  A solution is to use the pi3d.Log class and send the output to a file.
+  See the Blur.py demo and the pi3d.Log module documentation (link above)
 
 Moving shapes together
 ----------------------

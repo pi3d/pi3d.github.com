@@ -82,7 +82,7 @@ util Package
     :show-inheritance:
 
 :mod:`PexParticles` Module
----------------------
+--------------------------
 
 .. automodule:: pi3d.util.PexParticles
     :members:
