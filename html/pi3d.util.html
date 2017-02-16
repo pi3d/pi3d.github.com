@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>util Package &#8212; pi3d 2.17 documentation</title>
+    <title>util Package &#8212; pi3d 2.18 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.17',
+        VERSION:     '2.18',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.17 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.18 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.17 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.18 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -214,7 +214,7 @@ Arguments:</p>
 <span id="fixedstring-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">FixedString</span></code> Module<a class="headerlink" href="#module-pi3d.util.FixedString" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.FixedString.FixedString">
-<em class="property">class </em><code class="descclassname">pi3d.util.FixedString.</code><code class="descname">FixedString</code><span class="sig-paren">(</span><em>font</em>, <em>string</em>, <em>camera=None</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>font_size=24</em>, <em>margin=5.0</em>, <em>justify='C'</em>, <em>background_color=None</em>, <em>shader=None</em>, <em>f_type=''</em>, <em>mipmap=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pi3d.util.FixedString.</code><code class="descname">FixedString</code><span class="sig-paren">(</span><em>font</em>, <em>string</em>, <em>camera=None</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>shadow=(0</em>, <em>0</em>, <em>0</em>, <em>255)</em>, <em>shadow_radius=0</em>, <em>font_size=24</em>, <em>margin=5.0</em>, <em>justify='C'</em>, <em>background_color=None</em>, <em>shader=None</em>, <em>f_type=''</em>, <em>mipmap=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/FixedString.html#FixedString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.FixedString.FixedString" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></code></a></p>
 <p>A texture containing a simple string drawn using ImageDraw.</p>
 <p>The advantage over a standard String is that it only requires a simple
@@ -231,6 +231,10 @@ rather than two triangles for each letter.</p>
 <dt><em>color</em>:</dt>
 <dd>Color in format &#8216;#RRGGBB&#8217;, (255,0,0,255), &#8216;orange&#8217; etc (as accepted 
 by PIL.ImageDraw) default (255, 255, 255, 255) i.e. white 100% alpha</dd>
+<dt><em>shadow</em>:</dt>
+<dd>Color of shadow, default black.</dd>
+<dt><em>shadow_radius</em>:</dt>
+<dd>Gaussian blur radius applied to shadow layer, default 0 (no shadow)</dd>
 <dt><em>font_size</em>:</dt>
 <dd>Point size for drawing the letters on the internal Texture. default 24</dd>
 <dt><em>margin</em>:</dt>
@@ -268,7 +272,7 @@ SMOOTH do what they sound like they will do.</dd>
 <span id="font-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Font</span></code> Module<a class="headerlink" href="#module-pi3d.util.Font" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.Font.Font">
-<em class="property">class </em><code class="descclassname">pi3d.util.Font.</code><code class="descname">Font</code><span class="sig-paren">(</span><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=42</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em>, <em>background_color=None</em>, <em>mipmap=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pi3d.util.Font.</code><code class="descname">Font</code><span class="sig-paren">(</span><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=42</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em>, <em>background_color=None</em>, <em>shadow=(0</em>, <em>0</em>, <em>0</em>, <em>255)</em>, <em>shadow_radius=0</em>, <em>spacing=None</em>, <em>mipmap=True</em>, <em>filter=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Texture.Texture</span></code></a></p>
 <p>A Font contains a TrueType font ready to be rendered in OpenGL.</p>
 <p>A font is just a mapping from codepoints (single Unicode characters) to glyphs
@@ -316,6 +320,18 @@ this isn&#8217;t used.</dd>
 <dt><em>background_color</em>:</dt>
 <dd>filled background in ImageDraw format as above. default None i.e.
 transparent.</dd>
+<dt><em>shadow</em>:</dt>
+<dd>Color of shadow, default black.</dd>
+<dt><em>shadow_radius</em>:</dt>
+<dd>Gaussian blur radius applied to shadow layer, default 0 (no shadow)</dd>
+<dt><em>spacing</em>:</dt>
+<dd>Extra spacing between letters to allow for shadow. The default value
+None will add spacing equal to the shadow_radius, this will be overridden
+by any value supplied.</dd>
+<dt><em>mipmap</em>:</dt>
+<dd>Resulting texture mipmap option, default true</dd>
+<dt><em>filter</em>:</dt>
+<dd>Resulting texture filter option, default None</dd>
 </dl>
 </dd></dl>
 
@@ -1350,7 +1366,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.17 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.18 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>

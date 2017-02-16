@@ -1479,6 +1479,25 @@ or changing colour.
   For complicated things like this then the PointText class should be used
   (with TextBlock components) see the demo StringMulti.py
 
+Shadow
+~~~~~~
+
+How can I make my text show up against different coloured backgrounds (such
+as when displaying the score as 2D text)
+
+  There are two ways to do this in pi3d. The first is to define a background_color
+  in the Font or FixedString with a low alpha value (say 20 out of 255).
+  This will produce partially transparrent background for your letters which
+  will be a rectangle if you are using a FixedString but will be uneven
+  edged if you are using a normal String with Font. If you set the alpha to
+  zero you will end up with a subtle line around the outside of each letter,
+  which may be enough.
+  
+  To get a larger outline around letters you can specify a shadow_radius and
+  a shadow RGBA value (default black with no transparrency). This produces 
+  a gaussian blurred version 'underneath' each letter. See the Shapes demo
+  for how this might look.
+
 Normal Map generation
 ---------------------
 

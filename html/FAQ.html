@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &#8212; pi3d 2.17 documentation</title>
+    <title>Frequently Asked Questions &#8212; pi3d 2.18 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.17',
+        VERSION:     '2.18',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.17 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.18 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.17 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.18 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -1436,6 +1436,24 @@ or changing colour.</p>
 <div>For complicated things like this then the PointText class should be used
 (with TextBlock components) see the demo StringMulti.py</div></blockquote>
 </div>
+<div class="section" id="shadow">
+<h3>Shadow<a class="headerlink" href="#shadow" title="Permalink to this headline">¶</a></h3>
+<p>How can I make my text show up against different coloured backgrounds (such
+as when displaying the score as 2D text)</p>
+<blockquote>
+<div><p>There are two ways to do this in pi3d. The first is to define a background_color
+in the Font or FixedString with a low alpha value (say 20 out of 255).
+This will produce partially transparrent background for your letters which
+will be a rectangle if you are using a FixedString but will be uneven
+edged if you are using a normal String with Font. If you set the alpha to
+zero you will end up with a subtle line around the outside of each letter,
+which may be enough.</p>
+<p>To get a larger outline around letters you can specify a shadow_radius and
+a shadow RGBA value (default black with no transparrency). This produces
+a gaussian blurred version &#8216;underneath&#8217; each letter. See the Shapes demo
+for how this might look.</p>
+</div></blockquote>
+</div>
 </div>
 <div class="section" id="normal-map-generation">
 <h2>Normal Map generation<a class="headerlink" href="#normal-map-generation" title="Permalink to this headline">¶</a></h2>
@@ -1742,6 +1760,7 @@ wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
 <li><a class="reference internal" href="#quick-change">quick change</a></li>
 <li><a class="reference internal" href="#fixedstring">FixedString</a></li>
 <li><a class="reference internal" href="#pointtext">PointText</a></li>
+<li><a class="reference internal" href="#shadow">Shadow</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#normal-map-generation">Normal Map generation</a></li>
@@ -1801,7 +1820,7 @@ wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.17 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.18 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
