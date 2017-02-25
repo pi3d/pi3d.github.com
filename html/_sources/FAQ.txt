@@ -286,6 +286,28 @@ carriage return doesn't work.
         if keys.read() == 27:
           break
 
+No video output running remotely
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+I am using the Raspberry Pi through a remote terminal with ssh or putty
+but when I run pi3d application there isn't any video output. Well, when
+I look at the screen connected to the Raspberry Pi I can see that the video
+output is appearing there. How can I see it on a remote terminal?
+
+  To pipe the images from the local display to a remote terminal requires
+  slightly specialist software and takes quite a bit of processing time. So
+  you won't be able to see programs run full speed but you can do development
+  and testing.
+  
+  An easy way is to install realvnc on the Raspberry Pi (it's already there 
+  in the latest raspbian but needs 'activating'
+  https://www.realvnc.com/docs/raspberry-pi.html#raspberry-pi-setup) 
+  and on the machine you want to connect from. There are explicit instructions 
+  on the realvnc website. To get things working on my machine I had to reduce 
+  the screen resolution quite a bit and enable the experimental direct capture mode.
+  The animation speed is significantly faster with the xserver desktop not
+  running and execting the pi3d programs from the command line. To do this
+  you will have to change the default behavior using raspi-config.
 
 Optional arguments
 ------------------
