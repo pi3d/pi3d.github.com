@@ -290,7 +290,7 @@ No video output running remotely
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 I am using the Raspberry Pi through a remote terminal with ssh or putty
-but when I run pi3d application there isn't any video output. Well, when
+but when I run pi3d applications there isn't any video output. Well, when
 I look at the screen connected to the Raspberry Pi I can see that the video
 output is appearing there. How can I see it on a remote terminal?
 
@@ -306,7 +306,7 @@ output is appearing there. How can I see it on a remote terminal?
   on the realvnc website. To get things working on my machine I had to reduce 
   the screen resolution quite a bit and enable the experimental direct capture mode.
   The animation speed is significantly faster with the xserver desktop not
-  running and execting the pi3d programs from the command line. To do this
+  running and executing the pi3d programs from the command line. To do this
   you will have to change the default behavior using raspi-config.
 
 Optional arguments
