@@ -353,10 +353,15 @@ of all the steps to get a quick loading stand-alone pi3d SD card.</p>
 <blockquote>
 <div><p>The machine will need to have a gpu that runs OpenGL2+ and obviously
 it will need to have python installed. Setting up in a Linux environment
-is most similar to the procedure for the Raspberry Pi. Linux can be set
+is most similar to the procedure for the Raspberry Pi. In fact by far the
+most staightforward route is to make a Raspbian Pixel USB stick following
+the instructions here <a class="reference external" href="https://www.raspberrypi.org/blog/pixel-pc-mac/">https://www.raspberrypi.org/blog/pixel-pc-mac/</a>
+After that your PC will behave pretty much like the Raspberry Pi and pi3d
+will work after a simple <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pi3d</span></code> The USB isn&#8217;t as fast
+as a hard drive but everything else will run at PC speed. Linux can be set
 up in its own boot partition or in vmware (eg Player which is free, you
 will also need to <code class="docutils literal"><span class="pre">enable</span> <span class="pre">3d</span> <span class="pre">acceleration</span></code>.)</p>
-<p>You need to install libraries
+<p>For non Pixel linux you will need to install libraries
 that emulate OpenGLES behaviour for the gpu:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install mesa-utils-extra
 </pre></div>

@@ -107,10 +107,10 @@
                                        <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
     <span class="n">divx</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1"># one more vertex in each direction than number of divisions</span>
     <span class="n">divy</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">or</span> <span class="n">divy</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
-      <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;... Map size can&#39;t be bigger than 199x199 divisions&quot;</span><span class="p">)</span>
-      <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
-      <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
+    <span class="k">if</span> <span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">512</span> <span class="ow">or</span> <span class="n">divy</span> <span class="o">&gt;</span> <span class="mi">512</span><span class="p">:</span>
+      <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;... Map size can&#39;t be bigger than 511x511 divisions&quot;</span><span class="p">)</span>
+      <span class="n">divx</span> <span class="o">=</span> <span class="mi">511</span>
+      <span class="n">divy</span> <span class="o">=</span> <span class="mi">511</span>
     <span class="c1">#print(type(mapfile), type(&quot;&quot;))</span>
 
     <span class="k">if</span> <span class="n">PIL_OK</span><span class="p">:</span>
@@ -129,10 +129,10 @@
       <span class="k">except</span><span class="p">:</span>
         <span class="n">im</span> <span class="o">=</span> <span class="n">mapfile</span>
       <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">ix</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">ix</span> <span class="o">!=</span> <span class="n">divx</span> <span class="ow">and</span> <span class="n">iy</span> <span class="o">!=</span> <span class="n">divy</span><span class="p">):</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">ix</span> <span class="o">&gt;</span> <span class="mi">511</span> <span class="ow">and</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">ix</span> <span class="o">!=</span> <span class="n">divx</span> <span class="ow">and</span> <span class="n">iy</span> <span class="o">!=</span> <span class="n">divy</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-          <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
-          <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
+          <span class="n">divx</span> <span class="o">=</span> <span class="mi">511</span>
+          <span class="n">divy</span> <span class="o">=</span> <span class="mi">511</span>
         <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">divx</span><span class="p">,</span> <span class="n">divy</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
         <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
 

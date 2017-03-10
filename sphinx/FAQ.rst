@@ -1589,6 +1589,10 @@ ideally running windows?
   If your computer has a suitable graphics card then you should be
   able to do this.
 
+  **Raspbian Pixel** is probably the easiest to set up from scratch and most
+  closely matches behaviour on the Raspberry Pi, if you are happy booting 
+  onto a USB stick see `ReadMe Linux`_
+
   **windows** requires a version of pi3d v2.0 or later see `ReadMe Windows`_
 
   **linux** is more similar to the Raspberry Pi, also see `ReadMe Linux`_
