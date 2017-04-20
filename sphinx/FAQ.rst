@@ -1121,7 +1121,18 @@ directly as Textures in pi3d. How do I do this?
   To refresh the Texture with a constantly changing numpy array use the
   ``Texture.update_ndarray()`` method. This can be passed the new array
   as an argument, alternatively and faster, the Texture.image ndarray can
-  be modified in situ.
+  be modified in situ and update_ndarray() called without any arguments.
+
+Assigning different Textures to vertex groups
+---------------------------------------------
+
+I want an ElevationMap with more detailed textures mapped to different areas.
+i.e. rock, grass, heather, swamp.
+
+  From v2.19 there are ready made shaders included to do this as well as an
+  argument to specify how up to four different diffuse textures along with 
+  four different normal maps can be allocated on a vertex by vertex basis
+  - see the github.com/pi3d/pi3d_demos/ElevMapWalk.py demo.
 
 Without PIL (Pillow)
 --------------------

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>shape Package &#8212; pi3d 2.18 documentation</title>
+    <title>shape Package &#8212; pi3d 2.19 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.18',
+        VERSION:     '2.19',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.18 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.19 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="next" title="sprite Package" href="pi3d.sprite.html" />
     <link rel="prev" title="loader Package" href="pi3d.loader.html" /> 
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -256,12 +256,12 @@ Each cell is width on the x axis and depth on the z axis, and the walls are heig
 <p>The function returns a merged shape with the entire building in it.</p>
 <dl class="attribute">
 <dt id="pi3d.shape.Building.Building.baseScheme">
-<code class="descname">baseScheme</code><em class="property"> = {(1, None): [['R', 0], ['C', 0]], (0, 0, 'edge'): [['W', 0], ['CE', 0]], (1, 0): [['W', 0], ['CE', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]], (0, None): [['R', 0]], '#models': 1}</em><a class="headerlink" href="#pi3d.shape.Building.Building.baseScheme" title="Permalink to this definition">¶</a></dt>
+<code class="descname">baseScheme</code><em class="property"> = {(1, None): [['R', 0], ['C', 0]], (0, 0, 'edge'): [['W', 0], ['CE', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]], '#models': 1, (1, 0): [['W', 0], ['CE', 0]], (0, None): [['R', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.baseScheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pi3d.shape.Building.Building.openSectionScheme">
-<code class="descname">openSectionScheme</code><em class="property"> = {(0, 0, 'edge'): [['W', 0], ['CE', 0]], (2, 0): [['W', 0]], (1, 2): [['CE', 0]], (2, 2, 'edge'): [['CE', 0]], (2, None): [['C', 0], ['R', 0]], (1, 0): [['W', 0], ['CE', 0]], (2, 0, 'edge'): [['W', 0], ['CE', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]], (0, None): [['R', 0]], '#models': 1}</em><a class="headerlink" href="#pi3d.shape.Building.Building.openSectionScheme" title="Permalink to this definition">¶</a></dt>
+<code class="descname">openSectionScheme</code><em class="property"> = {(1, 2): [['CE', 0]], (0, 0, 'edge'): [['W', 0], ['CE', 0]], (2, 0, 'edge'): [['W', 0], ['CE', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]], (2, None): [['C', 0], ['R', 0]], '#models': 1, (2, 0): [['W', 0]], (1, 0): [['W', 0], ['CE', 0]], (2, 2, 'edge'): [['CE', 0]], (0, None): [['R', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.openSectionScheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -519,9 +519,14 @@ proportional to the relative dimension.</p>
 </div>
 <div class="section" id="module-pi3d.shape.ElevationMap">
 <span id="elevationmap-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">ElevationMap</span></code> Module<a class="headerlink" href="#module-pi3d.shape.ElevationMap" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pi3d.shape.ElevationMap.file_pathify">
+<code class="descclassname">pi3d.shape.ElevationMap.</code><code class="descname">file_pathify</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#file_pathify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.file_pathify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="class">
 <dt id="pi3d.shape.ElevationMap.ElevationMap">
-<em class="property">class </em><code class="descclassname">pi3d.shape.ElevationMap.</code><code class="descname">ElevationMap</code><span class="sig-paren">(</span><em>mapfile</em>, <em>camera=None</em>, <em>light=None</em>, <em>width=100.0</em>, <em>depth=100.0</em>, <em>height=10.0</em>, <em>divx=0</em>, <em>divy=0</em>, <em>ntiles=1.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>smooth=True</em>, <em>cubic=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#ElevationMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.ElevationMap" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pi3d.shape.ElevationMap.</code><code class="descname">ElevationMap</code><span class="sig-paren">(</span><em>mapfile</em>, <em>camera=None</em>, <em>light=None</em>, <em>width=100.0</em>, <em>depth=100.0</em>, <em>height=10.0</em>, <em>divx=0</em>, <em>divy=0</em>, <em>ntiles=1.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>smooth=True</em>, <em>cubic=False</em>, <em>texmap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#ElevationMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.ElevationMap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape</p>
@@ -551,6 +556,13 @@ elevations precisely and avoid resizing errors.</dd>
 <dt><em>smooth</em></dt>
 <dd>Calculate normals with averaging rather than pointing
 straight up, slightly faster if false.</dd>
+<dt><em>texmap</em></dt>
+<dd>Image file path or PIL.Image to be used to represent each of four
+textures and normals using the uv_elev_map shader. The image is
+converted to greyscale and apportioned between darkest (first and
+second entries in Buffer.textures list) and lightest (seventh and
+eighth entries). The resulting 0.0, 1.0, 2.0 or 3.0 is added to the
+uv texture coordinate i.e. Buffer.array_buffer[:,6:8]</dd>
 </dl>
 </dd>
 </dl>
@@ -1229,7 +1241,7 @@ peak at 0.5, 0.86603 Keyword argument:</p>
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &#8212; pi3d 2.18 documentation</title>
+    <title>Frequently Asked Questions &#8212; pi3d 2.19 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.18',
+        VERSION:     '2.19',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.18 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.19 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.18 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.19 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -1116,8 +1116,18 @@ be scrambled unless you make an explicit copy i.e.:</p>
 <p>To refresh the Texture with a constantly changing numpy array use the
 <code class="docutils literal"><span class="pre">Texture.update_ndarray()</span></code> method. This can be passed the new array
 as an argument, alternatively and faster, the Texture.image ndarray can
-be modified in situ.</p>
+be modified in situ and update_ndarray() called without any arguments.</p>
 </div></blockquote>
+</div>
+<div class="section" id="assigning-different-textures-to-vertex-groups">
+<h2>Assigning different Textures to vertex groups<a class="headerlink" href="#assigning-different-textures-to-vertex-groups" title="Permalink to this headline">¶</a></h2>
+<p>I want an ElevationMap with more detailed textures mapped to different areas.
+i.e. rock, grass, heather, swamp.</p>
+<blockquote>
+<div>From v2.19 there are ready made shaders included to do this as well as an
+argument to specify how up to four different diffuse textures along with
+four different normal maps can be allocated on a vertex by vertex basis
+- see the github.com/pi3d/pi3d_demos/ElevMapWalk.py demo.</div></blockquote>
 </div>
 <div class="section" id="without-pil-pillow">
 <h2>Without PIL (Pillow)<a class="headerlink" href="#without-pil-pillow" title="Permalink to this headline">¶</a></h2>
@@ -1773,6 +1783,7 @@ wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
 <li><a class="reference internal" href="#points">Points</a></li>
 <li><a class="reference internal" href="#lines">Lines</a></li>
 <li><a class="reference internal" href="#using-numpy-arrays-for-textures">Using numpy arrays for Textures</a></li>
+<li><a class="reference internal" href="#assigning-different-textures-to-vertex-groups">Assigning different Textures to vertex groups</a></li>
 <li><a class="reference internal" href="#without-pil-pillow">Without PIL (Pillow)</a></li>
 <li><a class="reference internal" href="#minimal-sd-card">Minimal SD card</a></li>
 <li><a class="reference internal" href="#pypy">pypy</a></li>
@@ -1846,7 +1857,7 @@ wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.18 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.19 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

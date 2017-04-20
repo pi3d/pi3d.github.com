@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.shape.ElevationMap &#8212; pi3d 2.18 documentation</title>
+    <title>pi3d.shape.ElevationMap &#8212; pi3d 2.19 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.18',
+        VERSION:     '2.19',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="top" title="pi3d 2.18 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.19 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -69,6 +69,14 @@
 <span class="k">if</span> <span class="n">PIL_OK</span><span class="p">:</span>
   <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
 
+<div class="viewcode-block" id="file_pathify"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.file_pathify">[docs]</a><span class="k">def</span> <span class="nf">file_pathify</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">file_path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;/&#39;</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">file_path</span><span class="p">):</span> <span class="c1"># this could theoretically get different files with same name</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">file_path</span>
+        <span class="k">break</span>
+  <span class="k">return</span> <span class="n">file_path</span></div>
+
 <span class="c1"># a rectangular surface where elevation is defined by a greyscal image</span>
 <div class="viewcode-block" id="ElevationMap"><a class="viewcode-back" href="../../../pi3d.shape.html#pi3d.shape.ElevationMap.ElevationMap">[docs]</a><span class="k">class</span> <span class="nc">ElevationMap</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot; 3d model inherits from Shape</span>
@@ -77,7 +85,8 @@
                <span class="n">width</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
                <span class="n">divx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">divy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ntiles</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ry</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-               <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+               <span class="n">sx</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cz</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+               <span class="n">cubic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">texmap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;uses standard constructor for Shape</span>
 
 <span class="sd">    Arguments:</span>
@@ -102,25 +111,28 @@
 <span class="sd">      *smooth*</span>
 <span class="sd">        Calculate normals with averaging rather than pointing</span>
 <span class="sd">        straight up, slightly faster if false.</span>
+<span class="sd">      *texmap*</span>
+<span class="sd">        Image file path or PIL.Image to be used to represent each of four</span>
+<span class="sd">        textures and normals using the uv_elev_map shader. The image is</span>
+<span class="sd">        converted to greyscale and apportioned between darkest (first and</span>
+<span class="sd">        second entries in Buffer.textures list) and lightest (seventh and</span>
+<span class="sd">        eighth entries). The resulting 0.0, 1.0, 2.0 or 3.0 is added to the</span>
+<span class="sd">        uv texture coordinate i.e. Buffer.array_buffer[:,6:8]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">ElevationMap</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span>
                                        <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span><span class="p">)</span>
     <span class="n">divx</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1"># one more vertex in each direction than number of divisions</span>
     <span class="n">divy</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">512</span> <span class="ow">or</span> <span class="n">divy</span> <span class="o">&gt;</span> <span class="mi">512</span><span class="p">:</span>
-      <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;... Map size can&#39;t be bigger than 511x511 divisions&quot;</span><span class="p">)</span>
-      <span class="n">divx</span> <span class="o">=</span> <span class="mi">511</span>
-      <span class="n">divy</span> <span class="o">=</span> <span class="mi">511</span>
+    <span class="k">if</span> <span class="n">divx</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">or</span> <span class="n">divy</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
+      <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;... Map size can&#39;t be bigger than 199x199 divisions&quot;</span><span class="p">)</span>
+      <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
+      <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
     <span class="c1">#print(type(mapfile), type(&quot;&quot;))</span>
 
     <span class="k">if</span> <span class="n">PIL_OK</span><span class="p">:</span>
       <span class="k">try</span><span class="p">:</span>
         <span class="k">if</span> <span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="n">mapfile</span> <span class="o">==</span> <span class="n">mapfile</span><span class="p">:</span> <span class="c1">#HORRIBLE. Only way to cope with python2v3</span>
-          <span class="k">if</span> <span class="n">mapfile</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;/&#39;</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-              <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span><span class="p">):</span> <span class="c1"># this could theoretically get different files with same name</span>
-                <span class="n">mapfile</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span>
-                <span class="k">break</span>
+          <span class="n">mapfile</span> <span class="o">=</span> <span class="n">file_pathify</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)</span>
           <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading height map ...</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">mapfile</span><span class="p">)</span>
 
           <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)</span>
@@ -129,26 +141,34 @@
       <span class="k">except</span><span class="p">:</span>
         <span class="n">im</span> <span class="o">=</span> <span class="n">mapfile</span>
       <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">ix</span> <span class="o">&gt;</span> <span class="mi">511</span> <span class="ow">and</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">ix</span> <span class="o">!=</span> <span class="n">divx</span> <span class="ow">and</span> <span class="n">iy</span> <span class="o">!=</span> <span class="n">divy</span><span class="p">):</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">ix</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">ix</span> <span class="o">!=</span> <span class="n">divx</span> <span class="ow">and</span> <span class="n">iy</span> <span class="o">!=</span> <span class="n">divy</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">divx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-          <span class="n">divx</span> <span class="o">=</span> <span class="mi">511</span>
-          <span class="n">divy</span> <span class="o">=</span> <span class="mi">511</span>
+          <span class="n">divx</span> <span class="o">=</span> <span class="mi">200</span>
+          <span class="n">divy</span> <span class="o">=</span> <span class="mi">200</span>
         <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">divx</span><span class="p">,</span> <span class="n">divy</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
         <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
-
+      <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
       <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_TOP_BOTTOM</span><span class="p">)</span>
       <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_LEFT_RIGHT</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">texmap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+          <span class="n">texmap</span> <span class="o">=</span> <span class="n">file_pathify</span><span class="p">(</span><span class="n">texmap</span><span class="p">)</span>
+          <span class="n">tm</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">texmap</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+          <span class="n">tm</span> <span class="o">=</span> <span class="n">texmap</span>
+        <span class="n">tm</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+        <span class="n">tm</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">))</span>
+        <span class="n">tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tm</span><span class="p">)</span>
+        <span class="n">tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">tm</span> <span class="o">*</span> <span class="mf">3.99</span> <span class="o">/</span> <span class="p">(</span><span class="n">tm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">tm</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
+
     <span class="k">else</span><span class="p">:</span> 
       <span class="sd">&#39;&#39;&#39; images saved as compressed numpy npz file. No resizing so needs </span>
-<span class="sd">      to be right size. TODO make this repeated code less WET&#39;&#39;&#39;</span>
-      <span class="k">if</span> <span class="n">mapfile</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;/&#39;</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-          <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span><span class="p">):</span> <span class="c1"># this could theoretically get different files with same name</span>
-            <span class="n">mapfile</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">mapfile</span>
-            <span class="k">break</span>
+<span class="sd">      to be right size.&#39;&#39;&#39;</span>
+      <span class="n">mapfile</span> <span class="o">=</span> <span class="n">file_pathify</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mapfile</span><span class="p">)[</span><span class="s1">&#39;arr_0&#39;</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># has to be saved with default key</span>
       <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    
     <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
@@ -175,13 +195,15 @@
 
     <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">iy</span><span class="p">):</span>
       <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ix</span><span class="p">):</span>
-        <span class="n">pxl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
-        <span class="n">hgt</span> <span class="o">=</span> <span class="n">pxl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">pxl</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">pxl</span>
-        <span class="n">hgt</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht</span>
-        <span class="n">this_x</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">wh</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws</span>
-        <span class="n">this_z</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">hh</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">hs</span>
-        <span class="n">verts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">this_x</span><span class="p">,</span> <span class="n">hgt</span><span class="p">,</span> <span class="n">this_z</span><span class="p">))</span>
-        <span class="n">tex_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="n">ix</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">tx</span><span class="p">,</span> <span class="p">(</span><span class="n">iy</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">ty</span><span class="p">))</span>
+        <span class="n">hgt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht</span>
+        <span class="n">verts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">wh</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="p">,</span> 
+                      <span class="n">hgt</span><span class="p">,</span> 
+                      <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">hh</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">hs</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">texmap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+          <span class="n">tex_n</span> <span class="o">=</span> <span class="n">tm</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">tex_n</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">tex_coords</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">tex_n</span> <span class="o">+</span> <span class="p">(</span><span class="n">ix</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">tx</span><span class="p">,</span> <span class="p">(</span><span class="n">iy</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">ty</span><span class="p">))</span>
 
     <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="c1">#create one long triangle_strip by alternating X directions</span>
@@ -428,7 +450,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
