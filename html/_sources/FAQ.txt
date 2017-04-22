@@ -160,6 +160,9 @@ black screen
 
 I see nothing but a black screen.
 
+  This can be caused by running out of GPU memory. From v2.20 there will
+  be a Logger message to this effect. See below for questions using pi3d.Log
+  
   Possibly something has gone wrong in a shader, such as using a shader
   requiring texture coords (i.e. mat_relfect) on a Model exported with
   no uv mapping.
@@ -769,7 +772,7 @@ in my application?
   ``info()`` ``warning()`` etc. Whether the message is logged depends on the
   ``level`` set and whether it appears on screen or is sent to file and
   the formatting or additional info can also be controlled. See the documentation
-  `here <http://pi3d.github.io/html/pi3d.util.html#module-pi3d.util.Log/>`_.
+  `here <http://pi3d.github.io/html/pi3d.util.html#module-pi3d.util.Log>`_.
 
 Printed messages not visible on Raspberry Pi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -784,7 +787,8 @@ works its way across the terminal window.
   key.
 
   A solution is to use the pi3d.Log class and send the output to a file.
-  See the Blur.py demo and the pi3d.Log module documentation (link above)
+  See the `Blur.py demo <https://github.com/pi3d/pi3d_demos/blob/master/Blur.py#L29>`_ 
+  and the pi3d.Log module documentation (link above)
 
 Moving shapes together
 ----------------------

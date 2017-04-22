@@ -580,7 +580,7 @@ not drawn and not checked for mouse clicks.</dd>
 <p>The typical usage of the Log module has a single LOGGER per Python file.</p>
 <p>At the top of the file is typically:</p>
 <blockquote>
-<div>LOGGER = pi3d.Log(__name__, level=&#8217;INFO&#8217;)</div></blockquote>
+<div>LOGGER = pi3d.Log(level=&#8217;INFO&#8217;, file=&#8217;error.log&#8217;)</div></blockquote>
 <p>and then later on you can do things like:</p>
 <blockquote>
 <div><ul class="simple">
@@ -595,7 +595,8 @@ not drawn and not checked for mouse clicks.</dd>
 &#8220;msg&#8221; are passed in as arguments - that&#8217;s so you never even construct the
 message if it isn&#8217;t going to be displayed.)</p>
 <p><strong>*N.B. if name is not passed as an argument then this will set the root
-logger properties (and all the pi3d module logging will also be logged.)*</strong></p>
+logger properties (and all the pi3d module logging will also be logged,
+which is what you usually want.)*</strong></p>
 <p>The level, file, format arguments are passed on to set_logs() see below.</p>
 <dl class="method">
 <dt id="pi3d.util.Log.Log.set_logs">

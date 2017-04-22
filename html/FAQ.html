@@ -204,7 +204,9 @@ future.</p>
 <h3>black screen<a class="headerlink" href="#black-screen" title="Permalink to this headline">¶</a></h3>
 <p>I see nothing but a black screen.</p>
 <blockquote>
-<div><p>Possibly something has gone wrong in a shader, such as using a shader
+<div><p>This can be caused by running out of GPU memory. From v2.20 there will
+be a Logger message to this effect. See below for questions using pi3d.Log</p>
+<p>Possibly something has gone wrong in a shader, such as using a shader
 requiring texture coords (i.e. mat_relfect) on a Model exported with
 no uv mapping.</p>
 <p>There may be a line number reference output by the shader compiler in the
@@ -785,7 +787,7 @@ of this class in your application then calling the methods <code class="docutils
 <code class="docutils literal"><span class="pre">info()</span></code> <code class="docutils literal"><span class="pre">warning()</span></code> etc. Whether the message is logged depends on the
 <code class="docutils literal"><span class="pre">level</span></code> set and whether it appears on screen or is sent to file and
 the formatting or additional info can also be controlled. See the documentation
-<a class="reference external" href="http://pi3d.github.io/html/pi3d.util.html#module-pi3d.util.Log/">here</a>.</div></blockquote>
+<a class="reference external" href="http://pi3d.github.io/html/pi3d.util.html#module-pi3d.util.Log">here</a>.</div></blockquote>
 </div>
 <div class="section" id="printed-messages-not-visible-on-raspberry-pi">
 <h3>Printed messages not visible on Raspberry Pi<a class="headerlink" href="#printed-messages-not-visible-on-raspberry-pi" title="Permalink to this headline">¶</a></h3>
@@ -798,7 +800,8 @@ works its way across the terminal window.</p>
 it fairly universal where the program is exited by watching for the ESC
 key.</p>
 <p>A solution is to use the pi3d.Log class and send the output to a file.
-See the Blur.py demo and the pi3d.Log module documentation (link above)</p>
+See the <a class="reference external" href="https://github.com/pi3d/pi3d_demos/blob/master/Blur.py#L29">Blur.py demo</a>
+and the pi3d.Log module documentation (link above)</p>
 </div></blockquote>
 </div>
 </div>
