@@ -1262,12 +1262,12 @@ Does pi3d work with pypy
 
   pi3d relies on some of the functionality and speed of numpy and this
   only really became useable as of pypy-2.2 As at 2017-04-24 I have installed
-  and retested pypy on this ThinkPad i5-2410Mx4core laptop ubuntu. It now pretty
-  much all works though there are a couple of features of numpy that still
-  don't quite work. Fixes to Font and FixedString from pi3d v.20. These
-  were the steps to get pypy working. NB it's generally a good idea to do
+  and tested pypy on this ThinkPad i5-2410Mx4core laptop running ubuntu. It pretty
+  much all works though there are a couple of features of numpy don't. Fixes 
+  to Font and FixedString will be in pi3d from v.20. The following
+  were the steps to get pypy working. *NB it's generally a good idea to do
   all this inside virtualenv if you are thinking of using normal python 
-  at the same time:
+  at the same time*:
 
   1. in a terminal install pypy from
   ubuntu::
