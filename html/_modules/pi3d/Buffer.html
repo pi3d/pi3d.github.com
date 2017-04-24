@@ -53,6 +53,7 @@
 
 <span class="kn">import</span> <span class="nn">ctypes</span><span class="o">,</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_float</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_short</span>
 
@@ -62,6 +63,8 @@
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="k">import</span> <span class="n">Utility</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Loadable</span> <span class="k">import</span> <span class="n">Loadable</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="k">import</span> <span class="n">c_floats</span><span class="p">,</span> <span class="n">c_shorts</span>
+
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Buffer"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer">[docs]</a><span class="k">class</span> <span class="nc">Buffer</span><span class="p">(</span><span class="n">Loadable</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Holds the vertex, normals, incices and tex_coords for each part of</span>
@@ -233,6 +236,8 @@
                           <span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="o">.</span><span class="n">nbytes</span><span class="p">,</span>
                           <span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">)),</span>
                           <span class="n">GL_STATIC_DRAW</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">opengles</span><span class="o">.</span><span class="n">glGetError</span><span class="p">()</span> <span class="o">==</span> <span class="n">GL_OUT_OF_MEMORY</span><span class="p">:</span>
+      <span class="n">LOGGER</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;Out of GPU memory&#39;</span><span class="p">)</span>
 
 
   <span class="k">def</span> <span class="nf">_unload_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

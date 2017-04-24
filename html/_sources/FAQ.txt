@@ -1261,57 +1261,42 @@ pypy
 Does pi3d work with pypy
 
   pi3d relies on some of the functionality and speed of numpy and this
-  only really became useable as of pypy-2.2 and I have managed to get
-  pi3d working to some extent with that. At the moment that isn't the
-  current version you get with apt-get so these were the steps I took:
+  only really became useable as of pypy-2.2 As at 2017-04-24 I have installed
+  and retested pypy on this ThinkPad i5-2410Mx4core laptop ubuntu. It now pretty
+  much all works though there are a couple of features of numpy that still
+  don't quite work. Fixes to Font and FixedString from pi3d v.20. These
+  were the steps to get pypy working. NB it's generally a good idea to do
+  all this inside virtualenv if you are thinking of using normal python 
+  at the same time:
 
-  1. download the relevant version from http://pypy.org/download.html
-  for your machine (Ubuntu, raspbian etc) extract it into a new directory
-  i.e. /home/me/pypy-2.2.1-linux64
-
-  2. in a
-  terminal::
-
+  1. in a terminal install pypy from
+  ubuntu::
+  
+    sudo apt-get install pypy
     sudo apt-get install pypy-dev
+    sudo apt-get install pypy-pkg-resources
+    sudo apt-get install pypy-setuptools # needed for Pillow install from source
 
-  3. download and install pypy-numpy so it's also in a subdirectory
-  of pypy-x.x.x-etc I did this cd to that directory then using::
+  2. download and install pypy-numpy I did this then changed
+  to that directory::
   
-    git clone https://bitbucket.org/pypy/numpy.git
+    git clone https://bitbucket.org/pypy/numpy.git --depth 5
     cd numpy
-    sudo ../bin/pypy setup.py install
+    sudo pypy setup.py install
+    # you can then delete this directory
 
-  4.* download Pillow from https://pypi.python.org/pypi/Pillow and
-  extract it into its own subdirectory of pypy-x.x.x-etc i.e.
-  /home/me/pypy-2.2.1-linux64/Pillow-2.2.1
-
-  5.* download http://python-distribute.org/distribute_setup.py to
-  pypy-x.x.x-etc/bin and run it::
-
-    sudo ./pypy distribute_setup.py
-
-  6.* either cd to pypy-x.x.x-etc/bin
-  and run::
-
-    sudo ./easy_install Pillow
-
-  7.* or cd to the Pillow-x.x directory
-  and run::
+  3. download Pillow source from https://pypi.python.org/pypi/Pillow and
+  extract it, cd to that directory and install as above::
   
-    sudo ../bin/pypy setup.py install
+    cd Pillow-4.x.x
+    sudo pypy setup.py install
+    # you can then delete this directory
 
-  I did different permutations of these things but confused myself as
-  to which I was 'really' doing (by occasionally forgetting to type
-  ``./pypy`` and thereby running a debian package version that was
-  also installed) so some of these steps are redundant. Also other
-  steps may be missing.
-
-  At the moment (Dec13
-  https://github.com/tipam/pi3d/commit/ce5febc6693115872c7e4653dfea503e029fa0d5)
-  the changes to Shape.draw() have been commented out because they
-  look to add some extra processing at an expensive location. If
-  you want to try pypy you will have to swap the two lines (search
-  for pypy to find them)
+  At the moment the PexParticles, Pong, SpriteMulti and StringMulti
+  demos fail mainly due to non-implemented features of numpy (einsum, interp, 
+  remainder and outer). It's not clear that there is a speed benefit 
+  as pypy won't improve the GPU functionality or the numpy calculations 
+  but there might be a little improvement in some areas.
 
 DIY environments
 ----------------

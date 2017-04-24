@@ -1250,53 +1250,41 @@ up images.</p>
 <p>Does pi3d work with pypy</p>
 <blockquote>
 <div><p>pi3d relies on some of the functionality and speed of numpy and this
-only really became useable as of pypy-2.2 and I have managed to get
-pi3d working to some extent with that. At the moment that isn&#8217;t the
-current version you get with apt-get so these were the steps I took:</p>
-<p>1. download the relevant version from <a class="reference external" href="http://pypy.org/download.html">http://pypy.org/download.html</a>
-for your machine (Ubuntu, raspbian etc) extract it into a new directory
-i.e. /home/me/pypy-2.2.1-linux64</p>
-<p>2. in a
-terminal:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">pypy</span><span class="o">-</span><span class="n">dev</span>
+only really became useable as of pypy-2.2 As at 2017-04-24 I have installed
+and retested pypy on this ThinkPad i5-2410Mx4core laptop ubuntu. It now pretty
+much all works though there are a couple of features of numpy that still
+don&#8217;t quite work. Fixes to Font and FixedString from pi3d v.20. These
+were the steps to get pypy working. NB it&#8217;s generally a good idea to do
+all this inside virtualenv if you are thinking of using normal python
+at the same time:</p>
+<p>1. in a terminal install pypy from
+ubuntu:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">pypy</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">pypy</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">pypy</span><span class="o">-</span><span class="n">pkg</span><span class="o">-</span><span class="n">resources</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">pypy</span><span class="o">-</span><span class="n">setuptools</span> <span class="c1"># needed for Pillow install from source</span>
 </pre></div>
 </div>
-<p>3. download and install pypy-numpy so it&#8217;s also in a subdirectory
-of pypy-x.x.x-etc I did this cd to that directory then using:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bitbucket</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">pypy</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">git</span>
+<p>2. download and install pypy-numpy I did this then changed
+to that directory:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bitbucket</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">pypy</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">git</span> <span class="o">--</span><span class="n">depth</span> <span class="mi">5</span>
 <span class="n">cd</span> <span class="n">numpy</span>
-<span class="n">sudo</span> <span class="o">../</span><span class="nb">bin</span><span class="o">/</span><span class="n">pypy</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<span class="n">sudo</span> <span class="n">pypy</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<span class="c1"># you can then delete this directory</span>
 </pre></div>
 </div>
-<p>4.* download Pillow from <a class="reference external" href="https://pypi.python.org/pypi/Pillow">https://pypi.python.org/pypi/Pillow</a> and
-extract it into its own subdirectory of pypy-x.x.x-etc i.e.
-/home/me/pypy-2.2.1-linux64/Pillow-2.2.1</p>
-<p>5.* download <a class="reference external" href="http://python-distribute.org/distribute_setup.py">http://python-distribute.org/distribute_setup.py</a> to
-pypy-x.x.x-etc/bin and run it:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">./</span><span class="n">pypy</span> <span class="n">distribute_setup</span><span class="o">.</span><span class="n">py</span>
+<p>3. download Pillow source from <a class="reference external" href="https://pypi.python.org/pypi/Pillow">https://pypi.python.org/pypi/Pillow</a> and
+extract it, cd to that directory and install as above:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">Pillow</span><span class="o">-</span><span class="mf">4.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>
+<span class="n">sudo</span> <span class="n">pypy</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<span class="c1"># you can then delete this directory</span>
 </pre></div>
 </div>
-<p>6.* either cd to pypy-x.x.x-etc/bin
-and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">./</span><span class="n">easy_install</span> <span class="n">Pillow</span>
-</pre></div>
-</div>
-<p>7.* or cd to the Pillow-x.x directory
-and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">../</span><span class="nb">bin</span><span class="o">/</span><span class="n">pypy</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
-</pre></div>
-</div>
-<p>I did different permutations of these things but confused myself as
-to which I was &#8216;really&#8217; doing (by occasionally forgetting to type
-<code class="docutils literal"><span class="pre">./pypy</span></code> and thereby running a debian package version that was
-also installed) so some of these steps are redundant. Also other
-steps may be missing.</p>
-<p>At the moment (Dec13
-<a class="reference external" href="https://github.com/tipam/pi3d/commit/ce5febc6693115872c7e4653dfea503e029fa0d5">https://github.com/tipam/pi3d/commit/ce5febc6693115872c7e4653dfea503e029fa0d5</a>)
-the changes to Shape.draw() have been commented out because they
-look to add some extra processing at an expensive location. If
-you want to try pypy you will have to swap the two lines (search
-for pypy to find them)</p>
+<p>At the moment the PexParticles, Pong, SpriteMulti and StringMulti
+demos fail mainly due to non-implemented features of numpy (einsum, interp,
+remainder and outer). It&#8217;s not clear that there is a speed benefit
+as pypy won&#8217;t improve the GPU functionality or the numpy calculations
+but there might be a little improvement in some areas.</p>
 </div></blockquote>
 </div>
 <div class="section" id="diy-environments">
