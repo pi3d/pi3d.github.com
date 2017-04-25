@@ -1261,13 +1261,18 @@ pypy
 Does pi3d work with pypy
 
   pi3d relies on some of the functionality and speed of numpy and this
-  only really became usable as of pypy-2.2 As at 2017-04-24 I have installed
-  and tested pypy on this ThinkPad i5-2410Mx4core laptop running ubuntu. It pretty
-  much all works though there are a couple of features of numpy that still don't. 
-  Fixes to Font and FixedString will be in pi3d from v.20. The following
-  were the steps to get pypy working. *NB it's generally a good idea to do
+  only really became usable as of pypy-2.2 
+  
+  As at 2017-04-24 I have installed and tested pypy on a Raspberry Pi 3 and
+  on my ThinkPad i5-2410Mx4core laptop running ubuntu. It pretty much all 
+  works though there are a couple of features of numpy that still don't. 
+  Fixes to Font and FixedString will be in pi3d from v.20 (in the develop
+  branch from now). *NB it's generally a good idea to do
   all this inside virtualenv if you are thinking of using normal python 
-  at the same time*:
+  at the same time*
+  
+  **On the Laptop thefollowing 
+  steps seemed to get pypy working:**
 
   1. in a terminal install pypy from
   ubuntu::
@@ -1291,6 +1296,61 @@ Does pi3d work with pypy
     cd Pillow-4.x.x
     sudo pypy setup.py install
     # you can then delete this directory
+
+  **On the Raspberry Pi raspbian jessie there is already pypy installed.
+  However it's v4.0 and pypy-numpy demands > v4.4 so this is what I did:**
+  
+  1. download and unzip the latest stable release of pypy for raspbian. As
+  at now ``https://bitbucket.org/pypy/pypy/downloads/pypy2-v5.7.1-linux-armhf-raspbian.tar.bz2``
+  I put this as ``/home/pi/pypy2-v5.7.1-linux-armhf-raspbian/``
+
+  2. to save confusion I overwrote the symlink to the previously installed 
+  pypy-4.0. In a terminal::
+  
+    sudo ln -s -f /home/pi/pypy2-v5.7.1-linux-armhf-raspbian/pypy /usr/bin/pypy
+
+  3. I tried the three apt-get install instructions as per ubuntu but
+  only pypy-dev seemed to work. It wasn't clear how to use pip with pypy but
+  in the end I did the following in a terminal::
+  
+    cd /home/pi/pypy2-v5.7.1-linux-armhf-raspbian/
+    pypy -m ensurepip
+    bin/pip install -U pip wheel
+    bin/pip install pkg_resources
+    
+  I think there was an error but ``import pkg_resources`` seemed to work
+  after this.
+  
+  4. At one stage I installed all of the following, many may not be needed but some
+  might. You could try without first I suppose, but it didn't take too long.::
+  
+    sudo apt-get install gcc make libffi-dev pkg-config libz-dev libbz2-dev \
+    libsqlite3-dev libncurses-dev libexpat1-dev libssl-dev libgdbm-dev tk-dev \
+    libgc-dev python-cffi liblzma-dev
+
+  5. For Pillow to work
+  you need these (that's a 'one' in zlib1g-dev by the way)::
+  
+    sudo apt-get install libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
+
+  6. Download, extract and install pypy-numpy. 
+  I used git, as with ubuntu above.::
+  
+    git clone https://bitbucket.org/pypy/numpy.git --depth 5
+    cd numpy
+    sudo pypy setup.py install
+    # you can then delete this directory
+
+  7. Pip install
+  Pillow::
+  
+    cd /home/pi/pypy2-v5.7.1-linux-armhf-raspbian/
+    bin/pip install Pillow
+
+  For both these installations you will need to pip install pi3d (using the
+  pypy pip) or download (or git clone) pi3d and use 
+  ``sys.path.insert(1, '/home/pi/pi3d')`` before ``import pi3d``. The
+  pi3d_demo files do this automatically.
 
   At the moment the PexParticles, Pong, SpriteMulti and StringMulti
   demos fail mainly due to non-implemented features of numpy (einsum, interp, 

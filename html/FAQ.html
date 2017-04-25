@@ -1250,13 +1250,16 @@ up images.</p>
 <p>Does pi3d work with pypy</p>
 <blockquote>
 <div><p>pi3d relies on some of the functionality and speed of numpy and this
-only really became usable as of pypy-2.2 As at 2017-04-24 I have installed
-and tested pypy on this ThinkPad i5-2410Mx4core laptop running ubuntu. It pretty
-much all works though there are a couple of features of numpy that still don&#8217;t.
-Fixes to Font and FixedString will be in pi3d from v.20. The following
-were the steps to get pypy working. <em>NB it&#8217;s generally a good idea to do
+only really became usable as of pypy-2.2</p>
+<p>As at 2017-04-24 I have installed and tested pypy on a Raspberry Pi 3 and
+on my ThinkPad i5-2410Mx4core laptop running ubuntu. It pretty much all
+works though there are a couple of features of numpy that still don&#8217;t.
+Fixes to Font and FixedString will be in pi3d from v.20 (in the develop
+branch from now). <em>NB it&#8217;s generally a good idea to do
 all this inside virtualenv if you are thinking of using normal python
-at the same time</em>:</p>
+at the same time</em></p>
+<p><strong>On the Laptop thefollowing
+steps seemed to get pypy working:</strong></p>
 <p>1. in a terminal install pypy from
 ubuntu:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">pypy</span>
@@ -1280,6 +1283,57 @@ extract it, cd to that directory and install as above:</p>
 <span class="c1"># you can then delete this directory</span>
 </pre></div>
 </div>
+<p><strong>On the Raspberry Pi raspbian jessie there is already pypy installed.
+However it&#8217;s v4.0 and pypy-numpy demands &gt; v4.4 so this is what I did:</strong></p>
+<p>1. download and unzip the latest stable release of pypy for raspbian. As
+at now <code class="docutils literal"><span class="pre">https://bitbucket.org/pypy/pypy/downloads/pypy2-v5.7.1-linux-armhf-raspbian.tar.bz2</span></code>
+I put this as <code class="docutils literal"><span class="pre">/home/pi/pypy2-v5.7.1-linux-armhf-raspbian/</span></code></p>
+<p>2. to save confusion I overwrote the symlink to the previously installed
+pypy-4.0. In a terminal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">-</span><span class="n">f</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">pypy2</span><span class="o">-</span><span class="n">v5</span><span class="o">.</span><span class="mf">7.1</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">armhf</span><span class="o">-</span><span class="n">raspbian</span><span class="o">/</span><span class="n">pypy</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">pypy</span>
+</pre></div>
+</div>
+<p>3. I tried the three apt-get install instructions as per ubuntu but
+only pypy-dev seemed to work. It wasn&#8217;t clear how to use pip with pypy but
+in the end I did the following in a terminal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">pypy2</span><span class="o">-</span><span class="n">v5</span><span class="o">.</span><span class="mf">7.1</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">armhf</span><span class="o">-</span><span class="n">raspbian</span><span class="o">/</span>
+<span class="n">pypy</span> <span class="o">-</span><span class="n">m</span> <span class="n">ensurepip</span>
+<span class="nb">bin</span><span class="o">/</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">pip</span> <span class="n">wheel</span>
+<span class="nb">bin</span><span class="o">/</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pkg_resources</span>
+</pre></div>
+</div>
+<p>I think there was an error but <code class="docutils literal"><span class="pre">import</span> <span class="pre">pkg_resources</span></code> seemed to work
+after this.</p>
+<p>4. At one stage I installed all of the following, many may not be needed but some
+might. You could try without first I suppose, but it didn&#8217;t take too long.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span> <span class="n">make</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">libz</span><span class="o">-</span><span class="n">dev</span> <span class="n">libbz2</span><span class="o">-</span><span class="n">dev</span> \
+<span class="n">libsqlite3</span><span class="o">-</span><span class="n">dev</span> <span class="n">libncurses</span><span class="o">-</span><span class="n">dev</span> <span class="n">libexpat1</span><span class="o">-</span><span class="n">dev</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libgdbm</span><span class="o">-</span><span class="n">dev</span> <span class="n">tk</span><span class="o">-</span><span class="n">dev</span> \
+<span class="n">libgc</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">cffi</span> <span class="n">liblzma</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>5. For Pillow to work
+you need these (that&#8217;s a &#8216;one&#8217; in zlib1g-dev by the way):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libjpeg</span><span class="o">-</span><span class="n">dev</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span> <span class="n">libpng12</span><span class="o">-</span><span class="n">dev</span> <span class="n">libfreetype6</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>6. Download, extract and install pypy-numpy.
+I used git, as with ubuntu above.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bitbucket</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">pypy</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">git</span> <span class="o">--</span><span class="n">depth</span> <span class="mi">5</span>
+<span class="n">cd</span> <span class="n">numpy</span>
+<span class="n">sudo</span> <span class="n">pypy</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<span class="c1"># you can then delete this directory</span>
+</pre></div>
+</div>
+<p>7. Pip install
+Pillow:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">pypy2</span><span class="o">-</span><span class="n">v5</span><span class="o">.</span><span class="mf">7.1</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">armhf</span><span class="o">-</span><span class="n">raspbian</span><span class="o">/</span>
+<span class="nb">bin</span><span class="o">/</span><span class="n">pip</span> <span class="n">install</span> <span class="n">Pillow</span>
+</pre></div>
+</div>
+<p>For both these installations you will need to pip install pi3d (using the
+pypy pip) or download (or git clone) pi3d and use
+<code class="docutils literal"><span class="pre">sys.path.insert(1,</span> <span class="pre">'/home/pi/pi3d')</span></code> before <code class="docutils literal"><span class="pre">import</span> <span class="pre">pi3d</span></code>. The
+pi3d_demo files do this automatically.</p>
 <p>At the moment the PexParticles, Pong, SpriteMulti and StringMulti
 demos fail mainly due to non-implemented features of numpy (einsum, interp,
 remainder and outer). It&#8217;s not clear that there is a speed benefit
