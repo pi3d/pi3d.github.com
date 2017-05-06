@@ -160,7 +160,9 @@ black screen
 
 I see nothing but a black screen.
 
-  This can be caused by running out of GPU memory. From v2.20 there will
+  This can be caused by running out of GPU memory, especially if it's set
+  to 64 in which case some things will work fine then stop after the addition
+  of just one seemingly insignifican component. From v2.20 there will
   be a Logger message to this effect. See below for questions using pi3d.Log
   
   Possibly something has gone wrong in a shader, such as using a shader
@@ -606,7 +608,32 @@ matter)
   
   Before the development of the orthographic Camera matrix system there
   was a system of drawing onto a Canvas object using the 2d_flat shader.
-  This method is really deprecated although 
+  This method is really deprecated though
+
+Nearness of PointText and TextBlock relative to other 2D objects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Even setting the z value of my TextBlock to a smaller value than an
+ImageSprite z value it still gets drawn behind!
+
+  The PointText/TextBlock system developed by Matt Coleman is very fast
+  and flexible but also quite complicated, especially hard to follow as the
+  demo tries to showcase all the features! One subtlety that isn't obvious
+  is the fact that 'extra' info is being shoehorned into the array passed
+  to the shader, critically the z value of each vertex (i.e. each character)
+  contains both the depth *and* the size. Coupled with the use of medium
+  precision floats this means that the behaviour of the depth and size values
+  of TextBlock seem very strange. 
+
+  Depth as specified in TextBlock doesn't match up with the normal depth
+  of 2D objects such as ImageSprite (this is different from the 2D v 3D depth
+  difference mentioned here) Keep the TextBlock z values small and the other
+  objects large (i.e. 0.5 may be in front of normal 2D z of 6.0 but behind
+  5.9 so play safe with a value of 50.0)
+
+  Size varies from 0.05 to 0.99 (subject to float precision) however if you
+  use a size of more than 1.0 it will effect the spacing! Try using 0.99, 1.99, 2.99 etc.
+
 
 Default fog distance
 ~~~~~~~~~~~~~~~~~~~~

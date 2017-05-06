@@ -204,7 +204,9 @@ future.</p>
 <h3>black screen<a class="headerlink" href="#black-screen" title="Permalink to this headline">¶</a></h3>
 <p>I see nothing but a black screen.</p>
 <blockquote>
-<div><p>This can be caused by running out of GPU memory. From v2.20 there will
+<div><p>This can be caused by running out of GPU memory, especially if it&#8217;s set
+to 64 in which case some things will work fine then stop after the addition
+of just one seemingly insignifican component. From v2.20 there will
 be a Logger message to this effect. See below for questions using pi3d.Log</p>
 <p>Possibly something has gone wrong in a shader, such as using a shader
 requiring texture coords (i.e. mat_relfect) on a Model exported with
@@ -622,7 +624,29 @@ idea to assign the one you want to each object as an argument while
 the object is being created.</p>
 <p>Before the development of the orthographic Camera matrix system there
 was a system of drawing onto a Canvas object using the 2d_flat shader.
-This method is really deprecated although</p>
+This method is really deprecated though</p>
+</div></blockquote>
+</div>
+<div class="section" id="nearness-of-pointtext-and-textblock-relative-to-other-2d-objects">
+<h3>Nearness of PointText and TextBlock relative to other 2D objects<a class="headerlink" href="#nearness-of-pointtext-and-textblock-relative-to-other-2d-objects" title="Permalink to this headline">¶</a></h3>
+<p>Even setting the z value of my TextBlock to a smaller value than an
+ImageSprite z value it still gets drawn behind!</p>
+<blockquote>
+<div><p>The PointText/TextBlock system developed by Matt Coleman is very fast
+and flexible but also quite complicated, especially hard to follow as the
+demo tries to showcase all the features! One subtlety that isn&#8217;t obvious
+is the fact that &#8216;extra&#8217; info is being shoehorned into the array passed
+to the shader, critically the z value of each vertex (i.e. each character)
+contains both the depth <em>and</em> the size. Coupled with the use of medium
+precision floats this means that the behaviour of the depth and size values
+of TextBlock seem very strange.</p>
+<p>Depth as specified in TextBlock doesn&#8217;t match up with the normal depth
+of 2D objects such as ImageSprite (this is different from the 2D v 3D depth
+difference mentioned here) Keep the TextBlock z values small and the other
+objects large (i.e. 0.5 may be in front of normal 2D z of 6.0 but behind
+5.9 so play safe with a value of 50.0)</p>
+<p>Size varies from 0.05 to 0.99 (subject to float precision) however if you
+use a size of more than 1.0 it will effect the spacing! Try using 0.99, 1.99, 2.99 etc.</p>
 </div></blockquote>
 </div>
 <div class="section" id="default-fog-distance">
@@ -1796,6 +1820,7 @@ wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
 <li><a class="reference internal" href="#d-images">2D images</a><ul>
 <li><a class="reference internal" href="#how-to-use-2d-images">How to use 2D images</a></li>
 <li><a class="reference internal" href="#nearness-of-2d-relative-to-3d">nearness of 2D relative to 3D</a></li>
+<li><a class="reference internal" href="#nearness-of-pointtext-and-textblock-relative-to-other-2d-objects">Nearness of PointText and TextBlock relative to other 2D objects</a></li>
 <li><a class="reference internal" href="#default-fog-distance">Default fog distance</a></li>
 <li><a class="reference internal" href="#pixel-perfect">Pixel perfect</a></li>
 <li><a class="reference internal" href="#anti-aliasing">anti-aliasing</a></li>
