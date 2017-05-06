@@ -634,6 +634,18 @@ ImageSprite z value it still gets drawn behind!
   Size varies from 0.05 to 0.99 (subject to float precision) however if you
   use a size of more than 1.0 it will effect the spacing! Try using 0.99, 1.99, 2.99 etc.
 
+PointText stops working if too many TextBlocks added
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The text seemed to be drawing OK but when I added an extra TextBlock or
+increased the amount of characters in a TextBlock it all stopped working.
+
+  When you create a PointText object you have to specify the ``max_chars``
+  argument and it will go horribly wrong if you exceed this as the speed
+  of this text display method relies on updating an existing buffer. There
+  is probably not too much of a penalty in making it a bit bigger than you
+  expect to use.
+
 
 Default fog distance
 ~~~~~~~~~~~~~~~~~~~~

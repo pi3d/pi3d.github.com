@@ -649,6 +649,17 @@ objects large (i.e. 0.5 may be in front of normal 2D z of 6.0 but behind
 use a size of more than 1.0 it will effect the spacing! Try using 0.99, 1.99, 2.99 etc.</p>
 </div></blockquote>
 </div>
+<div class="section" id="pointtext-stops-working-if-too-many-textblocks-added">
+<h3>PointText stops working if too many TextBlocks added<a class="headerlink" href="#pointtext-stops-working-if-too-many-textblocks-added" title="Permalink to this headline">¶</a></h3>
+<p>The text seemed to be drawing OK but when I added an extra TextBlock or
+increased the amount of characters in a TextBlock it all stopped working.</p>
+<blockquote>
+<div>When you create a PointText object you have to specify the <code class="docutils literal"><span class="pre">max_chars</span></code>
+argument and it will go horribly wrong if you exceed this as the speed
+of this text display method relies on updating an existing buffer. There
+is probably not too much of a penalty in making it a bit bigger than you
+expect to use.</div></blockquote>
+</div>
 <div class="section" id="default-fog-distance">
 <h3>Default fog distance<a class="headerlink" href="#default-fog-distance" title="Permalink to this headline">¶</a></h3>
 <p>I&#8217;ve moved my yellow plane behind other objects by setting z=9900 and
@@ -1821,6 +1832,7 @@ wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
 <li><a class="reference internal" href="#how-to-use-2d-images">How to use 2D images</a></li>
 <li><a class="reference internal" href="#nearness-of-2d-relative-to-3d">nearness of 2D relative to 3D</a></li>
 <li><a class="reference internal" href="#nearness-of-pointtext-and-textblock-relative-to-other-2d-objects">Nearness of PointText and TextBlock relative to other 2D objects</a></li>
+<li><a class="reference internal" href="#pointtext-stops-working-if-too-many-textblocks-added">PointText stops working if too many TextBlocks added</a></li>
 <li><a class="reference internal" href="#default-fog-distance">Default fog distance</a></li>
 <li><a class="reference internal" href="#pixel-perfect">Pixel perfect</a></li>
 <li><a class="reference internal" href="#anti-aliasing">anti-aliasing</a></li>
