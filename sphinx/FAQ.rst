@@ -627,7 +627,7 @@ ImageSprite z value it still gets drawn behind!
 
   Depth as specified in TextBlock doesn't match up with the normal depth
   of 2D objects such as ImageSprite (this is different from the 2D v 3D depth
-  difference mentioned here) Keep the TextBlock z values small and the other
+  difference mentioned above) Keep the TextBlock z values small and the other
   objects large (i.e. 0.5 may be in front of normal 2D z of 6.0 but behind
   5.9 so play safe with a value of 50.0)
 
