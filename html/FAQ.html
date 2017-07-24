@@ -1285,7 +1285,9 @@ up images.</p>
 <p>Does pi3d work with pypy</p>
 <blockquote>
 <div><p>pi3d relies on some of the functionality and speed of numpy and this
-only really became usable as of pypy-2.2</p>
+only really became usable as of pypy-2.2 and the recent versions
+of pypy-numpy need more recent versions of pypy (&gt;4.0.1 or 4.4 see below
+and bitbucket.org/pypy/numpy)</p>
 <p>As at 2017-04-24 I have installed and tested pypy on a Raspberry Pi 3 and
 on my ThinkPad i5-2410Mx4core laptop running ubuntu. It pretty much all
 works though there are a couple of features of numpy that still don&#8217;t.
@@ -1319,7 +1321,10 @@ extract it, cd to that directory and install as above:</p>
 </pre></div>
 </div>
 <p><strong>On the Raspberry Pi raspbian jessie there is already pypy installed.
-However it&#8217;s v4.0 and pypy-numpy demands &gt; v4.4 so this is what I did:</strong></p>
+However it&#8217;s v4.0 and pypy-numpy demands &gt; v4.4 so this is what I did
+(NB I noticed subsequently that there is an option to install numpypy
+for pypy4.0.1 - see the bitbucket/pypy/numpy page if you want to try this
+first):</strong></p>
 <p>1. download and unzip the latest stable release of pypy for raspbian. As
 at now <code class="docutils literal"><span class="pre">https://bitbucket.org/pypy/pypy/downloads/pypy2-v5.7.1-linux-armhf-raspbian.tar.bz2</span></code>
 I put this as <code class="docutils literal"><span class="pre">/home/pi/pypy2-v5.7.1-linux-armhf-raspbian/</span></code></p>
@@ -1369,11 +1374,11 @@ Pillow:</p>
 pypy pip) or download (or git clone) pi3d and use
 <code class="docutils literal"><span class="pre">sys.path.insert(1,</span> <span class="pre">'/home/pi/pi3d')</span></code> before <code class="docutils literal"><span class="pre">import</span> <span class="pre">pi3d</span></code>. The
 pi3d_demo files do this automatically.</p>
-<p>At the moment the PexParticles, Pong, SpriteMulti and StringMulti
-demos fail mainly due to non-implemented features of numpy (einsum, interp,
-remainder and outer). It&#8217;s not clear that there is a speed benefit
-as pypy won&#8217;t improve the GPU functionality or the numpy calculations
-but there might be a little improvement in some areas.</p>
+<p>At the moment the PexParticles and Pong demos fail mainly due to non-implemented
+features of numpy (einsum, interp, remainder and outer). The speed benefit
+of running pypy won&#8217;t improve the GPU functionality or the numpy calculations
+but in some areas where there is a lot of looping in the python code there
+could be gains (The CollisionBalls.py demo for instance).</p>
 </div></blockquote>
 </div>
 <div class="section" id="diy-environments">

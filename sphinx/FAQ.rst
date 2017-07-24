@@ -1300,7 +1300,9 @@ pypy
 Does pi3d work with pypy
 
   pi3d relies on some of the functionality and speed of numpy and this
-  only really became usable as of pypy-2.2 
+  only really became usable as of pypy-2.2 and the recent versions
+  of pypy-numpy need more recent versions of pypy (>4.0.1 or 4.4 see below
+  and bitbucket.org/pypy/numpy)
   
   As at 2017-04-24 I have installed and tested pypy on a Raspberry Pi 3 and
   on my ThinkPad i5-2410Mx4core laptop running ubuntu. It pretty much all 
@@ -1337,7 +1339,10 @@ Does pi3d work with pypy
     # you can then delete this directory
 
   **On the Raspberry Pi raspbian jessie there is already pypy installed.
-  However it's v4.0 and pypy-numpy demands > v4.4 so this is what I did:**
+  However it's v4.0 and pypy-numpy demands > v4.4 so this is what I did
+  (NB I noticed subsequently that there is an option to install numpypy
+  for pypy4.0.1 - see the bitbucket/pypy/numpy page if you want to try this
+  first):**
   
   1. download and unzip the latest stable release of pypy for raspbian. As
   at now ``https://bitbucket.org/pypy/pypy/downloads/pypy2-v5.7.1-linux-armhf-raspbian.tar.bz2``
@@ -1391,11 +1396,11 @@ Does pi3d work with pypy
   ``sys.path.insert(1, '/home/pi/pi3d')`` before ``import pi3d``. The
   pi3d_demo files do this automatically.
 
-  At the moment the PexParticles, Pong, SpriteMulti and StringMulti
-  demos fail mainly due to non-implemented features of numpy (einsum, interp, 
-  remainder and outer). It's not clear that there is a speed benefit 
-  as pypy won't improve the GPU functionality or the numpy calculations 
-  but there might be a little improvement in some areas.
+  At the moment the PexParticles and Pong demos fail mainly due to non-implemented 
+  features of numpy (einsum, interp, remainder and outer). The speed benefit
+  of running pypy won't improve the GPU functionality or the numpy calculations 
+  but in some areas where there is a lot of looping in the python code there
+  could be gains (The CollisionBalls.py demo for instance).
 
 DIY environments
 ----------------
