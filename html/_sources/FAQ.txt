@@ -1338,8 +1338,34 @@ Does pi3d work with pypy
     sudo pypy setup.py install
     # you can then delete this directory
 
-  **On the Raspberry Pi raspbian jessie there is already pypy installed.
-  However it's v4.0 and pypy-numpy demands > v4.4 so this is what I did
+  **On Raspberry Pi raspbian stretch (Aug 2017) pypy v5.0 is already installed
+  however, for some reason, pypy pip has not been which limits use to
+  core or pure python modules. Also I found that neither the latest version
+  of numpy or pillow worked:**
+
+  1. Get hold of
+  pip for pypy::
+  
+    cd ~
+    sudo curl -O https://bootstrap.pypa.io/get-pip.py
+    sudo pypy get-pip.py
+    pypy -mpip install -U wheel
+
+  2. Pip install numpy
+  NB using `pypy -mpip ..`::
+
+    pypy -mpip install cython
+    sudo apt-get install pypy-dev
+    sudo pypy -mpip install numpy==1.12.1
+
+  3. Pip install PIL
+  agian `pypy -mpip ..`::
+
+    sudo apt-get install libjpeg-dev #zlib1g-dev libpng12-dev libfreetype6-dev # seemed to cause errors
+    sudo pypy -mpip install Pillow==4.0.0
+
+  **Prior to stretch (i.e. jessie) I found that the pypy installed
+  is v4.0 and pypy-numpy demands > v4.4 so this is what I did
   (NB I noticed subsequently that there is an option to install numpypy
   for pypy4.0.1 - see the bitbucket/pypy/numpy page if you want to try this
   first):**

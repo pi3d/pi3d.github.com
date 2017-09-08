@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &#8212; pi3d 2.20 documentation</title>
+    <title>Frequently Asked Questions &#8212; pi3d 2.21 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.20',
+        VERSION:     '2.21',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.20 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.21 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.20 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.21 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -1320,8 +1320,33 @@ extract it, cd to that directory and install as above:</p>
 <span class="c1"># you can then delete this directory</span>
 </pre></div>
 </div>
-<p><strong>On the Raspberry Pi raspbian jessie there is already pypy installed.
-However it&#8217;s v4.0 and pypy-numpy demands &gt; v4.4 so this is what I did
+<p><strong>On Raspberry Pi raspbian stretch (Aug 2017) pypy v5.0 is already installed
+however, for some reason, pypy pip has not been which limits use to
+core or pure python modules. Also I found that neither the latest version
+of numpy or pillow worked:</strong></p>
+<p>1. Get hold of
+pip for pypy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~</span>
+<span class="n">sudo</span> <span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bootstrap</span><span class="o">.</span><span class="n">pypa</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
+<span class="n">sudo</span> <span class="n">pypy</span> <span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
+<span class="n">pypy</span> <span class="o">-</span><span class="n">mpip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">wheel</span>
+</pre></div>
+</div>
+<p>2. Pip install numpy
+NB using <cite>pypy -mpip ..</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pypy</span> <span class="o">-</span><span class="n">mpip</span> <span class="n">install</span> <span class="n">cython</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">pypy</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">sudo</span> <span class="n">pypy</span> <span class="o">-</span><span class="n">mpip</span> <span class="n">install</span> <span class="n">numpy</span><span class="o">==</span><span class="mf">1.12</span><span class="o">.</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>3. Pip install PIL
+agian <cite>pypy -mpip ..</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libjpeg</span><span class="o">-</span><span class="n">dev</span> <span class="c1">#zlib1g-dev libpng12-dev libfreetype6-dev # seemed to cause errors</span>
+<span class="n">sudo</span> <span class="n">pypy</span> <span class="o">-</span><span class="n">mpip</span> <span class="n">install</span> <span class="n">Pillow</span><span class="o">==</span><span class="mf">4.0</span><span class="o">.</span><span class="mi">0</span>
+</pre></div>
+</div>
+<p><strong>Prior to stretch (i.e. jessie) I found that the pypy installed
+is v4.0 and pypy-numpy demands &gt; v4.4 so this is what I did
 (NB I noticed subsequently that there is an option to install numpypy
 for pypy4.0.1 - see the bitbucket/pypy/numpy page if you want to try this
 first):</strong></p>
@@ -1944,7 +1969,7 @@ wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.20 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.21 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

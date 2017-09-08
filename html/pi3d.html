@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &#8212; pi3d 2.20 documentation</title>
+    <title>pi3d Package &#8212; pi3d 2.21 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.20',
+        VERSION:     '2.21',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.20 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.21 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.20 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.21 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -1419,7 +1419,8 @@ anti aliased which is done by Display.create(samples=4)</p>
 <dt id="pi3d.Shape.Shape.position">
 <code class="descname">position</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.position" title="Permalink to this definition">¶</a></dt>
 <dd><p>Arguments:</p>
-<dl class="docutils">
+<blockquote>
+<div><dl class="docutils">
 <dt><em>x</em></dt>
 <dd>x position</dd>
 <dt><em>y</em></dt>
@@ -1427,6 +1428,14 @@ anti aliased which is done by Display.create(samples=4)</p>
 <dt><em>z</em></dt>
 <dd>z position</dd>
 </dl>
+</div></blockquote>
+<p>self.tr1[3, 0] = x - self.unif[9]
+self.tr1[3, 1] = y - self.unif[10]
+self.tr1[3, 2] = z - self.unif[11]
+self.unif[0] = x
+self.unif[1] = y
+self.unif[2] = z
+self.MFlg = True</p>
 </dd></dl>
 
 <dl class="method">
@@ -1562,6 +1571,26 @@ anti aliased which is done by Display.create(samples=4)</p>
 <dd>z rotational increment</dd>
 </dl>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="pi3d.Shape.Shape.xyz">
+<code class="descname">xyz</code><a class="headerlink" href="#pi3d.Shape.Shape.xyz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pi3d.Shape.Shape.rxryrz">
+<code class="descname">rxryrz</code><a class="headerlink" href="#pi3d.Shape.Shape.rxryrz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pi3d.Shape.Shape.sxsysz">
+<code class="descname">sxsysz</code><a class="headerlink" href="#pi3d.Shape.Shape.sxsysz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pi3d.Shape.Shape.cxcycz">
+<code class="descname">cxcycz</code><a class="headerlink" href="#pi3d.Shape.Shape.cxcycz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -1826,7 +1855,7 @@ new glTextureBuffers i.e. for movie textures</p>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.20 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.21 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
