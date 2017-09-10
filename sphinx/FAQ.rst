@@ -1338,8 +1338,8 @@ Does pi3d work with pypy
     sudo pypy setup.py install
     # you can then delete this directory
 
-  **On Raspberry Pi raspbian stretch (Aug 2017) pypy v5.0 is already installed
-  however, for some reason, pypy pip has not been which limits use to
+  **On Raspberry Pi raspbian stretch (Aug 2017) pypy v5.6.0 is already installed
+  however, for some reason, pypy pip has not been, which limits use to
   core or pure python modules. Also I found that neither the latest version
   of numpy or pillow worked:**
 
