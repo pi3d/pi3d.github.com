@@ -336,6 +336,62 @@ by any value supplied.</dd>
 </dd></dl>
 
 </div>
+<div class="section" id="module-pi3d.util.Graph">
+<span id="graph-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Graph</span></code> Module<a class="headerlink" href="#module-pi3d.util.Graph" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.util.Graph.Graph">
+<em class="property">class </em><code class="descclassname">pi3d.util.Graph.</code><code class="descname">Graph</code><span class="sig-paren">(</span><em>x_values</em>, <em>y_values</em>, <em>width</em>, <em>height</em>, <em>font</em>, <em>title=None</em>, <em>line_width=2</em>, <em>axes_desc=None</em>, <em>legend=None</em>, <em>xpos=0</em>, <em>ypos=0</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>camera=None</em>, <em>shader=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/Graph.html#Graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Graph.Graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Providing some basic functionality for a GPU accelerated x, y graph
+(i.e. for real-time display of instrumentation data etc)</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>x_values</em></dt>
+<dd>1D numpy array</dd>
+<dt><em>y_values</em></dt>
+<dd>1 or 2D numpy array with size same as x_values in last D</dd>
+<dt><em>width, height</em></dt>
+<dd>as ecpected</dd>
+<dt><em>font</em></dt>
+<dd>pi3d.Font instance</dd>
+<dt><em>title, line_width</em></dt>
+<dd>as expected</dd>
+<dt><em>axes_desc</em></dt>
+<dd>tuple -&gt; (x.axis.desc, y.axis.desc)</dd>
+<dt><em>legend</em></dt>
+<dd>tuple -&gt; (y0.desc, y1.desc, y2.desc...)</dd>
+<dt><em>xpos, ypos</em></dt>
+<dd>offset relative to origin of display (centre)</dd>
+<dt><em>xmin, xmax, ymin, ymax</em></dt>
+<dd>override sampled values from init data</dd>
+<dt><em>camera</em></dt>
+<dd>if no other Shape to be drawn then a 2D Camera can be created here</dd>
+<dt><em>shader</em></dt>
+<dd>if no other Shape uses mat_flat shader then one will be created</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="pi3d.util.Graph.Graph.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/Graph.html#Graph.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Graph.Graph.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Graph.Graph.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>y_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/Graph.html#Graph.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Graph.Graph.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>update all y_values</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.Graph.Graph.tick_pos">
+<code class="descname">tick_pos</code><span class="sig-paren">(</span><em>minv</em>, <em>maxv</em>, <em>num=3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/Graph.html#Graph.tick_pos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Graph.Graph.tick_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>work out nice looking grid line positions</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.util.Gui">
 <span id="gui-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Gui</span></code> Module<a class="headerlink" href="#module-pi3d.util.Gui" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -652,12 +708,26 @@ texture generated from the framebuffer</p>
 <span id="pexparticles-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">PexParticles</span></code> Module<a class="headerlink" href="#module-pi3d.util.PexParticles" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.PexParticles.PexParticles">
-<em class="property">class </em><code class="descclassname">pi3d.util.PexParticles.</code><code class="descname">PexParticles</code><span class="sig-paren">(</span><em>pex_file</em>, <em>emission_rate=10</em>, <em>scale=1.0</em>, <em>rot_rate=None</em>, <em>rot_var=0.0</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/PexParticles.html#PexParticles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PexParticles.PexParticles" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pi3d.util.PexParticles.</code><code class="descname">PexParticles</code><span class="sig-paren">(</span><em>pex_file</em>, <em>emission_rate=10</em>, <em>scale=1.0</em>, <em>rot_rate=None</em>, <em>rot_var=0.0</em>, <em>new_batch=0.1</em>, <em>hardness=2.0</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/PexParticles.html#PexParticles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.PexParticles.PexParticles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.shape.html#pi3d.shape.Points.Points" title="pi3d.shape.Points.Points"><code class="xref py py-class docutils literal"><span class="pre">pi3d.shape.Points.Points</span></code></a></p>
 <p>has to be supplied with a pex xml type file to parse. The results
 are loaded into new attributes of the instance of this class with identifiers
 matching the Elements of the pex file. There is zero checking for the
-correct file format:</p>
+correct file format.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>pex_file:       file name. if &#8220;circle&#8221; then lite option doesn&#8217;t</dt>
+<dd>use texture lookup and used mat_pointsprite shader</dd>
+</dl>
+<p>emission_rate:  new particles per second
+scale:          scale the point size and location
+rot_rate:       UV mapping rotates
+rot_var:        variance in rotation rate
+new_batch:      proportion of emission_rate to batch (for efficiency)
+hardness:       for lite version</p>
+</div></blockquote>
+<p>The following attributes are created from the pex file and can be subsequently
+altered. i.e. self.sourcePosition[&#8216;x&#8217;] += 2.0</p>
 <blockquote>
 <div>self.texture={name:&#8217;particle.png&#8217;}
 self.sourcePosition={x:160.00,y:369.01}
@@ -696,33 +766,37 @@ self.rotationStartVariance=0.00
 self.rotationEnd=0.00
 self.rotationEndVariance=0.00</div></blockquote>
 <dl class="attribute">
-<dt id="pi3d.util.PexParticles.PexParticles.rot_var">
-<code class="descname">rot_var</code><em class="property"> = None</em><a class="headerlink" href="#pi3d.util.PexParticles.PexParticles.rot_var" title="Permalink to this definition">¶</a></dt>
-<dd><p>make the numpy arrays to hold the particle info
-vertices[0]   x position of centre of point relative to centre of screen in pixels
-vertices[1]   y position
-vertices[2]   z depth but fract(z) is used as a multiplier for point size
-normals[0]    rotation in radians
-normals[1]    red and green values to multiply with the texture
-normals[2]    blue and alph values to multiply with the texture. The values</p>
+<dt id="pi3d.util.PexParticles.PexParticles.any_colorchange">
+<code class="descname">any_colorchange</code><em class="property"> = None</em><a class="headerlink" href="#pi3d.util.PexParticles.PexParticles.any_colorchange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffer.array_buffer holds
+[0] vertices[0] x position of centre of point relative to centre of screen in pixels
+[1] vertices[1] y position
+[2] vertices[2] z depth but fract(z) is used as a multiplier for point size
+[3] normals[0]  rotation in radians
+[4] normals[1]  red and green values to multiply with the texture
+[5] normals[2]  blue and alph values to multiply with the texture. The values</p>
 <blockquote>
 <div>are packed into the whole number and fractional parts of
 the float i.e. where R and G are between 0.0 and 0.999
 normals[:,2] = floor(999 * R) + G</div></blockquote>
 <dl class="docutils">
-<dt>tex_coords[0] distance of left side of sprite square from left side of</dt>
+<dt>[6] tex_coords[0] distance of left side of sprite square from left side of</dt>
 <dd>texture in uv scale 0.0 to 1.0</dd>
+<dt>[7] tex_coords[1] distance of top of sprite square from top of texture</dt>
+<dd>for lite version using the mat_pointsprite shader</dd>
 </dl>
-<p>tex_coords[1] distance of top of sprite square from top of texture
-arr[8]        x velocity
-arr[9]        y velocity
-arr[10]       lifespan
-arr[11]       lifespan remaining
-arr[12:16]    rgba target values
-arr[16:20]    rgba difference
-arr[20]       size delta (finish size - start size) / full_lifespan
-arr[21]       radial acceleration
-arr[22]       tangential acceleration</p>
+<p>[3:7] hold RGBA in simple float form</p>
+<blockquote>
+<div>make additional numpy array to hold the particle info</div></blockquote>
+<p>arr[0]          x velocity
+arr[1]          y velocity
+arr[2]          lifespan
+arr[3]          lifespan remaining
+arr[4:8]        rgba target values
+arr[8:12]       rgba difference
+arr[12]         size delta (finish size - start size) / full_lifespan
+arr[13]         radial acceleration
+arr[14]         tangential acceleration</p>
 </dd></dl>
 
 <dl class="method">
@@ -1311,6 +1385,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
 <li><a class="reference internal" href="#module-pi3d.util.DisplayOpenGL"><code class="docutils literal"><span class="pre">DisplayOpenGL</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.FixedString"><code class="docutils literal"><span class="pre">FixedString</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Font"><code class="docutils literal"><span class="pre">Font</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.util.Graph"><code class="docutils literal"><span class="pre">Graph</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Gui"><code class="docutils literal"><span class="pre">Gui</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Loadable"><code class="docutils literal"><span class="pre">Loadable</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.util.Log"><code class="docutils literal"><span class="pre">Log</span></code> Module</a></li>

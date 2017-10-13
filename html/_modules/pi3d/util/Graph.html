@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pi3d.util.Graph &#8212; pi3d 2.21 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2.21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="top" title="pi3d 2.21 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.21 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pi3d.util.Graph</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">pi3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Graph"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Graph.Graph">[docs]</a><span class="k">class</span> <span class="nc">Graph</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Providing some basic functionality for a GPU accelerated x, y graph</span>
+<span class="sd">  (i.e. for real-time display of instrumentation data etc)&#39;&#39;&#39;</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_values</span><span class="p">,</span> <span class="n">y_values</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+              <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">axes_desc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xpos</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ypos</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+              <span class="n">xmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">shader</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        *x_values*</span>
+<span class="sd">          1D numpy array</span>
+<span class="sd">        *y_values*</span>
+<span class="sd">          1 or 2D numpy array with size same as x_values in last D</span>
+<span class="sd">        *width, height*</span>
+<span class="sd">          as ecpected</span>
+<span class="sd">        *font*</span>
+<span class="sd">          pi3d.Font instance</span>
+<span class="sd">        *title, line_width*</span>
+<span class="sd">          as expected</span>
+<span class="sd">        *axes_desc*</span>
+<span class="sd">          tuple -&gt; (x.axis.desc, y.axis.desc)</span>
+<span class="sd">        *legend*</span>
+<span class="sd">          tuple -&gt; (y0.desc, y1.desc, y2.desc...)</span>
+<span class="sd">        *xpos, ypos*</span>
+<span class="sd">          offset relative to origin of display (centre)</span>
+<span class="sd">        *xmin, xmax, ymin, ymax*</span>
+<span class="sd">          override sampled values from init data</span>
+<span class="sd">        *camera*</span>
+<span class="sd">          if no other Shape to be drawn then a 2D Camera can be created here</span>
+<span class="sd">        *shader*</span>
+<span class="sd">          if no other Shape uses mat_flat shader then one will be created</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+      <span class="n">y_values</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span> <span class="o">+</span> <span class="n">y_values</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">x_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">y_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;mismatched array lengths&#39;</span><span class="p">)</span>
+      <span class="k">return</span>
+    <span class="k">if</span> <span class="n">camera</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">camera</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Camera</span><span class="p">(</span><span class="n">is_3d</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">shader</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">shader</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Shader</span><span class="p">(</span><span class="s1">&#39;mat_flat&#39;</span><span class="p">)</span>
+    <span class="c1"># title ##########</span>
+    <span class="n">point_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)),</span> <span class="mi">24</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PointText</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">max_chars</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="n">point_size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">title</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">TextBlock</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xpos</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ypos</span><span class="o">+</span><span class="n">height</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">point_size</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span> 
+                    <span class="n">z</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">char_count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">,</span>
+                    <span class="n">text_format</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">add_text_block</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="c1"># axes ###########</span>
+    <span class="n">axex</span><span class="p">,</span> <span class="n">axey</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">height</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="c1"># implies 10% margin all round</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Lines</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="p">[[</span><span class="n">axex</span><span class="p">,</span> <span class="o">-</span><span class="n">axey</span><span class="o">-</span><span class="n">line_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                <span class="p">[</span><span class="o">-</span><span class="n">axex</span><span class="o">-</span><span class="n">line_width</span><span class="p">,</span> <span class="o">-</span><span class="n">axey</span><span class="o">-</span><span class="n">line_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                <span class="p">[</span><span class="o">-</span><span class="n">axex</span><span class="o">-</span><span class="n">line_width</span><span class="p">,</span> <span class="n">axey</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+                                <span class="n">x</span><span class="o">=</span><span class="n">xpos</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ypos</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="n">line_width</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
+    <span class="c1"># lines to represent data</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">x_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">xmin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">xmin</span> <span class="o">=</span> <span class="n">x_values</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">xmax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">xmax</span> <span class="o">=</span> <span class="n">x_values</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">x_factor</span> <span class="o">=</span>  <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">axex</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span>
+    <span class="n">x_offset</span> <span class="o">=</span> <span class="n">xmin</span>
+    <span class="k">if</span> <span class="n">ymin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">ymin</span> <span class="o">=</span> <span class="n">y_values</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">ymax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">ymax</span> <span class="o">=</span> <span class="n">y_values</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">y_factor</span> <span class="o">=</span>  <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">axey</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span><span class="p">)</span>
+    <span class="n">y_offset</span> <span class="o">=</span> <span class="n">ymin</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+      <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+      <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_values</span> <span class="o">-</span> <span class="n">x_offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_factor</span> <span class="o">-</span> <span class="n">axex</span> <span class="o">+</span> <span class="n">xpos</span>
+      <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_factor</span> <span class="o">-</span> <span class="n">axey</span> <span class="o">+</span> <span class="n">ypos</span>
+      <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">4.0</span>
+      <span class="n">line</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Lines</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="n">line_width</span><span class="p">)</span>
+      <span class="n">line</span><span class="o">.</span><span class="n">set_shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
+      <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="n">rgb_val</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.913</span> <span class="o">*</span> <span class="n">j</span> <span class="o">%</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.132</span> <span class="o">*</span> <span class="n">j</span> <span class="o">%</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.484</span> <span class="o">*</span> <span class="n">j</span> <span class="o">%</span> <span class="mf">1.0</span><span class="p">)</span>
+      <span class="n">line</span><span class="o">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">rgb_val</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="c1"># axis values</span>
+    <span class="n">point_size</span> <span class="o">*=</span> <span class="mf">0.3</span>
+    <span class="c1"># first add the max and min vals</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">axex</span> <span class="o">+</span> <span class="n">xpos</span><span class="p">,</span> <span class="o">-</span><span class="n">axey</span> <span class="o">+</span> <span class="n">ypos</span> <span class="o">-</span> <span class="n">point_size</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xmin</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">),</span>
+             <span class="p">(</span><span class="n">axex</span> <span class="o">+</span> <span class="n">xpos</span><span class="p">,</span> <span class="o">-</span><span class="n">axey</span> <span class="o">+</span> <span class="n">ypos</span> <span class="o">-</span> <span class="n">point_size</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xmax</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">),</span>
+             <span class="p">(</span><span class="o">-</span><span class="n">axex</span> <span class="o">+</span> <span class="n">xpos</span> <span class="o">-</span> <span class="n">point_size</span><span class="p">,</span> <span class="o">-</span><span class="n">axey</span> <span class="o">+</span> <span class="n">ypos</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ymin</span><span class="p">),</span> <span class="mf">90.0</span><span class="p">),</span>
+             <span class="p">(</span><span class="o">-</span><span class="n">axex</span> <span class="o">+</span> <span class="n">xpos</span> <span class="o">-</span> <span class="n">point_size</span><span class="p">,</span> <span class="n">axey</span> <span class="o">+</span> <span class="n">ypos</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ymax</span><span class="p">),</span> <span class="mf">90.0</span><span class="p">)]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># use this to hold vertex positions for grid lines (called ticks)</span>
+    <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tick_pos</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">):</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">val</span> <span class="o">-</span> <span class="n">x_offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_factor</span> <span class="o">-</span> <span class="n">axex</span>
+      <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="n">xpos</span><span class="p">,</span> <span class="o">-</span><span class="n">axey</span> <span class="o">+</span> <span class="n">ypos</span> <span class="o">-</span> <span class="n">point_size</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">))</span>
+      <span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">([[</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">axey</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="n">x</span><span class="p">,</span> <span class="n">axey</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span> 
+      <span class="c1"># NB points in pairs to use GL_LINES option with strip=False below.</span>
+    <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tick_pos</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">):</span>
+      <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">val</span> <span class="o">-</span> <span class="n">y_offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_factor</span> <span class="o">-</span> <span class="n">axey</span>
+      <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="n">axex</span> <span class="o">+</span> <span class="n">xpos</span> <span class="o">-</span> <span class="n">point_size</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">ypos</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="mf">90.0</span><span class="p">))</span>
+      <span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">([[</span><span class="o">-</span><span class="n">axex</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="n">axex</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+    <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">add_text_block</span><span class="p">(</span><span class="n">pi3d</span><span class="o">.</span><span class="n">TextBlock</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">4.0</span><span class="p">,</span> <span class="n">val</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">8</span><span class="p">,</span> 
+                          <span class="n">size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">text_format</span><span class="o">=</span><span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">spacing</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ticks</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Lines</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">xpos</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ypos</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="n">line_width</span><span class="p">,</span>
+                            <span class="n">material</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">strip</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ticks</span><span class="o">.</span><span class="n">set_shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
+    <span class="c1"># axes descritions</span>
+    <span class="k">if</span> <span class="n">axes_desc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">add_text_block</span><span class="p">(</span><span class="n">pi3d</span><span class="o">.</span><span class="n">TextBlock</span><span class="p">(</span><span class="n">xpos</span><span class="p">,</span> <span class="n">ypos</span> <span class="o">-</span> <span class="mf">1.15</span> <span class="o">*</span> <span class="n">axey</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes_desc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> 
+                          <span class="n">size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">text_format</span><span class="o">=</span><span class="n">axes_desc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">spacing</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">add_text_block</span><span class="p">(</span><span class="n">pi3d</span><span class="o">.</span><span class="n">TextBlock</span><span class="p">(</span><span class="n">xpos</span> <span class="o">-</span> <span class="mf">1.15</span> <span class="o">*</span> <span class="n">axex</span><span class="p">,</span> <span class="n">ypos</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes_desc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> 
+                          <span class="n">size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">text_format</span><span class="o">=</span><span class="n">axes_desc</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">spacing</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+    <span class="c1"># legend ##########</span>
+    <span class="k">if</span> <span class="n">legend</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">legend</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">):</span> <span class="c1"># single string, make into list</span>
+        <span class="n">legend</span> <span class="o">=</span> <span class="p">[</span><span class="n">legend</span><span class="p">]</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lgd</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">legend</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">add_text_block</span><span class="p">(</span><span class="n">pi3d</span><span class="o">.</span><span class="n">TextBlock</span><span class="p">(</span><span class="n">axex</span> <span class="o">+</span> <span class="n">xpos</span><span class="p">,</span> <span class="n">axey</span> <span class="o">+</span> <span class="n">ypos</span> <span class="o">-</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">point_size</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">,</span>
+                    <span class="mf">4.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lgd</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">text_format</span><span class="o">=</span><span class="n">lgd</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> 
+                    <span class="n">justify</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,)))</span>
+    <span class="c1"># scale factors for use in update() so add to self</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">y_offset</span> <span class="o">=</span> <span class="n">y_offset</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">y_factor</span> <span class="o">=</span> <span class="n">y_factor</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">axey</span> <span class="o">=</span> <span class="n">axey</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ypos</span> <span class="o">=</span> <span class="n">ypos</span>
+
+<div class="viewcode-block" id="Graph.draw"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Graph.Graph.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ticks</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">:</span>
+      <span class="n">line</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Graph.update"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Graph.Graph.update">[docs]</a>  <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_values</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; update all y_values</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># in case single line</span>
+      <span class="n">y_values</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span> <span class="o">+</span> <span class="n">y_values</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_offset</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_factor</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">axey</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ypos</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">re_init</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Graph.tick_pos"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Graph.Graph.tick_pos">[docs]</a>  <span class="k">def</span> <span class="nf">tick_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minv</span><span class="p">,</span> <span class="n">maxv</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; work out nice looking grid line positions</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">])</span>
+    <span class="n">span</span> <span class="o">=</span> <span class="n">maxv</span> <span class="o">-</span> <span class="n">minv</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">span</span> <span class="o">/</span> <span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">d_exp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">d</span><span class="p">)))</span>
+    <span class="n">d_man</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">d_exp</span>
+    <span class="n">diffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">d_man</span> <span class="o">-</span> <span class="n">steps</span><span class="p">)</span> <span class="o">/</span> <span class="n">steps</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">diffs</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">d_exp</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">minv</span> <span class="o">+</span> <span class="n">st</span> <span class="o">+</span> <span class="n">span</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">/</span> <span class="n">st</span><span class="p">)</span> <span class="o">*</span> <span class="n">st</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">maxv</span> <span class="o">-</span> <span class="n">span</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">):</span>
+      <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+      <span class="n">val</span> <span class="o">+=</span> <span class="n">st</span>
+    <span class="k">return</span> <span class="n">vals</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.21 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2017, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>

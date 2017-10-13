@@ -256,12 +256,12 @@ Each cell is width on the x axis and depth on the z axis, and the walls are heig
 <p>The function returns a merged shape with the entire building in it.</p>
 <dl class="attribute">
 <dt id="pi3d.shape.Building.Building.baseScheme">
-<code class="descname">baseScheme</code><em class="property"> = {(1, None): [['R', 0], ['C', 0]], '#models': 1, (1, 0, 'edge'): [['W', 0], ['CE', 0]], (0, 0, 'edge'): [['W', 0], ['CE', 0]], (1, 0): [['W', 0], ['CE', 0]], (0, None): [['R', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.baseScheme" title="Permalink to this definition">¶</a></dt>
+<code class="descname">baseScheme</code><em class="property"> = {(1, None): [['R', 0], ['C', 0]], '#models': 1, (0, 0, 'edge'): [['W', 0], ['CE', 0]], (1, 0): [['W', 0], ['CE', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]], (0, None): [['R', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.baseScheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pi3d.shape.Building.Building.openSectionScheme">
-<code class="descname">openSectionScheme</code><em class="property"> = {(1, 2): [['CE', 0]], '#models': 1, (2, 0): [['W', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]], (2, None): [['C', 0], ['R', 0]], (0, 0, 'edge'): [['W', 0], ['CE', 0]], (1, 0): [['W', 0], ['CE', 0]], (2, 2, 'edge'): [['CE', 0]], (0, None): [['R', 0]], (2, 0, 'edge'): [['W', 0], ['CE', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.openSectionScheme" title="Permalink to this definition">¶</a></dt>
+<code class="descname">openSectionScheme</code><em class="property"> = {(1, 2): [['CE', 0]], (2, 2, 'edge'): [['CE', 0]], (2, 0): [['W', 0]], '#models': 1, (0, 0, 'edge'): [['W', 0], ['CE', 0]], (2, None): [['C', 0], ['R', 0]], (1, 0): [['W', 0], ['CE', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]], (2, 0, 'edge'): [['W', 0], ['CE', 0]], (0, None): [['R', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.openSectionScheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -760,6 +760,29 @@ i.e. [..(0,2),(2,1),(1.5,0)..] has a sharp corner at 2,1 and should be entered a
 </dd></dl>
 
 </div>
+<div class="section" id="module-pi3d.shape.Lines">
+<span id="lines-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Lines</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Lines" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pi3d.shape.Lines.Lines">
+<em class="property">class </em><code class="descclassname">pi3d.shape.Lines.</code><code class="descname">Lines</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>vertices=[]</em>, <em>material=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>line_width=1</em>, <em>closed=False</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>strip=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Lines.html#Lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Lines.Lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<p>3d model inherits from Shape</p>
+<p>uses standard constructor for Shape extra Keyword arguments:</p>
+<dl class="docutils">
+<dt><em>vertices</em></dt>
+<dd>array of tuples [(x0,y0,z0),(x1,y1,z1)..]</dd>
+<dt><em>material</em></dt>
+<dd>tuple (r,g,b)</dd>
+<dt><em>line_width</em></dt>
+<dd>set to 1 if absent or set to a value less than 1</dd>
+<dt><em>closed</em></dt>
+<dd>joins up last leg i.e. for polygons</dd>
+<dt><em>strip</em></dt>
+<dd>use GL_LINE_STRIP otherwise GL_LINES - needs pairs for line ends</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.shape.LodSprite">
 <span id="lodsprite-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">LodSprite</span></code> Module<a class="headerlink" href="#module-pi3d.shape.LodSprite" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -1182,6 +1205,7 @@ peak at 0.5, 0.86603 Keyword argument:</p>
 <li><a class="reference internal" href="#module-pi3d.shape.Extrude"><code class="docutils literal"><span class="pre">Extrude</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Helix"><code class="docutils literal"><span class="pre">Helix</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Lathe"><code class="docutils literal"><span class="pre">Lathe</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Lines"><code class="docutils literal"><span class="pre">Lines</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.LodSprite"><code class="docutils literal"><span class="pre">LodSprite</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.MergeShape"><code class="docutils literal"><span class="pre">MergeShape</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Model"><code class="docutils literal"><span class="pre">Model</span></code> Module</a></li>

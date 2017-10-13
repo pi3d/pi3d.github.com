@@ -49,6 +49,14 @@ util Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`Graph` Module
+-------------------
+
+.. automodule:: pi3d.util.Graph
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`Gui` Module
 -----------------
 
