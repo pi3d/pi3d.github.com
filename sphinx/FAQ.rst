@@ -660,6 +660,14 @@ slightly transparent!
 
     myshape.set_fog((0.5, 0.5, 0.5, 1.0), 30000)
 
+I want to change the distance at which the fog effect starts. It seems to
+default to one third of the distance (in the above answer fog would start
+at 10000 and be full by 30000).
+
+  From pi3d v.2.22 it is possible to define the fraction by adding it to
+  the fog distance. i.e. 30000.99 would use 0.99 rather than one third, it
+  would start at 29700.98 and be full by 30000.99
+
 Pixel perfect
 ~~~~~~~~~~~~~
 
@@ -667,7 +675,7 @@ How do I display an image exactly without anti-aliasing or smoothing
 i.e. pixel perfect?
 
   This can be done by using a Camera with argument ``is_3d=False`` and 
-  spcifying, when the Texture is loaded, that ``mipmap=False``. Because 
+  specifying, when the Texture is loaded, that ``mipmap=False``. Because 
   this is a global setting it will be overwritten by whichever Texture is 
   the last to be loaded. Use the ``uv_flat`` shader and the Sprite or ImageSprite
   Shape.
@@ -1060,6 +1068,55 @@ vec3 unif[16][0].
   make the unif array a ctypes.c_float array and that seemed to
   have to be one-dimensional. So after a long story unif[16][0]
   in the shader is (same name but different) unif[16*3 + 0] in python
+
+Texture UV mapping
+------------------
+
+The individual vertex UV coordinates are used to map Texture sampler calls
+from image (or numpy array) locations varying from 0,0 in one corner to
+1,1 in the opposite. However the Buffer instance holds uniform variables
+that can be added or multiply these values. ``Buffer.unib[6:8]`` holds
+(umult, vmult) and ``Buffer.unib[9:10]`` holds (u_off, v_off). The default
+values are (1.0, 1.0) and (0.0, 0.0) respectively.
+
+Move Textures
+~~~~~~~~~~~~~
+
+Is it possible to 'slide' a Texture over the surface of a Shape to give
+the impression of movement, say?
+
+  This can be done using ``Shape.set_offset((u_off, v_off))`` which is a
+  wrapper for ``Buffer.set_offset((u_off, v_off))`` This is used in
+  pi3d_demos/Water.py
+
+Scale Textures
+~~~~~~~~~~~~~~
+
+How do I adjust the scale of a texture and the number of repeats across
+the width and height of a Shape?
+
+  ``umult`` and ``vmult`` are arguments to ``Shape.set_draw_details`` and
+  can be used to increase the number of repeats of a texture. These are used
+  'behind the scenes' in the Building class in the ``draw_details`` argument,
+  see the Silo demo.
+
+Can I use part of a Texture to render onto a Shape? More specifically,
+is it possible to use MergeShape to combine several objects into one for
+efficient drawing but draw different parts with different textures?
+
+  It's possible to use part of a texture by combining offset and mult, for
+  instance to use one quarter of a texture you could set umult, vmult to
+  (0.5, 0.5) and u_off, v_off to (0.0, 0.0), (0.5, 0.0), (0.0, 0.5) or
+  (0.5, 0.5)
+
+  To draw different parts of one Buffer with sampling from different parts
+  of a Texture sampler (as above) then the UV texture coordinates have to
+  be modified as shown in the listing posted in this forum discussion
+  ForumMergeShapes_ (commented out section under #1.Textures) **However**
+  the method of adding child objects as in the Molecule1 demo
+  is more straightforward and, from pi3d v.2.22, it is possible to construct
+  a MergeShape with multiple Buffers each with its own material, texture,
+  shader etc. as in the Molecule2 demo.
 
 Blend shaders
 -------------
@@ -1884,3 +1941,4 @@ laser point for gun?
 .. _`ReadMe Linux`: http://pi3d.github.com/html/ReadMe.html#setup-on-desktop-and-laptop-machines
 .. _`ReadMe Windows`: http://pi3d.github.com/html/ReadMe.html#windows
 .. _Tathros: https://www.dropbox.com/sh/ydo0xkz48yi0mk2/AADyzbHhCMshFG85c5VJPX5ka/2%20-%20How%20to%20add%20great%20slide%20transitions%20-%20Tathros%20Photography.pdf?dl=0
+.. _ForumMergeShapes: https://www.raspberrypi.org/forums/viewtopic.php?f=32&t=195479&p=1223308&hilit=pi3d&sid=64e327583fa392b0758d8b2f5d4852a7#p1223308

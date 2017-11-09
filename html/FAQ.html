@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &#8212; pi3d 2.21 documentation</title>
+    <title>Frequently Asked Questions &#8212; pi3d 2.22 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.21',
+        VERSION:     '2.22',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.21 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.22 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.21 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.22 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -673,6 +673,13 @@ z=5000. From v1.12 This will be increased but in the mean time you can:</p>
 </pre></div>
 </div>
 </div></blockquote>
+<p>I want to change the distance at which the fog effect starts. It seems to
+default to one third of the distance (in the above answer fog would start
+at 10000 and be full by 30000).</p>
+<blockquote>
+<div>From pi3d v.2.22 it is possible to define the fraction by adding it to
+the fog distance. i.e. 30000.99 would use 0.99 rather than one third, it
+would start at 29700.98 and be full by 30000.99</div></blockquote>
 </div>
 <div class="section" id="pixel-perfect">
 <h3>Pixel perfect<a class="headerlink" href="#pixel-perfect" title="Permalink to this headline">¶</a></h3>
@@ -680,7 +687,7 @@ z=5000. From v1.12 This will be increased but in the mean time you can:</p>
 i.e. pixel perfect?</p>
 <blockquote>
 <div><p>This can be done by using a Camera with argument <code class="docutils literal"><span class="pre">is_3d=False</span></code> and
-spcifying, when the Texture is loaded, that <code class="docutils literal"><span class="pre">mipmap=False</span></code>. Because
+specifying, when the Texture is loaded, that <code class="docutils literal"><span class="pre">mipmap=False</span></code>. Because
 this is a global setting it will be overwritten by whichever Texture is
 the last to be loaded. Use the <code class="docutils literal"><span class="pre">uv_flat</span></code> shader and the Sprite or ImageSprite
 Shape.</p>
@@ -1055,6 +1062,51 @@ pionter so there was no cost to having 60 floats available!</p>
 make the unif array a ctypes.c_float array and that seemed to
 have to be one-dimensional. So after a long story unif[16][0]
 in the shader is (same name but different) unif[16*3 + 0] in python</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="texture-uv-mapping">
+<h2>Texture UV mapping<a class="headerlink" href="#texture-uv-mapping" title="Permalink to this headline">¶</a></h2>
+<p>The individual vertex UV coordinates are used to map Texture sampler calls
+from image (or numpy array) locations varying from 0,0 in one corner to
+1,1 in the opposite. However the Buffer instance holds uniform variables
+that can be added or multiply these values. <code class="docutils literal"><span class="pre">Buffer.unib[6:8]</span></code> holds
+(umult, vmult) and <code class="docutils literal"><span class="pre">Buffer.unib[9:10]</span></code> holds (u_off, v_off). The default
+values are (1.0, 1.0) and (0.0, 0.0) respectively.</p>
+<div class="section" id="move-textures">
+<h3>Move Textures<a class="headerlink" href="#move-textures" title="Permalink to this headline">¶</a></h3>
+<p>Is it possible to &#8216;slide&#8217; a Texture over the surface of a Shape to give
+the impression of movement, say?</p>
+<blockquote>
+<div>This can be done using <code class="docutils literal"><span class="pre">Shape.set_offset((u_off,</span> <span class="pre">v_off))</span></code> which is a
+wrapper for <code class="docutils literal"><span class="pre">Buffer.set_offset((u_off,</span> <span class="pre">v_off))</span></code> This is used in
+pi3d_demos/Water.py</div></blockquote>
+</div>
+<div class="section" id="scale-textures">
+<h3>Scale Textures<a class="headerlink" href="#scale-textures" title="Permalink to this headline">¶</a></h3>
+<p>How do I adjust the scale of a texture and the number of repeats across
+the width and height of a Shape?</p>
+<blockquote>
+<div><code class="docutils literal"><span class="pre">umult</span></code> and <code class="docutils literal"><span class="pre">vmult</span></code> are arguments to <code class="docutils literal"><span class="pre">Shape.set_draw_details</span></code> and
+can be used to increase the number of repeats of a texture. These are used
+&#8216;behind the scenes&#8217; in the Building class in the <code class="docutils literal"><span class="pre">draw_details</span></code> argument,
+see the Silo demo.</div></blockquote>
+<p>Can I use part of a Texture to render onto a Shape? More specifically,
+is it possible to use MergeShape to combine several objects into one for
+efficient drawing but draw different parts with different textures?</p>
+<blockquote>
+<div><p>It&#8217;s possible to use part of a texture by combining offset and mult, for
+instance to use one quarter of a texture you could set umult, vmult to
+(0.5, 0.5) and u_off, v_off to (0.0, 0.0), (0.5, 0.0), (0.0, 0.5) or
+(0.5, 0.5)</p>
+<p>To draw different parts of one Buffer with sampling from different parts
+of a Texture sampler (as above) then the UV texture coordinates have to
+be modified as shown in the listing posted in this forum discussion
+<a class="reference external" href="https://www.raspberrypi.org/forums/viewtopic.php?f=32&amp;t=195479&amp;p=1223308&amp;hilit=pi3d&amp;sid=64e327583fa392b0758d8b2f5d4852a7#p1223308">ForumMergeShapes</a> (commented out section under #1.Textures) <strong>However</strong>
+the method of adding child objects as in the Molecule1 demo
+is more straightforward and, from pi3d v.2.22, it is possible to construct
+a MergeShape with multiple Buffers each with its own material, texture,
+shader etc. as in the Molecule2 demo.</p>
 </div></blockquote>
 </div>
 </div>
@@ -1891,6 +1943,11 @@ wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
 <li><a class="reference internal" href="#python-v-shader-unif-arrays">python v. shader unif arrays</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#texture-uv-mapping">Texture UV mapping</a><ul>
+<li><a class="reference internal" href="#move-textures">Move Textures</a></li>
+<li><a class="reference internal" href="#scale-textures">Scale Textures</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#blend-shaders">Blend shaders</a></li>
 <li><a class="reference internal" href="#points">Points</a></li>
 <li><a class="reference internal" href="#lines">Lines</a></li>
@@ -1969,7 +2026,7 @@ wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.21 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.22 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

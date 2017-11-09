@@ -15,10 +15,17 @@
 import sys, time
 
 def _fix_path():
-  from os.path import dirname, exists, join
+  from os.path import abspath, dirname, exists, join
 
-  # Find the root of pi3d.
-  pi3d_root = join(dirname(dirname(dirname(__file__))), 'pi3d')
+  ''' Find the root of pi3d. Needs to be
+  ...dirx
+        pi3d
+           ...
+        pi3d.github.com
+           spinx
+               conf.py
+  '''
+  pi3d_root = join(dirname(dirname(dirname(abspath(__file__)))), 'pi3d')
 
   # Make sure we have the right place.
   assert exists(pi3d_root)

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>shape Package &#8212; pi3d 2.21 documentation</title>
+    <title>shape Package &#8212; pi3d 2.22 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.21',
+        VERSION:     '2.22',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.21 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.22 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="next" title="sprite Package" href="pi3d.sprite.html" />
     <link rel="prev" title="loader Package" href="pi3d.loader.html" /> 
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.21 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.22 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -256,12 +256,12 @@ Each cell is width on the x axis and depth on the z axis, and the walls are heig
 <p>The function returns a merged shape with the entire building in it.</p>
 <dl class="attribute">
 <dt id="pi3d.shape.Building.Building.baseScheme">
-<code class="descname">baseScheme</code><em class="property"> = {(1, None): [['R', 0], ['C', 0]], '#models': 1, (0, 0, 'edge'): [['W', 0], ['CE', 0]], (1, 0): [['W', 0], ['CE', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]], (0, None): [['R', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.baseScheme" title="Permalink to this definition">¶</a></dt>
+<code class="descname">baseScheme</code><em class="property"> = {(1, None): [['R', 0], ['C', 0]], '#models': 1, (1, 0): [['W', 0], ['CE', 0]], (0, 0, 'edge'): [['W', 0], ['CE', 0]], (0, None): [['R', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.baseScheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pi3d.shape.Building.Building.openSectionScheme">
-<code class="descname">openSectionScheme</code><em class="property"> = {(1, 2): [['CE', 0]], (2, 2, 'edge'): [['CE', 0]], (2, 0): [['W', 0]], '#models': 1, (0, 0, 'edge'): [['W', 0], ['CE', 0]], (2, None): [['C', 0], ['R', 0]], (1, 0): [['W', 0], ['CE', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]], (2, 0, 'edge'): [['W', 0], ['CE', 0]], (0, None): [['R', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.openSectionScheme" title="Permalink to this definition">¶</a></dt>
+<code class="descname">openSectionScheme</code><em class="property"> = {(1, 2): [['CE', 0]], (2, 0): [['W', 0]], '#models': 1, (2, 0, 'edge'): [['W', 0], ['CE', 0]], (2, None): [['C', 0], ['R', 0]], (2, 2, 'edge'): [['CE', 0]], (1, 0): [['W', 0], ['CE', 0]], (0, 0, 'edge'): [['W', 0], ['CE', 0]], (0, None): [['R', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.openSectionScheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -826,7 +826,7 @@ MergeShape</p>
 <p>uses standard constructor for Shape</p>
 <dl class="method">
 <dt id="pi3d.shape.MergeShape.MergeShape.merge">
-<code class="descname">merge</code><span class="sig-paren">(</span><em>bufr</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape.merge" title="Permalink to this definition">¶</a></dt>
+<code class="descname">merge</code><span class="sig-paren">(</span><em>bufr</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>bufnum=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape.merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>merge the vertices, normals etc from this Buffer with those already there
 the position, rotation, scale, offset are set according to the origin of
 the MergeShape. If bufr is not a Buffer then it will be treated as if it
@@ -842,19 +842,25 @@ the required arguments i.e. [[bufr1, x1, y1, z1, rx1, ry1....],
 way of building a MergeShape from lots of elements. If multiple
 Buffers are passed in this way then the subsequent arguments (x,y,z etc)
 will be ignored.</dd>
+<dt><em>x, y, z, rx, ry, rz, sx, sy, sz</em></dt>
+<dd>Position rotation scale if merging a single Buffer</dd>
+<dt><em>bufnum</em></dt>
+<dd>Specify the index of Buffer to use. This allows a MergeShape to
+contain multiple Buffers each with potentially different shader,
+material, textures, draw_method and unib</dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="pi3d.shape.MergeShape.MergeShape.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>bufr</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape.add" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add</code><span class="sig-paren">(</span><em>bufr</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>bufnum=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>wrapper to alias merge method</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pi3d.shape.MergeShape.MergeShape.cluster">
-<code class="descname">cluster</code><span class="sig-paren">(</span><em>bufr</em>, <em>elevmap</em>, <em>xpos</em>, <em>zpos</em>, <em>w</em>, <em>d</em>, <em>count</em>, <em>options</em>, <em>minscl</em>, <em>maxscl</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape.cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape.cluster" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cluster</code><span class="sig-paren">(</span><em>bufr</em>, <em>elevmap</em>, <em>xpos</em>, <em>zpos</em>, <em>w</em>, <em>d</em>, <em>count</em>, <em>options</em>, <em>minscl</em>, <em>maxscl</em>, <em>bufnum=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape.cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape.cluster" title="Permalink to this definition">¶</a></dt>
 <dd><p>generates a random cluster on an ElevationMap.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
@@ -883,7 +889,7 @@ to the origin of the MergeShape</dd>
 
 <dl class="method">
 <dt id="pi3d.shape.MergeShape.MergeShape.radialCopy">
-<code class="descname">radialCopy</code><span class="sig-paren">(</span><em>bufr</em>, <em>x=0</em>, <em>y=0</em>, <em>z=0</em>, <em>startRadius=2.0</em>, <em>endRadius=2.0</em>, <em>startAngle=0.0</em>, <em>endAngle=360.0</em>, <em>step=12</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape.radialCopy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape.radialCopy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">radialCopy</code><span class="sig-paren">(</span><em>bufr</em>, <em>x=0</em>, <em>y=0</em>, <em>z=0</em>, <em>startRadius=2.0</em>, <em>endRadius=2.0</em>, <em>startAngle=0.0</em>, <em>endAngle=360.0</em>, <em>step=12</em>, <em>bufnum=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape.radialCopy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape.radialCopy" title="Permalink to this definition">¶</a></dt>
 <dd><p>generates a radially copied cluster, axix is in the y direction.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
@@ -1265,7 +1271,7 @@ peak at 0.5, 0.86603 Keyword argument:</p>
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.21 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.22 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>
