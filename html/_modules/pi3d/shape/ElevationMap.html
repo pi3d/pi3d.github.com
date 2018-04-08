@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.shape.ElevationMap &#8212; pi3d 2.22 documentation</title>
+    <title>pi3d.shape.ElevationMap &#8212; pi3d 2.23 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.22',
+        VERSION:     '2.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="top" title="pi3d 2.22 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.23 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.23 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -160,7 +160,8 @@
         <span class="n">tm</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
         <span class="n">tm</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">))</span>
         <span class="n">tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tm</span><span class="p">)</span>
-        <span class="n">tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">tm</span> <span class="o">*</span> <span class="mf">3.99</span> <span class="o">/</span> <span class="p">(</span><span class="n">tm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">tm</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
+        <span class="n">tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">tm</span> <span class="o">*</span> <span class="mf">3.99</span> <span class="o">/</span> <span class="p">(</span><span class="n">tm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">tm</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span> <span class="c1"># set to 0.0, 1.0, 2.0, 3.0</span>
+        <span class="n">tm</span> <span class="o">=</span> <span class="n">tm</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span> <span class="c1"># effectively reflect and rotate to match mapping of elevation</span>
 
     <span class="k">else</span><span class="p">:</span> 
       <span class="sd">&#39;&#39;&#39; images saved as compressed numpy npz file. No resizing so needs </span>
@@ -450,12 +451,12 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.23 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2017, The pi3d team.
+        &#169; Copyright 2012-2018, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

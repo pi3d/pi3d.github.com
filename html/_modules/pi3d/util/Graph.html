@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.Graph &#8212; pi3d 2.22 documentation</title>
+    <title>pi3d.util.Graph &#8212; pi3d 2.23 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.22',
+        VERSION:     '2.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="top" title="pi3d 2.22 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.23 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.23 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -71,9 +71,12 @@
 <span class="sd">        *x_values*</span>
 <span class="sd">          1D numpy array</span>
 <span class="sd">        *y_values*</span>
-<span class="sd">          1 or 2D numpy array with size same as x_values in last D</span>
+<span class="sd">          1 or 2D numpy array with size same as x_values in 2nd D draws</span>
+<span class="sd">          a line graph</span>
+<span class="sd">          or 3D numpy array with size same as x along axis=1 and last axis</span>
+<span class="sd">          has 2 values. In this case the graph is drawn as vertical lines</span>
 <span class="sd">        *width, height*</span>
-<span class="sd">          as ecpected</span>
+<span class="sd">          as expected</span>
 <span class="sd">        *font*</span>
 <span class="sd">          pi3d.Font instance</span>
 <span class="sd">        *title, line_width*</span>
@@ -93,7 +96,7 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
       <span class="n">y_values</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span> <span class="o">+</span> <span class="n">y_values</span><span class="o">.</span><span class="n">shape</span>
-    <span class="k">if</span> <span class="n">x_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">y_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">x_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">y_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
       <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;mismatched array lengths&#39;</span><span class="p">)</span>
       <span class="k">return</span>
     <span class="k">if</span> <span class="n">camera</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -133,9 +136,17 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
       <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
       <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_values</span> <span class="o">-</span> <span class="n">x_offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_factor</span> <span class="o">-</span> <span class="n">axex</span> <span class="o">+</span> <span class="n">xpos</span>
-      <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_factor</span> <span class="o">-</span> <span class="n">axey</span> <span class="o">+</span> <span class="n">ypos</span>
-      <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">4.0</span>
-      <span class="n">line</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Lines</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="n">line_width</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># i.e. normal line graph</span>
+        <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_factor</span> <span class="o">-</span> <span class="n">axey</span> <span class="o">+</span> <span class="n">ypos</span>
+        <span class="n">strip</span> <span class="o">=</span> <span class="kc">True</span>
+      <span class="k">else</span><span class="p">:</span> <span class="c1"># has to be pairs of values for separate line segments</span>
+        <span class="n">xx_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="c1"># make x into pairs</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xx_vals</span>
+        <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="o">-</span> <span class="n">y_offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_factor</span> <span class="o">-</span> <span class="n">axey</span> <span class="o">+</span> <span class="n">ypos</span>
+        <span class="n">strip</span> <span class="o">=</span> <span class="kc">False</span>
+      <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="c1"># z value</span>
+      <span class="n">line</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Lines</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="n">line_width</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="n">strip</span><span class="p">)</span>
       <span class="n">line</span><span class="o">.</span><span class="n">set_shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
       <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
       <span class="n">rgb_val</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.913</span> <span class="o">*</span> <span class="n">j</span> <span class="o">%</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.132</span> <span class="o">*</span> <span class="n">j</span> <span class="o">%</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.484</span> <span class="o">*</span> <span class="n">j</span> <span class="o">%</span> <span class="mf">1.0</span><span class="p">)</span>
@@ -197,7 +208,7 @@
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># in case single line</span>
       <span class="n">y_values</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span> <span class="o">+</span> <span class="n">y_values</span><span class="o">.</span><span class="n">shape</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_offset</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_factor</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">axey</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ypos</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_offset</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_factor</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">axey</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ypos</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">re_init</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Graph.tick_pos"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Graph.Graph.tick_pos">[docs]</a>  <span class="k">def</span> <span class="nf">tick_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minv</span><span class="p">,</span> <span class="n">maxv</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
@@ -246,12 +257,12 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.23 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2017, The pi3d team.
+        &#169; Copyright 2012-2018, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

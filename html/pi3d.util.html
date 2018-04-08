@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>util Package &#8212; pi3d 2.22 documentation</title>
+    <title>util Package &#8212; pi3d 2.23 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.22',
+        VERSION:     '2.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.22 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.23 documentation" href="index.html" />
     <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="prev" title="sprite Package" href="pi3d.sprite.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.23 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -350,9 +350,12 @@ by any value supplied.</dd>
 <dt><em>x_values</em></dt>
 <dd>1D numpy array</dd>
 <dt><em>y_values</em></dt>
-<dd>1 or 2D numpy array with size same as x_values in last D</dd>
+<dd>1 or 2D numpy array with size same as x_values in 2nd D draws
+a line graph
+or 3D numpy array with size same as x along axis=1 and last axis
+has 2 values. In this case the graph is drawn as vertical lines</dd>
 <dt><em>width, height</em></dt>
-<dd>as ecpected</dd>
+<dd>as expected</dd>
 <dt><em>font</em></dt>
 <dd>pi3d.Font instance</dd>
 <dt><em>title, line_width</em></dt>
@@ -396,7 +399,7 @@ by any value supplied.</dd>
 <span id="gui-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Gui</span></code> Module<a class="headerlink" href="#module-pi3d.util.Gui" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.Gui.Gui">
-<em class="property">class </em><code class="descclassname">pi3d.util.Gui.</code><code class="descname">Gui</code><span class="sig-paren">(</span><em>font</em>, <em>show_pointer=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/Gui.html#Gui"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Gui" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pi3d.util.Gui.</code><code class="descname">Gui</code><span class="sig-paren">(</span><em>font</em>, <em>show_pointer=True</em>, <em>fontscale=0.24</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/Gui.html#Gui"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Gui.Gui" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>hold information on all widgets and the pointer, creates a 2D Camera
 and uv_flat shader. Needs to have a Font object passed to it keeps track
@@ -1442,12 +1445,12 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.23 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2017, The pi3d team.
+        &#169; Copyright 2012-2018, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

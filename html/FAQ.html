@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &#8212; pi3d 2.22 documentation</title>
+    <title>Frequently Asked Questions &#8212; pi3d 2.23 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.22',
+        VERSION:     '2.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.22 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.23 documentation" href="index.html" />
     <link rel="next" title="3D Graphics Explanation" href="GPUexplain.html" />
     <link rel="prev" title="Introduction to pi3d" href="ReadMe.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.22 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.23 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -226,7 +226,7 @@ to black or white to determine if this is happening.</p>
 <p>Either the shape is behind the camera, too far away, is outside the field
 of view, is too small, too large or the polygons are facing away from the
 camera. Often this is because you are actually <strong>inside</strong> the object.</p>
-<p>Try using the Camera.point_at([x,y,z]) function (see demos/ClashWalk.py
+<p>Try using the Camera.point_at([x,y,z]) function (see <code class="docutils literal"><span class="pre">pi3d_demos/ClashWalk.py</span></code>
 for use) or move and rotate the object and camera. Sprite and ImageSprite
 shapes are one sided so cannot be seen from behind, try using a Plane
 instead</p>
@@ -254,7 +254,7 @@ to point outwards.</p>
 <h3>Mouse not working<a class="headerlink" href="#mouse-not-working" title="Permalink to this headline">¶</a></h3>
 <p>The demo loads but the mouse doesn&#8217;t move the camera as it&#8217;s supposed to.</p>
 <blockquote>
-<div><p>If this only happens on demos using the <code class="docutils literal"><span class="pre">event</span></code> library (such as Silo.py)
+<div><p>If this only happens on demos using the <code class="docutils literal"><span class="pre">event</span></code> library (such as <code class="docutils literal"><span class="pre">pi3d_demos/Silo.py</span></code>)
 then it could be the hardware configuration is pretending to be something
 it isn&#8217;t. It&#8217;s not uncommon for keyboards to say they are mice or
 joysticks.</p>
@@ -263,14 +263,14 @@ you might need to use <code class="docutils literal"><span class="pre">get_mouse
 with a device or inputs using the event system it&#8217;s a good idea to run
 <code class="docutils literal"><span class="pre">python</span> <span class="pre">FindDevices.py</span></code> from <code class="docutils literal"><span class="pre">pi3d/event/</span></code> - this will give you lots
 of additional information.</p>
-<p>There is also an application <code class="docutils literal"><span class="pre">demos/TestEvents.py</span></code> that you can run to
+<p>There is also an application <code class="docutils literal"><span class="pre">pi3d_demos/TestEvents.py</span></code> that you can run to
 find what information is being returned by your input devices. In some
 circumstances you might need to modify the values returned by the
 <code class="docutils literal"><span class="pre">pi3d/event/Event.py</span> <span class="pre">InputEvents</span></code> methods. TODO at the moment this
 involves hacking the file but it will use a lookup table.</p>
 <p>When running on my laptop (lenovo T420, ubuntu 13.10), occasionally, the
 mouse doesn&#8217;t work with the <code class="docutils literal"><span class="pre">event</span></code> input, but starts to do after
-running <code class="docutils literal"><span class="pre">demos/TestEvents.py</span></code> and changing the number in
+running <code class="docutils literal"><span class="pre">pi3d_demos/TestEvents.py</span></code> and changing the number in
 <code class="docutils literal"><span class="pre">get_mouse_movements()</span></code> a few times. It&#8217;s not clear what causes this
 but it might be when the USB mouse is plugged in after the computer
 has been booted up.</p>
@@ -444,7 +444,7 @@ can I set the layer to be in front or behind.</p>
 <div>There is an argument to <code class="docutils literal"><span class="pre">Display.create(...layer=0)</span></code> that you can
 alter to change the order of layers. To draw <code class="docutils literal"><span class="pre">behind</span></code> the X11 desktop
 on the Raspberry Pi Raspbian setup you need to set the layer to -128 see
-the demo PyQtCube.py</div></blockquote>
+<code class="docutils literal"><span class="pre">pi3d_demos/PyQtCube.py</span></code></div></blockquote>
 </div>
 <div class="section" id="materials">
 <h2>Materials<a class="headerlink" href="#materials" title="Permalink to this headline">¶</a></h2>
@@ -453,7 +453,7 @@ it possible to define a material color.</p>
 <blockquote>
 <div><p>The method <code class="docutils literal"><span class="pre">myshape.set_material((0.9,</span> <span class="pre">0.4,</span> <span class="pre">0.0))</span></code> can be used (the default
 is <code class="docutils literal"><span class="pre">(0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.5)</span></code>) but to render using this you need to use an appropriate
-<a href="#id1"><span class="problematic" id="id2">mat_</span></a> shader:</p>
+mat_shader:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[])</span> <span class="c1"># shader = Shader(&#39;mat_flat&#39;) uses no lighting</span>
 <span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[])</span> <span class="c1"># mat_light uses a light</span>
 <span class="n">myshape</span><span class="o">.</span><span class="n">set_draw_details</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="p">[</span><span class="n">bumptex</span><span class="p">],</span> <span class="mf">4.0</span><span class="p">)</span> <span class="c1"># mat_bump uses light and normal map</span>
@@ -591,8 +591,8 @@ around quite easily. These vertices can be rendered as points and
 the Shader can be made to draw an image or part of an image at each
 point. This technique allows much larger numbers of sprites to be
 drawn per frame, especially if the fast array processing power of
-numpy is used as well. See the demos <code class="docutils literal"><span class="pre">SpriteBalls.py</span></code> and
-<code class="docutils literal"><span class="pre">SpriteMulti.py</span></code></p>
+numpy is used as well. See <code class="docutils literal"><span class="pre">pi3d_demos/SpriteBalls.py</span></code> and
+<code class="docutils literal"><span class="pre">pi3d_demos/SpriteMulti.py</span></code></p>
 </div></blockquote>
 </div>
 <div class="section" id="nearness-of-2d-relative-to-3d">
@@ -852,10 +852,19 @@ and the pi3d.Log module documentation (link above)</p>
 <p>How do I keep two components (Shapes) &#8216;joined together&#8217; as they pitch, roll
 and rotate (yaw), like the TigerTank does with its body, turret and gun?</p>
 <blockquote>
-<div>This can be done automatically by adding Shapes to other Shapes.children
+<div><p>This can be done automatically by adding Shapes to other Shapes.children
 lists which can be done using the Shape.add_child() method. All transformation
 applied to a Shape will then be relative to its parent and will be
-inherited its children. See the drawTiger function in <code class="docutils literal"><span class="pre">TigerTank.py</span></code>.</div></blockquote>
+inherited its children. See <code class="docutils literal"><span class="pre">pi3d_demos/TigerTank.py</span></code>.</p>
+<p>One problem with an arrangement of parent -&gt; child -&gt; grandchild -&gt;
+greatgrandchild etc. (as generally used by game-engines)
+is that the resultant orientations are not trivial to determine. However
+the draw() method does calculate a transformation matrix for each Shape
+that is available. There are two convenience methods <code class="docutils literal"><span class="pre">transform_direction()</span></code>
+and <code class="docutils literal"><span class="pre">rotate_to_direction()</span></code> that are used in <code class="docutils literal"><span class="pre">pi3d_demos/TigerTank.py</span></code>
+to find the direction that the gun is pointing and to rotate a missile
+in line with this.</p>
+</div></blockquote>
 </div>
 <div class="section" id="angle-of-bank">
 <h2>Angle of bank<a class="headerlink" href="#angle-of-bank" title="Permalink to this headline">¶</a></h2>
@@ -868,7 +877,7 @@ reference rotate with the shape?</p>
 <div><p>This is because of the order of the transformations done prior to
 redrawing the scene (z, then x, then y). You have to work out what the pitch
 and roll would have to be prior to rotating them about their own y axis!
-To see what I mean watch the behaviour of the tanks in demos/TigerTank.py
+To see what I mean watch the behaviour of the tanks in <code class="docutils literal"><span class="pre">pi3d_demos//TigerTank.py</span></code>
 You have to figure out the &#8216;slope of the ground&#8217; so that when your
 aeroplane (or boat) is rotated it ends up with the correct pitch and
 roll. For a shape with zero pitch you can use something like:</p>
@@ -880,7 +889,7 @@ roll. For a shape with zero pitch you can use something like:</p>
 <span class="n">hull</span><span class="o">.</span><span class="n">rotateToZ</span><span class="p">(</span><span class="n">absheel</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>And see the <code class="docutils literal"><span class="pre">DogFight.py</span></code> version which has an extra degree
+<p>And see the <code class="docutils literal"><span class="pre">pi3d_demos/DogFight.py</span></code> version which has an extra degree
 of freedom.</p>
 <p>Generally problems like this can be done most easily by using the parent
 child structure as described above in <code class="docutils literal"><span class="pre">Moving</span> <span class="pre">shapes</span> <span class="pre">together</span></code></p>
@@ -904,7 +913,7 @@ texcoords and normals. These are passed as lists of xyz or uv lists or tuples
 or better, two dimentional numpy arrays. An offset argument can also be
 passed to allow only a section of vertices (normals or texcoords) to
 be modified. re_init() can&#8217;t change the number of vertices, just move
-them around. See the demos <code class="docutils literal"><span class="pre">IceGrow.py</span></code> and <code class="docutils literal"><span class="pre">ProceduralTerrain.py</span></code>.</p>
+them around. See the demos <code class="docutils literal"><span class="pre">pi3d_demos/IceGrow.py</span></code> and <code class="docutils literal"><span class="pre">pi3d_demos/ProceduralTerrain.py</span></code>.</p>
 </div></blockquote>
 </div>
 <div class="section" id="slow-animation">
@@ -917,7 +926,7 @@ lower than the flat out rate it will give the processor some &#8216;slack&#8217;
 to accomplish other jobs.</p>
 <p>To do things like file loading in the background (for instance, preloading
 an image or Shape so that it can instantly appear later) you need to use
-Python&#8217;s threading - <code class="docutils literal"><span class="pre">Slideshow_2d.py</span></code> is an example.</p>
+Python&#8217;s threading - <code class="docutils literal"><span class="pre">pi3d_demos/Slideshow_2d.py</span></code> is an example.</p>
 </div></blockquote>
 <div class="section" id="slow-on-non-raspberry-pi-machine">
 <h3>Slow on non-raspberry pi machine<a class="headerlink" href="#slow-on-non-raspberry-pi-machine" title="Permalink to this headline">¶</a></h3>
@@ -988,12 +997,12 @@ edge detection or fancier effects such as oil painting.</p>
 a texture. The Post.py demo shows a simple 3x3 convolution matrix
 shader and there are a host of post process filter shaders that
 are in the pi3d_demos/shaders directory. These wll be loaded in
-turn by <code class="docutils literal"><span class="pre">FilterDemo.py</span></code> but the pi will run out of graphics memory
+turn by <code class="docutils literal"><span class="pre">pi3d_demos/FilterDemo.py</span></code> but the pi will run out of graphics memory
 if you leave the full list in. For more complicated effects it&#8217;s
 over to you!</div></blockquote>
 <div class="section" id="postprocess-class">
 <h3>PostProcess class<a class="headerlink" href="#postprocess-class" title="Permalink to this headline">¶</a></h3>
-<p>OK the example for post processing (Post.py) is quite hard to follow
+<p>OK the example for post processing (<code class="docutils literal"><span class="pre">pi3d_demos/Post.py</span></code>) is quite hard to follow
 how exactly does the PostProcess class work.</p>
 <blockquote>
 <div><p>PostProcess inherits from Texture (via OffScreenTexture) so you can
@@ -1080,7 +1089,7 @@ the impression of movement, say?</p>
 <blockquote>
 <div>This can be done using <code class="docutils literal"><span class="pre">Shape.set_offset((u_off,</span> <span class="pre">v_off))</span></code> which is a
 wrapper for <code class="docutils literal"><span class="pre">Buffer.set_offset((u_off,</span> <span class="pre">v_off))</span></code> This is used in
-pi3d_demos/Water.py</div></blockquote>
+<code class="docutils literal"><span class="pre">pi3d_demos/Water.py</span></code></div></blockquote>
 </div>
 <div class="section" id="scale-textures">
 <h3>Scale Textures<a class="headerlink" href="#scale-textures" title="Permalink to this headline">¶</a></h3>
@@ -1167,7 +1176,7 @@ than 0.0 then the vertices of the Shape will be rendered as points.
 The size will actually vary with distance but will be the size you
 specified at 1 unit of distance from the camera.</p>
 <p>pi3d.Points can be used to render points using the mat_flat shader
-or special shaders as used in the demo <code class="docutils literal"><span class="pre">SpriteMulti.py</span></code></p>
+or special shaders as used in the demo <code class="docutils literal"><span class="pre">pi3d_demos/SpriteMulti.py</span></code></p>
 </div></blockquote>
 </div>
 <div class="section" id="lines">
@@ -1217,7 +1226,7 @@ i.e. rock, grass, heather, swamp.</p>
 <div>From v2.19 there are ready made shaders included to do this as well as an
 argument to specify how up to four different diffuse textures along with
 four different normal maps can be allocated on a vertex by vertex basis
-- see the github.com/pi3d/pi3d_demos/ElevMapWalk.py demo.</div></blockquote>
+- see <code class="docutils literal"><span class="pre">pi3d_demos/TigerTank.py</span></code>.</div></blockquote>
 </div>
 <div class="section" id="without-pil-pillow">
 <h2>Without PIL (Pillow)<a class="headerlink" href="#without-pil-pillow" title="Permalink to this headline">¶</a></h2>
@@ -1455,7 +1464,7 @@ pi3d_demo files do this automatically.</p>
 features of numpy (einsum, interp, remainder and outer). The speed benefit
 of running pypy won&#8217;t improve the GPU functionality or the numpy calculations
 but in some areas where there is a lot of looping in the python code there
-could be gains (The CollisionBalls.py demo for instance).</p>
+could be gains (<code class="docutils literal"><span class="pre">pi3d_demos/CollisionBalls.py</span></code> for instance).</p>
 </div></blockquote>
 </div>
 <div class="section" id="diy-environments">
@@ -1559,7 +1568,7 @@ needs the argument <code class="docutils literal"><span class="pre">invert=True<
 <p>If the same image is used as the reflection with <code class="docutils literal"><span class="pre">uv_reflect</span></code> or
 <code class="docutils literal"><span class="pre">mat_reflect</span></code> shaders then the correct part of the scenery will be
 rendered - i.e. behind the camera and transposed left-right, see
-demo <code class="docutils literal"><span class="pre">EnvironmentSphere.py</span></code>.</p>
+demo <code class="docutils literal"><span class="pre">pi3d_demos/EnvironmentSphere.py</span></code>.</p>
 </div></blockquote>
 </div>
 </div>
@@ -1572,7 +1581,7 @@ seem to take ages on the Raspberry Pi</p>
 the python pickle functionality to serialise pi3d Shapes including
 Model.</p>
 <p>There is an example on github.com/pi3d/pi3d_demos
-LoadModelPickle.py which shows the process but basically:</p>
+<code class="docutils literal"><span class="pre">pi3d_demos/LoadModelPickle.py</span></code> which shows the process but basically:</p>
 <blockquote>
 <div><p>load the models once normally, create a file (has to be
 binary for python3) to write to, then <code class="docutils literal"><span class="pre">pickle.dump(mymodel,</span> <span class="pre">f)</span></code></p>
@@ -1598,7 +1607,7 @@ all the time (with associated processor load)</p>
 <p>When you first create the string you need to make it big enough to
 fit in any additional characters you may send to quick_change()
 subsequently. At the moment it doesn&#8217;t cope with multi-line Strings.</p>
-<p>There is an example in pi3d_demos/ForestQuickNumbers.py</p>
+<p>There is an example in <code class="docutils literal"><span class="pre">pi3d_demos/ForestQuickNumbers.py</span></code></p>
 </div></blockquote>
 <p>Why do I get an error when I try call the quick_change()
 method in my program.</p>
@@ -1628,7 +1637,7 @@ produce effects such as blurring, outlining and normal map generation.</div></bl
 or changing colour.</p>
 <blockquote>
 <div>For complicated things like this then the PointText class should be used
-(with TextBlock components) see the demo StringMulti.py</div></blockquote>
+(with TextBlock components) see <code class="docutils literal"><span class="pre">pi3d_demo/StringMulti.py</span></code></div></blockquote>
 </div>
 <div class="section" id="shadow">
 <h3>Shadow<a class="headerlink" href="#shadow" title="Permalink to this headline">¶</a></h3>
@@ -1660,7 +1669,7 @@ normal map then this will alter the lighting of the surface. However this
 will often give rather strange effects due to the interpretation of surface
 normals from RGB values. To get a better result you can create a version
 that uses the lightness of the image as a height map, for instance in
-the Water.py demo:</p>
+<code class="docutils literal"><span class="pre">pi3d_demos/Water.py</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">shapeimg</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="s2">&quot;textures/straw1.jpg&quot;</span><span class="p">)</span>
 <span class="n">shapebump</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Texture</span><span class="p">(</span><span class="s2">&quot;textures/straw1.jpg&quot;</span><span class="p">,</span> <span class="n">normal_map</span><span class="o">=-</span><span class="mf">6.0</span><span class="p">)</span>
 </pre></div>
@@ -1683,7 +1692,7 @@ The Texture class now accepts a numpy array (size (H,W,N) where N
 is 3 for RGB or 4 for RGBA), remember C arrays are row,col,pixel)</p>
 <p>There is also a method Texture.update_ndarray(new_array) that can
 efficiently switch the image to the new array. See the demo
-<code class="docutils literal"><span class="pre">VideoWalk.py</span></code> which maps a movie onto a shape using ffmpeg.</p>
+<code class="docutils literal"><span class="pre">pi3d_demos/VideoWalk.py</span></code> which maps a movie onto a shape using ffmpeg.</p>
 <p>A much faster system can be used on the Raspberry Pi that utilises the
 C code used in the demos in /opt/vc/src/hello_pi. This is tricky programming
 but a working version has been created by &#64;swhner
@@ -1764,7 +1773,7 @@ sun, world, astroid123?</p>
 <div><p>One approach would be to look at the size of the angle between the
 direction to each possible target and the direction the camera is pointing.
 You would then choose objects where that angle was smaller than a threshold
-then choose the nearest if more than one. Say in pi3d_demos.ForestWalk.py
+then choose the nearest if more than one. Say in <code class="docutils literal"><span class="pre">pi3d_demos.ForestWalk.py</span></code>
 you had kept a dict of different objects as obj_dict, you could add a
 print() when you press the &#8216;h&#8217; key:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">obj_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;monument&#39;</span><span class="p">:</span><span class="n">monument</span><span class="p">,</span> <span class="s1">&#39;trees1&#39;</span><span class="p">:</span><span class="n">mytrees1</span><span class="p">,</span> <span class="s1">&#39;trees2&#39;</span><span class="p">:</span><span class="n">mytrees2</span><span class="p">,</span> <span class="s1">&#39;trees3&#39;</span><span class="p">:</span><span class="n">mytrees3</span><span class="p">}</span>
@@ -1817,14 +1826,18 @@ what if any had been drawn.</p>
 <p>How to create bullets and shoot targets?
 (like counter strike)</p>
 <blockquote>
-<div>The bullets in Counter Strike just look like streaks of light with some
+<div><p>The bullets in Counter Strike just look like streaks of light with some
 smoke so the best way is probably something like the bullets in DogFight.
 This uses two Plane objects merged at 90 degrees to each other with a
 series of images that can be mapped onto them in sequence (there are two
-sets of guns on the Aeroplane which is why there are four Planes). How
-you animate the target being shot depends on the effect you want. In the
+sets of guns on the Aeroplane which is why there are four Planes).</p>
+<p>In the <code class="docutils literal"><span class="pre">pi3d_demos/TigerTank.py</span></code> (from v2.23) there are missiles (purple
+beer bottles) and you can aim (mouse rotates, u, j raise lower gun) and
+fire (f)</p>
+<p>How you animate the target being shot depends on the effect you want. In the
 meteorize game I use a part transparent texture and scale the meteors up
-so they look to be bursting soap bubbles.</div></blockquote>
+so they look to be bursting soap bubbles.</p>
+</div></blockquote>
 </div>
 <div class="section" id="laser-sight">
 <h3>Laser sight<a class="headerlink" href="#laser-sight" title="Permalink to this headline">¶</a></h3>
@@ -1832,7 +1845,7 @@ so they look to be bursting soap bubbles.</div></blockquote>
 laser point for gun?</p>
 <blockquote>
 <div><p>This is the kind of thing you can do.
-For example to modify ForestWalk.py to include a laser dot:</p>
+For example to modify <code class="docutils literal"><span class="pre">pi3d_demos/ForestWalk.py</span></code> to include a laser dot:</p>
 <p>1.Copy the shaders you want to get lasers on to the pi3d_demos/shaders
 directory and rename i.e. uv_bump_laserdot.vs, uv_bump_laserdot.fs</p>
 <p>2.edit the fragment shaders i.e. uv_bump_laserdot.fs and add the
@@ -2026,11 +2039,11 @@ wouldn&#8217;t scale correctly on very large objects such as the terrain.</p>
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.22 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.23 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2017, The pi3d team.
+        &#169; Copyright 2012-2018, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

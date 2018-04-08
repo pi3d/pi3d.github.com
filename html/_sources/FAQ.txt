@@ -186,7 +186,7 @@ I see nothing but the background.
   of view, is too small, too large or the polygons are facing away from the
   camera. Often this is because you are actually **inside** the object.
 
-  Try using the Camera.point_at([x,y,z]) function (see demos/ClashWalk.py
+  Try using the Camera.point_at([x,y,z]) function (see ``pi3d_demos/ClashWalk.py``
   for use) or move and rotate the object and camera. Sprite and ImageSprite
   shapes are one sided so cannot be seen from behind, try using a Plane
   instead
@@ -216,7 +216,7 @@ Mouse not working
 
 The demo loads but the mouse doesn't move the camera as it's supposed to.
 
-  If this only happens on demos using the ``event`` library (such as Silo.py)
+  If this only happens on demos using the ``event`` library (such as ``pi3d_demos/Silo.py``)
   then it could be the hardware configuration is pretending to be something
   it isn't. It's not uncommon for keyboards to say they are mice or
   joysticks.
@@ -227,7 +227,7 @@ The demo loads but the mouse doesn't move the camera as it's supposed to.
   ``python FindDevices.py`` from ``pi3d/event/`` - this will give you lots
   of additional information.
 
-  There is also an application ``demos/TestEvents.py`` that you can run to
+  There is also an application ``pi3d_demos/TestEvents.py`` that you can run to
   find what information is being returned by your input devices. In some
   circumstances you might need to modify the values returned by the
   ``pi3d/event/Event.py InputEvents`` methods. TODO at the moment this
@@ -235,7 +235,7 @@ The demo loads but the mouse doesn't move the camera as it's supposed to.
 
   When running on my laptop (lenovo T420, ubuntu 13.10), occasionally, the
   mouse doesn't work with the ``event`` input, but starts to do after
-  running ``demos/TestEvents.py`` and changing the number in
+  running ``pi3d_demos/TestEvents.py`` and changing the number in
   ``get_mouse_movements()`` a few times. It's not clear what causes this
   but it might be when the USB mouse is plugged in after the computer
   has been booted up.
@@ -417,7 +417,7 @@ can I set the layer to be in front or behind.
   There is an argument to ``Display.create(...layer=0)`` that you can
   alter to change the order of layers. To draw ``behind`` the X11 desktop
   on the Raspberry Pi Raspbian setup you need to set the layer to -128 see
-  the demo PyQtCube.py
+  ``pi3d_demos/PyQtCube.py``
 
 Materials
 ---------
@@ -427,7 +427,7 @@ it possible to define a material color.
 
   The method ``myshape.set_material((0.9, 0.4, 0.0))`` can be used (the default
   is ``(0.5, 0.5, 0.5)``) but to render using this you need to use an appropriate
-  mat_ shader::
+  mat_shader::
 
     myshape.set_draw_details(shader, []) # shader = Shader('mat_flat') uses no lighting
     myshape.set_draw_details(shader, []) # mat_light uses a light
@@ -572,8 +572,8 @@ Can I use pi3d for 2D images?
   the Shader can be made to draw an image or part of an image at each
   point. This technique allows much larger numbers of sprites to be
   drawn per frame, especially if the fast array processing power of
-  numpy is used as well. See the demos ``SpriteBalls.py`` and
-  ``SpriteMulti.py``
+  numpy is used as well. See ``pi3d_demos/SpriteBalls.py`` and
+  ``pi3d_demos/SpriteMulti.py``
 
 nearness of 2D relative to 3D
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -846,7 +846,16 @@ and rotate (yaw), like the TigerTank does with its body, turret and gun?
   This can be done automatically by adding Shapes to other Shapes.children
   lists which can be done using the Shape.add_child() method. All transformation
   applied to a Shape will then be relative to its parent and will be
-  inherited its children. See the drawTiger function in ``TigerTank.py``.
+  inherited its children. See ``pi3d_demos/TigerTank.py``.
+
+  One problem with an arrangement of parent -> child -> grandchild ->
+  greatgrandchild etc. (as generally used by game-engines)
+  is that the resultant orientations are not trivial to determine. However
+  the draw() method does calculate a transformation matrix for each Shape
+  that is available. There are two convenience methods ``transform_direction()``
+  and ``rotate_to_direction()`` that are used in ``pi3d_demos/TigerTank.py``
+  to find the direction that the gun is pointing and to rotate a missile
+  in line with this.
 
 Angle of bank
 -------------
@@ -860,7 +869,7 @@ reference rotate with the shape?
   This is because of the order of the transformations done prior to
   redrawing the scene (z, then x, then y). You have to work out what the pitch
   and roll would have to be prior to rotating them about their own y axis!
-  To see what I mean watch the behaviour of the tanks in demos/TigerTank.py
+  To see what I mean watch the behaviour of the tanks in ``pi3d_demos//TigerTank.py``
   You have to figure out the 'slope of the ground' so that when your
   aeroplane (or boat) is rotated it ends up with the correct pitch and
   roll. For a shape with zero pitch you can use something like::
@@ -872,7 +881,7 @@ reference rotate with the shape?
       hull.rotateToY(-heading)
       hull.rotateToZ(absheel)
 
-  And see the ``DogFight.py`` version which has an extra degree
+  And see the ``pi3d_demos/DogFight.py`` version which has an extra degree
   of freedom.
   
   Generally problems like this can be done most easily by using the parent
@@ -898,7 +907,7 @@ Is it possible to change the shape of an object once it's been made?
   or better, two dimentional numpy arrays. An offset argument can also be
   passed to allow only a section of vertices (normals or texcoords) to
   be modified. re_init() can't change the number of vertices, just move
-  them around. See the demos ``IceGrow.py`` and ``ProceduralTerrain.py``.
+  them around. See the demos ``pi3d_demos/IceGrow.py`` and ``pi3d_demos/ProceduralTerrain.py``.
 
 Slow animation
 --------------
@@ -912,7 +921,7 @@ disk, everything slows down or freezes.
 
   To do things like file loading in the background (for instance, preloading
   an image or Shape so that it can instantly appear later) you need to use
-  Python's threading - ``Slideshow_2d.py`` is an example.
+  Python's threading - ``pi3d_demos/Slideshow_2d.py`` is an example.
 
 Slow on non-raspberry pi machine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -988,14 +997,14 @@ edge detection or fancier effects such as oil painting.
   a texture. The Post.py demo shows a simple 3x3 convolution matrix
   shader and there are a host of post process filter shaders that
   are in the pi3d_demos/shaders directory. These wll be loaded in
-  turn by ``FilterDemo.py`` but the pi will run out of graphics memory
+  turn by ``pi3d_demos/FilterDemo.py`` but the pi will run out of graphics memory
   if you leave the full list in. For more complicated effects it's
   over to you!
 
 PostProcess class
 ~~~~~~~~~~~~~~~~~
 
-OK the example for post processing (Post.py) is quite hard to follow
+OK the example for post processing (``pi3d_demos/Post.py``) is quite hard to follow
 how exactly does the PostProcess class work.
 
   PostProcess inherits from Texture (via OffScreenTexture) so you can
@@ -1087,7 +1096,7 @@ the impression of movement, say?
 
   This can be done using ``Shape.set_offset((u_off, v_off))`` which is a
   wrapper for ``Buffer.set_offset((u_off, v_off))`` This is used in
-  pi3d_demos/Water.py
+  ``pi3d_demos/Water.py``
 
 Scale Textures
 ~~~~~~~~~~~~~~
@@ -1181,7 +1190,7 @@ or sparks from an explosion.
   specified at 1 unit of distance from the camera.
 
   pi3d.Points can be used to render points using the mat_flat shader
-  or special shaders as used in the demo ``SpriteMulti.py``
+  or special shaders as used in the demo ``pi3d_demos/SpriteMulti.py``
 
 Lines
 -----
@@ -1232,7 +1241,7 @@ i.e. rock, grass, heather, swamp.
   From v2.19 there are ready made shaders included to do this as well as an
   argument to specify how up to four different diffuse textures along with 
   four different normal maps can be allocated on a vertex by vertex basis
-  - see the github.com/pi3d/pi3d_demos/ElevMapWalk.py demo.
+  - see ``pi3d_demos/TigerTank.py``.
 
 Without PIL (Pillow)
 --------------------
@@ -1483,7 +1492,7 @@ Does pi3d work with pypy
   features of numpy (einsum, interp, remainder and outer). The speed benefit
   of running pypy won't improve the GPU functionality or the numpy calculations 
   but in some areas where there is a lot of looping in the python code there
-  could be gains (The CollisionBalls.py demo for instance).
+  could be gains (``pi3d_demos/CollisionBalls.py`` for instance).
 
 DIY environments
 ----------------
@@ -1611,7 +1620,7 @@ images created by later versions of Android)
   If the same image is used as the reflection with ``uv_reflect`` or
   ``mat_reflect`` shaders then the correct part of the scenery will be
   rendered - i.e. behind the camera and transposed left-right, see
-  demo ``EnvironmentSphere.py``.
+  demo ``pi3d_demos/EnvironmentSphere.py``.
 
 pickling
 --------
@@ -1624,7 +1633,7 @@ seem to take ages on the Raspberry Pi
   Model.
   
   There is an example on github.com/pi3d/pi3d_demos
-  LoadModelPickle.py which shows the process but basically:
+  ``pi3d_demos/LoadModelPickle.py`` which shows the process but basically:
   
     load the models once normally, create a file (has to be 
     binary for python3) to write to, then ``pickle.dump(mymodel, f)``
@@ -1654,7 +1663,7 @@ all the time (with associated processor load)
   fit in any additional characters you may send to quick_change()
   subsequently. At the moment it doesn't cope with multi-line Strings.
 
-  There is an example in pi3d_demos/ForestQuickNumbers.py
+  There is an example in ``pi3d_demos/ForestQuickNumbers.py``
   
 Why do I get an error when I try call the quick_change()
 method in my program.
@@ -1686,7 +1695,7 @@ I want lots of text changing in real-time, scrolling, rotating, fading
 or changing colour.
 
   For complicated things like this then the PointText class should be used
-  (with TextBlock components) see the demo StringMulti.py
+  (with TextBlock components) see ``pi3d_demo/StringMulti.py``
 
 Shadow
 ~~~~~~
@@ -1719,7 +1728,7 @@ shaders. Is there a way to generate these automatically.
   will often give rather strange effects due to the interpretation of surface
   normals from RGB values. To get a better result you can create a version
   that uses the lightness of the image as a height map, for instance in
-  the Water.py demo::
+  ``pi3d_demos/Water.py``::
   
     shapeimg = pi3d.Texture("textures/straw1.jpg")
     shapebump = pi3d.Texture("textures/straw1.jpg", normal_map=-6.0)
@@ -1745,7 +1754,7 @@ image manipulation program such as OpenCV, Scipy or numpy?
 
   There is also a method Texture.update_ndarray(new_array) that can
   efficiently switch the image to the new array. See the demo
-  ``VideoWalk.py`` which maps a movie onto a shape using ffmpeg.
+  ``pi3d_demos/VideoWalk.py`` which maps a movie onto a shape using ffmpeg.
   
   A much faster system can be used on the Raspberry Pi that utilises the
   C code used in the demos in /opt/vc/src/hello_pi. This is tricky programming
@@ -1833,7 +1842,7 @@ sun, world, astroid123?
   One approach would be to look at the size of the angle between the 
   direction to each possible target and the direction the camera is pointing. 
   You would then choose objects where that angle was smaller than a threshold 
-  then choose the nearest if more than one. Say in pi3d_demos.ForestWalk.py 
+  then choose the nearest if more than one. Say in ``pi3d_demos.ForestWalk.py``
   you had kept a dict of different objects as obj_dict, you could add a 
   print() when you press the 'h' key::
 
@@ -1892,8 +1901,13 @@ How to create bullets and shoot targets?
   smoke so the best way is probably something like the bullets in DogFight. 
   This uses two Plane objects merged at 90 degrees to each other with a 
   series of images that can be mapped onto them in sequence (there are two 
-  sets of guns on the Aeroplane which is why there are four Planes). How 
-  you animate the target being shot depends on the effect you want. In the 
+  sets of guns on the Aeroplane which is why there are four Planes).
+
+  In the ``pi3d_demos/TigerTank.py`` (from v2.23) there are missiles (purple
+  beer bottles) and you can aim (mouse rotates, u, j raise lower gun) and
+  fire (f)
+
+  How you animate the target being shot depends on the effect you want. In the 
   meteorize game I use a part transparent texture and scale the meteors up 
   so they look to be bursting soap bubbles.
 
@@ -1904,7 +1918,7 @@ How to create a
 laser point for gun?
 
   This is the kind of thing you can do. 
-  For example to modify ForestWalk.py to include a laser dot:
+  For example to modify ``pi3d_demos/ForestWalk.py`` to include a laser dot:
 
   1.Copy the shaders you want to get lasers on to the pi3d_demos/shaders 
   directory and rename i.e. uv_bump_laserdot.vs, uv_bump_laserdot.fs

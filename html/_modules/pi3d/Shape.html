@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Shape &#8212; pi3d 2.22 documentation</title>
+    <title>pi3d.Shape &#8212; pi3d 2.23 documentation</title>
     
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.22',
+        VERSION:     '2.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="top" title="pi3d 2.22 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.23 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.23 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -127,6 +127,7 @@
 <span class="sd">      18  custom data space                           54  56</span>
 <span class="sd">      19  custom data space                           57  59</span>
 <span class="sd">    ===== ========================================== ==== ==</span>
+
 <span class="sd">    Note: the fractional part of fog distance (i.e. 0.95 in 200.95) is</span>
 <span class="sd">    interpretted as the start of fogging (i.e. start 190.90.. full by 200.95)</span>
 <span class="sd">    If fog distance is a whole number then a value of 0.333 will be used</span>
@@ -779,6 +780,54 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">tr2</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">MFlg</span> <span class="o">=</span> <span class="kc">True</span>
+    
+<div class="viewcode-block" id="Shape.rotate_to_direction"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.rotate_to_direction">[docs]</a>  <span class="k">def</span> <span class="nf">rotate_to_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">forward</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot; works out the XYZ euler rotations to rotate this shape from</span>
+<span class="sd">    forward to direction vectors</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">      *direction*</span>
+<span class="sd">        3vector tuple, array or numpy array</span>
+<span class="sd">      *forward*</span>
+<span class="sd">        3vector, usually +ve z direction</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+      <span class="n">direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">forward</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+      <span class="n">forward</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">forward</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; TODO self._camera might not be instantiated when this method is called</span>
+<span class="sd">    for some reason so these calls pass None for self in static style calls</span>
+<span class="sd">    on the Camera class itself &quot;&quot;&quot;</span>
+    <span class="n">rot_mtrix</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="n">matrix_from_two_vectors</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">forward</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+    <span class="n">rot_euler</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="n">euler_angles</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">rot_mtrix</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rotateToX</span><span class="p">(</span><span class="o">-</span><span class="n">rot_euler</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># unclear why x and y need to be -ve</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rotateToY</span><span class="p">(</span><span class="o">-</span><span class="n">rot_euler</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># something to do with sense of rotation of camera</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rotateToZ</span><span class="p">(</span><span class="n">rot_euler</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Shape.transform_direction"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.transform_direction">[docs]</a>  <span class="k">def</span> <span class="nf">transform_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a tuple of two 3D numpy arrays representing the transformed</span>
+<span class="sd">    origin of this Shape and the transformed direction vector</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">      *direction*</span>
+<span class="sd">        3vector tuple, array or numpy array</span>
+<span class="sd">      *origin*</span>
+<span class="sd">        3D point to use as origin of direction vector (i.e. if displaced</span>
+<span class="sd">        from origin of shape)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tip_pt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))[:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">root_pt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRaw</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))[:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">root_pt</span><span class="p">,</span> <span class="n">tip_pt</span> <span class="o">-</span> <span class="n">root_pt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Shape.shallow_clone"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.shallow_clone">[docs]</a>  <span class="k">def</span> <span class="nf">shallow_clone</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a copy of this shape with its own transform details, location,</span>
+<span class="sd">    rotation etc but textures and buf arrays point to the existing objects</span>
+<span class="sd">    without copying them.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getstate__</span><span class="p">()</span>
+    <span class="n">clone</span> <span class="o">=</span> <span class="n">Shape</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">clone</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="c1"># everything is overwritten here</span>
+    <span class="k">return</span> <span class="n">clone</span></div>
 
   <span class="k">def</span> <span class="nf">_lathe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">sides</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">rise</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">loops</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns a Buffer object by rotating the points defined in path.</span>
@@ -858,7 +907,7 @@
       <span class="n">opy</span> <span class="o">=</span> <span class="n">py</span>
 
     <span class="k">return</span> <span class="n">Buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verts</span><span class="p">,</span> <span class="n">tex_coords</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">norms</span><span class="p">)</span>
-  
+
   <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">{</span>
       <span class="s1">&#39;unif&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">),</span>
@@ -869,7 +918,7 @@
       <span class="s1">&#39;textures&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures</span><span class="p">,</span>
       <span class="s1">&#39;shader&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shader</span>
       <span class="p">}</span>
-  
+
   <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
     <span class="n">unif_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;unif&#39;</span><span class="p">])</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)(</span><span class="o">*</span><span class="n">unif_tuple</span><span class="p">)</span>
@@ -915,12 +964,12 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.23 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2017, The pi3d team.
+        &#169; Copyright 2012-2018, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

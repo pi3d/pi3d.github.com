@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d Package &#8212; pi3d 2.22 documentation</title>
+    <title>pi3d Package &#8212; pi3d 2.23 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.22',
+        VERSION:     '2.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.22 documentation" href="index.html" />
+    <link rel="top" title="pi3d 2.23 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.22 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.23 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -457,8 +457,18 @@ cz.sy+cy.sz.sx  sz.sy-cz.cy.sx   cx.cy``
 </dd></dl>
 
 <dl class="method">
+<dt id="pi3d.Camera.Camera.matrix_from_two_vectors">
+<code class="descname">matrix_from_two_vectors</code><span class="sig-paren">(</span><em>start_vector</em>, <em>vector</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.matrix_from_two_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.matrix_from_two_vectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>uses two 3D vectors (arrays) to generate a rotation vector representing
+the movement from one direction to another. NB because there are many
+ways of doing this the z rotation may not match so this this method might
+be best combined with the euler_angles system above. See the 
+pi3d_demos/ForestStereo.py example - key press &#8216;k&#8217;</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pi3d.Camera.Camera.matrix_from_two_vecors">
-<code class="descname">matrix_from_two_vecors</code><span class="sig-paren">(</span><em>start_vector</em>, <em>vector</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Camera.html#Camera.matrix_from_two_vecors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera.matrix_from_two_vecors" title="Permalink to this definition">¶</a></dt>
+<code class="descname">matrix_from_two_vecors</code><span class="sig-paren">(</span><em>start_vector</em>, <em>vector</em><span class="sig-paren">)</span><a class="headerlink" href="#pi3d.Camera.Camera.matrix_from_two_vecors" title="Permalink to this definition">¶</a></dt>
 <dd><p>uses two 3D vectors (arrays) to generate a rotation vector representing
 the movement from one direction to another. NB because there are many
 ways of doing this the z rotation may not match so this this method might
@@ -1596,6 +1606,49 @@ self.MFlg = True</p>
 <code class="descname">cxcycz</code><a class="headerlink" href="#pi3d.Shape.Shape.cxcycz" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="pi3d.Shape.Shape.rotate_to_direction">
+<code class="descname">rotate_to_direction</code><span class="sig-paren">(</span><em>direction, forward=[0.0, 0.0, 1.0]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.rotate_to_direction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.rotate_to_direction" title="Permalink to this definition">¶</a></dt>
+<dd><p>works out the XYZ euler rotations to rotate this shape from
+forward to direction vectors</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>direction</em></dt>
+<dd>3vector tuple, array or numpy array</dd>
+<dt><em>forward</em></dt>
+<dd>3vector, usually +ve z direction</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.transform_direction">
+<code class="descname">transform_direction</code><span class="sig-paren">(</span><em>direction, origin=[0.0, 0.0, 0.0]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.transform_direction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.transform_direction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a tuple of two 3D numpy arrays representing the transformed
+origin of this Shape and the transformed direction vector</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>direction</em></dt>
+<dd>3vector tuple, array or numpy array</dd>
+<dt><em>origin</em></dt>
+<dd>3D point to use as origin of direction vector (i.e. if displaced
+from origin of shape)</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.shallow_clone">
+<code class="descname">shallow_clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.shallow_clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.shallow_clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of this shape with its own transform details, location,
+rotation etc but textures and buf arrays point to the existing objects
+without copying them.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1861,11 +1914,11 @@ new glTextureBuffers i.e. for movie textures</p>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.22 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.23 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2017, The pi3d team.
+        &#169; Copyright 2012-2018, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>

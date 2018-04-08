@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.util.Gui &#8212; pi3d 2.22 documentation</title>
+    <title>pi3d.util.Gui &#8212; pi3d 2.23 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '2.22',
+        VERSION:     '2.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="top" title="pi3d 2.22 documentation" href="../../../index.html" />
+    <link rel="top" title="pi3d 2.23 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.23 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -59,7 +59,7 @@
 <span class="n">DTM</span> <span class="o">=</span> <span class="mf">0.15</span> <span class="c1">#minimum time between mouse clicks</span>
 
 <div class="viewcode-block" id="Gui"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Gui.Gui">[docs]</a><span class="k">class</span> <span class="nc">Gui</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">show_pointer</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">show_pointer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontscale</span><span class="o">=</span><span class="mf">0.24</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;hold information on all widgets and the pointer, creates a 2D Camera</span>
 <span class="sd">    and uv_flat shader. Needs to have a Font object passed to it keeps track</span>
 <span class="sd">    of when the last mouse click or key stroke to avoid double counting.</span>
@@ -79,6 +79,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">blend</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">focus</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">show_pointer</span> <span class="o">=</span> <span class="n">show_pointer</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fontscale</span> <span class="o">=</span> <span class="n">fontscale</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
       <span class="n">icon_path</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;/pi3d/util/icons/&#39;</span>
       <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">icon_path</span><span class="p">):</span>
@@ -154,7 +155,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">label_pos</span> <span class="o">=</span> <span class="n">label_pos</span>
     <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">is_3d</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                              <span class="n">camera</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+                              <span class="n">camera</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">gui</span><span class="o">.</span><span class="n">fontscale</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span><span class="o">.</span><span class="n">set_shader</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">shader</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">labelobj</span> <span class="o">=</span> <span class="kc">None</span>
@@ -535,12 +536,12 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.23 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2017, The pi3d team.
+        &#169; Copyright 2012-2018, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
