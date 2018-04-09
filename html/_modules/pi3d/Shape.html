@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pi3d.Shape &#8212; pi3d 2.23 documentation</title>
+    <title>pi3d.Shape &#8212; pi3d 2.24 documentation</title>
     
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.23',
+        VERSION:     '2.24',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="top" title="pi3d 2.23 documentation" href="../../index.html" />
+    <link rel="top" title="pi3d 2.24 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.23 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.24 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -327,6 +327,17 @@
 <span class="sd">        Shader object</span>
 <span class="sd">      *textures*</span>
 <span class="sd">        array of Texture objects</span>
+
+<span class="sd">    Keyword arguments:</span>
+<span class="sd">      *ntiles*</span>
+<span class="sd">        multiple for tiling normal map which can be less than or greater</span>
+<span class="sd">        than 1.0. 0.0 disables the normal mapping, float</span>
+<span class="sd">      *shiny*</span>
+<span class="sd">        how strong to make the reflection 0.0 to 1.0, float</span>
+<span class="sd">      *umult,vmult*</span>
+<span class="sd">        multipliers for tiling the texture in the u,v directions</span>
+<span class="sd">      *bump_factor*</span>
+<span class="sd">        multiplier for the normal map surface distortion effect</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="n">shader</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
@@ -370,14 +381,17 @@
 
 
 <div class="viewcode-block" id="Shape.set_fog"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_fog">[docs]</a>  <span class="k">def</span> <span class="nf">set_fog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fogshade</span><span class="p">,</span> <span class="n">fogdist</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Set fog for this Shape only, it uses the shader smoothblend function from</span>
-<span class="sd">    1/3 fogdist to fogdist.</span>
+    <span class="sd">&quot;&quot;&quot;Set fog for this Shape only, it uses the shader smoothblend function</span>
+<span class="sd">    over a variable proportion of fogdist (defaulting to 33.33% -&gt; 100%).</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">      *fogshade*</span>
 <span class="sd">        tuple (rgba)</span>
 <span class="sd">      *fogdist*</span>
-<span class="sd">        distance from Camera at which Shape is 100% fogshade</span>
+<span class="sd">        distance from Camera at which Shape is 100% fogshade. The start of</span>
+<span class="sd">        the fog depends on the decimal part of this value. i.e. 100.5 would</span>
+<span class="sd">        start at 50, 100.9 would start at 90. If the decimal is 0 then the</span>
+<span class="sd">        default start distance is 1/3 of fogdist i.e. 100 would start at 33</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span> <span class="o">=</span> <span class="n">fogshade</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">=</span> <span class="n">fogdist</span>
@@ -468,7 +482,8 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="n">index_from</span><span class="p">:(</span><span class="n">index_from</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]</span> <span class="o">=</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="Shape.set_point_size"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.set_point_size">[docs]</a>  <span class="k">def</span> <span class="nf">set_point_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This will set the draw_method in all Buffers of this Shape&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This will set the draw_method in all Buffers of this Shape. point_size</span>
+<span class="sd">    less than or equal 0.0 will switch back to GL_TRIANGLES&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">point_size</span>
       <span class="n">b</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_POINTS</span> <span class="k">if</span> <span class="n">point_size</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="n">GL_TRIANGLES</span></div>
@@ -477,10 +492,16 @@
     <span class="sd">&quot;&quot;&quot;This will set the draw_method in all Buffers of this Shape</span>
 
 <span class="sd">      *line-width*</span>
-<span class="sd">        line width default 1</span>
-
+<span class="sd">        line width default 1. If set to &lt;= 0.0 this will switch back to</span>
+<span class="sd">        GL_TRIANGLES</span>
+<span class="sd">      *strip*</span>
+<span class="sd">        If True (default) then the line is drawn continuously from one</span>
+<span class="sd">        point to the next i.e. each line after the first one is defined</span>
+<span class="sd">        by a single addtional point. If false then each line is defined by</span>
+<span class="sd">        pairs of points.</span>
 <span class="sd">      *closed*</span>
-<span class="sd">        if set to True then the last leg will be filled in. ie polygon</span>
+<span class="sd">        if set to True then the last leg will be filled in. ie polygon.</span>
+<span class="sd">        This only has any effect if *strip* is True</span>
 <span class="sd">    </span>
 <span class="sd">    NB it differs from point size in that glLineWidth() is called here</span>
 <span class="sd">    and that line width will be used for all subsequent draw() operations</span>
@@ -507,7 +528,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">re_init</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">texcoords</span><span class="p">,</span> <span class="n">normals</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span></div>
     
 <div class="viewcode-block" id="Shape.add_child"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.add_child">[docs]</a>  <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;puts a Shape into the children list&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;puts a Shape into the Shape.children list&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Shape.x"><a class="viewcode-back" href="../../pi3d.html#pi3d.Shape.Shape.x">[docs]</a>  <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -795,11 +816,10 @@
       <span class="n">direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">forward</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
       <span class="n">forward</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">forward</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot; TODO self._camera might not be instantiated when this method is called</span>
-<span class="sd">    for some reason so these calls pass None for self in static style calls</span>
-<span class="sd">    on the Camera class itself &quot;&quot;&quot;</span>
-    <span class="n">rot_mtrix</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="n">matrix_from_two_vectors</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">forward</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
-    <span class="n">rot_euler</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="n">euler_angles</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">rot_mtrix</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span> <span class="c1"># TODO may be issues doing this not in main thread (otherwise why not in Shape.__init__()?)</span>
+    <span class="n">rot_mtrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span><span class="o">.</span><span class="n">matrix_from_two_vectors</span><span class="p">(</span><span class="n">forward</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+    <span class="n">rot_euler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span><span class="o">.</span><span class="n">euler_angles</span><span class="p">(</span><span class="n">rot_mtrix</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rotateToX</span><span class="p">(</span><span class="o">-</span><span class="n">rot_euler</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># unclear why x and y need to be -ve</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rotateToY</span><span class="p">(</span><span class="o">-</span><span class="n">rot_euler</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># something to do with sense of rotation of camera</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rotateToZ</span><span class="p">(</span><span class="n">rot_euler</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div>
@@ -964,7 +984,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.23 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.24 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
