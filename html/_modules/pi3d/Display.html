@@ -1,34 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>pi3d.Display &#8212; pi3d 2.24 documentation</title>
-    
+    <title>pi3d.Display &#8212; pi3d 2.26 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.24',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="top" title="pi3d 2.24 documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
-  </head>
-  <body role="document">
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -38,7 +25,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.26 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -61,15 +48,16 @@
 
 <span class="kn">import</span> <span class="nn">pi3d</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.DisplayOpenGL</span> <span class="k">import</span> <span class="n">DisplayOpenGL</span>
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
-
-<span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="p">(</span><span class="n">openegl</span><span class="p">,</span> <span class="n">opengles</span><span class="p">,</span> <span class="n">PLATFORM</span><span class="p">,</span> <span class="n">PLATFORM_ANDROID</span><span class="p">,</span>
+          <span class="n">PLATFORM_PI</span><span class="p">,</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">,</span> <span class="n">STARTUP_MESSAGE</span><span class="p">,</span> <span class="n">DISPLAY_CONFIG_DEFAULT</span><span class="p">,</span>
+<span class="n">GL_COLOR_BUFFER_BIT</span><span class="p">,</span> <span class="n">GL_DEPTH_BUFFER_BIT</span><span class="p">,)</span>
+<span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
   <span class="kn">import</span> <span class="nn">pygame</span>
-<span class="k">elif</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
-  <span class="kn">from</span> <span class="nn">pyxlib.x</span> <span class="k">import</span> <span class="o">*</span>
+<span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
+  <span class="kn">from</span> <span class="nn">pyxlib.x</span> <span class="k">import</span> <span class="n">KeyPress</span><span class="p">,</span> <span class="n">KeyRelease</span><span class="p">,</span> <span class="n">ClientMessage</span>
   <span class="kn">from</span> <span class="nn">pyxlib</span> <span class="k">import</span> <span class="n">xlib</span>
 
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="n">ALLOW_MULTIPLE_DISPLAYS</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">RAISE_EXCEPTIONS</span> <span class="o">=</span> <span class="kc">True</span>
@@ -83,14 +71,14 @@
 <span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
   <span class="kn">from</span> <span class="nn">kivy.app</span> <span class="k">import</span> <span class="n">App</span>
   <span class="kn">from</span> <span class="nn">kivy.uix.floatlayout</span> <span class="k">import</span> <span class="n">FloatLayout</span>
   <span class="kn">from</span> <span class="nn">kivy.clock</span> <span class="k">import</span> <span class="n">Clock</span>
 
   <span class="k">class</span> <span class="nc">Pi3dScreen</span><span class="p">(</span><span class="n">FloatLayout</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-      <span class="nb">super</span><span class="p">(</span><span class="n">Pi3dScreen</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+      <span class="nb">super</span><span class="p">(</span><span class="n">Pi3dScreen</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">TAP_TM</span> <span class="o">=</span> <span class="mf">0.15</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">TAP_GAP</span> <span class="o">=</span> <span class="mf">1.0</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">moved</span> <span class="o">=</span> <span class="kc">False</span>
@@ -161,9 +149,9 @@
       <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="o">=</span> <span class="bp">self</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">tkwin</span> <span class="o">=</span> <span class="n">tkwin</span>
-    <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_PI</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_PI</span><span class="p">:</span>
       <span class="n">use_pygame</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">elif</span> <span class="n">use_pygame</span> <span class="ow">or</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">use_pygame</span> <span class="ow">or</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span><span class="p">:</span>
       <span class="k">try</span><span class="p">:</span>
         <span class="kn">import</span> <span class="nn">pygame</span>
         <span class="n">use_pygame</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># for Windows</span>
@@ -182,15 +170,15 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">vbufs_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ebufs_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">last_shader</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">last_textures</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span> <span class="c1"># 8 is max no. texture2D on broadcom GPU</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">last_textures</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span> <span class="c1"># 8 is max no. texture2D on broadcom GPU</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">external_mouse</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">offscreen_tex</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># used in Buffer.draw() to force reload of textures</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span> <span class="ow">and</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_ANDROID</span> <span class="ow">and</span>
         <span class="ow">not</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">USE_PYGAME</span><span class="p">):</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">event_list</span> <span class="o">=</span> <span class="p">[]</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">ev</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XEvent</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">android</span> <span class="o">=</span> <span class="n">Pi3dApp</span><span class="p">()</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">opengl</span> <span class="o">=</span> <span class="n">DisplayOpenGL</span><span class="p">()</span>
@@ -199,7 +187,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
 
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">pi3d</span><span class="o">.</span><span class="n">STARTUP_MESSAGE</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">STARTUP_MESSAGE</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Display.loop_running"><a class="viewcode-back" href="../../pi3d.html#pi3d.Display.Display.loop_running">[docs]</a>  <span class="k">def</span> <span class="nf">loop_running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;*loop_running* is the main event loop for the Display.</span>
@@ -301,7 +289,7 @@
       <span class="k">try</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">external_mouse</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
       <span class="k">except</span><span class="p">:</span>
-        <span class="n">pass_</span>
+        <span class="k">pass</span>
     <span class="k">try</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
     <span class="k">except</span><span class="p">:</span>
@@ -320,7 +308,7 @@
 <div class="viewcode-block" id="Display.clear"><a class="viewcode-back" href="../../pi3d.html#pi3d.Display.Display.clear">[docs]</a>  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Clear the Display.&quot;&quot;&quot;</span>
     <span class="c1"># opengles.glBindFramebuffer(GL_FRAMEBUFFER,0)</span>
-    <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glClear</span><span class="p">(</span><span class="n">pi3d</span><span class="o">.</span><span class="n">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">GL_DEPTH_BUFFER_BIT</span><span class="p">)</span></div>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glClear</span><span class="p">(</span><span class="n">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_DEPTH_BUFFER_BIT</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Display.set_background"><a class="viewcode-back" href="../../pi3d.html#pi3d.Display.Display.set_background">[docs]</a>  <span class="k">def</span> <span class="nf">set_background</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set the Display background. **NB the actual drawing of the background</span>
@@ -335,8 +323,8 @@
 <span class="sd">      Opacity of the color.  An alpha of 0 means a transparent background,</span>
 <span class="sd">      an alpha of 1 means full opaque.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glClearColor</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
-    <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glColorMask</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">alpha</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">))</span></div>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glClearColor</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glColorMask</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">alpha</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">))</span></div>
     <span class="c1"># Switches off alpha blending with desktop (is there a bug in the driver?)</span>
 
 <div class="viewcode-block" id="Display.mouse_position"><a class="viewcode-back" href="../../pi3d.html#pi3d.Display.Display.mouse_position">[docs]</a>  <span class="k">def</span> <span class="nf">mouse_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -356,9 +344,9 @@
       <span class="kn">import</span> <span class="nn">pygame</span> <span class="c1"># although done in __init__ ...python namespaces aarg!!!</span>
       <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
       <span class="n">n</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XEventsQueued</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="n">xlib</span><span class="o">.</span><span class="n">QueuedAfterFlush</span><span class="p">)</span>
-      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
           <span class="n">xlib</span><span class="o">.</span><span class="n">XNextEvent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="p">)</span>
           <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">KeyPress</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">KeyRelease</span><span class="p">:</span>
               <span class="bp">self</span><span class="o">.</span><span class="n">event_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="p">)</span>
@@ -389,7 +377,7 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">:</span>
       <span class="n">tex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
       <span class="k">if</span> <span class="n">tex</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteTextures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">byref</span><span class="p">(</span><span class="n">tex</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteTextures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">byref</span><span class="p">(</span><span class="n">tex</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="n">to_del</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">to_del</span><span class="p">:</span>
       <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">textures_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -397,7 +385,7 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vbufs_dict</span><span class="p">:</span>
       <span class="n">vbuf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vbufs_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
       <span class="k">if</span> <span class="n">vbuf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">byref</span><span class="p">(</span><span class="n">vbuf</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">byref</span><span class="p">(</span><span class="n">vbuf</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="n">to_del</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">to_del</span><span class="p">:</span>
       <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">vbufs_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -405,7 +393,7 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ebufs_dict</span><span class="p">:</span>
       <span class="n">ebuf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ebufs_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
       <span class="k">if</span> <span class="n">ebuf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">byref</span><span class="p">(</span><span class="n">ebuf</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">byref</span><span class="p">(</span><span class="n">ebuf</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="n">to_del</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">to_del</span><span class="p">:</span>
       <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">ebufs_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -504,7 +492,7 @@
 <span class="sd">    Configuration of display - See pi3d.constants for DISPLAY_CONFIG options</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">if</span> <span class="n">tk</span><span class="p">:</span> <span class="c1">#NB this happens before Display created so use_pygame will not work on linux</span>
-    <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_PI</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">!=</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
       <span class="c1">#just use python-xlib same as non-tk but need dummy behaviour</span>
       <span class="kn">from</span> <span class="nn">pi3d.Keyboard</span> <span class="k">import</span> <span class="n">Keyboard</span>
       <span class="k">class</span> <span class="nc">DummyTkWin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -517,7 +505,7 @@
           <span class="bp">self</span><span class="o">.</span><span class="n">event_list</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-          <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_WINDOWS</span> <span class="ow">or</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">USE_PYGAME</span><span class="p">:</span> <span class="c1">#uses pygame UI</span>
+          <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_WINDOWS</span> <span class="ow">or</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">USE_PYGAME</span><span class="p">:</span> <span class="c1">#uses pygame UI</span>
             <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tkKeyboard</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
               <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -598,7 +586,7 @@
   <span class="n">display</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span>
 
   <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">create_display</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="n">samples</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer</span><span class="p">,</span> <span class="n">display_config</span><span class="o">=</span><span class="n">display_config</span><span class="p">)</span>
-  <span class="k">if</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
+  <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
     <span class="n">display</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">max_width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">width</span> <span class="c1">#not available until after create_display</span>
     <span class="n">display</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">max_height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">height</span>
     <span class="n">display</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="mi">0</span>
@@ -626,12 +614,14 @@
         <div class="sphinxsidebarwrapper">
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -647,13 +637,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.26 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012-2018, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.7.
     </div>
   </body>
 </html>

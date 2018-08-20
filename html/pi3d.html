@@ -1,35 +1,23 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>pi3d Package &#8212; pi3d 2.24 documentation</title>
-    
+    <title>pi3d Package &#8212; pi3d 2.26 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2.24',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.24 documentation" href="index.html" />
     <link rel="next" title="constants Package" href="pi3d.constants.html" />
     <link rel="prev" title="Using pi3d with Android devices" href="AndroidUse.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -45,7 +33,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.24 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -57,14 +45,14 @@
   <div class="section" id="pi3d-package">
 <h1>pi3d Package<a class="headerlink" href="#pi3d-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2><code class="xref py py-mod docutils literal"><span class="pre">pi3d</span></code> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">pi3d</span></code> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-pi3d.__init__"></span></div>
 <div class="section" id="module-pi3d.Buffer">
-<span id="buffer-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Buffer</span></code> Module<a class="headerlink" href="#module-pi3d.Buffer" title="Permalink to this headline">¶</a></h2>
+<span id="buffer-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Buffer</span></code> Module<a class="headerlink" href="#module-pi3d.Buffer" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Buffer.Buffer">
 <em class="property">class </em><code class="descclassname">pi3d.Buffer.</code><code class="descname">Buffer</code><span class="sig-paren">(</span><em>shape</em>, <em>pts</em>, <em>texcoords</em>, <em>faces</em>, <em>normals=None</em>, <em>smooth=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Buffer.html#Buffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Buffer.Buffer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><code class="xref py py-class docutils literal"><span class="pre">pi3d.util.Loadable.Loadable</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.util.Loadable.Loadable</span></code></a></p>
 <p>Holds the vertex, normals, incices and tex_coords for each part of
 a Shape that needs to be rendered with a different material or texture
 Shape holds an array of Buffer objects.</p>
@@ -76,20 +64,20 @@ are provided then these are generated.</p>
 <dt><em>shape</em></dt>
 <dd>Shape object that this Buffer is a child of</dd>
 <dt><em>pts</em></dt>
-<dd>array of vertices tuples i.e. [(x0,y0,z0), (x1,y1,z1),...]</dd>
+<dd>array of vertices tuples i.e. [(x0,y0,z0), (x1,y1,z1),…]</dd>
 <dt><em>texcoords</em></dt>
 <dd>array of texture (uv) coordinates tuples
-i.e. [(u0,v0), (u1,v1),...]</dd>
+i.e. [(u0,v0), (u1,v1),…]</dd>
 <dt><em>faces</em></dt>
 <dd>array of indices (of pts array) defining triangles
-i.e. [(a0,b0,c0), (a1,b1,c1),...]</dd>
+i.e. [(a0,b0,c0), (a1,b1,c1),…]</dd>
 </dl>
 </dd>
 <dt>Keyword arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>normals</em></dt>
 <dd>array of vector component tuples defining normals at each
-vertex i.e. [(x0,y0,z0), (x1,y1,z1),...]</dd>
+vertex i.e. [(x0,y0,z0), (x1,y1,z1),…]</dd>
 <dt><em>smooth</em></dt>
 <dd>if calculating normals then average normals for all faces
 meeting at this vertex, otherwise just use first (for speed).</dd>
@@ -113,7 +101,7 @@ meeting at this vertex, otherwise just use first (for speed).</dd>
 <th class="head" colspan="2">python</th>
 </tr>
 <tr class="row-even"><th class="head">index</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 <th class="head">from</th>
 <th class="head">to</th>
 </tr>
@@ -139,9 +127,14 @@ meeting at this vertex, otherwise just use first (for speed).</dd>
 <td>9</td>
 <td>10</td>
 </tr>
+<tr class="row-odd"><td>4</td>
+<td>specular RGB value <a href="#id2"><span class="problematic" id="id3">*</span></a>_reflect</td>
+<td>11</td>
+<td>14</td>
+</tr>
 </tbody>
 </table>
-<p>NB line width and bump factor clash but shouldn&#8217;t be an issue</p>
+<p>NB line width and bump factor clash but shouldn’t be an issue</p>
 </dd></dl>
 
 <dl class="method">
@@ -251,11 +244,11 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 
 </div>
 <div class="section" id="module-pi3d.Camera">
-<span id="camera-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Camera</span></code> Module<a class="headerlink" href="#module-pi3d.Camera" title="Permalink to this headline">¶</a></h2>
+<span id="camera-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Camera</span></code> Module<a class="headerlink" href="#module-pi3d.Camera" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Camera.Camera">
 <em class="property">class </em><code class="descclassname">pi3d.Camera.</code><code class="descname">Camera</code><span class="sig-paren">(</span><em>at=(0</em>, <em>0</em>, <em>0)</em>, <em>eye=(0</em>, <em>0</em>, <em>-0.1)</em>, <em>lens=None</em>, <em>is_3d=True</em>, <em>scale=1.0</em>, <em>absolute=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Camera.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Camera.Camera" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></code></p>
 <p>required object for creating and drawing Shape objects. Default instance
 created if none specified in script prior to creating a Shape</p>
 <p>Set up view matrix to look from eye to at including perspective</p>
@@ -449,7 +442,7 @@ method.) Defaults to using the Camera.r_mtrx</dd>
 </dl>
 </div></blockquote>
 <p>in pi3d arrangement (C type and Z into screen):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cz.cx-sz.sx.sy  cy.sz+cz.sx.sy  -cx.sy
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cz.cx-sz.sx.sy  cy.sz+cz.sx.sy  -cx.sy
 -cx.sz          cz.cx            sx
 cz.sy+cy.sz.sx  sz.sy-cz.cy.sx   cx.cy``
 </pre></div>
@@ -463,7 +456,7 @@ cz.sy+cy.sz.sx  sz.sy-cz.cy.sx   cx.cy``
 the movement from one direction to another. NB because there are many
 ways of doing this the z rotation may not match so this this method might
 be best combined with the euler_angles system above. See the 
-pi3d_demos/ForestStereo.py example - key press &#8216;k&#8217;</p>
+pi3d_demos/ForestStereo.py example - key press ‘k’</p>
 </dd></dl>
 
 <dl class="method">
@@ -473,18 +466,18 @@ pi3d_demos/ForestStereo.py example - key press &#8216;k&#8217;</p>
 the movement from one direction to another. NB because there are many
 ways of doing this the z rotation may not match so this this method might
 be best combined with the euler_angles system above. See the 
-pi3d_demos/ForestStereo.py example - key press &#8216;k&#8217;</p>
+pi3d_demos/ForestStereo.py example - key press ‘k’</p>
 </dd></dl>
 
 </dd></dl>
 
 </div>
 <div class="section" id="module-pi3d.Display">
-<span id="display-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Display</span></code> Module<a class="headerlink" href="#module-pi3d.Display" title="Permalink to this headline">¶</a></h2>
+<span id="display-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Display</span></code> Module<a class="headerlink" href="#module-pi3d.Display" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Display.Display">
 <em class="property">class </em><code class="descclassname">pi3d.Display.</code><code class="descname">Display</code><span class="sig-paren">(</span><em>tkwin=None</em>, <em>use_pygame=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Display.html#Display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This is the central control object of the pi3d system and an instance
 must be created before some of the other class methods are called.</p>
 <p>Constructs a raw Display.  Use pi3d.Display.create to create an initialized
@@ -506,7 +499,7 @@ Display.</p>
 <code class="descname">loop_running</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Display.html#Display.loop_running"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display.loop_running" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>loop_running</em> is the main event loop for the Display.</p>
 <p>Most pi3d code will look something like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DISPLAY</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DISPLAY</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 
 <span class="c1"># Initialize objects and variables here.</span>
 <span class="c1"># ...</span>
@@ -520,12 +513,12 @@ Display.</p>
     <span class="n">DISPLAY</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">Display.loop_running()</span></code> <strong>must</strong> be called on the main Python thread,
+<p><code class="docutils literal notranslate"><span class="pre">Display.loop_running()</span></code> <strong>must</strong> be called on the main Python thread,
 or else white screens and program crashes are likely.</p>
 <p>The Display loop can run in two different modes - <em>free</em> or <em>framed</em>.</p>
-<p>If <code class="docutils literal"><span class="pre">DISPLAY.frames_per_second</span></code> is empty or 0 then the loop runs <em>free</em> - when
+<p>If <code class="docutils literal notranslate"><span class="pre">DISPLAY.frames_per_second</span></code> is empty or 0 then the loop runs <em>free</em> - when
 it finishes one frame, it immediately starts working on the next frame.</p>
-<p>If <code class="docutils literal"><span class="pre">Display.frames_per_second</span></code> is a positive number then the Display is
+<p>If <code class="docutils literal notranslate"><span class="pre">Display.frames_per_second</span></code> is a positive number then the Display is
 <em>framed</em> - when the Display finishes one frame before the next frame_time,
 it waits till the next frame starts.</p>
 <p>A free Display gives the highest frame rate, but it will also consume more
@@ -536,10 +529,10 @@ CPU cycles consumed per loop, resulting in jerky motion and animations.</p>
 allows for potentially much smoother motion and animation.  The ability to
 throttle down the number of frames to conserve CPU cycles is essential
 for programs with other important threads like audio.</p>
-<p><code class="docutils literal"><span class="pre">Display.frames_per_second</span></code> can be set at construction in
-<code class="docutils literal"><span class="pre">Display.create</span></code> or changed on-the-fly during the execution of the
-program.  If <code class="docutils literal"><span class="pre">Display.frames_per_second</span></code> is set too high, the Display
-doesn&#8217;t attempt to &#8220;catch up&#8221; but simply runs freely.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Display.frames_per_second</span></code> can be set at construction in
+<code class="docutils literal notranslate"><span class="pre">Display.create</span></code> or changed on-the-fly during the execution of the
+program.  If <code class="docutils literal notranslate"><span class="pre">Display.frames_per_second</span></code> is set too high, the Display
+doesn’t attempt to “catch up” but simply runs freely.</p>
 </dd></dl>
 
 <dl class="method">
@@ -642,7 +635,7 @@ the tkwindow parent, if any.</dd>
 <dt><em>mouse</em></dt>
 <dd>Automatically create a Mouse.</dd>
 <dt><em>frames_per_second</em></dt>
-<dd>Maximum frames per second to render (None means &#8220;free running&#8221;).</dd>
+<dd>Maximum frames per second to render (None means “free running”).</dd>
 <dt><em>samples</em></dt>
 <dd>EGL_SAMPLES default 0, set to 4 for improved anti-aliasing</dd>
 <dt><em>use_pygame</em></dt>
@@ -656,7 +649,7 @@ with tk=True. Default False</dd>
 
 </div>
 <div class="section" id="module-pi3d.Keyboard">
-<span id="keyboard-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Keyboard</span></code> Module<a class="headerlink" href="#module-pi3d.Keyboard" title="Permalink to this headline">¶</a></h2>
+<span id="keyboard-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Keyboard</span></code> Module<a class="headerlink" href="#module-pi3d.Keyboard" title="Permalink to this headline">¶</a></h2>
 <dl class="data">
 <dt id="pi3d.Keyboard.USE_CURSES">
 <code class="descclassname">pi3d.Keyboard.</code><code class="descname">USE_CURSES</code><em class="property"> = True</em><a class="headerlink" href="#pi3d.Keyboard.USE_CURSES" title="Permalink to this definition">¶</a></dt>
@@ -667,7 +660,7 @@ terminal window or session.</p>
 <dl class="class">
 <dt id="pi3d.Keyboard.CursesKeyboard">
 <em class="property">class </em><code class="descclassname">pi3d.Keyboard.</code><code class="descname">CursesKeyboard</code><a class="reference internal" href="_modules/pi3d/Keyboard.html#CursesKeyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.CursesKeyboard" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="pi3d.Keyboard.CursesKeyboard.read">
 <code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Keyboard.html#CursesKeyboard.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.CursesKeyboard.read" title="Permalink to this definition">¶</a></dt>
@@ -688,7 +681,7 @@ terminal window or session.</p>
 <dl class="class">
 <dt id="pi3d.Keyboard.SysKeyboard">
 <em class="property">class </em><code class="descclassname">pi3d.Keyboard.</code><code class="descname">SysKeyboard</code><a class="reference internal" href="_modules/pi3d/Keyboard.html#SysKeyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.SysKeyboard" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="pi3d.Keyboard.SysKeyboard.read">
 <code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Keyboard.html#SysKeyboard.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.SysKeyboard.read" title="Permalink to this definition">¶</a></dt>
@@ -709,7 +702,7 @@ terminal window or session.</p>
 <dl class="class">
 <dt id="pi3d.Keyboard.x11Keyboard">
 <em class="property">class </em><code class="descclassname">pi3d.Keyboard.</code><code class="descname">x11Keyboard</code><a class="reference internal" href="_modules/pi3d/Keyboard.html#x11Keyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.x11Keyboard" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="attribute">
 <dt id="pi3d.Keyboard.x11Keyboard.KEYBOARD">
 <code class="descname">KEYBOARD</code><em class="property"> = [[0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [27, 'Escape'], [49, '1'], [50, '2'], [51, '3'], [52, '4'], [53, '5'], [54, '6'], [55, '7'], [56, '8'], [57, '9'], [48, '0'], [45, '-'], [61, '='], [8, 'BackSpace'], [9, 'Tab'], [113, 'q'], [119, 'w'], [101, 'e'], [114, 'r'], [116, 't'], [121, 'y'], [117, 'u'], [105, 'i'], [111, 'o'], [112, 'p'], [91, '['], [93, ']'], [13, 'Return'], [0, 'Control_L'], [97, 'a'], [115, 's'], [100, 'd'], [102, 'f'], [103, 'g'], [104, 'h'], [106, 'j'], [107, 'k'], [108, 'l'], [59, ';'], [39, &quot;'&quot;], [96, '`'], [0, 'Shift_L'], [35, '#'], [122, 'z'], [120, 'x'], [99, 'c'], [118, 'v'], [98, 'b'], [110, 'n'], [109, 'm'], [44, ','], [46, '.'], [47, '/'], [0, 'Shift_R'], [0, ''], [0, 'Alt_L'], [32, 'space'], [0, 'Caps'], [145, 'F1'], [146, 'F2'], [147, 'F3'], [148, 'F4'], [149, 'F5'], [150, 'F6'], [151, 'F7'], [152, 'F8'], [153, 'F9'], [154, 'F10'], [0, 'Num_Lock'], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [92, '\\'], [155, 'F11'], [156, 'F12'], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [0, ''], [13, 'KP_Enter'], [0, 'Control_R'], [0, ''], [0, ''], [0, 'Alt_R'], [0, ''], [129, 'Home'], [134, 'Up'], [130, 'Page_Up'], [136, 'Left'], [137, 'Right'], [132, 'End'], [135, 'Down'], [133, 'Page_Down'], [128, 'Insert'], [131, 'DEL']]</em><a class="headerlink" href="#pi3d.Keyboard.x11Keyboard.KEYBOARD" title="Permalink to this definition">¶</a></dt>
@@ -735,7 +728,7 @@ terminal window or session.</p>
 <dl class="class">
 <dt id="pi3d.Keyboard.AndroidKeyboard">
 <em class="property">class </em><code class="descclassname">pi3d.Keyboard.</code><code class="descname">AndroidKeyboard</code><a class="reference internal" href="_modules/pi3d/Keyboard.html#AndroidKeyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.AndroidKeyboard" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="pi3d.Keyboard.AndroidKeyboard.read">
 <code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Keyboard.html#AndroidKeyboard.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.AndroidKeyboard.read" title="Permalink to this definition">¶</a></dt>
@@ -756,11 +749,11 @@ terminal window or session.</p>
 <dl class="class">
 <dt id="pi3d.Keyboard.PygameKeyboard">
 <em class="property">class </em><code class="descclassname">pi3d.Keyboard.</code><code class="descname">PygameKeyboard</code><a class="reference internal" href="_modules/pi3d/Keyboard.html#PygameKeyboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Keyboard.PygameKeyboard" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>In this case KEYBOARD maps pygame codes to the X11 codes used above</p>
 <dl class="attribute">
 <dt id="pi3d.Keyboard.PygameKeyboard.KEYBOARD">
-<code class="descname">KEYBOARD</code><em class="property"> = {8: [0, 'BackSpace'], 13: [0, 'Return'], 271: [13, 'KP_Enter'], 273: [134, 'Up'], 274: [135, 'Down'], 275: [137, 'Right'], 276: [136, 'Left'], 277: [128, 'Insert'], 278: [129, 'Home'], 279: [132, 'End'], 280: [130, 'Page_Up'], 281: [133, 'Page_Down'], 282: [145, 'F1'], 283: [146, 'F2'], 284: [147, 'F3'], 285: [148, 'F4'], 286: [149, 'F5'], 287: [150, 'F6'], 288: [151, 'F7'], 289: [152, 'F8'], 290: [153, 'F9'], 291: [154, 'F10'], 292: [155, 'F11'], 293: [156, 'F12'], 301: [0, 'Caps'], 303: [0, 'Shift_R'], 304: [0, 'Shift_L'], 305: [0, 'Control_R'], 306: [0, 'Control_L'], 307: [0, 'Alt_R'], 308: [0, 'Alt_L'], 60: [92, '\\'], 127: [131, 'DEL']}</em><a class="headerlink" href="#pi3d.Keyboard.PygameKeyboard.KEYBOARD" title="Permalink to this definition">¶</a></dt>
+<code class="descname">KEYBOARD</code><em class="property"> = {8: [0, 'BackSpace'], 13: [0, 'Return'], 60: [92, '\\'], 127: [131, 'DEL'], 271: [13, 'KP_Enter'], 273: [134, 'Up'], 274: [135, 'Down'], 275: [137, 'Right'], 276: [136, 'Left'], 277: [128, 'Insert'], 278: [129, 'Home'], 279: [132, 'End'], 280: [130, 'Page_Up'], 281: [133, 'Page_Down'], 282: [145, 'F1'], 283: [146, 'F2'], 284: [147, 'F3'], 285: [148, 'F4'], 286: [149, 'F5'], 287: [150, 'F6'], 288: [151, 'F7'], 289: [152, 'F8'], 290: [153, 'F9'], 291: [154, 'F10'], 292: [155, 'F11'], 293: [156, 'F12'], 301: [0, 'Caps'], 303: [0, 'Shift_R'], 304: [0, 'Shift_L'], 305: [0, 'Control_R'], 306: [0, 'Control_L'], 307: [0, 'Alt_R'], 308: [0, 'Alt_L']}</em><a class="headerlink" href="#pi3d.Keyboard.PygameKeyboard.KEYBOARD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -800,7 +793,7 @@ SysKeyboard</dd>
 <dd><p>Using a context manager alows curses to restore the terminal to its
 initial tidy state even if the program is quitted using Ctrl+c.
 Typical usage:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">KeyboardContext</span><span class="p">()</span> <span class="k">as</span> <span class="n">keys</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">KeyboardContext</span><span class="p">()</span> <span class="k">as</span> <span class="n">keys</span><span class="p">:</span>
   <span class="k">while</span> <span class="n">DISPLAY</span><span class="o">.</span><span class="n">loop_running</span><span class="p">():</span>
     <span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">keys</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="o">==</span> <span class="mi">27</span><span class="p">:</span>
@@ -811,16 +804,16 @@ Typical usage:</p>
 
 </div>
 <div class="section" id="module-pi3d.Light">
-<span id="light-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Light</span></code> Module<a class="headerlink" href="#module-pi3d.Light" title="Permalink to this headline">¶</a></h2>
+<span id="light-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Light</span></code> Module<a class="headerlink" href="#module-pi3d.Light" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Light.Light">
 <em class="property">class </em><code class="descclassname">pi3d.Light.</code><code class="descname">Light</code><span class="sig-paren">(</span><em>lightpos=(10</em>, <em>-10</em>, <em>-5)</em>, <em>lightcol=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>lightamb=(0.1</em>, <em>0.1</em>, <em>0.2)</em>, <em>is_point=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Light.html#Light"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Light.Light" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></code></p>
 <p>Holds information about lighting to be used in shaders</p>
 <p>set light values. These are set in Shape.unif as part of the Shape
 constructor. They can be changed using Shape.set_light()
 The pixel shade is calculated as:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">lightcol</span> <span class="o">*</span> <span class="n">texture</span><span class="p">)</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">lightpos</span><span class="p">,</span> <span class="o">-</span><span class="n">normal</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">lightamb</span> <span class="o">*</span> <span class="n">texture</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">lightcol</span> <span class="o">*</span> <span class="n">texture</span><span class="p">)</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">lightpos</span><span class="p">,</span> <span class="o">-</span><span class="n">normal</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">lightamb</span> <span class="o">*</span> <span class="n">texture</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>where * means component multiplying if between two vectors and dot() is
@@ -841,7 +834,7 @@ for point lights</dd>
 <dt><em>is_point</em></dt>
 <dd>the light behaves as a point and brightness falls off with distance.
 This means that the r,g,b values of lightcol usually have to be set
-higher than 1.0, objects close to the light will &#8216;white out&#8217;</dd>
+higher than 1.0, objects close to the light will ‘white out’</dd>
 </dl>
 </dd>
 </dl>
@@ -874,7 +867,7 @@ higher than 1.0, objects close to the light will &#8216;white out&#8217;</dd>
 
 </div>
 <div class="section" id="module-pi3d.Mouse">
-<span id="mouse-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Mouse</span></code> Module<a class="headerlink" href="#module-pi3d.Mouse" title="Permalink to this headline">¶</a></h2>
+<span id="mouse-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Mouse</span></code> Module<a class="headerlink" href="#module-pi3d.Mouse" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pi3d.Mouse.Mouse">
 <code class="descclassname">pi3d.Mouse.</code><code class="descname">Mouse</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Mouse.html#Mouse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Mouse.Mouse" title="Permalink to this definition">¶</a></dt>
@@ -882,16 +875,16 @@ higher than 1.0, objects close to the light will &#8216;white out&#8217;</dd>
 
 </div>
 <div class="section" id="module-pi3d.Shader">
-<span id="shader-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Shader</span></code> Module<a class="headerlink" href="#module-pi3d.Shader" title="Permalink to this headline">¶</a></h2>
+<span id="shader-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Shader</span></code> Module<a class="headerlink" href="#module-pi3d.Shader" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Shader.Shader">
 <em class="property">class </em><code class="descclassname">pi3d.Shader.</code><code class="descname">Shader</code><span class="sig-paren">(</span><em>shfile=None</em>, <em>vshader_source=None</em>, <em>fshader_source=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Shader.html#Shader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shader.Shader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.util.DefaultInstance.DefaultInstance</span></code></p>
 <p>This compiles and holds the shaders to be used to render the Shape Buffers
 using their draw() methods. Generally you will choose and load the Shader
 explicitly as part of the program, however some i.e. defocus are loaded
 automatically when you create an instance of the Defocus class. Shaders can
-be &#8216;re-used&#8217; to draw different objects and the same object can be drawn using
+be ‘re-used’ to draw different objects and the same object can be drawn using
 different Shaders.</p>
 <p>The shaders included with the pi3d module fall into two categories:</p>
 <ul class="simple">
@@ -922,13 +915,13 @@ act as a reflection. The shader is passed a value from 0.0 to 1.0 to
 determine the strength of the reflection.</li>
 </ul>
 <p>The reason for using a host of different shaders rather than one that can
-do everything is that &#8216;if&#8217; statements within the shader language are <strong>very</strong>
+do everything is that ‘if’ statements within the shader language are <strong>very</strong>
 time consuming.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>shfile</em></dt>
-<dd>Pathname without vs or fs ending i.e. &#8220;shaders/uv_light&#8221;</dd>
+<dd>Pathname without vs or fs ending i.e. “shaders/uv_light”</dd>
 <dt><em>vshader_source</em></dt>
 <dd>String with the code for the vertex shader.</dd>
 <dt><em>fshader_source</em></dt>
@@ -958,11 +951,11 @@ time consuming.</p>
 
 </div>
 <div class="section" id="module-pi3d.Shape">
-<span id="shape-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Shape</span></code> Module<a class="headerlink" href="#module-pi3d.Shape" title="Permalink to this headline">¶</a></h2>
+<span id="shape-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Shape</span></code> Module<a class="headerlink" href="#module-pi3d.Shape" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.Shape.Shape">
 <em class="property">class </em><code class="descclassname">pi3d.Shape.</code><code class="descname">Shape</code><span class="sig-paren">(</span><em>camera</em>, <em>light</em>, <em>name</em>, <em>x</em>, <em>y</em>, <em>z</em>, <em>rx</em>, <em>ry</em>, <em>rz</em>, <em>sx</em>, <em>sy</em>, <em>sz</em>, <em>cx</em>, <em>cy</em>, <em>cz</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Shape.html#Shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><code class="xref py py-class docutils literal"><span class="pre">pi3d.util.Loadable.Loadable</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.util.Loadable.Loadable</span></code></a></p>
 <p>inherited by all shape objects, including simple 2D sprite types</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
@@ -999,7 +992,7 @@ time consuming.</p>
 <th class="head" colspan="2">python</th>
 </tr>
 <tr class="row-even"><th class="head">index</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 <th class="head">from</th>
 <th class="head">to</th>
 </tr>
@@ -1123,7 +1116,7 @@ inheriting from this filling buf with at least one element.</p>
 
 <dl class="method">
 <dt id="pi3d.Shape.Shape.draw">
-<code class="descname">draw</code><span class="sig-paren">(</span><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em>, <em>mlist=[]</em>, <em>light_camera=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.draw" title="Permalink to this definition">¶</a></dt>
+<code class="descname">draw</code><span class="sig-paren">(</span><em>shader=None</em>, <em>txtrs=None</em>, <em>ntl=None</em>, <em>shny=None</em>, <em>camera=None</em>, <em>next_m=None</em>, <em>light_camera=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>If called without parameters, there has to have been a previous call to
 set_draw_details() for each Buffer in buf[].
 NB there is no facility for setting umult and vmult with draw: they must be
@@ -1135,7 +1128,7 @@ set using set_draw_details or Buffer.set_draw_details.</p>
 <code class="descname">set_shader</code><span class="sig-paren">(</span><em>shader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_shader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_shader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper method to set just the Shader for all the Buffer objects of
 this Shape. Used, for instance, in a Model where the Textures have been
-defined in the obj &amp; mtl files, so you can&#8217;t use set_draw_details.</p>
+defined in the obj &amp; mtl files, so you can’t use set_draw_details.</p>
 <p>Arguments:</p>
 <blockquote>
 <div><dl class="docutils">
@@ -1168,7 +1161,7 @@ the textures assigned automatically.</p>
 <dd>Strength of reflection (ranging from 0.0 to 1.0).</dd>
 <dt><em>is_uv</em></dt>
 <dd>If True then the normtex will be textures[1] and shinetex will be
-textures[2] i.e. if using a &#8216;uv&#8217; type Shader. However, for &#8216;mat&#8217; type
+textures[2] i.e. if using a ‘uv’ type Shader. However, for ‘mat’ type
 Shaders they are moved down one, as the basic shade is defined by
 material rgb rather than from a Texture.</dd>
 <dt><em>bump_factor</em></dt>
@@ -1230,6 +1223,19 @@ than 1.0. 0.0 disables the normal mapping, float</dd>
 <dd><dl class="first last docutils">
 <dt><em>textures</em></dt>
 <dd>list of Texture objects</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.Shape.Shape.set_specular">
+<code class="descname">set_specular</code><span class="sig-paren">(</span><em>rgb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Shape.html#Shape.set_specular"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Shape.Shape.set_specular" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>rgb</em></dt>
+<dd>tuple of red, green, blue values for Phong specular effect</dd>
 </dl>
 </dd>
 </dl>
@@ -1396,7 +1402,7 @@ This only has any effect if <em>strip</em> is True</dd>
 and that line width will be used for all subsequent draw() operations
 so if you want to draw shapes with different thickness lines you will
 have to call this method repeatedly just before each draw()</p>
-<p>Also, there doens&#8217;t seem to be an equivalent of gl_PointSize as used
+<p>Also, there doens’t seem to be an equivalent of gl_PointSize as used
 in the shader language to make lines shrink with distance.</p>
 <p>If you are drawing lines with high contrast they will look better
 anti aliased which is done by Display.create(samples=4)</p>
@@ -1677,7 +1683,7 @@ without copying them.</p>
 
 </div>
 <div class="section" id="module-pi3d.Texture">
-<span id="texture-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Texture</span></code> Module<a class="headerlink" href="#module-pi3d.Texture" title="Permalink to this headline">¶</a></h2>
+<span id="texture-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Texture</span></code> Module<a class="headerlink" href="#module-pi3d.Texture" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pi3d.Texture.round_up_to_power_of_2">
 <code class="descclassname">pi3d.Texture.</code><code class="descname">round_up_to_power_of_2</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Texture.html#round_up_to_power_of_2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.round_up_to_power_of_2" title="Permalink to this definition">¶</a></dt>
@@ -1686,7 +1692,7 @@ without copying them.</p>
 <dl class="class">
 <dt id="pi3d.Texture.Texture">
 <em class="property">class </em><code class="descclassname">pi3d.Texture.</code><code class="descname">Texture</code><span class="sig-paren">(</span><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em>, <em>m_repeat=False</em>, <em>free_after_load=False</em>, <em>i_format=None</em>, <em>filter=None</em>, <em>normal_map=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><code class="xref py py-class docutils literal"><span class="pre">pi3d.util.Loadable.Loadable</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.util.Loadable.Loadable</span></code></a></p>
 <p>loads an image file from disk and converts it into an array that
 can be used by shaders. It inherits from Loadable in order that the
 file access work can happen in another thread. and the conversion
@@ -1702,7 +1708,7 @@ list then it will be rescaled with a resulting loss of clarity</strong></p>
 <dt><em>file_string</em></dt>
 <dd>path and name of image file relative to top dir. Can now pass an
 already created PIL.Image object or a numpy array instead. The alpha
-value of Texture willl be set according to the &#8216;mode&#8217; of Image objects
+value of Texture willl be set according to the ‘mode’ of Image objects
 or the size of the last dimension of numpy arrays (4 -&gt; alpha is True)</dd>
 <dt><em>blend</em></dt>
 <dd>controls if low alpha pixels are discarded (if False) or drawn
@@ -1761,7 +1767,7 @@ new glTextureBuffers i.e. for movie textures</p>
 <dl class="class">
 <dt id="pi3d.Texture.TextureCache">
 <em class="property">class </em><code class="descclassname">pi3d.Texture.</code><code class="descname">TextureCache</code><span class="sig-paren">(</span><em>max_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Texture.html#TextureCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.TextureCache" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="pi3d.Texture.TextureCache.clear">
 <code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Texture.html#TextureCache.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.TextureCache.clear" title="Permalink to this definition">¶</a></dt>
@@ -1780,91 +1786,91 @@ new glTextureBuffers i.e. for movie textures</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pi3d.constants.html">constants Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#id1"><code class="docutils literal"><span class="pre">constants</span></code> Package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#module-pi3d.constants.egl"><code class="docutils literal"><span class="pre">egl</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#module-pi3d.constants.gl"><code class="docutils literal"><span class="pre">gl</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#module-pi3d.constants.gl2"><code class="docutils literal"><span class="pre">gl2</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#module-pi3d.constants.gl2ext"><code class="docutils literal"><span class="pre">gl2ext</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#module-pi3d.constants.glext"><code class="docutils literal"><span class="pre">glext</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#id1"><code class="docutils literal notranslate"><span class="pre">constants</span></code> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#module-pi3d.constants.egl"><code class="docutils literal notranslate"><span class="pre">egl</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#module-pi3d.constants.gl"><code class="docutils literal notranslate"><span class="pre">gl</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#module-pi3d.constants.gl2"><code class="docutils literal notranslate"><span class="pre">gl2</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#module-pi3d.constants.gl2ext"><code class="docutils literal notranslate"><span class="pre">gl2ext</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.constants.html#module-pi3d.constants.glext"><code class="docutils literal notranslate"><span class="pre">glext</span></code> Module</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pi3d.event.html">events Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.AbsAxisScaling"><code class="docutils literal"><span class="pre">AbsAxisScaling</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Constants"><code class="docutils literal"><span class="pre">Constants</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Event"><code class="docutils literal"><span class="pre">Event</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.EventHandler"><code class="docutils literal"><span class="pre">EventHandler</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.EventStream"><code class="docutils literal"><span class="pre">EventStream</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.EventStruct"><code class="docutils literal"><span class="pre">EventStruct</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.FindDevices"><code class="docutils literal"><span class="pre">FindDevices</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Format"><code class="docutils literal"><span class="pre">Format</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.ioctl"><code class="docutils literal"><span class="pre">ioctl</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Keys"><code class="docutils literal"><span class="pre">Keys</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.AbsAxisScaling"><code class="docutils literal notranslate"><span class="pre">AbsAxisScaling</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Constants"><code class="docutils literal notranslate"><span class="pre">Constants</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.EventHandler"><code class="docutils literal notranslate"><span class="pre">EventHandler</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.EventStream"><code class="docutils literal notranslate"><span class="pre">EventStream</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.EventStruct"><code class="docutils literal notranslate"><span class="pre">EventStruct</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.FindDevices"><code class="docutils literal notranslate"><span class="pre">FindDevices</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Format"><code class="docutils literal notranslate"><span class="pre">Format</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.ioctl"><code class="docutils literal notranslate"><span class="pre">ioctl</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.event.html#module-pi3d.event.Keys"><code class="docutils literal notranslate"><span class="pre">Keys</span></code> Module</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pi3d.loader.html">loader Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.loader.html#module-pi3d.loader.loaderEgg"><code class="docutils literal"><span class="pre">loaderEgg</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.loader.html#module-pi3d.loader.loaderObj"><code class="docutils literal"><span class="pre">loaderObj</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.loader.html#module-pi3d.loader.parse_mtl"><code class="docutils literal"><span class="pre">parse_mtl</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.loader.html#module-pi3d.loader.parse_mtl_test"><code class="docutils literal"><span class="pre">parse_mtl_test</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.loader.html#module-pi3d.loader.loaderEgg"><code class="docutils literal notranslate"><span class="pre">loaderEgg</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.loader.html#module-pi3d.loader.loaderObj"><code class="docutils literal notranslate"><span class="pre">loaderObj</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.loader.html#module-pi3d.loader.parse_mtl"><code class="docutils literal notranslate"><span class="pre">parse_mtl</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.loader.html#module-pi3d.loader.parse_mtl_test"><code class="docutils literal notranslate"><span class="pre">parse_mtl_test</span></code> Module</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pi3d.shape.html">shape Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Building"><code class="docutils literal"><span class="pre">Building</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Canvas"><code class="docutils literal"><span class="pre">Canvas</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Cone"><code class="docutils literal"><span class="pre">Cone</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Cuboid"><code class="docutils literal"><span class="pre">Cuboid</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Cylinder"><code class="docutils literal"><span class="pre">Cylinder</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Disk"><code class="docutils literal"><span class="pre">Disk</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.ElevationMap"><code class="docutils literal"><span class="pre">ElevationMap</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.EnvironmentCube"><code class="docutils literal"><span class="pre">EnvironmentCube</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Extrude"><code class="docutils literal"><span class="pre">Extrude</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Helix"><code class="docutils literal"><span class="pre">Helix</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Lathe"><code class="docutils literal"><span class="pre">Lathe</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Lines"><code class="docutils literal"><span class="pre">Lines</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.LodSprite"><code class="docutils literal"><span class="pre">LodSprite</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.MergeShape"><code class="docutils literal"><span class="pre">MergeShape</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Model"><code class="docutils literal"><span class="pre">Model</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.MultiSprite"><code class="docutils literal"><span class="pre">MultiSprite</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Plane"><code class="docutils literal"><span class="pre">Plane</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Points"><code class="docutils literal"><span class="pre">Points</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Sphere"><code class="docutils literal"><span class="pre">Sphere</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Sprite"><code class="docutils literal"><span class="pre">Sprite</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.TCone"><code class="docutils literal"><span class="pre">TCone</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Tetrahedron"><code class="docutils literal"><span class="pre">Tetrahedron</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Torus"><code class="docutils literal"><span class="pre">Torus</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Triangle"><code class="docutils literal"><span class="pre">Triangle</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Tube"><code class="docutils literal"><span class="pre">Tube</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Building"><code class="docutils literal notranslate"><span class="pre">Building</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Canvas"><code class="docutils literal notranslate"><span class="pre">Canvas</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Cone"><code class="docutils literal notranslate"><span class="pre">Cone</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Cuboid"><code class="docutils literal notranslate"><span class="pre">Cuboid</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Cylinder"><code class="docutils literal notranslate"><span class="pre">Cylinder</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Disk"><code class="docutils literal notranslate"><span class="pre">Disk</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.ElevationMap"><code class="docutils literal notranslate"><span class="pre">ElevationMap</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.EnvironmentCube"><code class="docutils literal notranslate"><span class="pre">EnvironmentCube</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Extrude"><code class="docutils literal notranslate"><span class="pre">Extrude</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Helix"><code class="docutils literal notranslate"><span class="pre">Helix</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Lathe"><code class="docutils literal notranslate"><span class="pre">Lathe</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Lines"><code class="docutils literal notranslate"><span class="pre">Lines</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.LodSprite"><code class="docutils literal notranslate"><span class="pre">LodSprite</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.MergeShape"><code class="docutils literal notranslate"><span class="pre">MergeShape</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.MultiSprite"><code class="docutils literal notranslate"><span class="pre">MultiSprite</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Plane"><code class="docutils literal notranslate"><span class="pre">Plane</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Points"><code class="docutils literal notranslate"><span class="pre">Points</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Sphere"><code class="docutils literal notranslate"><span class="pre">Sphere</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Sprite"><code class="docutils literal notranslate"><span class="pre">Sprite</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.TCone"><code class="docutils literal notranslate"><span class="pre">TCone</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Tetrahedron"><code class="docutils literal notranslate"><span class="pre">Tetrahedron</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Torus"><code class="docutils literal notranslate"><span class="pre">Torus</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Triangle"><code class="docutils literal notranslate"><span class="pre">Triangle</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Tube"><code class="docutils literal notranslate"><span class="pre">Tube</span></code> Module</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pi3d.sprite.html">sprite Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.sprite.html#module-pi3d.sprite.Ball"><code class="docutils literal"><span class="pre">Ball</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.sprite.html#module-pi3d.sprite.Missile"><code class="docutils literal"><span class="pre">Missile</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.sprite.html#module-pi3d.sprite.Ball"><code class="docutils literal notranslate"><span class="pre">Ball</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.sprite.html#module-pi3d.sprite.Missile"><code class="docutils literal notranslate"><span class="pre">Missile</span></code> Module</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pi3d.util.html">util Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Ctypes"><code class="docutils literal"><span class="pre">Ctypes</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Clashtest"><code class="docutils literal"><span class="pre">Clashtest</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Defocus"><code class="docutils literal"><span class="pre">Defocus</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.DisplayOpenGL"><code class="docutils literal"><span class="pre">DisplayOpenGL</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.FixedString"><code class="docutils literal"><span class="pre">FixedString</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Font"><code class="docutils literal"><span class="pre">Font</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Graph"><code class="docutils literal"><span class="pre">Graph</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Gui"><code class="docutils literal"><span class="pre">Gui</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Loadable"><code class="docutils literal"><span class="pre">Loadable</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Log"><code class="docutils literal"><span class="pre">Log</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.OffScreenTexture"><code class="docutils literal"><span class="pre">OffScreenTexture</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.PexParticles"><code class="docutils literal"><span class="pre">PexParticles</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Pngfont"><code class="docutils literal"><span class="pre">Pngfont</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.PointText"><code class="docutils literal"><span class="pre">PointText</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.PostProcess"><code class="docutils literal"><span class="pre">PostProcess</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.RotateVec"><code class="docutils literal"><span class="pre">RotateVec</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Screenshot"><code class="docutils literal"><span class="pre">Screenshot</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.ShadowCaster"><code class="docutils literal"><span class="pre">ShadowCaster</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.StereoCam"><code class="docutils literal"><span class="pre">StereoCam</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.String"><code class="docutils literal"><span class="pre">String</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TextBlock"><code class="docutils literal"><span class="pre">TextBlock</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TkWin"><code class="docutils literal"><span class="pre">TkWin</span></code> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Utility"><code class="docutils literal"><span class="pre">Utility</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Ctypes"><code class="docutils literal notranslate"><span class="pre">Ctypes</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Clashtest"><code class="docutils literal notranslate"><span class="pre">Clashtest</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Defocus"><code class="docutils literal notranslate"><span class="pre">Defocus</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.DisplayOpenGL"><code class="docutils literal notranslate"><span class="pre">DisplayOpenGL</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.FixedString"><code class="docutils literal notranslate"><span class="pre">FixedString</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Font"><code class="docutils literal notranslate"><span class="pre">Font</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Graph"><code class="docutils literal notranslate"><span class="pre">Graph</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Gui"><code class="docutils literal notranslate"><span class="pre">Gui</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Loadable"><code class="docutils literal notranslate"><span class="pre">Loadable</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Log"><code class="docutils literal notranslate"><span class="pre">Log</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.OffScreenTexture"><code class="docutils literal notranslate"><span class="pre">OffScreenTexture</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.PexParticles"><code class="docutils literal notranslate"><span class="pre">PexParticles</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Pngfont"><code class="docutils literal notranslate"><span class="pre">Pngfont</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.PointText"><code class="docutils literal notranslate"><span class="pre">PointText</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.PostProcess"><code class="docutils literal notranslate"><span class="pre">PostProcess</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.RotateVec"><code class="docutils literal notranslate"><span class="pre">RotateVec</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Screenshot"><code class="docutils literal notranslate"><span class="pre">Screenshot</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.ShadowCaster"><code class="docutils literal notranslate"><span class="pre">ShadowCaster</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.StereoCam"><code class="docutils literal notranslate"><span class="pre">StereoCam</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.String"><code class="docutils literal notranslate"><span class="pre">String</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TextBlock"><code class="docutils literal notranslate"><span class="pre">TextBlock</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.TkWin"><code class="docutils literal notranslate"><span class="pre">TkWin</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.util.html#module-pi3d.util.Utility"><code class="docutils literal notranslate"><span class="pre">Utility</span></code> Module</a></li>
 </ul>
 </li>
 </ul>
@@ -1881,16 +1887,16 @@ new glTextureBuffers i.e. for movie textures</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">pi3d Package</a><ul>
-<li><a class="reference internal" href="#id1"><code class="docutils literal"><span class="pre">pi3d</span></code> Package</a></li>
-<li><a class="reference internal" href="#module-pi3d.Buffer"><code class="docutils literal"><span class="pre">Buffer</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.Camera"><code class="docutils literal"><span class="pre">Camera</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.Display"><code class="docutils literal"><span class="pre">Display</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.Keyboard"><code class="docutils literal"><span class="pre">Keyboard</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.Light"><code class="docutils literal"><span class="pre">Light</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.Mouse"><code class="docutils literal"><span class="pre">Mouse</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.Shader"><code class="docutils literal"><span class="pre">Shader</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.Shape"><code class="docutils literal"><span class="pre">Shape</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.Texture"><code class="docutils literal"><span class="pre">Texture</span></code> Module</a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">pi3d</span></code> Package</a></li>
+<li><a class="reference internal" href="#module-pi3d.Buffer"><code class="docutils literal notranslate"><span class="pre">Buffer</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.Camera"><code class="docutils literal notranslate"><span class="pre">Camera</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.Display"><code class="docutils literal notranslate"><span class="pre">Display</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.Keyboard"><code class="docutils literal notranslate"><span class="pre">Keyboard</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.Light"><code class="docutils literal notranslate"><span class="pre">Light</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.Mouse"><code class="docutils literal notranslate"><span class="pre">Mouse</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.Shader"><code class="docutils literal notranslate"><span class="pre">Shader</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.Shape"><code class="docutils literal notranslate"><span class="pre">Shape</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.Texture"><code class="docutils literal notranslate"><span class="pre">Texture</span></code> Module</a></li>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 </ul>
 </li>
@@ -1905,18 +1911,20 @@ new glTextureBuffers i.e. for movie textures</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/pi3d.txt"
+      <li><a href="_sources/pi3d.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -1938,12 +1946,12 @@ new glTextureBuffers i.e. for movie textures</p>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.24 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012-2018, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.7.
     </div>
   </body>
 </html>

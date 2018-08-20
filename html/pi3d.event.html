@@ -1,36 +1,23 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>events Package &#8212; pi3d 2.24 documentation</title>
-    
+    <title>events Package &#8212; pi3d 2.26 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2.24',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.24 documentation" href="index.html" />
-    <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="next" title="loader Package" href="pi3d.loader.html" />
     <link rel="prev" title="constants Package" href="pi3d.constants.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -46,7 +33,7 @@
         <li class="right" >
           <a href="pi3d.constants.html" title="constants Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -59,7 +46,7 @@
   <div class="section" id="events-package">
 <h1>events Package<a class="headerlink" href="#events-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-pi3d.event.AbsAxisScaling">
-<span id="absaxisscaling-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">AbsAxisScaling</span></code> Module<a class="headerlink" href="#module-pi3d.event.AbsAxisScaling" title="Permalink to this headline">¶</a></h2>
+<span id="absaxisscaling-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">AbsAxisScaling</span></code> Module<a class="headerlink" href="#module-pi3d.event.AbsAxisScaling" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pi3d.event.AbsAxisScaling.EVIOCGABS">
 <code class="descclassname">pi3d.event.AbsAxisScaling.</code><code class="descname">EVIOCGABS</code><span class="sig-paren">(</span><em>axis</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/AbsAxisScaling.html#EVIOCGABS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.AbsAxisScaling.EVIOCGABS" title="Permalink to this definition">¶</a></dt>
@@ -68,7 +55,7 @@
 <dl class="class">
 <dt id="pi3d.event.AbsAxisScaling.AbsAxisScaling">
 <em class="property">class </em><code class="descclassname">pi3d.event.AbsAxisScaling.</code><code class="descname">AbsAxisScaling</code><span class="sig-paren">(</span><em>stream</em>, <em>axis</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/AbsAxisScaling.html#AbsAxisScaling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.AbsAxisScaling.AbsAxisScaling" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Fetches and implements the EV_ABS axis scaling.</p>
 <p>The constructor fetches the scaling values from the given stream for the
 given axis using an ioctl.</p>
@@ -85,10 +72,10 @@ variables accordingly.</p>
 
 </div>
 <div class="section" id="module-pi3d.event.Constants">
-<span id="constants-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Constants</span></code> Module<a class="headerlink" href="#module-pi3d.event.Constants" title="Permalink to this headline">¶</a></h2>
+<span id="constants-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Constants</span></code> Module<a class="headerlink" href="#module-pi3d.event.Constants" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pi3d.event.Event">
-<span id="event-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Event</span></code> Module<a class="headerlink" href="#module-pi3d.event.Event" title="Permalink to this headline">¶</a></h2>
+<span id="event-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Event</span></code> Module<a class="headerlink" href="#module-pi3d.event.Event" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pi3d.event.Event.key_to_code">
 <code class="descclassname">pi3d.event.Event.</code><code class="descname">key_to_code</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/Event.html#key_to_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.key_to_code" title="Permalink to this definition">¶</a></dt>
@@ -102,7 +89,7 @@ variables accordingly.</p>
 <dl class="class">
 <dt id="pi3d.event.Event.InputEvents">
 <em class="property">class </em><code class="descclassname">pi3d.event.Event.</code><code class="descname">InputEvents</code><span class="sig-paren">(</span><em>keyboardHandler=None</em>, <em>mouseHandler=None</em>, <em>joystickHandler=None</em>, <em>synHandler=None</em>, <em>unhandledHandler=None</em>, <em>wantKeyboard=True</em>, <em>wantMouse=True</em>, <em>wantJoystick=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/Event.html#InputEvents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.InputEvents" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Encapsulates the entire InputEvents subsystem.</p>
 <p>This is generally all you need to import. For efficiency reasons you may
 want to make use of CodeOf[ ], but everything else is hidden behind this class.</p>
@@ -114,7 +101,7 @@ THROTTLE, RUDDER, WHEEL, GAS, BRAKE, HAT1, HAT2, HAT3, PRESSURE,
 DISTANCE, TILT, TOOL_WIDTH. Implementing these is left as an exercise
 for the interested reader. Similarly, we make no attempt to handle multi-touch.</p>
 <p>Handlers can be supplied, in which case they are called for each event, but
-it isn&#8217;t necessary; API exists for all the events.</p>
+it isn’t necessary; API exists for all the events.</p>
 <p>The handler signatures are:</p>
 <blockquote>
 <div>def mouse_handler_func(sourceType, SourceIndex, x, y, v, h)
@@ -171,7 +158,7 @@ The action buttons are:</p>
 <p>Analogue Left Button = BTN_BASE5
 Analogue Right Button = BTN_BASE6</p>
 <p>Some of those may clash with extended mouse buttons, so if you are using
-both at once, you&#8217;ll see some overlap.</p>
+both at once, you’ll see some overlap.</p>
 <p>The direction pad is hat0 (see get_hat)</p>
 </dd></dl>
 
@@ -191,7 +178,7 @@ both at once, you&#8217;ll see some overlap.</p>
 <dt id="pi3d.event.Event.InputEvents.get_joystick">
 <code class="descname">get_joystick</code><span class="sig-paren">(</span><em>index=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/Event.html#InputEvents.get_joystick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.InputEvents.get_joystick" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the x,y coordinates for a joystick or left gamepad analogue stick.</p>
-<p>index is the device index and defaults to 0 &#8211; the first joystick device</p>
+<p>index is the device index and defaults to 0 – the first joystick device</p>
 <p>The values are returned as a tuple. All values are -1.0 to +1.0 with
 0.0 being centred.</p>
 </dd></dl>
@@ -200,7 +187,7 @@ both at once, you&#8217;ll see some overlap.</p>
 <dt id="pi3d.event.Event.InputEvents.get_joystick3d">
 <code class="descname">get_joystick3d</code><span class="sig-paren">(</span><em>index=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/Event.html#InputEvents.get_joystick3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.InputEvents.get_joystick3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the x,y,z coordinates for a joystick or left gamepad analogue stick</p>
-<p>index is the device index and defaults to 0 &#8211; the first joystick device</p>
+<p>index is the device index and defaults to 0 – the first joystick device</p>
 <p>The values are returned as a tuple. All values are -1.0 to +1.0 with
 0.0 being centred.</p>
 </dd></dl>
@@ -209,7 +196,7 @@ both at once, you&#8217;ll see some overlap.</p>
 <dt id="pi3d.event.Event.InputEvents.get_joystickR">
 <code class="descname">get_joystickR</code><span class="sig-paren">(</span><em>index=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/Event.html#InputEvents.get_joystickR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.InputEvents.get_joystickR" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the x,y coordinates for a right gamepad analogue stick.</p>
-<p>index is the device index and defaults to 0 &#8211; the first joystick device</p>
+<p>index is the device index and defaults to 0 – the first joystick device</p>
 <p>The values are returned as a tuple. For some odd reason, the gamepad
 returns values in the Z axes of both joysticks, with y being the first.</p>
 <p>All values are -1.0 to +1.0 with 0.0 being centred.</p>
@@ -219,7 +206,7 @@ returns values in the Z axes of both joysticks, with y being the first.</p>
 <dt id="pi3d.event.Event.InputEvents.get_joystickB3d">
 <code class="descname">get_joystickB3d</code><span class="sig-paren">(</span><em>index=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/Event.html#InputEvents.get_joystickB3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.InputEvents.get_joystickB3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the x,y,z coordinates for a 2nd joystick control</p>
-<p>index is the device index and defaults to 0 &#8211; the first joystick device</p>
+<p>index is the device index and defaults to 0 – the first joystick device</p>
 <p>The values are returned as a tuple. All values are -1.0 to +1.0 with
 0.0 being centred.</p>
 </dd></dl>
@@ -228,7 +215,7 @@ returns values in the Z axes of both joysticks, with y being the first.</p>
 <dt id="pi3d.event.Event.InputEvents.get_hat">
 <code class="descname">get_hat</code><span class="sig-paren">(</span><em>index=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/Event.html#InputEvents.get_hat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.InputEvents.get_hat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the x,y coordinates for a joystick hat or gamepad direction pad</p>
-<p>index is the device index and defaults to 0 &#8211; the first joystick device</p>
+<p>index is the device index and defaults to 0 – the first joystick device</p>
 <p>The values are returned as a tuple.  All values are -1.0 to +1.0 with
 0.0 being centred.</p>
 </dd></dl>
@@ -237,7 +224,7 @@ returns values in the Z axes of both joysticks, with y being the first.</p>
 <dt id="pi3d.event.Event.InputEvents.get_mouse_movement">
 <code class="descname">get_mouse_movement</code><span class="sig-paren">(</span><em>index=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/Event.html#InputEvents.get_mouse_movement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.InputEvents.get_mouse_movement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the accumulated mouse movements since the last call.</p>
-<p>index is the device index and defaults to 0 &#8211; the first mouse device</p>
+<p>index is the device index and defaults to 0 – the first mouse device</p>
 <p>The returned value is a tuple: (X, Y, WHEEL, H-WHEEL)</p>
 </dd></dl>
 
@@ -267,18 +254,18 @@ you will have to filter them yourself.</p>
 <dt id="pi3d.event.Event.InputEvents.release">
 <code class="descname">release</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/Event.html#InputEvents.release"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.Event.InputEvents.release" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ungrabs all streams and closes all files.</p>
-<p>Only do this when you&#8217;re finished with this object. You can&#8217;t use it again.</p>
+<p>Only do this when you’re finished with this object. You can’t use it again.</p>
 </dd></dl>
 
 </dd></dl>
 
 </div>
 <div class="section" id="module-pi3d.event.EventHandler">
-<span id="eventhandler-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">EventHandler</span></code> Module<a class="headerlink" href="#module-pi3d.event.EventHandler" title="Permalink to this headline">¶</a></h2>
+<span id="eventhandler-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">EventHandler</span></code> Module<a class="headerlink" href="#module-pi3d.event.EventHandler" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.event.EventHandler.EventHandler">
 <em class="property">class </em><code class="descclassname">pi3d.event.EventHandler.</code><code class="descname">EventHandler</code><span class="sig-paren">(</span><em>keyHandler=None</em>, <em>relHandler=None</em>, <em>absHandler=None</em>, <em>synHandler=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/EventHandler.html#EventHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.EventHandler.EventHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class to handle events.</p>
 <p>Four types of events are handled: REL (mouse movement), KEY (keybaord keys and
 other device buttons), ABS (joysticks and gamepad analogue sticks) and SYN
@@ -344,11 +331,11 @@ This emulates a key-up but does not generate any events.</p>
 
 </div>
 <div class="section" id="module-pi3d.event.EventStream">
-<span id="eventstream-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">EventStream</span></code> Module<a class="headerlink" href="#module-pi3d.event.EventStream" title="Permalink to this headline">¶</a></h2>
+<span id="eventstream-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">EventStream</span></code> Module<a class="headerlink" href="#module-pi3d.event.EventStream" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.event.EventStream.EventStream">
 <em class="property">class </em><code class="descclassname">pi3d.event.EventStream.</code><code class="descname">EventStream</code><span class="sig-paren">(</span><em>index</em>, <em>deviceType</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/EventStream.html#EventStream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.EventStream.EventStream" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>encapsulates the event* file handling</p>
 <p>Each device is represented by a file in /dev/input called eventN, where N is
 a small number. (Actually, a keybaord is/can be represented by two such files.)
@@ -551,11 +538,11 @@ and key-hold events are filtered out.</p>
 
 </div>
 <div class="section" id="module-pi3d.event.EventStruct">
-<span id="eventstruct-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">EventStruct</span></code> Module<a class="headerlink" href="#module-pi3d.event.EventStruct" title="Permalink to this headline">¶</a></h2>
+<span id="eventstruct-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">EventStruct</span></code> Module<a class="headerlink" href="#module-pi3d.event.EventStruct" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.event.EventStruct.EventStruct">
 <em class="property">class </em><code class="descclassname">pi3d.event.EventStruct.</code><code class="descname">EventStruct</code><span class="sig-paren">(</span><em>stream</em>, <em>time=None</em>, <em>eventType=None</em>, <em>eventCode=None</em>, <em>eventValue=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/EventStruct.html#EventStruct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.EventStruct.EventStruct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A single event from the linux input event system.</p>
 <p>Events are tuples: (Time, Type, Code, Value)
 In addition we remember the stream it came from.</p>
@@ -593,7 +580,7 @@ will be required, but it might as well be here.</p>
 
 </div>
 <div class="section" id="module-pi3d.event.FindDevices">
-<span id="finddevices-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">FindDevices</span></code> Module<a class="headerlink" href="#module-pi3d.event.FindDevices" title="Permalink to this headline">¶</a></h2>
+<span id="finddevices-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">FindDevices</span></code> Module<a class="headerlink" href="#module-pi3d.event.FindDevices" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pi3d.event.FindDevices.test_bit">
 <code class="descclassname">pi3d.event.FindDevices.</code><code class="descname">test_bit</code><span class="sig-paren">(</span><em>nlst</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/FindDevices.html#test_bit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.FindDevices.test_bit" title="Permalink to this definition">¶</a></dt>
@@ -607,7 +594,7 @@ will be required, but it might as well be here.</p>
 <dl class="class">
 <dt id="pi3d.event.FindDevices.DeviceCapabilities">
 <em class="property">class </em><code class="descclassname">pi3d.event.FindDevices.</code><code class="descname">DeviceCapabilities</code><span class="sig-paren">(</span><em>firstLine</em>, <em>filehandle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/FindDevices.html#DeviceCapabilities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.FindDevices.DeviceCapabilities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="pi3d.event.FindDevices.DeviceCapabilities.doesProduce">
 <code class="descname">doesProduce</code><span class="sig-paren">(</span><em>eventType</em>, <em>eventCode</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/FindDevices.html#DeviceCapabilities.doesProduce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.FindDevices.DeviceCapabilities.doesProduce" title="Permalink to this definition">¶</a></dt>
@@ -625,7 +612,7 @@ will be required, but it might as well be here.</p>
 <code class="descclassname">pi3d.event.FindDevices.</code><code class="descname">find_devices</code><span class="sig-paren">(</span><em>identifier</em>, <em>butNot=[]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/event/FindDevices.html#find_devices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.event.FindDevices.find_devices" title="Permalink to this definition">¶</a></dt>
 <dd><p>finds the event indecies of all devices that have the given identifier.</p>
 <p>The identifier is a string on the Handlers line of /proc/bus/input/devices.
-Keyboards use &#8220;kbd&#8221;, mice use &#8220;mouse&#8221; and joysticks (and gamepads) use &#8220;js&#8221;.</p>
+Keyboards use “kbd”, mice use “mouse” and joysticks (and gamepads) use “js”.</p>
 <p>Returns a list of integer indexes N, where /dev/input/eventN is the event
 stream for each device.</p>
 <p>If except is given it holds a list of tuples which the returned values should not match.</p>
@@ -635,13 +622,13 @@ be used.</p>
 
 </div>
 <div class="section" id="module-pi3d.event.Format">
-<span id="format-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Format</span></code> Module<a class="headerlink" href="#module-pi3d.event.Format" title="Permalink to this headline">¶</a></h2>
+<span id="format-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Format</span></code> Module<a class="headerlink" href="#module-pi3d.event.Format" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pi3d.event.ioctl">
-<span id="ioctl-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">ioctl</span></code> Module<a class="headerlink" href="#module-pi3d.event.ioctl" title="Permalink to this headline">¶</a></h2>
+<span id="ioctl-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">ioctl</span></code> Module<a class="headerlink" href="#module-pi3d.event.ioctl" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pi3d.event.Keys">
-<span id="keys-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Keys</span></code> Module<a class="headerlink" href="#module-pi3d.event.Keys" title="Permalink to this headline">¶</a></h2>
+<span id="keys-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Keys</span></code> Module<a class="headerlink" href="#module-pi3d.event.Keys" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -654,16 +641,16 @@ be used.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">events Package</a><ul>
-<li><a class="reference internal" href="#module-pi3d.event.AbsAxisScaling"><code class="docutils literal"><span class="pre">AbsAxisScaling</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.event.Constants"><code class="docutils literal"><span class="pre">Constants</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.event.Event"><code class="docutils literal"><span class="pre">Event</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.event.EventHandler"><code class="docutils literal"><span class="pre">EventHandler</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.event.EventStream"><code class="docutils literal"><span class="pre">EventStream</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.event.EventStruct"><code class="docutils literal"><span class="pre">EventStruct</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.event.FindDevices"><code class="docutils literal"><span class="pre">FindDevices</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.event.Format"><code class="docutils literal"><span class="pre">Format</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.event.ioctl"><code class="docutils literal"><span class="pre">ioctl</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.event.Keys"><code class="docutils literal"><span class="pre">Keys</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.event.AbsAxisScaling"><code class="docutils literal notranslate"><span class="pre">AbsAxisScaling</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.event.Constants"><code class="docutils literal notranslate"><span class="pre">Constants</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.event.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.event.EventHandler"><code class="docutils literal notranslate"><span class="pre">EventHandler</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.event.EventStream"><code class="docutils literal notranslate"><span class="pre">EventStream</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.event.EventStruct"><code class="docutils literal notranslate"><span class="pre">EventStruct</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.event.FindDevices"><code class="docutils literal notranslate"><span class="pre">FindDevices</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.event.Format"><code class="docutils literal notranslate"><span class="pre">Format</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.event.ioctl"><code class="docutils literal notranslate"><span class="pre">ioctl</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.event.Keys"><code class="docutils literal notranslate"><span class="pre">Keys</span></code> Module</a></li>
 </ul>
 </li>
 </ul>
@@ -677,18 +664,20 @@ be used.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/pi3d.event.txt"
+      <li><a href="_sources/pi3d.event.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -710,13 +699,13 @@ be used.</p>
         <li class="right" >
           <a href="pi3d.constants.html" title="constants Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012-2018, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.7.
     </div>
   </body>
 </html>

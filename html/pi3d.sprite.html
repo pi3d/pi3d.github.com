@@ -1,36 +1,23 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>sprite Package &#8212; pi3d 2.24 documentation</title>
-    
+    <title>sprite Package &#8212; pi3d 2.26 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2.24',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.24 documentation" href="index.html" />
-    <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="next" title="util Package" href="pi3d.util.html" />
     <link rel="prev" title="shape Package" href="pi3d.shape.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -46,7 +33,7 @@
         <li class="right" >
           <a href="pi3d.shape.html" title="shape Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -59,11 +46,11 @@
   <div class="section" id="sprite-package">
 <h1>sprite Package<a class="headerlink" href="#sprite-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-pi3d.sprite.Ball">
-<span id="ball-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Ball</span></code> Module<a class="headerlink" href="#module-pi3d.sprite.Ball" title="Permalink to this headline">¶</a></h2>
+<span id="ball-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Ball</span></code> Module<a class="headerlink" href="#module-pi3d.sprite.Ball" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.sprite.Ball.Ball">
 <em class="property">class </em><code class="descclassname">pi3d.sprite.Ball.</code><code class="descname">Ball</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>shader=None</em>, <em>texture=None</em>, <em>radius=0.0</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=1000</em>, <em>vx=0.0</em>, <em>vy=0.0</em>, <em>decay=0.001</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/sprite/Ball.html#Ball"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.sprite.Ball.Ball" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.shape.html#pi3d.shape.Sprite.ImageSprite" title="pi3d.shape.Sprite.ImageSprite"><code class="xref py py-class docutils literal"><span class="pre">pi3d.shape.Sprite.ImageSprite</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.shape.html#pi3d.shape.Sprite.ImageSprite" title="pi3d.shape.Sprite.ImageSprite"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.shape.Sprite.ImageSprite</span></code></a></p>
 <p>This class is used to take some of the functionality of the CollisionBalls
 demo out of the main file. It inherits from the ImageSprite class that is
 passed (in addition to standard Shape constructor arguments) the Shader and
@@ -101,11 +88,11 @@ This allows the Ball dimensions to be set in approximately pixel sizes</p>
 
 </div>
 <div class="section" id="module-pi3d.sprite.Missile">
-<span id="missile-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Missile</span></code> Module<a class="headerlink" href="#module-pi3d.sprite.Missile" title="Permalink to this headline">¶</a></h2>
+<span id="missile-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Missile</span></code> Module<a class="headerlink" href="#module-pi3d.sprite.Missile" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.sprite.Missile.Missile">
 <em class="property">class </em><code class="descclassname">pi3d.sprite.Missile.</code><code class="descname">Missile</code><span class="sig-paren">(</span><em>w=1.0</em>, <em>h=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/sprite/Missile.html#Missile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.sprite.Missile.Missile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="pi3d.sprite.Missile.Missile.fire">
 <code class="descname">fire</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em>, <em>dx</em>, <em>dy</em>, <em>dz</em>, <em>cnt=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/sprite/Missile.html#Missile.fire"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.sprite.Missile.Missile.fire" title="Permalink to this definition">¶</a></dt>
@@ -130,8 +117,8 @@ This allows the Ball dimensions to be set in approximately pixel sizes</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">sprite Package</a><ul>
-<li><a class="reference internal" href="#module-pi3d.sprite.Ball"><code class="docutils literal"><span class="pre">Ball</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.sprite.Missile"><code class="docutils literal"><span class="pre">Missile</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.sprite.Ball"><code class="docutils literal notranslate"><span class="pre">Ball</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.sprite.Missile"><code class="docutils literal notranslate"><span class="pre">Missile</span></code> Module</a></li>
 </ul>
 </li>
 </ul>
@@ -145,18 +132,20 @@ This allows the Ball dimensions to be set in approximately pixel sizes</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/pi3d.sprite.txt"
+      <li><a href="_sources/pi3d.sprite.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -178,13 +167,13 @@ This allows the Ball dimensions to be set in approximately pixel sizes</p>
         <li class="right" >
           <a href="pi3d.shape.html" title="shape Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012-2018, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.7.
     </div>
   </body>
 </html>

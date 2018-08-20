@@ -1,36 +1,23 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>shape Package &#8212; pi3d 2.24 documentation</title>
-    
+    <title>shape Package &#8212; pi3d 2.26 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2.24',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.24 documentation" href="index.html" />
-    <link rel="up" title="pi3d Package" href="pi3d.html" />
     <link rel="next" title="sprite Package" href="pi3d.sprite.html" />
     <link rel="prev" title="loader Package" href="pi3d.loader.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -46,7 +33,7 @@
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -62,11 +49,11 @@
 class and create an array of Buffer objects (generally containing just one!) that
 hold the vertex information for drawing each of them.</p>
 <div class="section" id="module-pi3d.shape.Building">
-<span id="building-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Building</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Building" title="Permalink to this headline">¶</a></h2>
+<span id="building-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Building</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Building" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Building.xyz">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Building.</code><code class="descname">xyz</code><span class="sig-paren">(</span><em>x</em>, <em>y=None</em>, <em>z=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Building.html#xyz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Building.xyz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Encapsulates a 3D point-type triple.</p>
 <p>Constructor
 Can be initialised either with one of these or by with three things that can be cast to floats.</p>
@@ -75,7 +62,7 @@ Can be initialised either with one of these or by with three things that can be 
 <dl class="class">
 <dt id="pi3d.shape.Building.Size">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Building.</code><code class="descname">Size</code><span class="sig-paren">(</span><em>x</em>, <em>y=None</em>, <em>z=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Building.html#Size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Building.Size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pi3d.shape.Building.xyz" title="pi3d.shape.Building.xyz"><code class="xref py py-class docutils literal"><span class="pre">pi3d.shape.Building.xyz</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.shape.Building.xyz" title="pi3d.shape.Building.xyz"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.shape.Building.xyz</span></code></a></p>
 <p>Encapsulates a 3D size.
 Works together with Position to provide intelligent typing. A position plus a
 size is a position, whereas a position minus a position is a size.</p>
@@ -84,7 +71,7 @@ size is a position, whereas a position minus a position is a size.</p>
 <dl class="class">
 <dt id="pi3d.shape.Building.Position">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Building.</code><code class="descname">Position</code><span class="sig-paren">(</span><em>x</em>, <em>y=None</em>, <em>z=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Building.html#Position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Building.Position" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pi3d.shape.Building.xyz" title="pi3d.shape.Building.xyz"><code class="xref py py-class docutils literal"><span class="pre">pi3d.shape.Building.xyz</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.shape.Building.xyz" title="pi3d.shape.Building.xyz"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.shape.Building.xyz</span></code></a></p>
 <p>Encapsulates a 3D position.
 Works together with Size to provide intelligent typing. A position plus a
 size is a position, whereas a position minus a position is a size.</p>
@@ -98,7 +85,7 @@ size is a position, whereas a position minus a position is a size.</p>
 <dl class="class">
 <dt id="pi3d.shape.Building.ObjectCuboid">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Building.</code><code class="descname">ObjectCuboid</code><span class="sig-paren">(</span><em>name</em>, <em>s</em>, <em>p</em>, <em>bulk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Building.html#ObjectCuboid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Building.ObjectCuboid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>An ObjectCuboid has a size and position (of its centre) and a bulk.
 The size is its extent beyond the centre on the three axes, the position is the position of its centre.
 Note that this is different from the size of an ObjectCuboid. The bulk
@@ -137,19 +124,19 @@ is an aura around it that the auras of other objects can not enter. The bulk can
 <dl class="method">
 <dt id="pi3d.shape.Building.ObjectCuboid.w">
 <code class="descname">w</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Building.html#ObjectCuboid.w"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Building.ObjectCuboid.w" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns size of this object along the x axis &#8211; its width</p>
+<dd><p>Returns size of this object along the x axis – its width</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pi3d.shape.Building.ObjectCuboid.h">
 <code class="descname">h</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Building.html#ObjectCuboid.h"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Building.ObjectCuboid.h" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns size of this object along the y axis &#8211; its height</p>
+<dd><p>Returns size of this object along the y axis – its height</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pi3d.shape.Building.ObjectCuboid.d">
 <code class="descname">d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Building.html#ObjectCuboid.d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Building.ObjectCuboid.d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns size of this object along the z axis &#8211; its depth</p>
+<dd><p>Returns size of this object along the z axis – its depth</p>
 </dd></dl>
 
 <dl class="method">
@@ -165,8 +152,8 @@ is an aura around it that the auras of other objects can not enter. The bulk can
 If the pos argument is specified then it is used as the position of the
 given ObjectCuboid instead of its actual position.</p>
 <p>Clear as mud?</p>
-<p>Without a pos argument: &#8220;does object o overlap me?&#8221;
-With a pos argument: &#8220;would object o overlap me if it was at position &#8216;pos&#8217;?&#8221;</p>
+<p>Without a pos argument: “does object o overlap me?”
+With a pos argument: “would object o overlap me if it was at position ‘pos’?”</p>
 </dd></dl>
 
 </dd></dl>
@@ -174,10 +161,10 @@ With a pos argument: &#8220;would object o overlap me if it was at position &#82
 <dl class="class">
 <dt id="pi3d.shape.Building.SolidObject">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Building.</code><code class="descname">SolidObject</code><span class="sig-paren">(</span><em>name</em>, <em>s</em>, <em>p</em>, <em>bulk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Building.html#SolidObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Building.SolidObject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pi3d.shape.Building.ObjectCuboid" title="pi3d.shape.Building.ObjectCuboid"><code class="xref py py-class docutils literal"><span class="pre">pi3d.shape.Building.ObjectCuboid</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.shape.Building.ObjectCuboid" title="pi3d.shape.Building.ObjectCuboid"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.shape.Building.ObjectCuboid</span></code></a></p>
 <p>A solid object is one that the avatar can not walk through. It has a size, a position and a bulk.
 The size is its total size on the three axes, the position is the position of its centre.
-The bulk is the aura around it into which the avatar&#8217;s aura is not allowed to enter. A zero bulk works fine.</p>
+The bulk is the aura around it into which the avatar’s aura is not allowed to enter. A zero bulk works fine.</p>
 <p>Each solid object can have an optional model associated with it. Each SolidObject created is added to a
 list of SolidObjects. All the models of all the objects in the list can be drawn with a single method call (drawall).
 If a solid object does not have an associated model then drawall() does not attempt to draw it. That
@@ -207,7 +194,7 @@ or maybe to determine when a missile should explode and what it should destroy.<
 <dt id="pi3d.shape.Building.SolidObject.setmodel">
 <code class="descname">setmodel</code><span class="sig-paren">(</span><em>model</em>, <em>details</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Building.html#SolidObject.setmodel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Building.SolidObject.setmodel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the associated model and the details with which to draw it. If the model is set
-then drawall() will draw this object. If it isn&#8217;t, it wont.</p>
+then drawall() will draw this object. If it isn’t, it wont.</p>
 </dd></dl>
 
 <dl class="classmethod">
@@ -221,7 +208,7 @@ then drawall() will draw this object. If it isn&#8217;t, it wont.</p>
 <dl class="class">
 <dt id="pi3d.shape.Building.createMyCuboid">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Building.</code><code class="descname">createMyCuboid</code><span class="sig-paren">(</span><em>w</em>, <em>h</em>, <em>d</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Building.html#createMyCuboid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Building.createMyCuboid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pi3d.shape.Cuboid.Cuboid" title="pi3d.shape.Cuboid.Cuboid"><code class="xref py py-class docutils literal"><span class="pre">pi3d.shape.Cuboid.Cuboid</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.shape.Cuboid.Cuboid" title="pi3d.shape.Cuboid.Cuboid"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.shape.Cuboid.Cuboid</span></code></a></p>
 <p>A bodge because my cuboids appear to be out of position with respect to my collision
 system. Fortunately it does not seem to happen with planes. Probably my fault.</p>
 </dd></dl>
@@ -232,13 +219,13 @@ system. Fortunately it does not seem to happen with planes. Probably my fault.</
 <dd><p>Creates a cell consisting of optional north, south, east and west walls and an optional ceiling.
 The north and south walls are parallel with the x axis, with north being more positive. The east and
 west walls are parallel with the z axis, with east being more positive.
-The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis, (so north and south walls are that far apart,)
-&#8220;length&#8221; along the x axis, and &#8220;height&#8221; high. All walls and ceiling is a cuboid, 1 unit thick. There is no floor.</p>
+The cell is centred at (x,y,z). The cell is “width” along the z axis, (so north and south walls are that far apart,)
+“length” along the x axis, and “height” high. All walls and ceiling is a cuboid, 1 unit thick. There is no floor.</p>
 <p>Use this function when having the walls as planes is a problem, such as when their zero thinkness is visible.
 Otherwise corridor_planes() is more efficient.</p>
-<p>Which walls to create are specified by the string argument &#8220;walls&#8221;. This should contain the letters n,e,s,w to draw the
-corresponding wall, or &#8220;o&#8221; (for open) if no ceiling is required.
-For example a N-S corridor section would use &#8220;ew&#8221;, and a simple corner in the SE with no roof would be &#8220;seo&#8221;</p>
+<p>Which walls to create are specified by the string argument “walls”. This should contain the letters n,e,s,w to draw the
+corresponding wall, or “o” (for open) if no ceiling is required.
+For example a N-S corridor section would use “ew”, and a simple corner in the SE with no roof would be “seo”</p>
 <p>If mergeshape is None then the resulting objects are drawn with SolidObject.drawall(), if mergeshape is set then the
 objects are added to it and SolidObject.drawall() will not draw it.</p>
 <p>The objects are named with the given name argument as a prefix and a globally incrementing number as the suffix.</p>
@@ -247,7 +234,7 @@ objects are added to it and SolidObject.drawall() will not draw it.</p>
 <dl class="class">
 <dt id="pi3d.shape.Building.Building">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Building.</code><code class="descname">Building</code><span class="sig-paren">(</span><em>mapfile</em>, <em>xpos</em>, <em>zpos</em>, <em>emap</em>, <em>width=10.0</em>, <em>depth=10.0</em>, <em>height=10.0</em>, <em>name='building'</em>, <em>draw_details=None</em>, <em>yoff=0.0</em>, <em>scheme=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Building.html#Building"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Building.Building" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Creates a building at the given location. Each pixel of the image is one cell of the building
 If the cell is white then the cell is open, if it is black then it is wall. If it is grey
 then it is open and has no ceiling.
@@ -256,12 +243,12 @@ Each cell is width on the x axis and depth on the z axis, and the walls are heig
 <p>The function returns a merged shape with the entire building in it.</p>
 <dl class="attribute">
 <dt id="pi3d.shape.Building.Building.baseScheme">
-<code class="descname">baseScheme</code><em class="property"> = {(0, None): [['R', 0]], '#models': 1, (1, 0, 'edge'): [['W', 0], ['CE', 0]], (1, None): [['R', 0], ['C', 0]], (0, 0, 'edge'): [['W', 0], ['CE', 0]], (1, 0): [['W', 0], ['CE', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.baseScheme" title="Permalink to this definition">¶</a></dt>
+<code class="descname">baseScheme</code><em class="property"> = {(0, None): [['R', 0]], (1, None): [['R', 0], ['C', 0]], '#models': 1, (1, 0): [['W', 0], ['CE', 0]], (0, 0, 'edge'): [['W', 0], ['CE', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.baseScheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pi3d.shape.Building.Building.openSectionScheme">
-<code class="descname">openSectionScheme</code><em class="property"> = {(1, 2): [['CE', 0]], (0, None): [['R', 0]], '#models': 1, (2, None): [['C', 0], ['R', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]], (0, 0, 'edge'): [['W', 0], ['CE', 0]], (2, 0): [['W', 0]], (1, 0): [['W', 0], ['CE', 0]], (2, 2, 'edge'): [['CE', 0]], (2, 0, 'edge'): [['W', 0], ['CE', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.openSectionScheme" title="Permalink to this definition">¶</a></dt>
+<code class="descname">openSectionScheme</code><em class="property"> = {(1, 2): [['CE', 0]], (0, None): [['R', 0]], (2, None): [['C', 0], ['R', 0]], (2, 0, 'edge'): [['W', 0], ['CE', 0]], (2, 0): [['W', 0]], '#models': 1, (1, 0): [['W', 0], ['CE', 0]], (2, 2, 'edge'): [['CE', 0]], (0, 0, 'edge'): [['W', 0], ['CE', 0]], (1, 0, 'edge'): [['W', 0], ['CE', 0]]}</em><a class="headerlink" href="#pi3d.shape.Building.Building.openSectionScheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -287,8 +274,8 @@ Each cell is width on the x axis and depth on the z axis, and the walls are heig
 <dd><p>Creates a cell consisting of optional north, south, east and west walls and an optional ceiling.
 The north and south walls are parallel with the x axis, with north being more positive. The east and
 west walls are parallel with the z axis, with east being more positive.
-The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis, (so north and south walls are that far apart,)
-&#8220;length&#8221; along the x axis, and &#8220;height&#8221; high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
+The cell is centred at (x,y,z). The cell is “width” along the z axis, (so north and south walls are that far apart,)
+“length” along the x axis, and “height” high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
 <p>The resulting object is added to the given mergeshape</p>
 <p>The objects are named with the given name argument as a prefix and a globally incrementing number as the suffix.</p>
 </dd></dl>
@@ -299,8 +286,8 @@ The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis
 <dd><p>Creates a cell consisting of optional north, south, east and west walls and an optional ceiling.
 The north and south walls are parallel with the x axis, with north being more positive. The east and
 west walls are parallel with the z axis, with east being more positive.
-The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis, (so north and south walls are that far apart,)
-&#8220;length&#8221; along the x axis, and &#8220;height&#8221; high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
+The cell is centred at (x,y,z). The cell is “width” along the z axis, (so north and south walls are that far apart,)
+“length” along the x axis, and “height” high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
 <p>The resulting object is added to the given mergeshape</p>
 <p>The objects are named with the given name argument as a prefix and a globally incrementing number as the suffix.</p>
 </dd></dl>
@@ -311,8 +298,8 @@ The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis
 <dd><p>Creates a cell consisting of optional north, south, east and west walls and an optional ceiling.
 The north and south walls are parallel with the x axis, with north being more positive. The east and
 west walls are parallel with the z axis, with east being more positive.
-The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis, (so north and south walls are that far apart,)
-&#8220;length&#8221; along the x axis, and &#8220;height&#8221; high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
+The cell is centred at (x,y,z). The cell is “width” along the z axis, (so north and south walls are that far apart,)
+“length” along the x axis, and “height” high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
 <p>The resulting object is added to the given mergeshape</p>
 <p>The objects are named with the given name argument as a prefix and a globally incrementing number as the suffix.</p>
 </dd></dl>
@@ -323,8 +310,8 @@ The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis
 <dd><p>Creates a cell consisting of optional north, south, east and west walls and an optional ceiling.
 The north and south walls are parallel with the x axis, with north being more positive. The east and
 west walls are parallel with the z axis, with east being more positive.
-The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis, (so north and south walls are that far apart,)
-&#8220;length&#8221; along the x axis, and &#8220;height&#8221; high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
+The cell is centred at (x,y,z). The cell is “width” along the z axis, (so north and south walls are that far apart,)
+“length” along the x axis, and “height” high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
 <p>The resulting object is added to the given mergeshape</p>
 <p>The objects are named with the given name argument as a prefix and a globally incrementing number as the suffix.</p>
 </dd></dl>
@@ -335,8 +322,8 @@ The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis
 <dd><p>Creates a cell consisting of optional north, south, east and west walls and an optional ceiling.
 The north and south walls are parallel with the x axis, with north being more positive. The east and
 west walls are parallel with the z axis, with east being more positive.
-The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis, (so north and south walls are that far apart,)
-&#8220;length&#8221; along the x axis, and &#8220;height&#8221; high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
+The cell is centred at (x,y,z). The cell is “width” along the z axis, (so north and south walls are that far apart,)
+“length” along the x axis, and “height” high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
 <p>The resulting object is added to the given mergeshape</p>
 <p>The objects are named with the given name argument as a prefix and a globally incrementing number as the suffix.</p>
 </dd></dl>
@@ -347,8 +334,8 @@ The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis
 <dd><p>Creates a cell consisting of optional north, south, east and west walls and an optional ceiling.
 The north and south walls are parallel with the x axis, with north being more positive. The east and
 west walls are parallel with the z axis, with east being more positive.
-The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis, (so north and south walls are that far apart,)
-&#8220;length&#8221; along the x axis, and &#8220;height&#8221; high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
+The cell is centred at (x,y,z). The cell is “width” along the z axis, (so north and south walls are that far apart,)
+“length” along the x axis, and “height” high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
 <p>The resulting object is added to the given mergeshape</p>
 <p>The objects are named with the given name argument as a prefix and a globally incrementing number as the suffix.</p>
 </dd></dl>
@@ -359,8 +346,8 @@ The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis
 <dd><p>Creates a cell consisting of optional north, south, east and west walls and an optional ceiling.
 The north and south walls are parallel with the x axis, with north being more positive. The east and
 west walls are parallel with the z axis, with east being more positive.
-The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis, (so north and south walls are that far apart,)
-&#8220;length&#8221; along the x axis, and &#8220;height&#8221; high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
+The cell is centred at (x,y,z). The cell is “width” along the z axis, (so north and south walls are that far apart,)
+“length” along the x axis, and “height” high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
 <p>The resulting object is added to the given mergeshape</p>
 <p>The objects are named with the given name argument as a prefix and a globally incrementing number as the suffix.</p>
 </dd></dl>
@@ -371,8 +358,8 @@ The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis
 <dd><p>Creates a cell consisting of optional north, south, east and west walls and an optional ceiling.
 The north and south walls are parallel with the x axis, with north being more positive. The east and
 west walls are parallel with the z axis, with east being more positive.
-The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis, (so north and south walls are that far apart,)
-&#8220;length&#8221; along the x axis, and &#8220;height&#8221; high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
+The cell is centred at (x,y,z). The cell is “width” along the z axis, (so north and south walls are that far apart,)
+“length” along the x axis, and “height” high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
 <p>The resulting object is added to the given mergeshape</p>
 <p>The objects are named with the given name argument as a prefix and a globally incrementing number as the suffix.</p>
 </dd></dl>
@@ -383,8 +370,8 @@ The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis
 <dd><p>Creates a cell consisting of optional north, south, east and west walls and an optional ceiling.
 The north and south walls are parallel with the x axis, with north being more positive. The east and
 west walls are parallel with the z axis, with east being more positive.
-The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis, (so north and south walls are that far apart,)
-&#8220;length&#8221; along the x axis, and &#8220;height&#8221; high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
+The cell is centred at (x,y,z). The cell is “width” along the z axis, (so north and south walls are that far apart,)
+“length” along the x axis, and “height” high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
 <p>The resulting object is added to the given mergeshape</p>
 <p>The objects are named with the given name argument as a prefix and a globally incrementing number as the suffix.</p>
 </dd></dl>
@@ -395,8 +382,8 @@ The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis
 <dd><p>Creates a cell consisting of optional north, south, east and west walls and an optional ceiling.
 The north and south walls are parallel with the x axis, with north being more positive. The east and
 west walls are parallel with the z axis, with east being more positive.
-The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis, (so north and south walls are that far apart,)
-&#8220;length&#8221; along the x axis, and &#8220;height&#8221; high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
+The cell is centred at (x,y,z). The cell is “width” along the z axis, (so north and south walls are that far apart,)
+“length” along the x axis, and “height” high. Each wall is a plane, but the ceiling is a cuboid, 1 unit high. There is no floor.</p>
 <p>The objects are named with the given name argument as a prefix and a globally incrementing number as the suffix.</p>
 <p>The resulting objects are added to the given mergeshape</p>
 </dd></dl>
@@ -405,11 +392,11 @@ The cell is centred at (x,y,z). The cell is &#8220;width&#8221; along the z axis
 
 </div>
 <div class="section" id="module-pi3d.shape.Canvas">
-<span id="canvas-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Canvas</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Canvas" title="Permalink to this headline">¶</a></h2>
+<span id="canvas-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Canvas</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Canvas" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Canvas.Canvas">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Canvas.</code><code class="descname">Canvas</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>name=''</em>, <em>z=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Canvas.html#Canvas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Canvas.Canvas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape. The simplest possible shape: a single
 triangle designed to fill the screen completely</p>
 <p>Uses standard constructor for Shape but only one position variable is
@@ -437,11 +424,11 @@ multiplication will happen in the vertex shader.</dd>
 
 </div>
 <div class="section" id="module-pi3d.shape.Cone">
-<span id="cone-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Cone</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Cone" title="Permalink to this headline">¶</a></h2>
+<span id="cone-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Cone</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Cone" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Cone.Cone">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Cone.</code><code class="descname">Cone</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>radius=1.0</em>, <em>height=2.0</em>, <em>sides=12</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Cone.html#Cone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Cone.Cone" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
@@ -456,11 +443,11 @@ multiplication will happen in the vertex shader.</dd>
 
 </div>
 <div class="section" id="module-pi3d.shape.Cuboid">
-<span id="cuboid-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Cuboid</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Cuboid" title="Permalink to this headline">¶</a></h2>
+<span id="cuboid-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Cuboid</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Cuboid" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Cuboid.Cuboid">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Cuboid.</code><code class="descname">Cuboid</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>w=1.0</em>, <em>h=1.0</em>, <em>d=1.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>tw=1.0</em>, <em>th=1.0</em>, <em>td=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Cuboid.html#Cuboid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Cuboid.Cuboid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <blockquote>
@@ -486,12 +473,16 @@ proportional to the relative dimension.</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.Cylinder">
-<span id="cylinder-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Cylinder</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Cylinder" title="Permalink to this headline">¶</a></h2>
+<span id="cylinder-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Cylinder</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Cylinder" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Cylinder.Cylinder">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Cylinder.</code><code class="descname">Cylinder</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>radius=1.0</em>, <em>height=2.0</em>, <em>sides=12</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Cylinder.html#Cylinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Cylinder.Cylinder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
-<p>3d model inherits from Shape</p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<p>3d model inherits from Shape. This class uses the Shape._lathe()
+method to ‘wrap’ the texture around the cylinder in a similar way to
+the Sphere. If the texture mapping on the top and bottom need to be
+flat, or different from the sides, then the pi3d.Extrude class should
+be used</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
 <dt><em>sides</em></dt>
@@ -501,11 +492,11 @@ proportional to the relative dimension.</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.Disk">
-<span id="disk-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Disk</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Disk" title="Permalink to this headline">¶</a></h2>
+<span id="disk-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Disk</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Disk" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Disk.Disk">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Disk.</code><code class="descname">Disk</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>radius=1</em>, <em>sides=12</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Disk.html#Disk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Disk.Disk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
@@ -518,7 +509,7 @@ proportional to the relative dimension.</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.ElevationMap">
-<span id="elevationmap-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">ElevationMap</span></code> Module<a class="headerlink" href="#module-pi3d.shape.ElevationMap" title="Permalink to this headline">¶</a></h2>
+<span id="elevationmap-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">ElevationMap</span></code> Module<a class="headerlink" href="#module-pi3d.shape.ElevationMap" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pi3d.shape.ElevationMap.file_pathify">
 <code class="descclassname">pi3d.shape.ElevationMap.</code><code class="descname">file_pathify</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#file_pathify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.file_pathify" title="Permalink to this definition">¶</a></dt>
@@ -527,7 +518,7 @@ proportional to the relative dimension.</p>
 <dl class="class">
 <dt id="pi3d.shape.ElevationMap.ElevationMap">
 <em class="property">class </em><code class="descclassname">pi3d.shape.ElevationMap.</code><code class="descname">ElevationMap</code><span class="sig-paren">(</span><em>mapfile</em>, <em>camera=None</em>, <em>light=None</em>, <em>width=100.0</em>, <em>depth=100.0</em>, <em>height=10.0</em>, <em>divx=0</em>, <em>divy=0</em>, <em>ntiles=1.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>smooth=True</em>, <em>cubic=False</em>, <em>texmap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#ElevationMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.ElevationMap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape</p>
 <dl class="docutils">
@@ -570,7 +561,7 @@ uv texture coordinate i.e. Buffer.array_buffer[:,6:8]</dd>
 <dt id="pi3d.shape.ElevationMap.ElevationMap.dropOn">
 <code class="descname">dropOn</code><span class="sig-paren">(</span><em>px</em>, <em>pz</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/ElevationMap.html#ElevationMap.dropOn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.ElevationMap.ElevationMap.dropOn" title="Permalink to this definition">¶</a></dt>
 <dd><p>determines approximately how high an object is when dropped on the map
-(providing it&#8217;s inside the map area)</p>
+(providing it’s inside the map area)</p>
 </dd></dl>
 
 <dl class="method">
@@ -644,7 +635,7 @@ on the surface of the map at this point</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.EnvironmentCube">
-<span id="environmentcube-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">EnvironmentCube</span></code> Module<a class="headerlink" href="#module-pi3d.shape.EnvironmentCube" title="Permalink to this headline">¶</a></h2>
+<span id="environmentcube-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">EnvironmentCube</span></code> Module<a class="headerlink" href="#module-pi3d.shape.EnvironmentCube" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pi3d.shape.EnvironmentCube.loadECfiles">
 <code class="descclassname">pi3d.shape.EnvironmentCube.</code><code class="descname">loadECfiles</code><span class="sig-paren">(</span><em>path</em>, <em>fname</em>, <em>suffix='jpg'</em>, <em>nobottom=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/EnvironmentCube.html#loadECfiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.EnvironmentCube.loadECfiles" title="Permalink to this definition">¶</a></dt>
@@ -663,7 +654,7 @@ substitute a blank (black) texture instead!</p>
 <dt>Keyword arguments:</dt>
 <dd><dl class="first last docutils">
 <dt><em>suffix</em></dt>
-<dd>String to add after the &#8216;_top&#8217;,&#8217;_bottom&#8217; has been added to the stem.</dd>
+<dd>String to add after the ‘_top’,’_bottom’ has been added to the stem.</dd>
 <dt><em>nobottom</em></dt>
 <dd>If True then only load five parts into array the bottom will be
 drawn with the previous image i.e. top.</dd>
@@ -675,7 +666,7 @@ drawn with the previous image i.e. top.</dd>
 <dl class="class">
 <dt id="pi3d.shape.EnvironmentCube.EnvironmentCube">
 <em class="property">class </em><code class="descclassname">pi3d.shape.EnvironmentCube.</code><code class="descname">EnvironmentCube</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>size=500.0</em>, <em>maptype='HALFCROSS'</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>nobottom=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/EnvironmentCube.html#EnvironmentCube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.EnvironmentCube.EnvironmentCube" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
@@ -695,11 +686,11 @@ and will require 6 (or 5 with nobottom) image files to render it</dd>
 
 </div>
 <div class="section" id="module-pi3d.shape.Extrude">
-<span id="extrude-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Extrude</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Extrude" title="Permalink to this headline">¶</a></h2>
+<span id="extrude-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Extrude</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Extrude" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Extrude.Extrude">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Extrude.</code><code class="descname">Extrude</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>path=None</em>, <em>height=1.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Extrude.html#Extrude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Extrude.Extrude" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape
 NB this shape has an array of three Buffers representing each end face
 and the sides of the prism. Each can be textured seperately for drawing.</p>
@@ -714,24 +705,24 @@ and the sides of the prism. Each can be textured seperately for drawing.</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.Helix">
-<span id="helix-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Helix</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Helix" title="Permalink to this headline">¶</a></h2>
+<span id="helix-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Helix</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Helix" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Helix.Helix">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Helix.</code><code class="descname">Helix</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>radius=1.0</em>, <em>thickness=0.2</em>, <em>ringrots=6</em>, <em>sides=12</em>, <em>rise=1.0</em>, <em>loops=2.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Helix.html#Helix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Helix.Helix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
 <dt><em>radius</em></dt>
 <dd>Radius of helix.</dd>
 <dt><em>thickness</em></dt>
-<dd>Radius of &#8216;bar&#8217; being &#8216;bent&#8217; to form the helical shape.</dd>
+<dd>Radius of ‘bar’ being ‘bent’ to form the helical shape.</dd>
 <dt><em>ringrots</em></dt>
-<dd>Number of sides for the circlular secon of the &#8216;bar&#8217;.</dd>
+<dd>Number of sides for the circlular secon of the ‘bar’.</dd>
 <dt><em>sides</em></dt>
 <dd>Number of sides for Shape._lathe() to use.</dd>
 <dt><em>rise</em></dt>
-<dd>Distance between &#8216;threads&#8217;.</dd>
+<dd>Distance between ‘threads’.</dd>
 <dt><em>loops</em></dt>
 <dd>Number of turns that the helix makes.</dd>
 </dl>
@@ -739,11 +730,11 @@ and the sides of the prism. Each can be textured seperately for drawing.</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.Lathe">
-<span id="lathe-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Lathe</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Lathe" title="Permalink to this headline">¶</a></h2>
+<span id="lathe-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Lathe</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Lathe" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Lathe.Lathe">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Lathe.</code><code class="descname">Lathe</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>path=None</em>, <em>sides=12</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Lathe.html#Lathe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Lathe.Lathe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape.
 Makes a shape by rotating a path of x,y locations around the y axis
 NB the path should start at the top of the object to generate the correct normals
@@ -761,11 +752,11 @@ i.e. [..(0,2),(2,1),(1.5,0)..] has a sharp corner at 2,1 and should be entered a
 
 </div>
 <div class="section" id="module-pi3d.shape.Lines">
-<span id="lines-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Lines</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Lines" title="Permalink to this headline">¶</a></h2>
+<span id="lines-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Lines</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Lines" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Lines.Lines">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Lines.</code><code class="descname">Lines</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>vertices=[]</em>, <em>material=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>line_width=1</em>, <em>closed=False</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>strip=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Lines.html#Lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Lines.Lines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
@@ -784,11 +775,11 @@ i.e. [..(0,2),(2,1),(1.5,0)..] has a sharp corner at 2,1 and should be entered a
 
 </div>
 <div class="section" id="module-pi3d.shape.LodSprite">
-<span id="lodsprite-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">LodSprite</span></code> Module<a class="headerlink" href="#module-pi3d.shape.LodSprite" title="Permalink to this headline">¶</a></h2>
+<span id="lodsprite-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">LodSprite</span></code> Module<a class="headerlink" href="#module-pi3d.shape.LodSprite" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.LodSprite.LodSprite">
 <em class="property">class </em><code class="descclassname">pi3d.shape.LodSprite.</code><code class="descname">LodSprite</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>w=1.0</em>, <em>h=1.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=20.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>n=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/LodSprite.html#LodSprite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.LodSprite.LodSprite" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape, differs from Plane in being single sided
 Also has the ability to divide into more triangle (than 2) to allow some
 post processing in the vertex shader</p>
@@ -810,11 +801,11 @@ post processing in the vertex shader</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.MergeShape">
-<span id="mergeshape-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">MergeShape</span></code> Module<a class="headerlink" href="#module-pi3d.shape.MergeShape" title="Permalink to this headline">¶</a></h2>
+<span id="mergeshape-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">MergeShape</span></code> Module<a class="headerlink" href="#module-pi3d.shape.MergeShape" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.MergeShape.MergeShape">
 <em class="property">class </em><code class="descclassname">pi3d.shape.MergeShape.</code><code class="descname">MergeShape</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape. As there is quite a time penalty for
 doing the matrix recalculations and changing the variables being sent to
 the shader, each time an object is drawn, it is MUCH faster to use a MergeShape
@@ -837,8 +828,8 @@ to standard Shape:</p>
 <dt><em>bufr</em></dt>
 <dd>Buffer object or Shape with a member buf[0] that is a Buffer object.
 OR an array or tuple where each element is an array or tuple with
-the required arguments i.e. [[bufr1, x1, y1, z1, rx1, ry1....],
-[bufr2, x2, y2...],[bufr3, x3, y3...]] this latter is a more efficient
+the required arguments i.e. [[bufr1, x1, y1, z1, rx1, ry1….],
+[bufr2, x2, y2…],[bufr3, x3, y3…]] this latter is a more efficient
 way of building a MergeShape from lots of elements. If multiple
 Buffers are passed in this way then the subsequent arguments (x,y,z etc)
 will be ignored.</dd>
@@ -922,14 +913,14 @@ looking up the y axis.</dd>
 
 </div>
 <div class="section" id="module-pi3d.shape.Model">
-<span id="model-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Model</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Model" title="Permalink to this headline">¶</a></h2>
+<span id="model-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Model</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Model" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Model.Model">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Model.</code><code class="descname">Model</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>file_string=None</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Model.html#Model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Model.Model" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape
 loads vertex, normal, uv, index, texture and material data from obj or egg files
-at the moment it doesn&#8217;t fully implement the features such as animation,
+at the moment it doesn’t fully implement the features such as animation,
 reflectivity etc</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
@@ -952,11 +943,11 @@ so much quicker to create than reloading all the vertices etc</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.MultiSprite">
-<span id="multisprite-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">MultiSprite</span></code> Module<a class="headerlink" href="#module-pi3d.shape.MultiSprite" title="Permalink to this headline">¶</a></h2>
+<span id="multisprite-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">MultiSprite</span></code> Module<a class="headerlink" href="#module-pi3d.shape.MultiSprite" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.MultiSprite.MultiSprite">
 <em class="property">class </em><code class="descclassname">pi3d.shape.MultiSprite.</code><code class="descname">MultiSprite</code><span class="sig-paren">(</span><em>textures</em>, <em>shader</em>, <em>camera=None</em>, <em>light=None</em>, <em>w=1.0</em>, <em>h=1.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=20.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MultiSprite.html#MultiSprite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MultiSprite.MultiSprite" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape, this is a series of Sprites
 edge to edge to allow larger images than the maximum size of 1920
 imposed by the Texture class</p>
@@ -983,11 +974,11 @@ to right then down so six textures in spreadsheet notation would be</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.Plane">
-<span id="plane-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Plane</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Plane" title="Permalink to this headline">¶</a></h2>
+<span id="plane-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Plane</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Plane" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Plane.Plane">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Plane.</code><code class="descname">Plane</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>w=1.0</em>, <em>h=1.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Plane.html#Plane"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Plane.Plane" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape, differs from Sprite in being two sided</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
@@ -1000,11 +991,11 @@ to right then down so six textures in spreadsheet notation would be</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.Points">
-<span id="points-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Points</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Points" title="Permalink to this headline">¶</a></h2>
+<span id="points-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Points</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Points" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Points.Points">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Points.</code><code class="descname">Points</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>vertices=[]</em>, <em>material=(1.0</em>, <em>1.0</em>, <em>1.0)</em>, <em>point_size=1</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>normals=[]</em>, <em>tex_coords=[]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Points.html#Points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Points.Points" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
@@ -1019,11 +1010,11 @@ to right then down so six textures in spreadsheet notation would be</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.Sphere">
-<span id="sphere-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Sphere</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Sphere" title="Permalink to this headline">¶</a></h2>
+<span id="sphere-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Sphere</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Sphere" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Sphere.Sphere">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Sphere.</code><code class="descname">Sphere</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>radius=1</em>, <em>slices=12</em>, <em>sides=12</em>, <em>hemi=0.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>invert=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Sphere.html#Sphere"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Sphere.Sphere" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
@@ -1042,11 +1033,11 @@ to right then down so six textures in spreadsheet notation would be</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.Sprite">
-<span id="sprite-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Sprite</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Sprite" title="Permalink to this headline">¶</a></h2>
+<span id="sprite-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Sprite</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Sprite" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Sprite.Sprite">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Sprite.</code><code class="descname">Sprite</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>w=1.0</em>, <em>h=1.0</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=20.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>flip=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Sprite.html#Sprite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Sprite.Sprite" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape, differs from Plane in being single sided</p>
 <p>Uses standard constructor for Shape. Extra Keyword arguments:</p>
 <dl class="docutils">
@@ -1067,7 +1058,7 @@ to right then down so six textures in spreadsheet notation would be</p>
 <dl class="class">
 <dt id="pi3d.shape.Sprite.ImageSprite">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Sprite.</code><code class="descname">ImageSprite</code><span class="sig-paren">(</span><em>texture</em>, <em>shader</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Sprite.html#ImageSprite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Sprite.ImageSprite" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pi3d.shape.Sprite.Sprite" title="pi3d.shape.Sprite.Sprite"><code class="xref py py-class docutils literal"><span class="pre">pi3d.shape.Sprite.Sprite</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#pi3d.shape.Sprite.Sprite" title="pi3d.shape.Sprite.Sprite"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.shape.Sprite.Sprite</span></code></a></p>
 <p>A 2D sprite containing a texture and shader. The constructor also
 calls set_2d_size so that ImageSprite objects can be used directly to draw
 on a Canvas shape (if shader=2d_flat). Additional arguments:</p>
@@ -1084,11 +1075,11 @@ a file using texture as a path and name to an image.</dd>
 
 </div>
 <div class="section" id="module-pi3d.shape.TCone">
-<span id="tcone-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">TCone</span></code> Module<a class="headerlink" href="#module-pi3d.shape.TCone" title="Permalink to this headline">¶</a></h2>
+<span id="tcone-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">TCone</span></code> Module<a class="headerlink" href="#module-pi3d.shape.TCone" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.TCone.TCone">
 <em class="property">class </em><code class="descclassname">pi3d.shape.TCone.</code><code class="descname">TCone</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>radiusBot=1.2</em>, <em>radiusTop=0.8</em>, <em>height=2.0</em>, <em>sides=12</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/TCone.html#TCone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.TCone.TCone" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape, creates truncated cone axis y direction</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
@@ -1105,11 +1096,11 @@ a file using texture as a path and name to an image.</dd>
 
 </div>
 <div class="section" id="module-pi3d.shape.Tetrahedron">
-<span id="tetrahedron-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Tetrahedron</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Tetrahedron" title="Permalink to this headline">¶</a></h2>
+<span id="tetrahedron-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Tetrahedron</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Tetrahedron" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Tetrahedron.Tetrahedron">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Tetrahedron.</code><code class="descname">Tetrahedron</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>name=''</em>, <em>corners=((-1.0</em>, <em>-0.57735</em>, <em>-0.57735)</em>, <em>(1.0</em>, <em>-0.57735</em>, <em>-0.57735)</em>, <em>(0.0</em>, <em>-0.57735</em>, <em>1.1547)</em>, <em>(0.0</em>, <em>1.1547</em>, <em>0.0))</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Tetrahedron.html#Tetrahedron"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Tetrahedron.Tetrahedron" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape. The simplest 3D shape</p>
 <p>Uses standard constructor for Shape with ability to position corners.
 The uv mapping is taken from four equilateral triangles arranged on a
@@ -1127,11 +1118,11 @@ the top of the tetrahedron and the right bottom triangle is the base
 
 </div>
 <div class="section" id="module-pi3d.shape.Torus">
-<span id="torus-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Torus</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Torus" title="Permalink to this headline">¶</a></h2>
+<span id="torus-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Torus</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Torus" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Torus.Torus">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Torus.</code><code class="descname">Torus</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>radius=2.0</em>, <em>thickness=0.5</em>, <em>ringrots=6</em>, <em>sides=12</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Torus.html#Torus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Torus.Torus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
@@ -1148,11 +1139,11 @@ the top of the tetrahedron and the right bottom triangle is the base
 
 </div>
 <div class="section" id="module-pi3d.shape.Triangle">
-<span id="triangle-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Triangle</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Triangle" title="Permalink to this headline">¶</a></h2>
+<span id="triangle-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Triangle</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Triangle" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Triangle.Triangle">
 <em class="property">class </em><code class="descclassname">pi3d.shape.Triangle.</code><code class="descname">Triangle</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>name=''</em>, <em>corners=((-0.5</em>, <em>-0.28868)</em>, <em>(0.0</em>, <em>0.57735)</em>, <em>(0.5</em>, <em>-0.28868))</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Triangle.html#Triangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Triangle.Triangle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape. The simplest possible shape: a single
 triangle</p>
 <p>Uses standard constructor for Shape with ability to position corners.
@@ -1169,11 +1160,11 @@ peak at 0.5, 0.86603 Keyword argument:</p>
 
 </div>
 <div class="section" id="module-pi3d.shape.Tube">
-<span id="tube-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">Tube</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Tube" title="Permalink to this headline">¶</a></h2>
+<span id="tube-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Tube</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Tube" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.shape.Tube.Tube">
-<em class="property">class </em><code class="descclassname">pi3d.shape.Tube.</code><code class="descname">Tube</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>radius=1.0</em>, <em>thickness=0.5</em>, <em>height=2.0</em>, <em>sides=12</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Tube.html#Tube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Tube.Tube" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<em class="property">class </em><code class="descclassname">pi3d.shape.Tube.</code><code class="descname">Tube</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>radius=1.0</em>, <em>thickness=0.5</em>, <em>height=2.0</em>, <em>sides=12</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em>, <em>use_lathe=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Tube.html#Tube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Tube.Tube" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
 <p>3d model inherits from Shape</p>
 <p>uses standard constructor for Shape extra Keyword arguments:</p>
 <dl class="docutils">
@@ -1185,6 +1176,9 @@ peak at 0.5, 0.86603 Keyword argument:</p>
 <dd>Length of tube.</dd>
 <dt><em>sides</em></dt>
 <dd>Number of sides for Shape._lathe() to use.</dd>
+<dt><em>use_lathe</em></dt>
+<dd>Default to using Shape._lathe() for backwards compatibility but
+actually better to set this false, especially for washer like tubes.</dd>
 </dl>
 </dd></dl>
 
@@ -1200,31 +1194,31 @@ peak at 0.5, 0.86603 Keyword argument:</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">shape Package</a><ul>
-<li><a class="reference internal" href="#module-pi3d.shape.Building"><code class="docutils literal"><span class="pre">Building</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Canvas"><code class="docutils literal"><span class="pre">Canvas</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Cone"><code class="docutils literal"><span class="pre">Cone</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Cuboid"><code class="docutils literal"><span class="pre">Cuboid</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Cylinder"><code class="docutils literal"><span class="pre">Cylinder</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Disk"><code class="docutils literal"><span class="pre">Disk</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.ElevationMap"><code class="docutils literal"><span class="pre">ElevationMap</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.EnvironmentCube"><code class="docutils literal"><span class="pre">EnvironmentCube</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Extrude"><code class="docutils literal"><span class="pre">Extrude</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Helix"><code class="docutils literal"><span class="pre">Helix</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Lathe"><code class="docutils literal"><span class="pre">Lathe</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Lines"><code class="docutils literal"><span class="pre">Lines</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.LodSprite"><code class="docutils literal"><span class="pre">LodSprite</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.MergeShape"><code class="docutils literal"><span class="pre">MergeShape</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Model"><code class="docutils literal"><span class="pre">Model</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.MultiSprite"><code class="docutils literal"><span class="pre">MultiSprite</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Plane"><code class="docutils literal"><span class="pre">Plane</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Points"><code class="docutils literal"><span class="pre">Points</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Sphere"><code class="docutils literal"><span class="pre">Sphere</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Sprite"><code class="docutils literal"><span class="pre">Sprite</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.TCone"><code class="docutils literal"><span class="pre">TCone</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Tetrahedron"><code class="docutils literal"><span class="pre">Tetrahedron</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Torus"><code class="docutils literal"><span class="pre">Torus</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Triangle"><code class="docutils literal"><span class="pre">Triangle</span></code> Module</a></li>
-<li><a class="reference internal" href="#module-pi3d.shape.Tube"><code class="docutils literal"><span class="pre">Tube</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Building"><code class="docutils literal notranslate"><span class="pre">Building</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Canvas"><code class="docutils literal notranslate"><span class="pre">Canvas</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Cone"><code class="docutils literal notranslate"><span class="pre">Cone</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Cuboid"><code class="docutils literal notranslate"><span class="pre">Cuboid</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Cylinder"><code class="docutils literal notranslate"><span class="pre">Cylinder</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Disk"><code class="docutils literal notranslate"><span class="pre">Disk</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.ElevationMap"><code class="docutils literal notranslate"><span class="pre">ElevationMap</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.EnvironmentCube"><code class="docutils literal notranslate"><span class="pre">EnvironmentCube</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Extrude"><code class="docutils literal notranslate"><span class="pre">Extrude</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Helix"><code class="docutils literal notranslate"><span class="pre">Helix</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Lathe"><code class="docutils literal notranslate"><span class="pre">Lathe</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Lines"><code class="docutils literal notranslate"><span class="pre">Lines</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.LodSprite"><code class="docutils literal notranslate"><span class="pre">LodSprite</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.MergeShape"><code class="docutils literal notranslate"><span class="pre">MergeShape</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.MultiSprite"><code class="docutils literal notranslate"><span class="pre">MultiSprite</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Plane"><code class="docutils literal notranslate"><span class="pre">Plane</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Points"><code class="docutils literal notranslate"><span class="pre">Points</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Sphere"><code class="docutils literal notranslate"><span class="pre">Sphere</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Sprite"><code class="docutils literal notranslate"><span class="pre">Sprite</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.TCone"><code class="docutils literal notranslate"><span class="pre">TCone</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Tetrahedron"><code class="docutils literal notranslate"><span class="pre">Tetrahedron</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Torus"><code class="docutils literal notranslate"><span class="pre">Torus</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Triangle"><code class="docutils literal notranslate"><span class="pre">Triangle</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Tube"><code class="docutils literal notranslate"><span class="pre">Tube</span></code> Module</a></li>
 </ul>
 </li>
 </ul>
@@ -1238,18 +1232,20 @@ peak at 0.5, 0.86603 Keyword argument:</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/pi3d.shape.txt"
+      <li><a href="_sources/pi3d.shape.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -1271,13 +1267,13 @@ peak at 0.5, 0.86603 Keyword argument:</p>
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012-2018, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.7.
     </div>
   </body>
 </html>

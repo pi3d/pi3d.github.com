@@ -1,34 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>pi3d.Buffer &#8212; pi3d 2.24 documentation</title>
-    
+    <title>pi3d.Buffer &#8212; pi3d 2.26 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.24',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="top" title="pi3d 2.24 documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
-  </head>
-  <body role="document">
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -38,7 +25,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.26 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -57,14 +44,16 @@
 
 <span class="kn">from</span> <span class="nn">ctypes</span> <span class="k">import</span> <span class="n">c_float</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_short</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="p">(</span><span class="n">opengles</span><span class="p">,</span> <span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="n">GL_BLEND</span><span class="p">,</span> <span class="n">GL_DEPTH_TEST</span><span class="p">,</span>
+               <span class="n">GL_ELEMENT_ARRAY_BUFFER</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="n">GL_OUT_OF_MEMORY</span><span class="p">,</span> <span class="n">GL_STATIC_DRAW</span><span class="p">,</span>
+               <span class="n">GL_TEXTURE0</span><span class="p">,</span> <span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">GL_TRIANGLES</span><span class="p">,</span> <span class="n">GL_UNSIGNED_SHORT</span><span class="p">,</span> <span class="n">c_uint</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="k">import</span> <span class="n">Shader</span>
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="k">import</span> <span class="n">Log</span>
 <span class="kn">from</span> <span class="nn">pi3d.util</span> <span class="k">import</span> <span class="n">Utility</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Loadable</span> <span class="k">import</span> <span class="n">Loadable</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="k">import</span> <span class="n">c_floats</span><span class="p">,</span> <span class="n">c_shorts</span>
 
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Buffer"><a class="viewcode-back" href="../../pi3d.html#pi3d.Buffer.Buffer">[docs]</a><span class="k">class</span> <span class="nc">Buffer</span><span class="p">(</span><span class="n">Loadable</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Holds the vertex, normals, incices and tex_coords for each part of</span>
@@ -97,13 +86,14 @@
 <span class="sd">        meeting at this vertex, otherwise just use first (for speed).</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Buffer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Buffer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="c1"># Uniform variables all in one array!</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unib</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unib</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">15</span><span class="p">)(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
                                <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span>
                                <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
-                               <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+                               <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span>
+                               <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
     <span class="sd">&quot;&quot;&quot; pass to shader array of vec3 uniform variables:</span>
 
 <span class="sd">    ===== ============================== ==== ==</span>
@@ -115,6 +105,7 @@
 <span class="sd">        1  material                        3   5</span>
 <span class="sd">        2  umult, vmult, point_size        6   8</span>
 <span class="sd">        3  u_off, v_off, line_width/bump   9  10</span>
+<span class="sd">        4  specular RGB value *_reflect   11  14 </span>
 <span class="sd">    ===== ============================== ==== ==</span>
 
 <span class="sd">    NB line width and bump factor clash but shouldn&#39;t be an issue</span>
@@ -197,7 +188,6 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">disp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">return</span> <span class="c1"># can&#39;t re_init until after initial drawing!</span>
-    <span class="n">stride</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N_BYTES</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> <span class="c1">#i.e. 3, 6 or 8 This can&#39;t change from init</span>
     <span class="k">if</span> <span class="n">pts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
       <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
@@ -213,7 +203,10 @@
       <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">texcoords</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
         <span class="n">texcoords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">texcoords</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="p">[</span><span class="n">offset</span><span class="p">:(</span><span class="n">offset</span> <span class="o">+</span> <span class="n">n</span><span class="p">),</span> <span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">texcoords</span><span class="p">[:,:]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span> <span class="c1"># has to be called prior to _select</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;vbuf&quot;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_opengl</span><span class="p">()</span> <span class="c1"># vbuf and ebuf need to exist prior to _select()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">()</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glBufferSubData</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
                       <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span><span class="o">.</span><span class="n">nbytes</span><span class="p">,</span>
@@ -362,7 +355,7 @@
 
     <span class="bp">self</span><span class="o">.</span><span class="n">disp</span><span class="o">.</span><span class="n">last_shader</span> <span class="o">=</span> <span class="n">shader</span>
 
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glUniform3fv</span><span class="p">(</span><span class="n">shader</span><span class="o">.</span><span class="n">unif_unib</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glUniform3fv</span><span class="p">(</span><span class="n">shader</span><span class="o">.</span><span class="n">unif_unib</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">)</span>
 
     <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_DEPTH_TEST</span><span class="p">)</span> <span class="c1"># TODO find somewhere more efficient to do this</span>
 
@@ -386,7 +379,7 @@
 
   <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
     <span class="n">unib_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;unib&#39;</span><span class="p">])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">unib</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)(</span><span class="o">*</span><span class="n">unib_tuple</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unib</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span> <span class="o">*</span> <span class="mi">15</span><span class="p">)(</span><span class="o">*</span><span class="n">unib_tuple</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">array_buffer</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;array_buffer&#39;</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">element_array_buffer</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;element_array_buffer&#39;</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">element_normals</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;element_normals&#39;</span><span class="p">]</span>
@@ -408,12 +401,14 @@
         <div class="sphinxsidebarwrapper">
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -429,13 +424,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.26 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012-2018, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.7.
     </div>
   </body>
 </html>

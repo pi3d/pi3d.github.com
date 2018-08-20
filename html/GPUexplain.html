@@ -1,35 +1,23 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>3D Graphics Explanation &#8212; pi3d 2.24 documentation</title>
-    
+    <title>3D Graphics Explanation &#8212; pi3d 2.26 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2.24',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pi3d 2.24 documentation" href="index.html" />
     <link rel="next" title="Using pi3d with Android devices" href="AndroidUse.html" />
     <link rel="prev" title="Frequently Asked Questions" href="FAQ.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -45,7 +33,7 @@
         <li class="right" >
           <a href="FAQ.html" title="Frequently Asked Questions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.24 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -62,22 +50,22 @@ reasonable general perspective of how things work! Also I intentionally
 skip over many of the more involved aspects such as rendering to off-screen
 buffers, using masks, etc.</p>
 <p>Beneath the python module classes and functions provided by pi3d there are
-three &#8220;steps&#8221; necessary for control of the GPU. Two or three of these
+three “steps” necessary for control of the GPU. Two or three of these
 require external libraries (shared objects in linux, dlls in windows) imported:</p>
 <blockquote>
-<div><p>1. on the Raspberry Pi <code class="docutils literal"><span class="pre">libbcm_host.so</span></code> is used to create and manage a display
+<div><p>1. on the Raspberry Pi <code class="docutils literal notranslate"><span class="pre">libbcm_host.so</span></code> is used to create and manage a display
 surface to draw on. On linux (desktop and laptop) the surface is provided
 by the x11 server and windows and Android use pygame (which uses SDL2)</p>
-<p>2. <code class="docutils literal"><span class="pre">libELG</span></code> is used to set up the interface between the machine or operating
+<p>2. <code class="docutils literal notranslate"><span class="pre">libELG</span></code> is used to set up the interface between the machine or operating
 system window system and</p>
-<p>3. <code class="docutils literal"><span class="pre">libGLESv2</span></code> provides access to the OpenGL language functions developed
+<p>3. <code class="docutils literal notranslate"><span class="pre">libGLESv2</span></code> provides access to the OpenGL language functions developed
 to standardise utilisation of graphics cards. Mobile devices, including
 the Raspberry pi use a slightly cut-down version called OpenGL ES, specifically
 version 2.0.</p>
 </div></blockquote>
 <p>From OpenGL ESv2.0 onwards the fundamental graphics donkey work is done by
-&#8216;shaders&#8217; that are defined by the developer and compiled as the program
-runs rather than being &#8216;built into&#8217; the GPU. This opens up a fantastic
+‘shaders’ that are defined by the developer and compiled as the program
+runs rather than being ‘built into’ the GPU. This opens up a fantastic
 range of possibilities but there are some fundamental limits that may not
 be immediately apparent.</p>
 <p>There are two parts to a shader: the vertex shader and the fragment (essentially
@@ -87,35 +75,35 @@ appreciate is that information is passed from the CPU program (in
 our case python pi3d ones) to the shaders and the vertex shader can pass
 information on to the fragment shader, however the only output is pixels <a class="footnote-reference" href="#id2" id="id1">[*]</a>.
 It is fundamental to the efficiency and speed of the GPU that the shaders
-operate on only one vertex or pixel. i.e. the vertex shader can&#8217;t access
+operate on only one vertex or pixel. i.e. the vertex shader can’t access
 information about the location of adjacent vertices and the fragment shader
-can&#8217;t determine the colour, say, of adjacent pixels. This allows the processing
+can’t determine the colour, say, of adjacent pixels. This allows the processing
 to be run in parallel (massively parallel, some GPU have thousands of
 processing cores) but means that some operation such as blurring or edge
 detection have to be done as a double pass process.</p>
 <p>Information needed to render the scene is passed to the shader in four
 distinct blocks:</p>
 <ol class="arabic">
-<li><p class="first"><em>An &#8216;element array&#8217;</em> that will be drawn by the call to the
+<li><p class="first"><em>An ‘element array’</em> that will be drawn by the call to the
 drawElements function. This function can be used to draw polygons (limited to
 triangles in OpenGL ES2.0), lines or points, and the type of drawing will
 determine how the entries in the array are interpreted. Essentially
 each element will contain reference indices to one or more vertices. In the
-simple square example below this is the <code class="docutils literal"><span class="pre">triangle</span> <span class="pre">indices</span></code> array.</p>
+simple square example below this is the <code class="docutils literal notranslate"><span class="pre">triangle</span> <span class="pre">indices</span></code> array.</p>
 </li>
-<li><p class="first"><em>An &#8216;attribute array&#8217;</em> of vertex information, again the type
+<li><p class="first"><em>An ‘attribute array’</em> of vertex information, again the type
 of drawing determining how much information needs to be passed. For the
 most general 3D drawing in pi3d the array contains vertex x,y,z values,
 normal vectors and texture coordinates.</p>
 </li>
-<li><p class="first"><em>&#8216;uniform&#8217; variables</em>. This includes things
+<li><p class="first"><em>‘uniform’ variables</em>. This includes things
 that apply to all the vertices being drawn, such as the transformation matrix
 (for the shape to which the vertices belong), the projection matrix to
 represent camera location and field of view, the location and colour of
 light sources, fog properties, material shades and transparency,
 variables to control pattern repeats or for moving patterns etc.</p>
 <p>A very significant part of the uniform variables are images or texture
-samplers to &#8216;clothe&#8217; the object or to provide information on bumps or
+samplers to ‘clothe’ the object or to provide information on bumps or
 reflections.</p>
 </li>
 <li><p class="first"><em>The program</em> for the GPU to run, comprising the vertex
@@ -158,7 +146,7 @@ a very simple one sided square this could be defined by the vertices:</p>
 <p>and texture coordinates:</p>
 <p>[(u=0.0, v=0.0) ,(u=0.0, v=1.0) ,(u=1.0, v=1.0) ,(u=1.0, v=0.0) ]</p>
 <p>and triangle indices (note the order of corners is important. The triangle
-&#8216;faces&#8217; towards a view where the sequence is clock-wise. Normally the backs
+‘faces’ towards a view where the sequence is clock-wise. Normally the backs
 of faces are not rendered by the GPU):</p>
 <p>[(0,1,2), (0,2,3)]</p>
 <p>Draw these out on some paper so you can see how the system works. The GPU
@@ -184,7 +172,7 @@ of the program sets the shader and necessary uniform variables to draw the
 given object. It then works out the 4x4 matrix combining translation, rotation,
 scale for the object and an additional matrix incorporating the camera
 movement and lens settings. The camera has two basic modes for handling
-perspective, the default is &#8216;normal&#8217; where things further away are represented
+perspective, the default is ‘normal’ where things further away are represented
 as smaller on the screen and the this is defined by a viewing angle between
 the top edge of the screen and bottom edge. If the camera is set to
 orthographic mode then objects do not get smaller in the distance and one
@@ -196,20 +184,20 @@ to work out the locations of each vertex, normal, lighting, texture in
 terms of screen coordinates. The vertex shader then passes the relevant
 information to the fragment shader which  calculates what colour and alpha
 value to use for each pixel. The fragment shader takes into account the
-depth value of each pixel and doesn&#8217;t draw anything that is behind something
+depth value of each pixel and doesn’t draw anything that is behind something
 it has already drawn. This means that it is more efficient to draw opaque
 objects from near to far but if something is partially transparent then
-is must be drawn <strong>after</strong> anything further away that should &#8216;show through&#8217;.</p>
+is must be drawn <strong>after</strong> anything further away that should ‘show through’.</p>
 </li>
 <li><p class="first">pi3d uses a double buffer system where everything is drawn onto an off-screen
 buffer which, when complete at the end of the frame loop, is swapped
-&#8216;instantaneously&#8217; to visible. This makes the animation much smoother.</p>
+‘instantaneously’ to visible. This makes the animation much smoother.</p>
 </li>
 </ol>
 <table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[*]</a></td><td>It is possible to get &#8216;output&#8217; from GPUs using sophisticated techniques
+<tr><td class="label"><a class="fn-backref" href="#id1">[*]</a></td><td>It is possible to get ‘output’ from GPUs using sophisticated techniques
 that allow the parallel processing capabilities to be used elsewhere, but
 this is not trivial!</td></tr>
 </tbody>
@@ -231,18 +219,20 @@ this is not trivial!</td></tr>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/GPUexplain.txt"
+      <li><a href="_sources/GPUexplain.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -264,12 +254,12 @@ this is not trivial!</td></tr>
         <li class="right" >
           <a href="FAQ.html" title="Frequently Asked Questions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.24 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012-2018, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.7.
     </div>
   </body>
 </html>
