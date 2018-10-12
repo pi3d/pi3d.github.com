@@ -6,13 +6,16 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.loader.loaderObj &#8212; pi3d 2.26 documentation</title>
+    <title>pi3d.loader.loaderObj &#8212; pi3d 2.28 documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
   </head><body>
@@ -25,7 +28,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.26 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.28 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -123,9 +126,6 @@
   <span class="n">material</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
   <span class="n">mcounter</span> <span class="o">=</span> <span class="mi">0</span>
   <span class="n">mcurrent</span> <span class="o">=</span> <span class="mi">0</span>
-  <span class="c1">#numv = [] #number of vertices for each material (nb each vertex will have three coords)</span>
-  <span class="c1">#numi = [] #number of indices (triangle corners) for each material</span>
-
   <span class="n">mtllib</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
   <span class="c1"># current face state</span>
@@ -173,12 +173,7 @@
         <span class="n">normlen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">uvlen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">uvs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 
-        <span class="c1">#if len(numv) &lt; (mcurrent+1): numv.append(0)</span>
-        <span class="c1">#if len(numi) &lt; (mcurrent+1): numi.append(0)</span>
-
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-          <span class="c1">#numv[mcurrent] += 1</span>
-          <span class="c1">#numi[mcurrent] += 3</span>
           <span class="n">vertex</span> <span class="o">=</span> <span class="n">parse_vertex</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
           <span class="k">if</span> <span class="n">vertex</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">vertex</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -192,8 +187,8 @@
             <span class="k">if</span> <span class="n">vertex</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
               <span class="n">vertex</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">normlen</span>
             <span class="n">normal_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertex</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">])</span>
-        <span class="c1">#numi[mcurrent] -= 6 # number of corners of triangle = (n-2)*3 where n is the number of corners of face</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">mcurrent</span> <span class="ow">in</span> <span class="n">faces</span><span class="p">:</span> <span class="n">faces</span><span class="p">[</span><span class="n">mcurrent</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">mcurrent</span> <span class="ow">in</span> <span class="n">faces</span><span class="p">:</span>
+          <span class="n">faces</span><span class="p">[</span><span class="n">mcurrent</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="n">faces</span><span class="p">[</span><span class="n">mcurrent</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
           <span class="s1">&#39;vertex&#39;</span><span class="p">:</span><span class="n">vertex_index</span><span class="p">,</span>
@@ -233,13 +228,8 @@
       <span class="c1"># Smooth shading</span>
       <span class="k">if</span> <span class="n">chunks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;s&quot;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
         <span class="n">smooth</span> <span class="o">=</span> <span class="n">chunks</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        
-  <span class="c1">#LOGGER.info(&quot;materials:  %s\nnumv:  %s&quot;, materials, numv)</span>
     
   <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">faces</span><span class="p">:</span> <span class="c1"># make each of these into an array_buffer with its own material</span>
-    <span class="c1">#numv[g] -= 1</span>
-    <span class="c1">#numi[g] -= 1</span>
-
     <span class="n">g_vertices</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">g_normals</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">g_tex_coords</span> <span class="o">=</span> <span class="p">[]</span>
@@ -334,13 +324,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.26 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.28 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012-2018, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.7.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
     </div>
   </body>
 </html>

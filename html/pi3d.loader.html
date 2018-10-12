@@ -6,13 +6,16 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>loader Package &#8212; pi3d 2.26 documentation</title>
+    <title>loader Package &#8212; pi3d 2.28 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="shape Package" href="pi3d.shape.html" />
@@ -33,7 +36,7 @@
         <li class="right" >
           <a href="pi3d.event.html" title="events Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.28 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -158,7 +161,7 @@ as part of a Shape. Arguments:</p>
 
 <dl class="attribute">
 <dt id="pi3d.loader.parse_mtl.Materials.PROPERTIES">
-<code class="descname">PROPERTIES</code><em class="property"> = {'Ka': Prop(name='colorAmbient', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a18487b8&gt;), 'Kd': Prop(name='colorDiffuse', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a18487b8&gt;), 'Ke': Prop(name='colorEmissive', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a18487b8&gt;), 'Ks': Prop(name='colorSpecular', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a18487b8&gt;), 'Ni': Prop(name='opticalDensity', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a1848840&gt;), 'Ns': Prop(name='specularCoef', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a1848840&gt;), 'Tf': Prop(name='colorTransparency', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a18487b8&gt;), 'Tr': Prop(name='transparency', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a1848840&gt;), 'bump': Prop(name='mapBump', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a1848950&gt;), 'd': Prop(name='transparency', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a1848840&gt;), 'illum': Prop(name='illumination', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a18488c8&gt;), 'map_Bump': Prop(name='mapBump', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a1848950&gt;), 'map_Ka': Prop(name='mapAmbient', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a1848950&gt;), 'map_Kd': Prop(name='mapDiffuse', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a1848950&gt;), 'map_Ks': Prop(name='mapSpecular', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a1848950&gt;), 'map_d': Prop(name='mapAlpha', func=&lt;function Materials.&lt;lambda&gt; at 0x7fc3a1848950&gt;)}</em><a class="headerlink" href="#pi3d.loader.parse_mtl.Materials.PROPERTIES" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PROPERTIES</code><em class="property"> = {'Ka': Prop(name='colorAmbient', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'Kd': Prop(name='colorDiffuse', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'Ke': Prop(name='colorEmissive', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'Ks': Prop(name='colorSpecular', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'Ni': Prop(name='opticalDensity', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'Ns': Prop(name='specularCoef', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'Tf': Prop(name='colorTransparency', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'Tr': Prop(name='transparency', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'bump': Prop(name='mapBump', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'd': Prop(name='transparency', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'illum': Prop(name='illumination', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'map_Bump': Prop(name='mapBump', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'map_Ka': Prop(name='mapAmbient', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'map_Kd': Prop(name='mapDiffuse', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'map_Ks': Prop(name='mapSpecular', func=&lt;function Materials.&lt;lambda&gt;&gt;), 'map_d': Prop(name='mapAlpha', func=&lt;function Materials.&lt;lambda&gt;&gt;)}</em><a class="headerlink" href="#pi3d.loader.parse_mtl.Materials.PROPERTIES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -226,7 +229,7 @@ not have a method with the specified name.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">loader Package</a><ul>
 <li><a class="reference internal" href="#module-pi3d.loader.loaderEgg"><code class="docutils literal notranslate"><span class="pre">loaderEgg</span></code> Module</a></li>
@@ -281,13 +284,13 @@ not have a method with the specified name.</p>
         <li class="right" >
           <a href="pi3d.event.html" title="events Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.26 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.28 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012-2018, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.7.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
     </div>
   </body>
 </html>
