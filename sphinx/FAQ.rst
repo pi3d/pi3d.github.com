@@ -314,6 +314,17 @@ output is appearing there. How can I see it on a remote terminal?
   running and executing the pi3d programs from the command line. To do this
   you will have to change the default behavior using raspi-config.
 
+Camera
+------
+
+I have used Display.resize() and now everything looks
+a bit distorted.
+
+  The projection matrix generated when you create a Camera uses information about the
+  screen width and height, if these change then the matrix will not match the screen
+  properly. The easiest way to fix this is to make a new instance of the Camera(s) you
+  are using.
+
 Optional arguments
 ------------------
 
@@ -418,6 +429,9 @@ can I set the layer to be in front or behind.
   alter to change the order of layers. To draw ``behind`` the X11 desktop
   on the Raspberry Pi Raspbian setup you need to set the layer to -128 see
   ``pi3d_demos/PyQtCube.py``
+
+  From v2.29 It is also possible to change the layer during running by using
+  Display.change_layer(layer=0)
 
 Materials
 ---------

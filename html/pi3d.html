@@ -545,6 +545,11 @@ doesn’t attempt to “catch up” but simply runs freely.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pi3d.Display.Display.change_layer">
+<code class="descname">change_layer</code><span class="sig-paren">(</span><em>layer=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Display.html#Display.change_layer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display.change_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pi3d.Display.Display.add_sprites">
 <code class="descname">add_sprites</code><span class="sig-paren">(</span><em>*sprites</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Display.html#Display.add_sprites"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.Display.add_sprites" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add one or more sprites to this Display.</p>
@@ -645,6 +650,9 @@ the tkwindow parent, if any.</dd>
 <dd>To use pygame for display surface, mouse and keyboard - as per windows
 This almost certainly would conflict if attempting to use in combination
 with tk=True. Default False</dd>
+<dt><em>layer</em></dt>
+<dd>display layer height - used by dispmanx on Raspberry Pi only. -128 will move the
+pi3d window behind the X11 desktop</dd>
 <dt><em>display_config</em></dt>
 <dd>Configuration of display - See pi3d.constants for DISPLAY_CONFIG options</dd>
 </dl>
