@@ -13,6 +13,29 @@ When starting any demo I get an AssertionError in DisplayOpenGL
   This is generally caused by the graphics memory allocation on the
   Raspberry Pi being too low (less than 32)
 
+  However it can also now be caused by trying to run pi3d with the 'new'
+  GL driver in raspi-config (option 1.). See the next answer.
+
+failed to add service - already in use?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When starting any demo I don't get a python error but there is a system
+message refering to a service that couldn't be added.
+
+  This can be caused by trying to run pi3d with the 'fake' GL driver enabled
+  in raspi-config (option 2.).
+
+  The 'built in' GPU driver uses OpenGL ES 2.0 and that's what pi3d uses - via
+  the broadcom drivers now referred to as 'legacy'. However to get software
+  not originally designed for mobile platforms to work there has been a move
+  to write a 'shell' driver that can interpret OpenGL code and either pass it
+  on the GPU as ES2.0 code it can process or do some CPU processing. Unless
+  the new driver is written very efficiently then I would expect it to be
+  slower than 'pure' OpenGL ES code through the original driver.
+
+  For running pi3d applications on the raspberry pi you should stick to the
+  original broadcom driver.
+
 EGL_NO_SURFACE
 ~~~~~~~~~~~~~~
 
