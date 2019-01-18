@@ -1746,12 +1746,24 @@ as when displaying the score as 2D text)
   will be a rectangle if you are using a FixedString but will be uneven
   edged if you are using a normal String with Font. If you set the alpha to
   zero you will end up with a subtle line around the outside of each letter,
-  which may be enough.
+  which may be enough. (See also below for dealing with uneven edges)
   
   To get a larger outline around letters you can specify a shadow_radius and
   a shadow RGBA value (default black with no transparrency). This produces 
   a gaussian blurred version 'underneath' each letter. See the Shapes demo
   for how this might look.
+
+Sharpen Large characters
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+How can I draw large characters on the screen without getting a grainy 'enlarged
+image' effect.
+
+  When the font is created the default is to use a grid of 16x16 on a 1024 pixel
+  Texture. Also, to allow rotation the characters are shrunk withing the 64 pixels
+  that allows. From v2.29, If a smaller character set will suffice then a different grid_size
+  argument can be used and subset defined with the codepoints argument. See the
+  Slideshow_2d.py demo
 
 Normal Map generation
 ---------------------

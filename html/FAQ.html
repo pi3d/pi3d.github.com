@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Frequently Asked Questions &#8212; pi3d 2.28 documentation</title>
+    <title>Frequently Asked Questions &#8212; pi3d 2.29 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.28 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.29 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -1675,12 +1675,23 @@ This will produce partially transparrent background for your letters which
 will be a rectangle if you are using a FixedString but will be uneven
 edged if you are using a normal String with Font. If you set the alpha to
 zero you will end up with a subtle line around the outside of each letter,
-which may be enough.</p>
+which may be enough. (See also below for dealing with uneven edges)</p>
 <p>To get a larger outline around letters you can specify a shadow_radius and
 a shadow RGBA value (default black with no transparrency). This produces
 a gaussian blurred version ‘underneath’ each letter. See the Shapes demo
 for how this might look.</p>
 </div></blockquote>
+</div>
+<div class="section" id="sharpen-large-characters">
+<h3>Sharpen Large characters<a class="headerlink" href="#sharpen-large-characters" title="Permalink to this headline">¶</a></h3>
+<p>How can I draw large characters on the screen without getting a grainy ‘enlarged
+image’ effect.</p>
+<blockquote>
+<div>When the font is created the default is to use a grid of 16x16 on a 1024 pixel
+Texture. Also, to allow rotation the characters are shrunk withing the 64 pixels
+that allows. From v2.29, If a smaller character set will suffice then a different grid_size
+argument can be used and subset defined with the codepoints argument. See the
+Slideshow_2d.py demo</div></blockquote>
 </div>
 </div>
 <div class="section" id="normal-map-generation">
@@ -2007,6 +2018,7 @@ wouldn’t scale correctly on very large objects such as the terrain.</p>
 <li><a class="reference internal" href="#fixedstring">FixedString</a></li>
 <li><a class="reference internal" href="#pointtext">PointText</a></li>
 <li><a class="reference internal" href="#shadow">Shadow</a></li>
+<li><a class="reference internal" href="#sharpen-large-characters">Sharpen Large characters</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#normal-map-generation">Normal Map generation</a></li>
@@ -2068,7 +2080,7 @@ wouldn’t scale correctly on very large objects such as the terrain.</p>
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.28 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.29 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

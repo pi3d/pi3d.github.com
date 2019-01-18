@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>util Package &#8212; pi3d 2.28 documentation</title>
+    <title>util Package &#8212; pi3d 2.29 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.28 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.29 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -267,7 +267,7 @@ SMOOTH do what they sound like they will do.</dd>
 <span id="font-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Font</span></code> Module<a class="headerlink" href="#module-pi3d.util.Font" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pi3d.util.Font.Font">
-<em class="property">class </em><code class="descclassname">pi3d.util.Font.</code><code class="descname">Font</code><span class="sig-paren">(</span><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=42</em>, <em>image_size=512</em>, <em>italic_adjustment=1.1</em>, <em>background_color=None</em>, <em>shadow=(0</em>, <em>0</em>, <em>0</em>, <em>255)</em>, <em>shadow_radius=0</em>, <em>spacing=None</em>, <em>mipmap=True</em>, <em>filter=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pi3d.util.Font.</code><code class="descname">Font</code><span class="sig-paren">(</span><em>font</em>, <em>color=(255</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>codepoints=None</em>, <em>add_codepoints=None</em>, <em>font_size=None</em>, <em>image_size=1024</em>, <em>italic_adjustment=1.1</em>, <em>background_color=None</em>, <em>shadow=(0</em>, <em>0</em>, <em>0</em>, <em>255)</em>, <em>shadow_radius=0</em>, <em>spacing=None</em>, <em>mipmap=True</em>, <em>filter=None</em>, <em>grid_size=16</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/Font.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Font.Font" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Texture.Texture</span></code></a></p>
 <p>A Font contains a TrueType font ready to be rendered in OpenGL.</p>
 <p>A font is just a mapping from codepoints (single Unicode characters) to glyphs
@@ -327,6 +327,9 @@ by any value supplied.</dd>
 <dd>Resulting texture mipmap option, default true</dd>
 <dt><em>filter</em>:</dt>
 <dd>Resulting texture filter option, default None</dd>
+<dt><em>grid_size</em></dt>
+<dd>number rows and cols to divide 1024 pixels. For high res fonts this can be
+changed 4 -&gt; 16chars, 8 -&gt; 64chars, 10 -&gt; 100chars etc.</dd>
 </dl>
 </dd></dl>
 
@@ -1442,7 +1445,7 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.28 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.29 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>

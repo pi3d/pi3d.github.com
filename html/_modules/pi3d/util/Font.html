@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.util.Font &#8212; pi3d 2.28 documentation</title>
+    <title>pi3d.util.Font &#8212; pi3d 2.29 documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.28 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.29 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -57,6 +57,11 @@
 
 <span class="n">MAX_SIZE</span> <span class="o">=</span> <span class="mi">1920</span>
 
+<span class="k">def</span> <span class="nf">_strengthen</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="c1"># used if shadow required to slightly harden edges</span>
+  <span class="n">F</span> <span class="o">=</span> <span class="mf">0.5</span>
+  <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">F</span> <span class="o">-</span> <span class="n">F</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">256</span><span class="p">))</span>
+
 <div class="viewcode-block" id="Font"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.Font.Font">[docs]</a><span class="k">class</span> <span class="nc">Font</span><span class="p">(</span><span class="n">Texture</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  A Font contains a TrueType font ready to be rendered in OpenGL.</span>
@@ -68,10 +73,10 @@
 <span class="sd">  then creates a table mapping codepoints to subrectangles of that Texture.&quot;&quot;&quot;</span>
 
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">codepoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="n">add_codepoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+               <span class="n">add_codepoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
                <span class="n">italic_adjustment</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">background_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">shadow</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">shadow_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="n">mipmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+               <span class="n">mipmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grid_size</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
 <span class="sd">    *font*:</span>
 <span class="sd">      File path/name to a TrueType font file.</span>
@@ -137,9 +142,15 @@
 
 <span class="sd">    *filter*:</span>
 <span class="sd">      Resulting texture filter option, default None</span>
+
+<span class="sd">    *grid_size*</span>
+<span class="sd">      number rows and cols to divide 1024 pixels. For high res fonts this can be</span>
+<span class="sd">      changed 4 -&gt; 16chars, 8 -&gt; 64chars, 10 -&gt; 100chars etc.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Font</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="n">mipmap</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="nb">filter</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
+    <span class="k">if</span> <span class="n">font_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">font_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">672</span> <span class="o">/</span> <span class="n">grid_size</span><span class="p">)</span> <span class="c1"># i.e. 16x16 has font size 42</span>
     <span class="k">try</span><span class="p">:</span>
       <span class="n">imgfont</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">font_size</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
@@ -154,18 +165,19 @@
     <span class="k">if</span> <span class="n">spacing</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">spacing</span> <span class="o">=</span> <span class="n">shadow_radius</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">ascent</span> <span class="o">+</span> <span class="n">descent</span> <span class="o">+</span> <span class="n">spacing</span> <span class="c1"># allow extra pixels if shadow or for certain fonts</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="mi">64</span>
-
-    <span class="n">image_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacing</span>  <span class="o">*</span> <span class="mi">16</span>  <span class="c1"># or 1024 TODO this may go wrong if self.height != 64</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span> <span class="o">=</span> <span class="n">grid_size</span>
+    <span class="n">num_char</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">image_size</span> <span class="o">=</span> <span class="mi">1024</span> <span class="c1"># fixed value despite having as argument! TODO allow variable size now grid_size variable</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="n">image_size</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span>
 
     <span class="k">if</span> <span class="n">codepoints</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-      <span class="n">codepoints</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">codepoints</span><span class="p">)</span>
+      <span class="n">codepoints</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">codepoints</span><span class="p">)[:</span><span class="n">num_char</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="n">codepoints</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">))</span>
+      <span class="n">codepoints</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_char</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">add_codepoints</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">add_codepoints</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">add_codepoints</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">codepoints</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">add_codepoints</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">256</span><span class="p">:</span> <span class="c1"># make room at end</span>
-        <span class="n">codepoints</span> <span class="o">=</span> <span class="n">codepoints</span><span class="p">[:(</span><span class="mi">256</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">add_codepoints</span><span class="p">))]</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">codepoints</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">add_codepoints</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">num_char</span><span class="p">:</span> <span class="c1"># make room at end</span>
+        <span class="n">codepoints</span> <span class="o">=</span> <span class="n">codepoints</span><span class="p">[:(</span><span class="n">num_char</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">add_codepoints</span><span class="p">))]</span>
       <span class="n">codepoints</span> <span class="o">+=</span> <span class="n">add_codepoints</span>
 
     <span class="n">is_draw_shadows</span> <span class="o">=</span> <span class="n">shadow_radius</span> <span class="o">&gt;</span> <span class="mi">0</span>
@@ -224,7 +236,7 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">glyph_table</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span> <span class="o">=</span> <span class="n">table_entry</span>
 
       <span class="n">xindex</span> <span class="o">+=</span> <span class="mi">1</span>
-      <span class="k">if</span> <span class="n">xindex</span> <span class="o">&gt;=</span> <span class="mi">16</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">xindex</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">:</span>
         <span class="n">xindex</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">yindex</span> <span class="o">+=</span> <span class="mi">1</span>
 
@@ -237,6 +249,7 @@
         <span class="n">shadow_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_force_color</span><span class="p">(</span><span class="n">shadow_img</span><span class="p">,</span> <span class="n">shadow</span><span class="p">)</span>
         
       <span class="n">shadow_img</span> <span class="o">=</span> <span class="n">shadow_img</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">shadow_radius</span><span class="p">))</span>
+      <span class="n">shadow_img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">shadow_img</span><span class="p">,</span> <span class="n">_strengthen</span><span class="p">)</span> <span class="c1"># slightly sharpen edge of blur - see func def at top</span>
 
       <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">alpha_composite</span><span class="p">(</span><span class="n">shadow_img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
 
@@ -296,7 +309,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.28 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.29 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
