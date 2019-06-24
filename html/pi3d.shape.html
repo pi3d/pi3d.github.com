@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>shape Package &#8212; pi3d 2.29 documentation</title>
+    <title>shape Package &#8212; pi3d 2.30 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.29 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.30 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -854,7 +854,7 @@ material, textures, draw_method and unib</dd>
 
 <dl class="method">
 <dt id="pi3d.shape.MergeShape.MergeShape.cluster">
-<code class="descname">cluster</code><span class="sig-paren">(</span><em>bufr</em>, <em>elevmap</em>, <em>xpos</em>, <em>zpos</em>, <em>w</em>, <em>d</em>, <em>count</em>, <em>options</em>, <em>minscl</em>, <em>maxscl</em>, <em>bufnum=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape.cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape.cluster" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cluster</code><span class="sig-paren">(</span><em>bufr</em>, <em>elevmap</em>, <em>xpos</em>, <em>zpos</em>, <em>w</em>, <em>d</em>, <em>count</em>, <em>options</em>, <em>minscl</em>, <em>maxscl</em>, <em>bufnum=0</em>, <em>billboard=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape.cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape.cluster" title="Permalink to this definition">¶</a></dt>
 <dd><p>generates a random cluster on an ElevationMap.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
@@ -876,6 +876,9 @@ to the origin of the MergeShape</dd>
 <dd>The minimum scale value for random selection.</dd>
 <dt><em>maxscl</em></dt>
 <dd>The maximum scale value for random selection.</dd>
+<dt><em>billboard</em></dt>
+<dd>If True then all Buffers are set rotated 180 degrees so that they turn to face
+Camera location when billboard() called</dd>
 </dl>
 </dd>
 </dl>
@@ -909,6 +912,16 @@ looking up the y axis.</dd>
 <dd>Angle between each copy, degrees NB <em>NOT</em> number of steps.</dd>
 </dl>
 </dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.shape.MergeShape.MergeShape.billboard">
+<code class="descname">billboard</code><span class="sig-paren">(</span><em>cam_location</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/MergeShape.html#MergeShape.billboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.MergeShape.MergeShape.billboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>rotates all merged shapes to face camera</p>
+<dl class="docutils">
+<dt><em>cam_location</em></dt>
+<dd>tuple of x,y,z location of camera</dd>
 </dl>
 </dd></dl>
 
@@ -1270,7 +1283,7 @@ actually better to set this false, especially for washer like tubes.</dd>
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.29 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.30 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>
