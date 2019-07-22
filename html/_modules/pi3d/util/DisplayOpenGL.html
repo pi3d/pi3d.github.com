@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.util.DisplayOpenGL &#8212; pi3d 2.30 documentation</title>
+    <title>pi3d.util.DisplayOpenGL &#8212; pi3d 2.32 documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.32 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -81,9 +81,22 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">current_w</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">current_h</span>
 
     <span class="k">else</span><span class="p">:</span> <span class="c1"># use libX11</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XOpenDisplay</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XDefaultScreenOfDisplay</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XWidthOfScreen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">),</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XHeightOfScreen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">)</span>
+      <span class="c1">#import subprocess # default name using XOpenDisplay(None) doesn&#39;t work on RPi4</span>
+      <span class="c1">#display_name = subprocess.check_output([&#39;printenv&#39;, &#39;DISPLAY&#39;]).split()[0]</span>
+      <span class="c1">#display_name = b&#39;:&#39; + subprocess.check_output([b&#39;ls&#39;, b&#39;/tmp/.X11-unix&#39;]).split(b&#39;X&#39;)[1].trim()</span>
+      <span class="kn">import</span> <span class="nn">os</span>
+      <span class="n">display_name</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;/tmp/.X11-unix&#39;</span><span class="p">):</span>
+        <span class="n">display_name</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="k">break</span> <span class="c1"># just use the first one in the list if more than one</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XOpenDisplay</span><span class="p">(</span><span class="n">display_name</span><span class="p">)</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XDefaultScreenOfDisplay</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XWidthOfScreen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">),</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XHeightOfScreen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;************************</span><span class="se">\n</span><span class="s1">X11 needs to be running</span><span class="se">\n</span><span class="s1">************************&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;Couldnt open DISPLAY </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">display_name</span><span class="p">)</span>
+
 
 <div class="viewcode-block" id="DisplayOpenGL.create_display"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.DisplayOpenGL.DisplayOpenGL.create_display">[docs]</a>  <span class="k">def</span> <span class="nf">create_display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">display_config</span><span class="o">=</span><span class="n">DISPLAY_CONFIG_DEFAULT</span><span class="p">,</span> <span class="n">window_title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">display</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglGetDisplay</span><span class="p">(</span><span class="n">EGL_DEFAULT_DISPLAY</span><span class="p">)</span>
@@ -122,24 +135,27 @@
 
     <span class="bp">self</span><span class="o">.</span><span class="n">create_surface</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
 
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glDepthRangef</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glClearColor</span> <span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="mf">0.3</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mf">0.3</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mf">0.7</span><span class="p">),</span> <span class="n">c_float</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glBindFramebuffer</span><span class="p">(</span><span class="n">GL_FRAMEBUFFER</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glDepthRangef</span><span class="p">(</span><span class="n">GLfloat</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">GLfloat</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glClearColor</span> <span class="p">(</span><span class="n">GLfloat</span><span class="p">(</span><span class="mf">0.3</span><span class="p">),</span> <span class="n">GLfloat</span><span class="p">(</span><span class="mf">0.3</span><span class="p">),</span> <span class="n">GLfloat</span><span class="p">(</span><span class="mf">0.7</span><span class="p">),</span> <span class="n">GLfloat</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glBindFramebuffer</span><span class="p">(</span><span class="n">GL_FRAMEBUFFER</span><span class="p">,</span> <span class="n">GLuint</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 
     <span class="c1">#Setup default hints</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_CULL_FACE</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glCullFace</span><span class="p">(</span><span class="n">GL_BACK</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glFrontFace</span><span class="p">(</span><span class="n">GL_CW</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_DEPTH_TEST</span><span class="p">)</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glDepthFunc</span><span class="p">(</span><span class="n">GL_LESS</span><span class="p">);</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glDepthMask</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glCullFace</span><span class="p">(</span><span class="n">GL_FRONT</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_PROGRAM_POINT_SIZE</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_POINT_SPRITE</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glDepthFunc</span><span class="p">(</span><span class="n">GL_LESS</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glDepthMask</span><span class="p">(</span><span class="n">GLboolean</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glHint</span><span class="p">(</span><span class="n">GL_GENERATE_MIPMAP_HINT</span><span class="p">,</span> <span class="n">GL_NICEST</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glBlendFuncSeparate</span><span class="p">(</span><span class="n">GL_SRC_ALPHA</span><span class="p">,</span> <span class="n">GL_ONE_MINUS_SRC_ALPHA</span><span class="p">,</span> 
-                                            <span class="mi">1</span><span class="p">,</span> <span class="n">GL_ONE_MINUS_SRC_ALPHA</span><span class="p">)</span>
+                                       <span class="mi">1</span><span class="p">,</span> <span class="n">GL_ONE_MINUS_SRC_ALPHA</span><span class="p">)</span>
 
     <span class="c1"># Switches off alpha blending problem with desktop - is there a bug in the</span>
     <span class="c1"># driver?</span>
     <span class="c1"># Thanks to Roland Humphries who sorted this one!!</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glColorMask</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glColorMask</span><span class="p">(</span><span class="n">GLboolean</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">GLboolean</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">GLboolean</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">GLboolean</span><span class="p">(</span><span class="kc">False</span><span class="p">))</span>
 
     <span class="c1">#opengles.glEnableClientState(GL_VERTEX_ARRAY)</span>
     <span class="c1">#opengles.glEnableClientState(GL_NORMAL_ARRAY)</span>
@@ -195,15 +211,13 @@
       <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_config</span> <span class="o">&amp;</span> <span class="n">DISPLAY_CONFIG_MAXIMIZED</span><span class="p">:</span>
         <span class="n">flags</span> <span class="o">|=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">FULLSCREEN</span>
         <span class="n">wsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        
+
       <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="n">wsize</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_wm_info</span><span class="p">()[</span><span class="s2">&quot;window&quot;</span><span class="p">]</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">surface</span> <span class="o">=</span> <span class="n">openegl</span><span class="o">.</span><span class="n">eglCreateWindowSurface</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-      
-    <span class="k">else</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span>
 
+    <span class="k">else</span><span class="p">:</span>
       <span class="c1"># Set some WM info</span>
       <span class="n">root</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XRootWindowOfScreen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">xlib</span><span class="o">.</span><span class="n">XCreateSimpleWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -217,6 +231,16 @@
       <span class="n">wm_name_atom</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_ulong</span><span class="p">(</span><span class="n">xlib</span><span class="o">.</span><span class="n">XInternAtom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;WM_NAME&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
       <span class="n">string_atom</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_ulong</span><span class="p">(</span><span class="n">xlib</span><span class="o">.</span><span class="n">XInternAtom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;STRING&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
       <span class="n">xlib</span><span class="o">.</span><span class="n">XChangeProperty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">wm_name_atom</span><span class="p">,</span> <span class="n">string_atom</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">xlib</span><span class="o">.</span><span class="n">PropModeReplace</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">title_length</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="n">w</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> <span class="n">h</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_config</span> <span class="o">&amp;</span> <span class="n">DISPLAY_CONFIG_FULLSCREEN</span><span class="p">:</span>
+        <span class="c1"># set full-screen. Messy c function calls!</span>
+        <span class="n">wm_state</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_ulong</span><span class="p">(</span><span class="n">xlib</span><span class="o">.</span><span class="n">XInternAtom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;_NET_WM_STATE&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">fullscreen</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_ulong</span><span class="p">(</span><span class="n">xlib</span><span class="o">.</span><span class="n">XInternAtom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;_NET_WM_STATE_FULLSCREEN&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">XA_ATOM</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">xlib</span><span class="o">.</span><span class="n">XChangeProperty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">wm_state</span><span class="p">,</span> <span class="n">XA_ATOM</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">xlib</span><span class="o">.</span><span class="n">PropModeReplace</span><span class="p">,</span>
+                            <span class="n">ctypes</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">pointer</span><span class="p">(</span><span class="n">fullscreen</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span>
 
       <span class="c1">#TODO add functions to xlib for these window manager libx11 functions</span>
       <span class="c1">#self.window.set_wm_name(&#39;pi3d xlib window&#39;)</span>
@@ -243,7 +267,7 @@
     <span class="k">assert</span> <span class="n">r</span>
 
     <span class="c1">#Create viewport</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span></div>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glViewport</span><span class="p">(</span><span class="n">GLint</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">GLint</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">GLsizei</span><span class="p">(</span><span class="n">w</span><span class="p">),</span> <span class="n">GLsizei</span><span class="p">(</span><span class="n">h</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="DisplayOpenGL.resize"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.DisplayOpenGL.DisplayOpenGL.resize">[docs]</a>  <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="c1"># Destroy current surface and native window</span>
@@ -353,7 +377,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.32 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

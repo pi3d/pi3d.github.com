@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.util.Clashtest &#8212; pi3d 2.30 documentation</title>
+    <title>pi3d.util.Clashtest &#8212; pi3d 2.32 documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.32 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -42,7 +42,8 @@
 <span></span><span class="kn">import</span> <span class="nn">ctypes</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="p">(</span><span class="n">opengles</span><span class="p">,</span> <span class="n">GL_SCISSOR_TEST</span><span class="p">,</span> <span class="n">GLint</span><span class="p">,</span> <span class="n">GLsizei</span><span class="p">,</span> <span class="n">GL_RGBA</span><span class="p">,</span>
+                <span class="n">GLubyte</span><span class="p">,</span> <span class="n">GL_UNSIGNED_BYTE</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="k">import</span> <span class="n">Shader</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.OffScreenTexture</span> <span class="k">import</span> <span class="n">OffScreenTexture</span>
@@ -70,8 +71,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_flg</span><span class="p">:</span>
       <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_SCISSOR_TEST</span><span class="p">)</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glScissor</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y0</span><span class="p">),</span>
-                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glScissor</span><span class="p">(</span><span class="n">GLint</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">GLint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y0</span><span class="p">),</span>
+                    <span class="n">GLsizei</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">),</span> <span class="n">GLsizei</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">s_flg</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">shape</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">shader</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shader</span><span class="p">)</span></div>
 
@@ -89,9 +90,9 @@
     <span class="n">opengles</span><span class="o">.</span><span class="n">glDisable</span><span class="p">(</span><span class="n">GL_SCISSOR_TEST</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">s_flg</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="c1"># alias to make code a bit less bulky!</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glReadPixels</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glReadPixels</span><span class="p">(</span><span class="n">GLint</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">GLint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y0</span><span class="p">),</span> <span class="n">GLsizei</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">),</span> <span class="n">GLsizei</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
                           <span class="n">GL_RGBA</span><span class="p">,</span> <span class="n">GL_UNSIGNED_BYTE</span><span class="p">,</span>
-                          <span class="n">img</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_ubyte</span><span class="p">)))</span>
+                          <span class="n">img</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">GLubyte</span><span class="p">)))</span>
 
     <span class="k">if</span>  <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">img</span><span class="p">[::</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="ow">or</span> 
          <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">img</span><span class="p">[::</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span> <span class="ow">or</span> 
@@ -130,7 +131,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.32 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

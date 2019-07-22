@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.util.OffScreenTexture &#8212; pi3d 2.30 documentation</title>
+    <title>pi3d.util.OffScreenTexture &#8212; pi3d 2.32 documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.32 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -45,7 +45,7 @@
 <span class="kn">import</span> <span class="nn">pi3d</span>
 <span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="p">(</span><span class="n">GL_FRAMEBUFFER</span><span class="p">,</span> <span class="n">GL_RENDERBUFFER</span><span class="p">,</span> <span class="n">GL_COLOR_ATTACHMENT0</span><span class="p">,</span>
                     <span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">GL_DEPTH_COMPONENT16</span><span class="p">,</span> <span class="n">GL_DEPTH_ATTACHMENT</span><span class="p">,</span>
-                    <span class="n">GL_DEPTH_BUFFER_BIT</span><span class="p">,</span> <span class="n">GL_COLOR_BUFFER_BIT</span><span class="p">)</span>
+                    <span class="n">GL_DEPTH_BUFFER_BIT</span><span class="p">,</span> <span class="n">GL_COLOR_BUFFER_BIT</span><span class="p">,</span> <span class="n">GLuint</span><span class="p">,</span> <span class="n">GLsizei</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="k">import</span> <span class="n">Texture</span>
 
 <div class="viewcode-block" id="OffScreenTexture"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.OffScreenTexture.OffScreenTexture">[docs]</a><span class="k">class</span> <span class="nc">OffScreenTexture</span><span class="p">(</span><span class="n">Texture</span><span class="p">):</span>
@@ -64,11 +64,11 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">blend</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">mipmap</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">framebuffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)()</span>
-    <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glGenFramebuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">framebuffer</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">depthbuffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)()</span>
-    <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glGenRenderbuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">depthbuffer</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">GLuint</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">framebuffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">GLuint</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)()</span>
+    <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glGenFramebuffers</span><span class="p">(</span><span class="n">GLsizei</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">framebuffer</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">depthbuffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">GLuint</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)()</span>
+    <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glGenRenderbuffers</span><span class="p">(</span><span class="n">GLsizei</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">depthbuffer</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">_load_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; have to override this</span>
@@ -103,8 +103,8 @@
 
     
 <div class="viewcode-block" id="OffScreenTexture.delete_buffers"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.OffScreenTexture.OffScreenTexture.delete_buffers">[docs]</a>  <span class="k">def</span> <span class="nf">delete_buffers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteFramebuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">framebuffer</span><span class="p">)</span>
-    <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteRenderbuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">depthbuffer</span><span class="p">)</span></div></div>
+    <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteFramebuffers</span><span class="p">(</span><span class="n">GLsizei</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">framebuffer</span><span class="p">)</span>
+    <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteRenderbuffers</span><span class="p">(</span><span class="n">GLsizei</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">depthbuffer</span><span class="p">)</span></div></div>
 
 </pre></div>
 
@@ -138,7 +138,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.32 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

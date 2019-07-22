@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.util.PostProcess &#8212; pi3d 2.30 documentation</title>
+    <title>pi3d.util.PostProcess &#8212; pi3d 2.32 documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.32 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -41,7 +41,8 @@
   <h1>Source code for pi3d.util.PostProcess</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">ctypes</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="p">(</span><span class="n">opengles</span><span class="p">,</span> <span class="n">GL_SCISSOR_TEST</span><span class="p">,</span> <span class="n">GLint</span><span class="p">,</span> <span class="n">GLsizei</span><span class="p">,</span> <span class="n">GL_RGBA</span><span class="p">,</span>
+                <span class="n">GLubyte</span><span class="p">,</span> <span class="n">GL_UNSIGNED_BYTE</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pi3d.Shader</span> <span class="k">import</span> <span class="n">Shader</span>
 <span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="k">import</span> <span class="n">Camera</span>
 <span class="kn">from</span> <span class="nn">pi3d.shape.LodSprite</span> <span class="k">import</span> <span class="n">LodSprite</span>
@@ -110,13 +111,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">PostProcess</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_start</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="n">clear</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">pi3d.Display</span> <span class="k">import</span> <span class="n">Display</span>
-    <span class="n">xx</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
-    <span class="n">yy</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
-    <span class="n">ww</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span>
-    <span class="n">hh</span> <span class="o">=</span> <span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span>
+    <span class="n">xx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">))</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">))</span>
+    <span class="n">ww</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+    <span class="n">hh</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">Display</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_SCISSOR_TEST</span><span class="p">)</span>
-    <span class="n">opengles</span><span class="o">.</span><span class="n">glScissor</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">xx</span><span class="p">)),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">yy</span><span class="p">)),</span>
-                  <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ww</span><span class="p">)),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">hh</span><span class="p">)))</span></div>
+    <span class="n">opengles</span><span class="o">.</span><span class="n">glScissor</span><span class="p">(</span><span class="n">GLint</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">GLint</span><span class="p">(</span><span class="n">yy</span><span class="p">),</span> <span class="n">GLsizei</span><span class="p">(</span><span class="n">ww</span><span class="p">),</span> <span class="n">GLsizei</span><span class="p">(</span><span class="n">hh</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="PostProcess.end_capture"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.PostProcess.PostProcess.end_capture">[docs]</a>  <span class="k">def</span> <span class="nf">end_capture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; stop capturing to texture and resume normal rendering to default</span>
@@ -172,7 +172,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.32 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

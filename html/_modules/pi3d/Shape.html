@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.Shape &#8212; pi3d 2.30 documentation</title>
+    <title>pi3d.Shape &#8212; pi3d 2.32 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.32 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -46,7 +46,8 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">radians</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
 
-<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="n">opengles</span><span class="p">,</span> <span class="n">GL_LINE_LOOP</span><span class="p">,</span> <span class="n">GL_LINE_STRIP</span><span class="p">,</span> <span class="n">GL_LINES</span><span class="p">,</span> <span class="n">GL_POINTS</span><span class="p">,</span> <span class="n">GL_TRIANGLES</span>
+<span class="kn">from</span> <span class="nn">pi3d.constants</span> <span class="k">import</span> <span class="p">(</span><span class="n">opengles</span><span class="p">,</span> <span class="n">GL_LINE_LOOP</span><span class="p">,</span> <span class="n">GL_LINE_STRIP</span><span class="p">,</span>
+                    <span class="n">GL_LINES</span><span class="p">,</span> <span class="n">GL_POINTS</span><span class="p">,</span> <span class="n">GL_TRIANGLES</span><span class="p">,</span> <span class="n">GLfloat</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pi3d.Buffer</span> <span class="k">import</span> <span class="n">Buffer</span>
 <span class="kn">from</span> <span class="nn">pi3d.Light</span> <span class="k">import</span> <span class="n">Light</span>
 <span class="kn">from</span> <span class="nn">pi3d.Camera</span> <span class="k">import</span> <span class="n">Camera</span>
@@ -510,7 +511,7 @@
 <span class="sd">    anti aliased which is done by Display.create(samples=4) &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buf</span><span class="p">:</span>
       <span class="n">b</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">line_width</span>
-      <span class="n">opengles</span><span class="o">.</span><span class="n">glLineWidth</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="n">line_width</span><span class="p">))</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glLineWidth</span><span class="p">(</span><span class="n">GLfloat</span><span class="p">(</span><span class="n">line_width</span><span class="p">))</span>
       <span class="k">if</span> <span class="n">strip</span><span class="p">:</span>
         <span class="n">draw_method</span> <span class="o">=</span> <span class="n">GL_LINE_LOOP</span> <span class="k">if</span> <span class="n">closed</span> <span class="k">else</span> <span class="n">GL_LINE_STRIP</span>
       <span class="k">else</span><span class="p">:</span>
@@ -971,7 +972,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.32 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
