@@ -207,34 +207,33 @@ zipped download from github is c.600 kB extracts to c.1100kB</p>
 <h1>Setup on the Raspberry Pi<a class="headerlink" href="#setup-on-the-raspberry-pi" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic">
 <li><p class="first"><strong>Qick Start Guide, NB take the time to read the paragraphs below too</strong></p>
-<p>As of 2015/09/24 there is a raspbian jessie SD image which already has
-the relevant dependencies installed. You then just need to:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~
-$ sudo apt-get update
-$ sudo apt-get upgrade
-$ sudo pip3 install pi3d
-$ sudo raspi-config # set gpu_mem=128 - keep the &#39;legacy&#39; graphics driver
+<p>From 2015 raspbian has the relevant dependencies installed so you just
+need to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo pip3 install pi3d
+$ sudo raspi-config # set gpu_mem=128 - see comments below about graphics driver choice
 </pre></div>
 </div>
-<p>(or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pip</span> <span class="pre">install</span></code> if you want to use python 2 for some reason).</p>
+<p><em>Raspberry Pi v4 and later</em> <strong>require</strong> the new mesa (v3d/VC6..) driver and
+pi3d will rely on having the X11 server running. (X11 is what supports the desktop
+GUI so if you want to run pi3d applications from the command line, without the
+overhead of the desktop you will need to start the X11 server first; see the FAQs
+for a way to do this)</p>
+<p><em>Older Raspberry Pi versions</em> will run python applications using pi3d from the
+command line using the ‘legacy’ drivers but can also run using the new drivers so
+long as X11 server is running (as with RPi4).</p>
 <p>Although you can <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code> pi3d_demos  as in the recipe below this
 will include quite a bit of extra history so it is quicker to download
 the zip from github.com/pi3d/pi3d_demos and extract it on your system,
 either using browser and desktop or wget and unzip.</p>
 <p>Here’s a list of commands that have definitely worked on a couple of
-fresh rasbpian wheezy installs. Please take time to check out the paragraphs below
+fresh stretch or buster installs. Please take time to check out the paragraphs below
 even if you use either of these quick start recipes… <em>certainly</em> if
 have any non-standard aspirations or set-up. The long
 list of dependencies (3rd apt-get line) may take a while to run as well
 as the install Pillow. Both will create hundreds of lines of messages:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~
-$ sudo apt-get update
-$ sudo apt-get upgrade
-$ sudo apt-get install python3-dev python3-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
-$ sudo apt-get install python3-pip
 $ sudo pip3 install pi3d
-$ sudo pip3 install Pillow
-$ sudo raspi-config # set gpu_mem=128 - keep the &#39;legacy&#39; graphics driver
+$ sudo raspi-config # set gpu_mem=128 - see graphics driver comment above
 
 ####### download demos in their latest form, quicker #######
 $ wget https://github.com/pi3d/pi3d_demos/archive/master.zip
@@ -245,32 +244,22 @@ $ mv pi3d_demos-master pi3d_demos
 $ git clone https://github.com/pi3d/pi3d_demos.git
 
 $ cd ~/pi3d_demos
-$ python3 Earth.py
+$ python3 RunTests.py
 </pre></div>
 </div>
-<p><strong>NB pi3d uses the original broadcom OpenGLES2 drivers</strong> (as that’s what the GPU hardware
-actually runs) so if you use <code class="docutils literal notranslate"><span class="pre">raspi-config</span></code> to swap to the emulated
-OpenGL driver it will give errors.</p>
 </li>
-<li><p class="first"><strong>Download, Extract and install</strong></p>
+<li><p class="first"><strong>Download source, Extract and install</strong></p>
 <p>There are various possibilities depending on the machine, what’s already
 installed and whether you want to work with some of the latest additions.</p>
 <p>If you have pip installed you should be able to open a terminal and
-type:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo pip install pi3d
-  or for python3
-$ sudo pip3 install pi3d
-</pre></div>
-</div>
+use <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span></code> as above</p>
 <p>(or pip-3.2, pip3.4, pip or whatever see below*) If you don’t have pip installed
 you probably should install it as described below under <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Imaging</span></code>
 as it’s the easiest way to install Pillow prior to debian jessie based
 installations.  You can do the equivalent of <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> manually
 by downloading from <a class="reference external" href="https://pypi.python.org/pypi/pi3d">https://pypi.python.org/pypi/pi3d</a> and extracting
 the package, then in a terminal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo python setup.py install
-  or for python3
-$ sudo python3 setup.py install
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo python3 setup.py install
 </pre></div>
 </div>
 <p>This will put the package into the
@@ -282,8 +271,17 @@ issues) you will need to download or git clone the latest code from
 <a class="reference external" href="https://github.com/tipam/pi3d/">https://github.com/tipam/pi3d/</a> where there is a <code class="docutils literal notranslate"><span class="pre">Download</span> <span class="pre">ZIP</span></code> link,
 or you can install git (bundled in raspbian) then clone using <code class="docutils literal notranslate"><span class="pre">git</span>
 <span class="pre">clone</span> <span class="pre">https://github.com/tipam/pi3d.git</span></code> this git method will give
-you the option to update the code by running, from the pi3d directory
-<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">master</span></code></p>
+you the option to use the develop branch <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">develop</span></code> and
+update the code by running, from the pi3d directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git checkout develop
+$ git pull origin develop
+# the master branch should always be the same as you get with pip3 install
+</pre></div>
+</div>
+<p>But to pick up this version of pi3d you will need tell python where to look.
+In the pi3d_demos directory there is a file called demo.py which is imported just
+before pi3d. Basically it just does <code class="docutils literal notranslate"><span class="pre">sys.path.insert(1,</span> <span class="pre">'/home/pi/pi3d')</span></code> so
+while that line is there your program will use the cloned repository version of pi3d.</p>
 </li>
 <li><p class="first"><strong>Memory Split setup</strong></p>
 <p>Although most demos work on 64MB of memory, you are strongly advised to have
@@ -302,11 +300,11 @@ doesn’t run on python_3. The better equivalent replacement is Pillow.</p>
 <p>As of raspbian jessie Pillow is the default imaging library. It’s already
 installed on the <code class="docutils literal notranslate"><span class="pre">fully</span> <span class="pre">featured</span></code> SD image, but it’s left off the
 lite image it can be installed using the debian package manager
-(for lite image you also need numpy):</p>
+(for lite image you also need <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">python3-numpy</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install python3-pil
 </pre></div>
 </div>
-<p>(or <code class="docutils literal notranslate"><span class="pre">python-pil</span></code> if using python2, but prior
+<p>(NB <code class="docutils literal notranslate"><span class="pre">python-pil</span></code> will install for python2), but prior
 to jessie you needed to:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install python3-dev python3-setuptools libjpeg-dev zlib1g-dev libpng12-dev libfreetype6-dev
 $ sudo apt-get install python3-pip
@@ -316,13 +314,6 @@ $ sudo pip3 install Pillow
 </div>
 <p>If you miss any of the dependent libraries and need to add them later
 you will have to <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">uninstall</span></code> then re <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span></code></p>
-<p>For python2 support the first above will provide the required graphics
-libraries used by Pillow but you will need to swap to <code class="docutils literal notranslate"><span class="pre">python-dev</span></code>
-and <code class="docutils literal notranslate"><span class="pre">python-setuptools</span></code> also pip is different:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install python-pip
-$ sudo pip install Pillow
-</pre></div>
-</div>
 <p>(<a href="#id1"><span class="problematic" id="id2">*</span></a>on ubuntu and jessie <code class="docutils literal notranslate"><span class="pre">pip3</span></code> should work, could be other names,
 google for help or search:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo find /usr/bin/ -name pip*
@@ -332,14 +323,12 @@ google for help or search:</p>
 using <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">python-imaging</span></code> When you later switch
 to Pillow you will need to <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">remove</span> <span class="pre">python-imaging</span></code> first.</p>
 <p>To run on Arch linux you will need to install:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pacman -S python2
-$ pacman -S python2-pillow
-$ pacman -S python2-numpy
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pacman -S python
+$ pacman -S python-pillow
+$ pacman -S python-numpy
 </pre></div>
 </div>
-<p>this worked for me. You could install python2-imaging rather than pillow
-but that’s probably a retrograde step. The Arch repository doesn’t seem
-to have python3-pillow or python3-pip etc. See <a class="reference external" href="FAQ.html">FAQ</a> for a description
+<p>python2 has to be explicitly asked for. See <a class="reference external" href="FAQ.html">FAQ</a> for a description
 of all the steps to get a quick loading stand-alone pi3d SD card.</p>
 </li>
 </ol>
@@ -373,8 +362,7 @@ the correct movements back from /dev/input/mice so you have to use the
 argument <code class="docutils literal notranslate"><span class="pre">use_x=True</span></code>. This provides coordinates of the pointer position
 relative to the window so limits movement for steering as used in the demos.</p>
 <p>The installation of PIL or Pillow should be the same as for the Raspberry
-Pi above but you are more likely to need to manually install python3-numpy
-(or python-numpy)</p>
+Pi above but you are more likely to need to manually install python3-numpy.</p>
 <p>It is likely that pi3d will run on OSX but you might have to compile
 your own mesa libraries (though some seem to be available) Pi3d has
 been run successfully in vmware on mac.</p>
