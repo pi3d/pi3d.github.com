@@ -22,19 +22,16 @@ failed to add service - already in use?
 When starting any demo I don't get a python error but there is a system
 message refering to a service that couldn't be added.
 
-  This can be caused by trying to run pi3d with the 'fake' GL driver enabled
-  in raspi-config (option 2.).
+  This can be caused by trying to run old versions of pi3d (prior to v2.31)
+  with the 'fake KMS' GL driver enabled in raspi-config (option 2.).
 
-  The 'built in' GPU driver uses OpenGL ES 2.0 and that's what pi3d uses - via
-  the broadcom drivers now referred to as 'legacy'. However to get software
-  not originally designed for mobile platforms to work there has been a move
-  to write a 'shell' driver that can interpret OpenGL code and either pass it
-  on the GPU as ES2.0 code it can process or do some CPU processing. Unless
-  the new driver is written very efficiently then I would expect it to be
-  slower than 'pure' OpenGL ES code through the original driver.
+  The 'built in' GPU driver on RPi prior to v4 uses OpenGL ES 2.0 which pi3d uses if
+  the broadcom drivers now referred to as 'legacy' have been selected.
 
-  For running pi3d applications on the raspberry pi you should stick to the
-  original broadcom driver.
+  For running pi3d applications on the raspberry pi versions prior to v4 it is probably
+  faster to use the original broadcom driver, especially as this allows running
+  from the command line without X11 server. From RPi4 onwards you *have* to
+  use the fake KMS driver and start the X11 server to run pi3d.
 
 EGL_NO_SURFACE
 ~~~~~~~~~~~~~~
@@ -43,8 +40,14 @@ When starting any demo I get an AssertionError in DisplayOpenGL
 ``assert self.surface != EGL_NO_SURFACE``
 
   This is generally caused by the graphics memory allocation on the
-  Raspberry Pi being too low (less than 64) It has also been caused
-  by extra shared libraries such as ``/usr/lib/arm-linux-gnueabihf/libEGL.so.1``
+  Raspberry Pi being too low (less than 64)
+  
+  It is also a symptom of trying to run pi3d remotely using ssh on
+  Raspberry Pi 4 if it already has the desktop running. See below under
+  ``..command line.. FAKE KMS...``
+
+  When using the legacy bcm drivers, it has also been caused by extra
+  shared libraries such as ``/usr/lib/arm-linux-gnueabihf/libEGL.so.1``
   and symbolic links being added by other programs see five questions
   below...
 
@@ -80,41 +83,6 @@ error ``_tkinter.TclError: couldn't connect to display ":0"``
 
   tkinter is trying to use a display provided by the X-server. Run
   startx from the command line.
-
-PiStore install
----------------
-
-taking too long
-~~~~~~~~~~~~~~~
-
-I am trying to install using PiStore but it's been running for hours
-with no sign of completing.
-
-  The PiStore install adds `pip` and `Pillow` which take quite a bit
-  of the cpu resources. It could be that you have set the graphics memory share
-  to the higher level needed to run pi3d. In the long run it will be quicker
-  to abort the installation, remove the half installed pi3d, use
-  raspi-config to set the graphics memory low, re-install pi3d, then
-  set the graphics memory back up again!
-
-Doing more with PiStore installation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-I have installed using PiStore and run the demos from the Menu. Now
-I would like to play around for myself.
-
-  There is a PiStore button next to `launch` that lets you see the source
-  code. It should open a file browser window to
-  `/usr/local/indiecity/InstalledApps/skillmanmedia/Full/pi3d_demos`
-  which is a very obscure location and also protected against modification.
-  To play around with the code you should either copy the whole
-  of this directory to your home directory (i.e. so you have
-  `/home/pi/pi3d_demos/`) or clone or download the demos from
-  http://github.com/pi3d/pi3d_demos (which will include a couple of
-  other demos excluded from PiStore because they use very large resource
-  files.)
-
-  Before going too far it would be a good idea to `ReadMe`_
 
 GLX DRI2 not supported or failed to authenticate
 ------------------------------------------------
@@ -336,6 +304,37 @@ output is appearing there. How can I see it on a remote terminal?
   The animation speed is significantly faster with the xserver desktop not
   running and executing the pi3d programs from the command line. To do this
   you will have to change the default behavior using raspi-config.
+
+Running from command line with the 'new' FAKE KMS (mesa-v3d-VC6 etc.)
+---------------------------------------------------------------------
+
+I would like to run pi3d from the command line without launching the X11 desktop
+(as used to be possible)
+
+  The mesa driver doesn't provide a drawing surface in the same way as the old
+  broadcom one did and pi3d relies on getting hold of an X11 window. However you can
+  start just the server without all the overhead of running the desktop. From the command
+  line::
+
+    $ cd /home/pi/pi3d_demos
+    $ sudo xinit /usr/bin/python3 /home/pi/pi3d_demos/Earth.py :0
+
+  If you do this from a remote terminal with ssh and X11 is already running then it will
+  give an assertion error that there is EGL_NO_CONTEXT. You must exit from the desktop
+  to the command line in all other terminals connected to the RPi.
+
+  To stop raspbian booting to the desktop you also need to change the boot setting using
+  either `sudo raspi-config` or the desktop menu.
+
+  Of course this means that if you are using raspbian lite (or other such as
+  Arch etc) you will need to install the X11 server which will take 400MB of
+  disk and a non-trivial download time::
+
+    $ sudo apt-get install xorg
+
+  pi3d will still work on older RPis without X11 as it will detect that the
+  broadcom driver is available and use that so long as the legacy graphics
+  driver is selected in raspi-config
 
 Camera
 ------

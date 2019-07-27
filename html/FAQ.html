@@ -65,17 +65,14 @@ GL driver in raspi-config (option 1.). See the next answer.</p>
 <p>When starting any demo I don’t get a python error but there is a system
 message refering to a service that couldn’t be added.</p>
 <blockquote>
-<div><p>This can be caused by trying to run pi3d with the ‘fake’ GL driver enabled
-in raspi-config (option 2.).</p>
-<p>The ‘built in’ GPU driver uses OpenGL ES 2.0 and that’s what pi3d uses - via
-the broadcom drivers now referred to as ‘legacy’. However to get software
-not originally designed for mobile platforms to work there has been a move
-to write a ‘shell’ driver that can interpret OpenGL code and either pass it
-on the GPU as ES2.0 code it can process or do some CPU processing. Unless
-the new driver is written very efficiently then I would expect it to be
-slower than ‘pure’ OpenGL ES code through the original driver.</p>
-<p>For running pi3d applications on the raspberry pi you should stick to the
-original broadcom driver.</p>
+<div><p>This can be caused by trying to run old versions of pi3d (prior to v2.31)
+with the ‘fake KMS’ GL driver enabled in raspi-config (option 2.).</p>
+<p>The ‘built in’ GPU driver on RPi prior to v4 uses OpenGL ES 2.0 which pi3d uses if
+the broadcom drivers now referred to as ‘legacy’ have been selected.</p>
+<p>For running pi3d applications on the raspberry pi versions prior to v4 it is probably
+faster to use the original broadcom driver, especially as this allows running
+from the command line without X11 server. From RPi4 onwards you <em>have</em> to
+use the fake KMS driver and start the X11 server to run pi3d.</p>
 </div></blockquote>
 </div>
 <div class="section" id="egl-no-surface">
@@ -83,11 +80,16 @@ original broadcom driver.</p>
 <p>When starting any demo I get an AssertionError in DisplayOpenGL
 <code class="docutils literal notranslate"><span class="pre">assert</span> <span class="pre">self.surface</span> <span class="pre">!=</span> <span class="pre">EGL_NO_SURFACE</span></code></p>
 <blockquote>
-<div>This is generally caused by the graphics memory allocation on the
-Raspberry Pi being too low (less than 64) It has also been caused
-by extra shared libraries such as <code class="docutils literal notranslate"><span class="pre">/usr/lib/arm-linux-gnueabihf/libEGL.so.1</span></code>
+<div><p>This is generally caused by the graphics memory allocation on the
+Raspberry Pi being too low (less than 64)</p>
+<p>It is also a symptom of trying to run pi3d remotely using ssh on
+Raspberry Pi 4 if it already has the desktop running. See below under
+<code class="docutils literal notranslate"><span class="pre">..command</span> <span class="pre">line..</span> <span class="pre">FAKE</span> <span class="pre">KMS...</span></code></p>
+<p>When using the legacy bcm drivers, it has also been caused by extra
+shared libraries such as <code class="docutils literal notranslate"><span class="pre">/usr/lib/arm-linux-gnueabihf/libEGL.so.1</span></code>
 and symbolic links being added by other programs see five questions
-below…</div></blockquote>
+below…</p>
+</div></blockquote>
 </div>
 <div class="section" id="start-then-shut-down">
 <h3>Start then shut down<a class="headerlink" href="#start-then-shut-down" title="Permalink to this headline">¶</a></h3>
@@ -119,39 +121,6 @@ error <code class="docutils literal notranslate"><span class="pre">_tkinter.TclE
 <blockquote>
 <div>tkinter is trying to use a display provided by the X-server. Run
 startx from the command line.</div></blockquote>
-</div>
-<div class="section" id="pistore-install">
-<h2>PiStore install<a class="headerlink" href="#pistore-install" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="taking-too-long">
-<h3>taking too long<a class="headerlink" href="#taking-too-long" title="Permalink to this headline">¶</a></h3>
-<p>I am trying to install using PiStore but it’s been running for hours
-with no sign of completing.</p>
-<blockquote>
-<div>The PiStore install adds <cite>pip</cite> and <cite>Pillow</cite> which take quite a bit
-of the cpu resources. It could be that you have set the graphics memory share
-to the higher level needed to run pi3d. In the long run it will be quicker
-to abort the installation, remove the half installed pi3d, use
-raspi-config to set the graphics memory low, re-install pi3d, then
-set the graphics memory back up again!</div></blockquote>
-</div>
-<div class="section" id="doing-more-with-pistore-installation">
-<h3>Doing more with PiStore installation<a class="headerlink" href="#doing-more-with-pistore-installation" title="Permalink to this headline">¶</a></h3>
-<p>I have installed using PiStore and run the demos from the Menu. Now
-I would like to play around for myself.</p>
-<blockquote>
-<div><p>There is a PiStore button next to <cite>launch</cite> that lets you see the source
-code. It should open a file browser window to
-<cite>/usr/local/indiecity/InstalledApps/skillmanmedia/Full/pi3d_demos</cite>
-which is a very obscure location and also protected against modification.
-To play around with the code you should either copy the whole
-of this directory to your home directory (i.e. so you have
-<cite>/home/pi/pi3d_demos/</cite>) or clone or download the demos from
-<a class="reference external" href="http://github.com/pi3d/pi3d_demos">http://github.com/pi3d/pi3d_demos</a> (which will include a couple of
-other demos excluded from PiStore because they use very large resource
-files.)</p>
-<p>Before going too far it would be a good idea to <a class="reference external" href="http://pi3d.github.com/html/index.html">ReadMe</a></p>
-</div></blockquote>
-</div>
 </div>
 <div class="section" id="glx-dri2-not-supported-or-failed-to-authenticate">
 <h2>GLX DRI2 not supported or failed to authenticate<a class="headerlink" href="#glx-dri2-not-supported-or-failed-to-authenticate" title="Permalink to this headline">¶</a></h2>
@@ -359,6 +328,35 @@ running and executing the pi3d programs from the command line. To do this
 you will have to change the default behavior using raspi-config.</p>
 </div></blockquote>
 </div>
+</div>
+<div class="section" id="running-from-command-line-with-the-new-fake-kms-mesa-v3d-vc6-etc">
+<h2>Running from command line with the ‘new’ FAKE KMS (mesa-v3d-VC6 etc.)<a class="headerlink" href="#running-from-command-line-with-the-new-fake-kms-mesa-v3d-vc6-etc" title="Permalink to this headline">¶</a></h2>
+<p>I would like to run pi3d from the command line without launching the X11 desktop
+(as used to be possible)</p>
+<blockquote>
+<div><p>The mesa driver doesn’t provide a drawing surface in the same way as the old
+broadcom one did and pi3d relies on getting hold of an X11 window. However you can
+start just the server without all the overhead of running the desktop. From the command
+line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /home/pi/pi3d_demos
+$ sudo xinit /usr/bin/python3 /home/pi/pi3d_demos/Earth.py :0
+</pre></div>
+</div>
+<p>If you do this from a remote terminal with ssh and X11 is already running then it will
+give an assertion error that there is EGL_NO_CONTEXT. You must exit from the desktop
+to the command line in all other terminals connected to the RPi.</p>
+<p>To stop raspbian booting to the desktop you also need to change the boot setting using
+either <cite>sudo raspi-config</cite> or the desktop menu.</p>
+<p>Of course this means that if you are using raspbian lite (or other such as
+Arch etc) you will need to install the X11 server which will take 400MB of
+disk and a non-trivial download time:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install xorg
+</pre></div>
+</div>
+<p>pi3d will still work on older RPis without X11 as it will detect that the
+broadcom driver is available and use that so long as the legacy graphics
+driver is selected in raspi-config</p>
+</div></blockquote>
 </div>
 <div class="section" id="camera">
 <h2>Camera<a class="headerlink" href="#camera" title="Permalink to this headline">¶</a></h2>
@@ -1933,11 +1931,6 @@ wouldn’t scale correctly on very large objects such as the terrain.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#tkinter-tclerror">_tkinter.TclError</a></li>
-<li><a class="reference internal" href="#pistore-install">PiStore install</a><ul>
-<li><a class="reference internal" href="#taking-too-long">taking too long</a></li>
-<li><a class="reference internal" href="#doing-more-with-pistore-installation">Doing more with PiStore installation</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#glx-dri2-not-supported-or-failed-to-authenticate">GLX DRI2 not supported or failed to authenticate</a></li>
 <li><a class="reference internal" href="#runtime-errors">Runtime errors</a><ul>
 <li><a class="reference internal" href="#crashing">Crashing</a></li>
@@ -1951,6 +1944,7 @@ wouldn’t scale correctly on very large objects such as the terrain.</p>
 <li><a class="reference internal" href="#no-video-output-running-remotely">No video output running remotely</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#running-from-command-line-with-the-new-fake-kms-mesa-v3d-vc6-etc">Running from command line with the ‘new’ FAKE KMS (mesa-v3d-VC6 etc.)</a></li>
 <li><a class="reference internal" href="#camera">Camera</a></li>
 <li><a class="reference internal" href="#optional-arguments">Optional arguments</a></li>
 <li><a class="reference internal" href="#blending">Blending</a></li>

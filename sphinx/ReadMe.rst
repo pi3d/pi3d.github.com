@@ -166,11 +166,12 @@ Setup on the Raspberry Pi
       $ sudo pip3 install pi3d
       $ sudo raspi-config # set gpu_mem=128 - see comments below about graphics driver choice
 
-    *Raspberry Pi v4 and later* **require** the new mesa (v3d/VC6..) driver and
+    *Raspberry Pi v4 and later* **require** the new FAKE KMS (mesa-v3d-VC6..) driver and
     pi3d will rely on having the X11 server running. (X11 is what supports the desktop
     GUI so if you want to run pi3d applications from the command line, without the
     overhead of the desktop you will need to start the X11 server first; see the FAQs
-    for a way to do this)
+    for more details but along the lines of ``sudo xinit /usr/bin/python3 /home/pi/pi3d_demos/Earth.py -display :0``
+    run from /home/pi/pi3d_demos)
 
     *Older Raspberry Pi versions* will run python applications using pi3d from the
     command line using the 'legacy' drivers but can also run using the new drivers so
