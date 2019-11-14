@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.Display &#8212; pi3d 2.32 documentation</title>
+    <title>pi3d.Display &#8212; pi3d 2.33 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.32 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.33 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -331,6 +331,8 @@
 <span class="sd">      Opacity of the color.  An alpha of 0 means a transparent background,</span>
 <span class="sd">      an alpha of 1 means full opaque.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="mf">1.0</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">use_glx</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_PI</span><span class="p">):</span>
+      <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;create Display with (...use_glx=True) for transparent background on x11 window. libGLX needs to be available&quot;</span><span class="p">)</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glClearColor</span><span class="p">(</span><span class="n">GLclampf</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">GLclampf</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="n">GLclampf</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">GLclampf</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glColorMask</span><span class="p">(</span><span class="n">GLboolean</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">GLboolean</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">GLboolean</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">GLboolean</span><span class="p">(</span><span class="n">alpha</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">))</span></div>
     <span class="c1"># Switches off alpha blending with desktop (is there a bug in the driver?)</span>
@@ -457,7 +459,7 @@
            <span class="n">fov</span><span class="o">=</span><span class="n">DEFAULT_FOV</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">DEFAULT_DEPTH</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
            <span class="n">tk</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">window_title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">window_parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mouse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
            <span class="n">frames_per_second</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="n">DEFAULT_SAMPLES</span><span class="p">,</span> <span class="n">use_pygame</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-           <span class="n">display_config</span><span class="o">=</span><span class="n">DISPLAY_CONFIG_DEFAULT</span><span class="p">):</span>
+           <span class="n">display_config</span><span class="o">=</span><span class="n">DISPLAY_CONFIG_DEFAULT</span><span class="p">,</span> <span class="n">use_glx</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Creates a pi3d Display.</span>
 
@@ -598,7 +600,8 @@
   <span class="n">display</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span>
   <span class="n">display</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="n">layer</span>
 
-  <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">create_display</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="n">samples</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer</span><span class="p">,</span> <span class="n">display_config</span><span class="o">=</span><span class="n">display_config</span><span class="p">,</span> <span class="n">window_title</span><span class="o">=</span><span class="n">window_title</span><span class="p">)</span>
+  <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">create_display</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="n">samples</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer</span><span class="p">,</span>
+                            <span class="n">display_config</span><span class="o">=</span><span class="n">display_config</span><span class="p">,</span> <span class="n">window_title</span><span class="o">=</span><span class="n">window_title</span><span class="p">,</span> <span class="n">use_glx</span><span class="o">=</span><span class="n">use_glx</span><span class="p">)</span>
   <span class="k">if</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_ANDROID</span><span class="p">:</span>
     <span class="n">display</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">max_width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">width</span> <span class="c1">#not available until after create_display</span>
     <span class="n">display</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">max_height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">opengl</span><span class="o">.</span><span class="n">height</span>
@@ -650,7 +653,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.32 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.33 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

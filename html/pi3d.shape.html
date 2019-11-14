@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>shape Package &#8212; pi3d 2.32 documentation</title>
+    <title>shape Package &#8212; pi3d 2.33 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.32 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.33 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -1025,6 +1025,38 @@ to right then down so six textures in spreadsheet notation would be</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-pi3d.shape.Polygon">
+<span id="polygon-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Polygon</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Polygon" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pi3d.shape.Polygon.is_in_triangle">
+<code class="descclassname">pi3d.shape.Polygon.</code><code class="descname">is_in_triangle</code><span class="sig-paren">(</span><em>p</em>, <em>p0</em>, <em>p1</em>, <em>p2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Polygon.html#is_in_triangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Polygon.is_in_triangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>is p inside the triangle formed by p0, p1, p2</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pi3d.shape.Polygon.is_convex">
+<code class="descclassname">pi3d.shape.Polygon.</code><code class="descname">is_convex</code><span class="sig-paren">(</span><em>p</em>, <em>prior</em>, <em>post</em>, <em>return_angle=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Polygon.html#is_convex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Polygon.is_convex" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if this corner is convex (turns right for a clockwise polygon or left for an anticlockwise
+polygon, arguments are two tuples for this vertex and the one before and after. Can return the
+angle turned</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pi3d.shape.Polygon.Polygon">
+<em class="property">class </em><code class="descclassname">pi3d.shape.Polygon.</code><code class="descname">Polygon</code><span class="sig-paren">(</span><em>camera=None</em>, <em>light=None</em>, <em>path=[]</em>, <em>horizontal=False</em>, <em>name=''</em>, <em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em>, <em>rx=0.0</em>, <em>ry=0.0</em>, <em>rz=0.0</em>, <em>sx=1.0</em>, <em>sy=1.0</em>, <em>sz=1.0</em>, <em>cx=0.0</em>, <em>cy=0.0</em>, <em>cz=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/shape/Polygon.html#Polygon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.shape.Polygon.Polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Shape.Shape" title="pi3d.Shape.Shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Shape.Shape</span></code></a></p>
+<p>3d model inherits from Shape. N.B. There is no check that lines do not cross.</p>
+<p>uses standard constructor for Shape extra Keyword arguments:</p>
+<dl class="docutils">
+<dt><em>path</em></dt>
+<dd>list of (x,y) values</dd>
+<dt><em>horizontal</em></dt>
+<dd>default False. If set to True then y values of path will be
+used as z values so the polygon is horizontal.</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-pi3d.shape.Sphere">
 <span id="sphere-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">Sphere</span></code> Module<a class="headerlink" href="#module-pi3d.shape.Sphere" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -1228,6 +1260,7 @@ actually better to set this false, especially for washer like tubes.</dd>
 <li><a class="reference internal" href="#module-pi3d.shape.MultiSprite"><code class="docutils literal notranslate"><span class="pre">MultiSprite</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Plane"><code class="docutils literal notranslate"><span class="pre">Plane</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Points"><code class="docutils literal notranslate"><span class="pre">Points</span></code> Module</a></li>
+<li><a class="reference internal" href="#module-pi3d.shape.Polygon"><code class="docutils literal notranslate"><span class="pre">Polygon</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Sphere"><code class="docutils literal notranslate"><span class="pre">Sphere</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.Sprite"><code class="docutils literal notranslate"><span class="pre">Sprite</span></code> Module</a></li>
 <li><a class="reference internal" href="#module-pi3d.shape.TCone"><code class="docutils literal notranslate"><span class="pre">TCone</span></code> Module</a></li>
@@ -1283,7 +1316,7 @@ actually better to set this false, especially for washer like tubes.</dd>
         <li class="right" >
           <a href="pi3d.loader.html" title="loader Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.32 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.33 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>

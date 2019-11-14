@@ -149,6 +149,14 @@ hold the vertex information for drawing each of them.
     :undoc-members:
     :show-inheritance:
 
+:mod:`Polygon` Module
+---------------------
+
+.. automodule:: pi3d.shape.Polygon
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`Sphere` Module
 --------------------
 

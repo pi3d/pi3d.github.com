@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.Texture &#8212; pi3d 2.32 documentation</title>
+    <title>pi3d.Texture &#8212; pi3d 2.33 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.32 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.33 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -52,7 +52,8 @@
           <span class="n">GL_LUMINANCE_ALPHA</span><span class="p">,</span> <span class="n">GL_RGB</span><span class="p">,</span> <span class="n">GL_RGBA</span><span class="p">,</span> <span class="n">GL_MIRRORED_REPEAT</span><span class="p">,</span> <span class="n">GL_REPEAT</span><span class="p">,</span>
           <span class="n">GL_LINEAR</span><span class="p">,</span> <span class="n">GL_NEAREST</span><span class="p">,</span> <span class="n">GL_LINEAR_MIPMAP_NEAREST</span><span class="p">,</span> <span class="n">GL_NEAREST_MIPMAP_NEAREST</span><span class="p">,</span>
           <span class="n">GL_TEXTURE_MIN_FILTER</span><span class="p">,</span> <span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">GL_TEXTURE_WRAP_S</span><span class="p">,</span> <span class="n">GL_TEXTURE_WRAP_T</span><span class="p">,</span>
-          <span class="n">GL_TEXTURE_MAG_FILTER</span><span class="p">,</span> <span class="n">GL_UNSIGNED_BYTE</span><span class="p">,</span> <span class="n">GL_OUT_OF_MEMORY</span><span class="p">,</span> <span class="n">GL_TEXTURE0</span><span class="p">,</span> <span class="n">GLuint</span><span class="p">)</span>
+          <span class="n">GL_TEXTURE_MAG_FILTER</span><span class="p">,</span> <span class="n">GL_UNSIGNED_BYTE</span><span class="p">,</span> <span class="n">GL_OUT_OF_MEMORY</span><span class="p">,</span> <span class="n">GL_TEXTURE0</span><span class="p">,</span>
+          <span class="n">PLATFORM</span><span class="p">,</span> <span class="n">PLATFORM_PI</span><span class="p">,</span> <span class="n">GLuint</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Ctypes</span> <span class="k">import</span> <span class="n">c_ints</span>
 <span class="kn">from</span> <span class="nn">pi3d.util.Loadable</span> <span class="k">import</span> <span class="n">Loadable</span>
 
@@ -96,7 +97,7 @@
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_string</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                <span class="n">defer</span><span class="o">=</span><span class="n">DEFER_TEXTURE_LOADING</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">m_repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                <span class="n">free_after_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">i_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="n">normal_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">automatic_resize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+               <span class="n">normal_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">automatic_resize</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments:</span>
 <span class="sd">      *file_string*</span>
@@ -142,9 +143,11 @@
 <span class="sd">        normal map where Luminance value is proportional to height. The </span>
 <span class="sd">        value of nomral_map is used the scale the effect (see _normal_map())</span>
 <span class="sd">      *automatic_resize*</span>
-<span class="sd">        default to True, this can be overridden if running on a machine other than</span>
-<span class="sd">        the RPi where the GPU can cope with any image dimension - or alternatively</span>
-<span class="sd">        where you know that the images will comply and don&#39;t need to check.</span>
+<span class="sd">        default to None, if this has not been overridden and you are running on a</span>
+<span class="sd">        RPi before v4 then the width will be coerced to one of the &#39;standard&#39;</span>
+<span class="sd">        WIDTHs. Otherwise, where the GPU can cope with any image dimension -</span>
+<span class="sd">        or alternatively where you know that the images will comply and don&#39;t</span>
+<span class="sd">        need to check, no resizing will take place.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">Texture</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
@@ -278,7 +281,8 @@
       <span class="n">resize_type</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">NEAREST</span>
 
     <span class="c1"># work out if sizes &gt; MAX_SIZE or coerce to golden values in WIDTHS</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">automatic_resize</span><span class="p">:</span> <span class="c1"># default True</span>
+    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">automatic_resize</span> <span class="ow">or</span> <span class="c1"># default None which evaluates as boolean True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">automatic_resize</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">PLATFORM</span> <span class="o">==</span> <span class="n">PLATFORM_PI</span><span class="p">):</span>
       <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">&gt;</span> <span class="n">MAX_SIZE</span><span class="p">:</span> <span class="c1"># fairly rare circumstance</span>
         <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="nb">int</span><span class="p">((</span><span class="n">MAX_SIZE</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span><span class="p">),</span> <span class="n">MAX_SIZE</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
@@ -473,7 +477,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.32 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.33 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

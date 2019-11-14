@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.util.OffScreenTexture &#8212; pi3d 2.32 documentation</title>
+    <title>pi3d.util.OffScreenTexture &#8212; pi3d 2.33 documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.32 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.33 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -47,6 +47,9 @@
                     <span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="n">GL_DEPTH_COMPONENT16</span><span class="p">,</span> <span class="n">GL_DEPTH_ATTACHMENT</span><span class="p">,</span>
                     <span class="n">GL_DEPTH_BUFFER_BIT</span><span class="p">,</span> <span class="n">GL_COLOR_BUFFER_BIT</span><span class="p">,</span> <span class="n">GLuint</span><span class="p">,</span> <span class="n">GLsizei</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pi3d.Texture</span> <span class="k">import</span> <span class="n">Texture</span>
+
+
+<span class="n">OFFSCREEN_QUEUE</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="OffScreenTexture"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.OffScreenTexture.OffScreenTexture">[docs]</a><span class="k">class</span> <span class="nc">OffScreenTexture</span><span class="p">(</span><span class="n">Texture</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;For creating special effect after rendering to texture rather than</span>
@@ -79,6 +82,7 @@
 <span class="sd">    to this texture and not appear on the display. Large objects</span>
 <span class="sd">    will obviously take a while to draw and re-draw</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="bp">self</span><span class="o">.</span><span class="n">disp</span><span class="o">.</span><span class="n">offscreen_tex</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># flag used in Buffer.draw()</span>
     <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glBindFramebuffer</span><span class="p">(</span><span class="n">GL_FRAMEBUFFER</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">framebuffer</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glFramebufferTexture2D</span><span class="p">(</span><span class="n">GL_FRAMEBUFFER</span><span class="p">,</span> <span class="n">GL_COLOR_ATTACHMENT0</span><span class="p">,</span>
@@ -94,6 +98,10 @@
 
     <span class="c1">#assert opengles.glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE</span>
 
+    <span class="k">global</span> <span class="n">OFFSCREEN_QUEUE</span>
+    <span class="k">if</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">OFFSCREEN_QUEUE</span><span class="p">:</span>
+        <span class="n">OFFSCREEN_QUEUE</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
   <span class="k">def</span> <span class="nf">_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; stop capturing to texture and resume normal rendering to default</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -101,7 +109,12 @@
     <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glBindTexture</span><span class="p">(</span><span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glBindFramebuffer</span><span class="p">(</span><span class="n">GL_FRAMEBUFFER</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-    
+    <span class="k">global</span> <span class="n">OFFSCREEN_QUEUE</span>
+    <span class="k">del</span> <span class="n">OFFSCREEN_QUEUE</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">OFFSCREEN_QUEUE</span><span class="p">:</span>
+        <span class="c1"># resume previously active offscreen texture if any</span>
+        <span class="n">OFFSCREEN_QUEUE</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">_start</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
 <div class="viewcode-block" id="OffScreenTexture.delete_buffers"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.OffScreenTexture.OffScreenTexture.delete_buffers">[docs]</a>  <span class="k">def</span> <span class="nf">delete_buffers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteFramebuffers</span><span class="p">(</span><span class="n">GLsizei</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">framebuffer</span><span class="p">)</span>
     <span class="n">pi3d</span><span class="o">.</span><span class="n">opengles</span><span class="o">.</span><span class="n">glDeleteRenderbuffers</span><span class="p">(</span><span class="n">GLsizei</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">depthbuffer</span><span class="p">)</span></div></div>
@@ -138,7 +151,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.32 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.33 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

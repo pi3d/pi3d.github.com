@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Frequently Asked Questions &#8212; pi3d 2.32 documentation</title>
+    <title>Frequently Asked Questions &#8212; pi3d 2.33 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.32 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.33 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -196,6 +196,9 @@ no uv mapping.</p>
 terminal window.  It is great fun experimenting with shaders but they are
 <em>?£#%</em> taciturn beasts to debug! The problem could be caused by sending
 some bad render setting to a shader.</p>
+<p>If it is a DIY shader that worked previous to v2.33 then it might be that
+a change to the way pi3d ensures shaders work on different platforms has broken
+it. See below under DIY Shaders.</p>
 </div></blockquote>
 </div>
 <div class="section" id="only-background">
@@ -356,6 +359,24 @@ disk and a non-trivial download time:</p>
 <p>pi3d will still work on older RPis without X11 as it will detect that the
 broadcom driver is available and use that so long as the legacy graphics
 driver is selected in raspi-config</p>
+</div></blockquote>
+<p>Prior to Raspberry Pi 4 it was possible to use the legacy graphics driver and render
+over the top of the desktop, or videos playing on lower dispmanx layers, by setting a
+transparent background in pi3d. I would really like to be able to do that with X11 windows,
+is it possible.</p>
+<blockquote>
+<div><p>From pi3d v2.33 it is. You specify use_glx=True when you create the Display
+instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">pi3d</span><span class="o">.</span><span class="n">Display</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">use_glx</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However you will need to start the window compositor on
+the Raspberry Pi:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ xcompmgr
+</pre></div>
+</div>
+<p>Using pi3d on Ubuntu laptop, for instance, compiz will already be running so
+you won’t need to do this.</p>
 </div></blockquote>
 </div>
 <div class="section" id="camera">
@@ -1188,6 +1209,39 @@ of mixing
 <code class="docutils literal notranslate"><span class="pre">star</span></code>: calculates the pixel position in polar coordinates (angle and
 radius) then does some trig to determine the blend proportion</p>
 </div></blockquote>
+<p>I am trying to get the PictureFrame demo to work but get some errors and certain
+images don’t show.</p>
+<blockquote>
+<div><p>The EXIF reader functionality in Pillow didn’t work properly in the version
+bundled with raspbian buster. Try upgrading it with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip3 install Pillow --upgrade --user
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="diy-shaders">
+<h2>DIY Shaders<a class="headerlink" href="#diy-shaders" title="Permalink to this headline">¶</a></h2>
+<p>I want to try out a shader that I found on Shader-toy
+or similar. Alternatively I had a working shader and it’s stopped working.</p>
+<blockquote>
+<div><p>From v2.33 pi3d looks at the version of OpenGL or OpenGLES and modifies the shader
+to match the specification of GLSL. The shader code now in pi3d and pi3d_demos
+matches the specification for OpenGL2.1. That means that if the rendering is being
+done by GLES2.0 (as with the Raspberry Pi up to 3) the <code class="docutils literal notranslate"><span class="pre">precision</span></code> line and <code class="docutils literal notranslate"><span class="pre">version</span></code>
+line will be changed. If it is GLES3.0 then, additionally, the <code class="docutils literal notranslate"><span class="pre">attribute</span></code>, <code class="docutils literal notranslate"><span class="pre">varying</span></code>,
+<code class="docutils literal notranslate"><span class="pre">texture2D</span></code> and <code class="docutils literal notranslate"><span class="pre">gl_FragColor</span></code> will be changed. To facilitate this both the vertex
+and fragment shader must have lines:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">version</span> <span class="mi">120</span>
+<span class="o">//</span><span class="n">precision</span> <span class="n">mediump</span> <span class="nb">float</span>
+</pre></div>
+</div>
+<p>and in addition the fragment shader must have the line, somewhere before <code class="docutils literal notranslate"><span class="pre">main()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">fragcolor</span>
+</pre></div>
+</div>
+<p>Alternatively if you put your shader code as arguments to pi3d.Shader() then it will be
+used verbatim without any search and replace.</p>
+</div></blockquote>
 </div>
 <div class="section" id="points">
 <h2>Points<a class="headerlink" href="#points" title="Permalink to this headline">¶</a></h2>
@@ -1994,6 +2048,7 @@ wouldn’t scale correctly on very large objects such as the terrain.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#blend-shaders">Blend shaders</a></li>
+<li><a class="reference internal" href="#diy-shaders">DIY Shaders</a></li>
 <li><a class="reference internal" href="#points">Points</a></li>
 <li><a class="reference internal" href="#lines">Lines</a></li>
 <li><a class="reference internal" href="#using-numpy-arrays-for-textures">Using numpy arrays for Textures</a></li>
@@ -2074,7 +2129,7 @@ wouldn’t scale correctly on very large objects such as the terrain.</p>
         <li class="right" >
           <a href="ReadMe.html" title="Introduction to pi3d"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.32 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.33 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

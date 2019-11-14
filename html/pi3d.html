@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d Package &#8212; pi3d 2.32 documentation</title>
+    <title>pi3d Package &#8212; pi3d 2.33 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.32 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.33 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -611,7 +611,7 @@ an alpha of 1 means full opaque.</dd>
 
 <dl class="function">
 <dt id="pi3d.Display.create">
-<code class="descclassname">pi3d.Display.</code><code class="descname">create</code><span class="sig-paren">(</span><em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>fov=45.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em>, <em>samples=0</em>, <em>use_pygame=False</em>, <em>layer=0</em>, <em>display_config=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pi3d.Display.</code><code class="descname">create</code><span class="sig-paren">(</span><em>x=None</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em>, <em>near=None</em>, <em>far=None</em>, <em>fov=45.0</em>, <em>depth=24</em>, <em>background=None</em>, <em>tk=False</em>, <em>window_title=''</em>, <em>window_parent=None</em>, <em>mouse=False</em>, <em>frames_per_second=None</em>, <em>samples=0</em>, <em>use_pygame=False</em>, <em>layer=0</em>, <em>display_config=0</em>, <em>use_glx=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Display.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Display.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a pi3d Display.</p>
 <dl class="docutils">
 <dt><em>x</em></dt>
@@ -1702,7 +1702,7 @@ without copying them.</p>
 
 <dl class="class">
 <dt id="pi3d.Texture.Texture">
-<em class="property">class </em><code class="descclassname">pi3d.Texture.</code><code class="descname">Texture</code><span class="sig-paren">(</span><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em>, <em>m_repeat=False</em>, <em>free_after_load=False</em>, <em>i_format=None</em>, <em>filter=None</em>, <em>normal_map=None</em>, <em>automatic_resize=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pi3d.Texture.</code><code class="descname">Texture</code><span class="sig-paren">(</span><em>file_string</em>, <em>blend=False</em>, <em>flip=False</em>, <em>size=0</em>, <em>defer=True</em>, <em>mipmap=True</em>, <em>m_repeat=False</em>, <em>free_after_load=False</em>, <em>i_format=None</em>, <em>filter=None</em>, <em>normal_map=None</em>, <em>automatic_resize=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/Texture.html#Texture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.Texture.Texture" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pi3d.util.html#pi3d.util.Loadable.Loadable" title="pi3d.util.Loadable.Loadable"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.util.Loadable.Loadable</span></code></a></p>
 <p>loads an image file from disk and converts it into an array that
 can be used by shaders. It inherits from Loadable in order that the
@@ -1758,9 +1758,11 @@ if mipmap is false: NEAREST (default) or LINEAR will be used as filter</dd>
 normal map where Luminance value is proportional to height. The 
 value of nomral_map is used the scale the effect (see _normal_map())</dd>
 <dt><em>automatic_resize</em></dt>
-<dd>default to True, this can be overridden if running on a machine other than
-the RPi where the GPU can cope with any image dimension - or alternatively
-where you know that the images will comply and don’t need to check.</dd>
+<dd>default to None, if this has not been overridden and you are running on a
+RPi before v4 then the width will be coerced to one of the ‘standard’
+WIDTHs. Otherwise, where the GPU can cope with any image dimension -
+or alternatively where you know that the images will comply and don’t
+need to check, no resizing will take place.</dd>
 </dl>
 </dd>
 </dl>
@@ -1860,6 +1862,7 @@ Buffers being drawn in the scene</dd>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.MultiSprite"><code class="docutils literal notranslate"><span class="pre">MultiSprite</span></code> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Plane"><code class="docutils literal notranslate"><span class="pre">Plane</span></code> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Points"><code class="docutils literal notranslate"><span class="pre">Points</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Polygon"><code class="docutils literal notranslate"><span class="pre">Polygon</span></code> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Sphere"><code class="docutils literal notranslate"><span class="pre">Sphere</span></code> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.Sprite"><code class="docutils literal notranslate"><span class="pre">Sprite</span></code> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pi3d.shape.html#module-pi3d.shape.TCone"><code class="docutils literal notranslate"><span class="pre">TCone</span></code> Module</a></li>
@@ -1973,7 +1976,7 @@ Buffers being drawn in the scene</dd>
         <li class="right" >
           <a href="AndroidUse.html" title="Using pi3d with Android devices"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.32 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.33 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

@@ -165,6 +165,10 @@ I see nothing but a black screen.
   *?£#%* taciturn beasts to debug! The problem could be caused by sending
   some bad render setting to a shader.
 
+  If it is a DIY shader that worked previous to v2.33 then it might be that
+  a change to the way pi3d ensures shaders work on different platforms has broken
+  it. See below under DIY Shaders.
+
 only background
 ~~~~~~~~~~~~~~~
 
@@ -335,6 +339,24 @@ I would like to run pi3d from the command line without launching the X11 desktop
   pi3d will still work on older RPis without X11 as it will detect that the
   broadcom driver is available and use that so long as the legacy graphics
   driver is selected in raspi-config
+
+Prior to Raspberry Pi 4 it was possible to use the legacy graphics driver and render
+over the top of the desktop, or videos playing on lower dispmanx layers, by setting a
+transparent background in pi3d. I would really like to be able to do that with X11 windows,
+is it possible.
+
+  From pi3d v2.33 it is. You specify use_glx=True when you create the Display
+  instance::
+
+    display = pi3d.Display.create(background=(0.0, 0.0, 0.0, 0.0), use_glx=True)
+
+  However you will need to start the window compositor on
+  the Raspberry Pi::
+
+    $ xcompmgr
+
+  Using pi3d on Ubuntu laptop, for instance, compiz will already be running so
+  you won't need to do this.
 
 Camera
 ------
@@ -1214,6 +1236,38 @@ demo
   ``star``: calculates the pixel position in polar coordinates (angle and
   radius) then does some trig to determine the blend proportion
 
+I am trying to get the PictureFrame demo to work but get some errors and certain
+images don't show.
+
+  The EXIF reader functionality in Pillow didn't work properly in the version
+  bundled with raspbian buster. Try upgrading it with::
+
+    $ pip3 install Pillow --upgrade --user
+
+DIY Shaders
+-----------
+
+I want to try out a shader that I found on Shader-toy
+or similar. Alternatively I had a working shader and it's stopped working.
+
+  From v2.33 pi3d looks at the version of OpenGL or OpenGLES and modifies the shader
+  to match the specification of GLSL. The shader code now in pi3d and pi3d_demos
+  matches the specification for OpenGL2.1. That means that if the rendering is being
+  done by GLES2.0 (as with the Raspberry Pi up to 3) the ``precision`` line and ``version``
+  line will be changed. If it is GLES3.0 then, additionally, the ``attribute``, ``varying``,
+  ``texture2D`` and ``gl_FragColor`` will be changed. To facilitate this both the vertex
+  and fragment shader must have lines::
+
+    version 120
+    //precision mediump float
+
+  and in addition the fragment shader must have the line, somewhere before ``main()``::
+
+    //fragcolor
+
+  Alternatively if you put your shader code as arguments to pi3d.Shader() then it will be
+  used verbatim without any search and replace.
+ 
 Points
 ------
 

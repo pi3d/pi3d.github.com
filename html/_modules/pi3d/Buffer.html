@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.Buffer &#8212; pi3d 2.32 documentation</title>
+    <title>pi3d.Buffer &#8212; pi3d 2.33 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.32 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.33 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -362,7 +362,8 @@
     <span class="n">opengles</span><span class="o">.</span><span class="n">glUniform3fv</span><span class="p">(</span><span class="n">shader</span><span class="o">.</span><span class="n">unif_unib</span><span class="p">,</span> <span class="n">GLsizei</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">)</span>
 
     <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_DEPTH_TEST</span><span class="p">)</span> <span class="c1"># TODO find somewhere more efficient to do this</span>
-
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_method</span> <span class="o">!=</span> <span class="n">GL_TRIANGLES</span><span class="p">:</span>
+      <span class="n">opengles</span><span class="o">.</span><span class="n">glLineWidth</span><span class="p">(</span><span class="n">GLfloat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">11</span><span class="p">]))</span>
     <span class="n">opengles</span><span class="o">.</span><span class="n">glDrawElements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_method</span><span class="p">,</span> <span class="n">GLsizei</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ntris</span> <span class="o">*</span> <span class="mi">3</span><span class="p">),</span> <span class="n">GL_UNSIGNED_SHORT</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 
 
@@ -428,7 +429,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.32 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.33 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
