@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>util Package &#8212; pi3d 2.34 documentation</title>
+    <title>util Package &#8212; pi3d 2.40 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -14,7 +14,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.34 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.40 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" accesskey="U">pi3d Package</a> &#187;</li> 
       </ul>
     </div>  
@@ -690,13 +690,40 @@ if previously set, and will be directed to terminal.</dd>
 <div class="section" id="module-pi3d.util.OffScreenTexture">
 <span id="offscreentexture-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">OffScreenTexture</span></code> Module<a class="headerlink" href="#module-pi3d.util.OffScreenTexture" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
+<dt id="pi3d.util.OffScreenTexture.TextureShell">
+<em class="property">class </em><code class="descclassname">pi3d.util.OffScreenTexture.</code><code class="descname">TextureShell</code><span class="sig-paren">(</span><em>_tex</em>, <em>ix</em>, <em>iy</em>, <em>blend</em>, <em>mipmap</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/OffScreenTexture.html#TextureShell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.OffScreenTexture.TextureShell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Allows OffscreenTexture to hold a color texture and a depth texture that can be
+added to Buffer.texture allowing it to have tex() function called as with a normal Texture</p>
+<dl class="method">
+<dt id="pi3d.util.OffScreenTexture.TextureShell.tex">
+<code class="descname">tex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/OffScreenTexture.html#TextureShell.tex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.OffScreenTexture.TextureShell.tex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pi3d.util.OffScreenTexture.OffScreenTexture">
-<em class="property">class </em><code class="descclassname">pi3d.util.OffScreenTexture.</code><code class="descname">OffScreenTexture</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/OffScreenTexture.html#OffScreenTexture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pi3d.html#pi3d.Texture.Texture" title="pi3d.Texture.Texture"><code class="xref py py-class docutils literal notranslate"><span class="pre">pi3d.Texture.Texture</span></code></a></p>
+<em class="property">class </em><code class="descclassname">pi3d.util.OffScreenTexture.</code><code class="descname">OffScreenTexture</code><span class="sig-paren">(</span><em>name=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/OffScreenTexture.html#OffScreenTexture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.OffScreenTexture.OffScreenTexture" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>For creating special effect after rendering to texture rather than
 onto the display. Used by Defocus, ShadowCaster, Clashtest etc</p>
-<p>calls Texture.__init__ but doesn’t need to set file name as
-texture generated from the framebuffer</p>
+<p>new system doesn’t use Texture</p>
+<dl class="method">
+<dt id="pi3d.util.OffScreenTexture.OffScreenTexture.tex">
+<code class="descname">tex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/OffScreenTexture.html#OffScreenTexture.tex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.OffScreenTexture.OffScreenTexture.tex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pi3d.util.OffScreenTexture.OffScreenTexture.blend">
+<code class="descname">blend</code><a class="headerlink" href="#pi3d.util.OffScreenTexture.OffScreenTexture.blend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pi3d.util.OffScreenTexture.OffScreenTexture.mipmap">
+<code class="descname">mipmap</code><a class="headerlink" href="#pi3d.util.OffScreenTexture.OffScreenTexture.mipmap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="pi3d.util.OffScreenTexture.OffScreenTexture.delete_buffers">
 <code class="descname">delete_buffers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/OffScreenTexture.html#OffScreenTexture.delete_buffers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.OffScreenTexture.OffScreenTexture.delete_buffers" title="Permalink to this definition">¶</a></dt>
@@ -976,6 +1003,13 @@ file and will return a numpy array of the screen. The array and file, if
 saved, will have the alpha values removed.</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="pi3d.util.Screenshot.masked_screenshot">
+<code class="descclassname">pi3d.util.Screenshot.</code><code class="descname">masked_screenshot</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>w</em>, <em>h</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/Screenshot.html#masked_screenshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.Screenshot.masked_screenshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns numpy array from part of screen so it can be used by applications
+drawing low resolution offscreen textures using scaling.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-pi3d.util.ShadowCaster">
 <span id="shadowcaster-module"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">ShadowCaster</span></code> Module<a class="headerlink" href="#module-pi3d.util.ShadowCaster" title="Permalink to this headline">¶</a></h2>
@@ -1244,7 +1278,34 @@ Interpolate hsv instead of rgb since it is a more natural change.</p>
 
 <dl class="method">
 <dt id="pi3d.util.TextBlock.TextBlock.set_text">
-<code class="descname">set_text</code><span class="sig-paren">(</span><em>text_format=None</em>, <em>size=None</em>, <em>spacing=None</em>, <em>space=None</em>, <em>char_rot=None</em>, <em>set_pos=True</em>, <em>set_colour=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlock.set_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlock.set_text" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_text</code><span class="sig-paren">(</span><em>text_format=None</em>, <em>size=None</em>, <em>spacing=None</em>, <em>space=None</em>, <em>char_rot=None</em>, <em>set_pos=True</em>, <em>set_colour=True</em>, <em>wrap=None</em>, <em>line_space=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlock.set_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlock.set_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Arguments:
+<em>text_format</em>:</p>
+<blockquote>
+<div>text to display or a format string for displaying value from data_obj</div></blockquote>
+<dl class="docutils">
+<dt><em>size</em>:</dt>
+<dd>size of text 0.0 to 0.9999</dd>
+<dt><em>spacing</em>:</dt>
+<dd>‘C’, ‘M’ or ‘F’</dd>
+<dt><em>space</em>:</dt>
+<dd>additional space between character</dd>
+<dt><em>char_rot</em>:</dt>
+<dd>character rotation in degrees</dd>
+<dt><em>set_pos</em>:</dt>
+<dd>control whether set_position() is called - default True</dd>
+<dt><em>set_colour</em>:</dt>
+<dd>control whether set_colour() is called - default True</dd>
+<dt><em>wrap</em>:</dt>
+<dd>if set then line breaks insterted to wrap at this number of characters</dd>
+<dt><em>line_space</em>:</dt>
+<dd>multiplier for line spacing if multiline TextBlock</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pi3d.util.TextBlock.TextBlock.split_lines">
+<code class="descname">split_lines</code><span class="sig-paren">(</span><em>txt</em>, <em>width</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pi3d/util/TextBlock.html#TextBlock.split_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pi3d.util.TextBlock.TextBlock.split_lines" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1445,13 +1506,13 @@ way to make sure that nothing is drawn past a certain distance.</p>
         <li class="right" >
           <a href="pi3d.sprite.html" title="sprite Package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.34 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pi3d 2.40 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="pi3d.html" >pi3d Package</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2019, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+        &#169; Copyright 2012-2020, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

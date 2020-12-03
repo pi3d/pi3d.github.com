@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.event.Event &#8212; pi3d 2.34 documentation</title>
+    <title>pi3d.event.Event &#8212; pi3d 2.40 documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
@@ -14,7 +14,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.34 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.40 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -113,19 +113,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;keyboard&quot;</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">keyboards</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;keyboards = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">keyboards</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;keyboards = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">keyboards</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">wantMouse</span><span class="p">:</span>
       <span class="n">mice</span> <span class="o">=</span> <span class="n">find_devices</span><span class="p">(</span><span class="s2">&quot;mouse&quot;</span><span class="p">,</span> <span class="n">butNot</span><span class="o">=</span><span class="n">keyboards</span><span class="p">)</span>
       <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mice</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;mouse&quot;</span><span class="p">))</span>
-      <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;mice = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">mice</span><span class="p">)</span>
+      <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;mice = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">mice</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">mice</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
     <span class="k">if</span> <span class="n">wantJoystick</span><span class="p">:</span>
       <span class="n">joysticks</span> <span class="o">=</span> <span class="n">find_devices</span><span class="p">(</span><span class="s2">&quot;js&quot;</span><span class="p">,</span> <span class="n">butNot</span><span class="o">=</span><span class="n">keyboards</span><span class="o">+</span><span class="n">mice</span><span class="p">)</span>
       <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">joysticks</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventStream</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;joystick&quot;</span><span class="p">))</span>
-      <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;joysticks = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">joysticks</span><span class="p">)</span>
+      <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;joysticks = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">joysticks</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">streams</span><span class="p">:</span>
       <span class="n">x</span><span class="o">.</span><span class="n">acquire_abs_info</span><span class="p">()</span>
 
@@ -323,13 +323,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.34 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.40 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2019, The pi3d team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+        &#169; Copyright 2012-2020, The pi3d team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>
