@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.Buffer &#8212; pi3d 2.40 documentation</title>
+    <title>pi3d.Buffer &#8212; pi3d 2.42 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.40 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.42 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -349,13 +349,13 @@
 
       <span class="k">if</span> <span class="n">texture</span><span class="o">.</span><span class="n">blend</span><span class="p">:</span>
         <span class="c1"># i.e. if any of the textures set to blend then all will for this shader.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.05</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0035</span> <span class="c1"># i.e. alpha byte in image 0b00000001 is 0.00392</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.6</span> <span class="ow">or</span> <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1.0</span> <span class="ow">or</span> <span class="n">shape</span><span class="o">.</span><span class="n">unif</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
       <span class="c1">#use unib[2] as flag to indicate if any Textures to be blended</span>
       <span class="c1">#needs to be done outside for..textures so materials can be transparent</span>
         <span class="n">opengles</span><span class="o">.</span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_BLEND</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.05</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unib</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0035</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">disp</span><span class="o">.</span><span class="n">last_shader</span> <span class="o">=</span> <span class="n">shader</span>
 
@@ -429,12 +429,12 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.40 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pi3d 2.42 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2012-2020, The pi3d team.
+        &#169; Copyright 2012-2021, The pi3d team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
