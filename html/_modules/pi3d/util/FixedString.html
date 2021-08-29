@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pi3d.util.FixedString &#8212; pi3d 2.42 documentation</title>
+    <title>pi3d.util.FixedString &#8212; pi3d 2.47 documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
@@ -28,7 +28,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.42 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.47 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -66,18 +66,18 @@
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span>
                <span class="n">shadow</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">shadow_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                <span class="n">font_size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span>
-               <span class="n">background_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f_type</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+               <span class="n">background_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f_type</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">mipmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Arguments:</span>
-<span class="sd">    </span>
+
 <span class="sd">    *font*:</span>
 <span class="sd">      File path/name to a TrueType font file.</span>
 
 <span class="sd">    *string*:</span>
 <span class="sd">      String to write.</span>
-<span class="sd">      </span>
+
 <span class="sd">    *camera*:</span>
 <span class="sd">      Camera object passed on to constructor of sprite</span>
-<span class="sd">      </span>
+
 <span class="sd">    *color*:</span>
 <span class="sd">      Color in format &#39;#RRGGBB&#39;, (255,0,0,255), &#39;orange&#39; etc (as accepted </span>
 <span class="sd">      by PIL.ImageDraw) default (255, 255, 255, 255) i.e. white 100% alpha</span>
@@ -94,18 +94,18 @@
 <span class="sd">    *margin*:</span>
 <span class="sd">      Offsets from the top left corner for the text and space on right</span>
 <span class="sd">      and bottom. default 5.0</span>
-<span class="sd">      </span>
+
 <span class="sd">    *justify*:</span>
 <span class="sd">      L(eft), C(entre), R(ight) default C</span>
 
 <span class="sd">    *background_color*:</span>
 <span class="sd">      filled background in ImageDraw format as above. default None i.e.</span>
 <span class="sd">      transparent. </span>
-<span class="sd">      </span>
+
 <span class="sd">    *shader*:</span>
 <span class="sd">      can be passed to init otherwise needs to be set in set_shader or</span>
 <span class="sd">      draw. default None</span>
-<span class="sd">      </span>
+
 <span class="sd">    *f_type*:</span>
 <span class="sd">      filter type. BUMP will generate a normal map (indented by default,</span>
 <span class="sd">      +BUMP or BUMP+ will make it stick out), EMBOSS, CONTOUR, BLUR and </span>
@@ -127,21 +127,43 @@
     <span class="n">ascent</span><span class="p">,</span> <span class="n">descent</span> <span class="o">=</span> <span class="n">imgfont</span><span class="o">.</span><span class="n">getmetrics</span><span class="p">()</span>
     <span class="n">height</span> <span class="o">=</span> <span class="n">ascent</span> <span class="o">+</span> <span class="n">descent</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">nlines</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+    <span class="n">new_lines</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">maxwid</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+      <span class="n">line_wid</span> <span class="o">=</span> <span class="n">imgfont</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">l</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">line_wid</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span>
+        <span class="n">new_line</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">space</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+          <span class="n">check_line</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}{}{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_line</span><span class="p">,</span> <span class="n">space</span><span class="p">,</span> <span class="n">word</span><span class="p">)</span>
+          <span class="k">if</span> <span class="n">imgfont</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">check_line</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">width</span><span class="p">:</span>
+            <span class="n">new_line</span> <span class="o">=</span> <span class="n">check_line</span>
+          <span class="k">else</span><span class="p">:</span> <span class="c1"># wrap before this word TODO cope with lines with no spaces</span>
+            <span class="k">if</span> <span class="s2">&quot;-&quot;</span> <span class="ow">in</span> <span class="n">word</span><span class="p">:</span> <span class="c1"># TODO make this a function to split first on &quot; &quot; then &quot;-&quot; then on</span>
+              <span class="n">split_word</span> <span class="o">=</span> <span class="n">word</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+              <span class="n">pre</span> <span class="o">=</span> <span class="n">split_word</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+              <span class="n">post</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">split_word</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+              <span class="n">check_line</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">-&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_line</span><span class="p">,</span> <span class="n">pre</span><span class="p">)</span>
+              <span class="k">if</span> <span class="n">imgfont</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">check_line</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">width</span><span class="p">:</span>
+                <span class="n">new_line</span> <span class="o">=</span> <span class="n">check_line</span>
+                <span class="n">word</span> <span class="o">=</span> <span class="n">post</span>
+            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_line</span><span class="p">)</span>
+            <span class="n">new_line</span> <span class="o">=</span> <span class="n">word</span>
+          <span class="n">space</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+        <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_line</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">new_lines</span>
     <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
       <span class="n">line_wid</span> <span class="o">=</span> <span class="n">imgfont</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">l</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
       <span class="k">if</span> <span class="n">line_wid</span> <span class="o">&gt;</span> <span class="n">maxwid</span><span class="p">:</span>
         <span class="n">maxwid</span> <span class="o">=</span> <span class="n">line_wid</span>
     <span class="n">maxwid</span> <span class="o">+=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">margin</span>
-    <span class="n">texture_wid</span> <span class="o">=</span> <span class="n">WIDTHS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">WIDTHS</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="n">maxwid</span><span class="p">:</span>
-        <span class="n">texture_wid</span> <span class="o">=</span> <span class="n">l</span>
-        <span class="k">break</span>
-      <span class="n">texture_wid</span> <span class="o">=</span> <span class="n">l</span>
+    <span class="n">texture_wid</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">maxwid</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2048</span><span class="p">)</span>
+    <span class="n">nlines</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
     <span class="n">texture_hgt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nlines</span> <span class="o">*</span> <span class="n">height</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">margin</span><span class="p">)</span>
-    
+
     <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">texture_wid</span><span class="p">,</span> <span class="n">texture_hgt</span><span class="p">),</span> <span class="n">background_color</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">texture_wid</span><span class="p">,</span> <span class="n">texture_hgt</span>
     <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
@@ -186,7 +208,7 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_force_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">_tex</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">()</span>
-    
+
     <span class="n">bmedge</span> <span class="o">=</span> <span class="n">nlines</span> <span class="o">*</span> <span class="n">height</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">margin</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">Sprite</span><span class="p">(</span><span class="n">camera</span><span class="o">=</span><span class="n">camera</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">maxwid</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">bmedge</span><span class="p">)</span>
     <span class="n">buf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#convenience alias</span>
@@ -199,7 +221,7 @@
 
   <span class="k">def</span> <span class="nf">_render_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">justify</span><span class="p">,</span> <span class="n">margin</span><span class="p">,</span> <span class="n">imgfont</span><span class="p">,</span> <span class="n">maxwid</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">draw</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
-      <span class="n">line_len</span> <span class="o">=</span> <span class="n">imgfont</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">line</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> 
+      <span class="n">line_len</span> <span class="o">=</span> <span class="n">imgfont</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">line</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
       <span class="k">if</span> <span class="n">justify</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
         <span class="n">xoff</span> <span class="o">=</span> <span class="p">(</span><span class="n">maxwid</span> <span class="o">-</span> <span class="n">line_len</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
       <span class="k">elif</span> <span class="n">justify</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
@@ -209,15 +231,15 @@
 
       <span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">xoff</span><span class="p">,</span> <span class="n">margin</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">height</span><span class="p">),</span> <span class="n">line</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">imgfont</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
 
-    
+
 <div class="viewcode-block" id="FixedString.set_shader"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.FixedString.FixedString.set_shader">[docs]</a>  <span class="k">def</span> <span class="nf">set_shader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; wrapper for Shape.set_shader&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">set_shader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span></div>
-    
+
 <div class="viewcode-block" id="FixedString.draw"><a class="viewcode-back" href="../../../pi3d.util.html#pi3d.util.FixedString.FixedString.draw">[docs]</a>  <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">txtrs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ntl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shny</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;wrapper for Shape.draw()&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">txtrs</span><span class="p">,</span> <span class="n">ntl</span><span class="p">,</span> <span class="n">shny</span><span class="p">,</span> <span class="n">camera</span><span class="p">)</span></div>
-    
+
   <span class="k">def</span> <span class="nf">_force_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im_array</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Overwrite color of all pixels as PIL renders text incorrectly when drawing on transparent backgrounds</span>
@@ -265,7 +287,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.42 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pi3d 2.47 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
