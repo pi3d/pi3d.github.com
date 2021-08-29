@@ -31,7 +31,7 @@ on github.com/pi3d/pi3d_demos and experiment with them ..
 
 If you are reading this document as the ReadMe in the repository then you
 can find the full version of the documentation here
-http://pi3d.github.com/html/index.html
+http://pi3d.github.io/html/index.html
 
 Demos on github.com/pi3d/pi3d_demos include
 ===========================================
@@ -578,7 +578,7 @@ Please note that pi3d functions may change significantly during its development.
 Bug reports, comments, feature requests and fixes are most welcome!
 
 Please email on pi3d@googlegroups.com or contact us through the Raspberry Pi forums
-or on http://pi3d.github.com/html/index.html
+or on http://pi3d.github.io/html/index.html
 
 
 Acknowledgements
